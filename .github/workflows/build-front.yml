@@ -1,4 +1,4 @@
-name: 'Build push back image'
+name: 'Build push front image'
 on:
   workflow_dispatch:
     inputs:
@@ -22,7 +22,7 @@ jobs:
       id: meta
       uses: docker/metadata-action@v3
       with:
-        images: ghcr.io/SIT-LightCode/back-end
+        images: ghcr.io/SIT-LightCode/front-end
         tags: |
           ${{ github.event.inputs.tags_name }}
 
