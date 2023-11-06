@@ -2,9 +2,8 @@
 FROM node:21-alpine3.17 as build
 RUN ls
 WORKDIR /app
-COPY ./front-end/package*.json ./
+COPY . .
 RUN npm install
-COPY ./front-end .
 RUN npm run build
 
 FROM nginx:1.25.3-alpine3.18 as production-stage
