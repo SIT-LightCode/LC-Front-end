@@ -24,8 +24,7 @@ jobs:
       with:
         images: ghcr.io/SIT-LightCode/front-end
         tags: |
-          ${{ github.event.inputs.tags_name }}
-          latest
+          type=sha
 
     - name: Build and push
       uses: docker/build-push-action@v2
