@@ -1,0 +1,6 @@
+name: 'Build push front image'
+on:
+  workflow_dispatch:
+    inputs:
+      tags_name:
+        description: tag name
