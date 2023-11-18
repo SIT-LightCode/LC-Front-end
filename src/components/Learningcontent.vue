@@ -1,21 +1,24 @@
 <script setup>
 import { ref } from "vue";
 
+defineEmits(['delete', 'selected'])
+
 const prop = defineProps({
-    contents: Array,
+    contents: Object,
 })
 
-const currentid = ref(0)
 
 
 
 </script>
  
 <template>
-
-<!-- contents  -->
-    <div  class="w3-container w3-card w3-white w3-margin-bottom">
+    <!-- contents  -->
+    <div class="w3-container w3-card w3-white w3-margin-bottom">
         <div>
+            <button class="w3-bar-item w3-right w3-button w3-gray w3-padding-16"
+                @click="$emit('delete', contents.id);">
+                Delete {{ contents.id }}</button>
             <h2 class="w3-text-grey w3-padding-16">
                 {{ contents.name }}
             </h2>
@@ -25,7 +28,6 @@ const currentid = ref(0)
             </div>
         </div>
     </div>
-
 </template>
  
 <style></style>
