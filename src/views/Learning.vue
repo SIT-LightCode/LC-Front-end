@@ -1,4 +1,29 @@
 <script setup>
+import { connectbackend } from "../stores/connectbackend.js";
+import { ref, onBeforeMount } from "vue";
+import { computed } from "@vue/reactivity";
+import learningcontent from "../components/Learningcontent.vue";
+import Addcontent from "../components/Addcontent.vue";
+
+const mybackend = connectbackend();
+
+
+// let datafromback = ref({})
+const currentlesson = ref([])
+const addfunc = ref(true)
+
+
+
+
+// const addContent = (e, e1, e2) => {
+//     mybackend.addConnent(e, e1, e2).catch(error => {
+//         console.error("Error:", error);
+//     });
+// }
+
+
+mybackend.getAllTag()
+
 
 </script>
  
@@ -6,73 +31,53 @@
     <!-- Sidebar/menu -->
     <nav class="w3-sidebar w3-bar-block w3-white w3-collapse " style="z-index:3; width:250px; height:500px" id="mySidebar">
         <br>
-        <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft"
-            style="width:100%;font-size:22px">Close Menu</a>
-        <div class="w3-container">
-            <h3 class="w3-padding-64"><b>Company<br>Name</b></h3>
+        <div v-if="mybackend.tagList.length > 0">
+            <div  class="w3-container">
+                <h3 class="w3-padding-32"><b>List Topic</b></h3>
+            </div>
+            <div class="w3-bar-block" v-for="topic in mybackend.tagList">
+                <div> {{ topic["topic"] }} </div>
+
+                <div class="w3-bar-block" v-for="lesson in topic.lesson">
+                    <button class="w3-bar-item w3-center w3-button" @click="currentlesson = lesson; addfunc = true"> {{
+                        lesson.name }} </button>
+                </div>
+            </div>
         </div>
-        <div class="w3-bar-block">
-            <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
-            <a href="#showcase" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Showcase</a>
-            <a href="#services" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Services</a>
-            <a href="#designers" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Designers</a>
-            <a href="#packages" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Packages</a>
-            <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
+        <div v-else class="w3-bar-block">
+            <div> No Topic Data </div>
         </div>
+
+
+        <br>
+        <!-- Add  -->
+        <button @click="addfunc = !addfunc" class="w3-bar-item w3-center w3-button w3-gray">
+            <p v-if="addfunc"> add new content
+            </p>
+            <p v-else-if="!addfunc"> back
+            </p>
+
+        </button>
+
     </nav>
-<!--  -->
 
-<!-- context -->
+
+    <!--  -->
+
+    <!--  -->
+
+
+
+    <!-- context -->
     <div class="w3-main w3-padding-64" style="margin-left:300px">
-        <div class="w3-container w3-card w3-white w3-margin-bottom">
-            <h2 class="w3-text-grey w3-padding-16"><i
-                    class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Work Experience</h2>
-            <div class="w3-container">
-                <h5 class="w3-opacity"><b>Front End Developer / w3schools.com</b></h5>
-                <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Jan 2015 - <span
-                        class="w3-tag w3-teal w3-round">Current</span></h6>
-                <p>Lorem ipsum dolor sit amet. Praesentium magnam consectetur vel in deserunt aspernatur est reprehenderit
-                    sunt hic. Nulla tempora soluta ea et odio, unde doloremque repellendus iure, iste.</p>
-                <hr>
-            </div>
-            <div class="w3-container">
-                <h5 class="w3-opacity"><b>Web Developer / something.com</b></h5>
-                <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Mar 2012 - Dec 2014</h6>
-                <p>Consectetur adipisicing elit. Praesentium magnam consectetur vel in deserunt aspernatur est reprehenderit
-                    sunt hic. Nulla tempora soluta ea et odio, unde doloremque repellendus iure, iste.</p>
-                <hr>
-            </div>
-            <div class="w3-container">
-                <h5 class="w3-opacity"><b>Graphic Designer / designsomething.com</b></h5>
-                <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Jun 2010 - Mar 2012</h6>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p><br>
-            </div>
+        <div v-if="addfunc">
+            <learningcontent :contents="currentlesson" @delete="(e) => mybackend.deleteContent(e)"></learningcontent>
         </div>
-
-        <div class="w3-container w3-card w3-white">
-            <h2 class="w3-text-grey w3-padding-16"><i
-                    class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Education</h2>
-            <div class="w3-container">
-                <h5 class="w3-opacity"><b>W3Schools.com</b></h5>
-                <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Forever</h6>
-                <p>Web Development! All I need to know in one place</p>
-                <hr>
-            </div>
-            <div class="w3-container">
-                <h5 class="w3-opacity"><b>London Business School</b></h5>
-                <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2013 - 2015</h6>
-                <p>Master Degree</p>
-                <hr>
-            </div>
-            <div class="w3-container">
-                <h5 class="w3-opacity"><b>School of Coding</b></h5>
-                <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2010 - 2013</h6>
-                <p>Bachelor Degree</p><br>
-            </div>
+        <div v-else-if="!addfunc">
+            <Addcontent :datas="mybackend.tagList" @add="(e, e1, e2) =>  mybackend.addContent(e, e1, e2)"></Addcontent>
         </div>
     </div>
-<!--  -->
-
+    <!--  -->
 </template>
  
 <style></style>

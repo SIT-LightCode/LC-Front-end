@@ -89,7 +89,7 @@ import { RouterLink, RouterView } from 'vue-router'
     <!--  -->
 
   <!-- footer -->
-  <footer class="w3-container w3-padding-32 w3-light-grey w3-center " id="footer" style="margin-left:300px">
+  <!-- <footer class="w3-container w3-padding-32 w3-light-grey w3-center " id="footer" style="margin-left:300px">
     <div class="w3-row-padding">
       <div class="w3-col s4">
         <h4>Contact</h4>
@@ -103,7 +103,7 @@ import { RouterLink, RouterView } from 'vue-router'
         <h4>Store</h4>
       </div>
     </div>
-  </footer>
+  </footer> -->
       <!--  -->
 
 </template>
