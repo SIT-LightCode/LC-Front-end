@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-
+import vmdeditor from "../components/vmdeditor.vue"
 defineEmits(['add', 'name', 'selected', 'content'])
 
 const prop = defineProps({
@@ -8,9 +8,6 @@ const prop = defineProps({
 })
 
 
-const newnamecontent = ref('')
-const selectedObject = ref(0)
-const content = ref("")
 
 </script>
  
@@ -31,17 +28,17 @@ const content = ref("")
                 Name: <input v-model="newnamecontent">
             </h2>
             <div class="w3-container">
-                <textarea v-model="content" placeholder="Write Your Content"></textarea>
-                <div class="w3-padding-32">
+                <vmdeditor></vmdeditor>
+
+                <!-- <div class="w3-padding-32">
                     <button class="w3-bar-item w3-left w3-button w3-gray w3-padding-16"
-                        @click="newnamecontent = ''; selectedObject = ''; content = ''"> Reset </button>
+                        @click="clearData()"> Reset </button>
                     <button class="w3-bar-item w3-right w3-button w3-gray w3-padding-16"
-                        @click="$emit('add', newnamecontent, selectedObject, content); newnamecontent = ''; selectedObject = ''; content = ''">
+                        @click="$emit('add', newnamecontent, selectedObject, content); clearData()">
                         Add </button>
-                </div>
+                </div> -->
+                
                 <hr>
-
-
             </div>
 
         </div>

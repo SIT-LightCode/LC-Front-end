@@ -9,6 +9,7 @@
     "test:unit": "vitest"
   },
   "dependencies": {
+    "@kangc/v-md-editor": "^2.3.18",
     "pinia": "^2.1.6",
     "prismjs": "^1.29.0",
     "vue": "^3.3.4",
