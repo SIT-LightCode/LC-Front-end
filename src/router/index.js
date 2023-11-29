@@ -37,7 +37,8 @@ const router = createRouter({
       path: '/Codeeditor',
       name: 'codeeditor',
       component: () => import('../views/CodeEditor.vue')
-    }
+    },
+
   ]
 })
 

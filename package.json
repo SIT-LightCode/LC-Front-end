@@ -12,6 +12,7 @@
     "@kangc/v-md-editor": "^2.3.18",
     "pinia": "^2.1.6",
     "prismjs": "^1.29.0",
+    "sweetalert2": "^11.10.1",
     "vue": "^3.3.4",
     "vue-prism-editor": "^2.0.0-alpha.2",
     "vue-router": "^4.2.4"
@@ -20,6 +21,7 @@
     "@vitejs/plugin-vue": "^4.3.4",
     "@vue/test-utils": "^2.4.1",
     "jsdom": "^22.1.0",
+    "sass": "^1.69.5",
     "vite": "^4.4.9"
   }
 }

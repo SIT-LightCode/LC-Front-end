@@ -2,14 +2,13 @@
 import { ref } from "vue";
 import buttonVue from '../button/button.vue';
 
-const emit = defineEmits(['name','type'])
+const emit = defineEmits(['buttonemit','type'])
 
 const prop = defineProps({
     contents: Object
 })
 
 const buttonFunc = (e) => {
-    alert(e)
     if (e == "true") {
         emit('buttonemit','delete')
     }
@@ -27,6 +26,7 @@ const buttonFunc = (e) => {
             <h2>
                 {{ contents.name }}
                 <buttonVue @isClick="(e) => buttonFunc(e)" :name="'delete'"></buttonVue>
+                
             </h2>
             <div class="w3-container">
                 <v-md-preview :text="contents.content"></v-md-preview>

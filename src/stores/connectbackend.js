@@ -1,5 +1,7 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
 import { computed, ref } from "vue";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import "sweetalert2/src/sweetalert2.scss";
 
 export const connectbackend = defineStore("connectBackend", () => {
   let tagList = ref({});
@@ -44,6 +46,7 @@ export const connectbackend = defineStore("connectBackend", () => {
 
   const addContent = async (name, id, content) => {
     try {
+      console.log(content)
       const res = await fetch(`${import.meta.env.VITE_BASE_URL}`, {
         method: "POST",
         headers: {
@@ -77,33 +80,41 @@ export const connectbackend = defineStore("connectBackend", () => {
   };
 
   const deleteContent = async (selected) => {
-    let isDelete = confirm("Do you confirm that you will delete it?");
-    if (isDelete) {
-      try {
-        const res = await fetch(`${import.meta.env.VITE_BASE_URL}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            query: `mutation RemoveLesson { removeLesson(lessonId: ${selected}) }`,
-            operationName: "RemoveLesson",
-          }),
+    try {
+      const res = await fetch(`${import.meta.env.VITE_BASE_URL}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query: `mutation RemoveLesson { removeLesson(lessonId: ${selected}) }`,
+          operationName: "RemoveLesson",
+        }),
+      });
+      if (res.ok) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "This Content has been deleted.",
+          icon: "success",
         });
-        if (res.ok) {
-          // ขอทำเเบบนี้ไปก่อนนะ
-          getAllTag();
-          return true;
-        } else {
-          alert(
-            "response state : " + res.status + "\n response :" + res.statusText
-          );
-          console.error("Error:", res.status, res.statusText);
-        }
-      } catch (error) {
-        alert("Error:" + error);
-        console.error("Error:", error);
+
+        getAllTag();
+        return true;
+      } else {
+        Swal.fire({
+          title: "ERROR!",
+          text:
+            "response state : " + res.status + "\n response :" + res.statusText,
+          icon: "error",
+        });
       }
+    } catch (error) {
+      Swal.fire({
+        title: "ERROR!",
+        text: "Error : " + error,
+        icon: "error",
+      });
+      console.error("Error:", error);
     }
   };
 
