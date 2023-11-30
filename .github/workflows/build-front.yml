@@ -15,7 +15,7 @@ on:
 
 
 jobs:
-  build-back-image:
+  build-froint-image:
     # needs: install-back-dependencies
     runs-on: ubuntu-latest
     steps:
