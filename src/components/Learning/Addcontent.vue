@@ -29,12 +29,10 @@ const clickFunc = () => {
     let query = gql.mutation({
         operation: 'UpsertLesson',
         variables: {
-            lessonInput: {
-                id: { value: null },
-                tagId: { value: selectedObject.value },
-                name: { value: newnamecontent.value },
-                content: { value: text.value }
-            }
+            lessonInput: {  id: { value: null },
+            tagId: { value: selectedObject.value },
+            name: { value: newnamecontent.value },
+            content: { value: text.value } }
         },
         fields: ['id', { tag: ['id', 'topic'] }
             , 'name', 'content']
