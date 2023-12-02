@@ -15,13 +15,13 @@ const currentlesson = ref({})
 const isAdd = ref(false)
 
 mybackend.getAllTag()
-const conBackend = (type, id, newnamecontent, text) => {
+const conBackend = (type, query) => {
 
     if (type == "delete") {
-        mybackend.deleteContent(id)
+        mybackend.deleteContent(query)
     }
     if (type == "add") {
-        mybackend.addContent(newnamecontent,id,text)
+        mybackend.addContent(query)
     }
 }
 
@@ -29,7 +29,7 @@ const conBackend = (type, id, newnamecontent, text) => {
  
 <template>
     <div v-if="isAdd">
-        <Addcontent :datas="mybackend.tagList" @addstatus="(e) => isAdd = e" @addfunc="(e, e1, e2,e3) => conBackend(e, e1, e2,e3)"></Addcontent>
+        <Addcontent :datas="mybackend.tagList" @addstatus="(e) => isAdd = e" @addfunc="(e, query) => conBackend(e,query )"></Addcontent>
     </div>
     <div v-else>
         <!-- Sidebar/menu -->

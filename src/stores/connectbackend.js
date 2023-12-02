@@ -44,27 +44,23 @@ export const connectbackend = defineStore("connectBackend", () => {
     }
   };
 
-  const addContent = async (name, id, content) => {
+  const addContent = async (query) => {
     try {
-      console.log(content)
       const res = await fetch(`${import.meta.env.VITE_BASE_URL}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          query: `mutation UpsertLesson{\n    upsertLesson(lessonInput: {\n        id: null\n        tagId: ${id}\n        name: \"${name}\"\n        content: \"${content}\"\n    }) {\n        id\n        tag {\n          id\n          topic\n        }\n        name\n        content\n    }\n}`,
-          operationName: "UpsertLesson",
-        }),
+        body: JSON.stringify({query}),
+
+        // body: JSON.stringify({
+//   query: `mutation UpsertLesson{\n    upsertLesson(lessonInput: {\n        id: null\n        tagId: ${id}\n        name: \"${name}\"\n        content: \"${content}\"\n    }) {\n        id\n        tag {\n          id\n          topic\n        }\n        name\n        content\n    }\n}`,
+//   operationName: "UpsertLesson",
+// })
       });
+
+      
       if (res.ok) {
-        // await res.json().then((data) => {
-        //   tagList.value = data["data"]["getTag"];
-        //   })
-        //   .catch((error) => {
-        //     console.error("Error:", error);
-        //   });
-        // ขอทำเเบบนี้ไปก่อนนะ
         getAllTag();
         return true;
       } else {
@@ -120,3 +116,7 @@ export const connectbackend = defineStore("connectBackend", () => {
 
   return { tagList, getAllTag, addContent, deleteContent };
 });
+// body: JSON.stringify({
+//   query: `mutation UpsertLesson{\n    upsertLesson(lessonInput: {\n        id: null\n        tagId: ${id}\n        name: \"${name}\"\n        content: \"${content}\"\n    }) {\n        id\n        tag {\n          id\n          topic\n        }\n        name\n        content\n    }\n}`,
+//   operationName: "UpsertLesson",
+// })

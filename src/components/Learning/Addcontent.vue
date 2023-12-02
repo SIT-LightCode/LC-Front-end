@@ -3,8 +3,9 @@ import { ref } from "vue";
 import vmdeditor from "./vmdeditor.vue"
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+import * as gql from 'gql-query-builder'
 
-const emit = defineEmits(['addfunc','addstatus'])
+const emit = defineEmits(['addfunc', 'addstatus'])
 
 const prop = defineProps({
     datas: Object,
@@ -21,9 +22,26 @@ const clearInput = () => {
 }
 
 
+
+
 const clickFunc = () => {
     let errortext = ""
-
+    let query = gql.mutation({
+        operation: 'UpsertLesson',
+        variables: {
+            lessonInput: {
+                id: { value: null },
+                tagId: { value: selectedObject.value },
+                name: { value: newnamecontent.value },
+                content: { value: text.value }
+            }
+        },
+        fields: ['id', { tag: ['id', 'topic'] }
+            , 'name', 'content']
+    }, undefined, {
+        operationName: 'UpsertLesson'
+    })
+    console.log(query)
     Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -34,53 +52,20 @@ const clickFunc = () => {
         confirmButtonText: "Yes, Add it!"
     }).then((result) => {
         console.log("test")
-        if (result.isConfirmed ) {
+        if (result.isConfirmed) {
             console.log("test")
-            emit('addfunc','add', selectedObject.value,newnamecontent.value,text.value);
+            emit('addfunc', 'add', query);
+            console.log()
         } else {
             Swal.fire({
-        title: "Error",
-        text: errortext,
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        confirmButtonText: "i understand"
-    })}
-        
-    //     for (let data in prop.datas) {
-
-    //         if (selectedObject.value != data["topic"])
-    //             return errortext + "No topic to add"
-    //     }
-    //     if (newnamecontent.value != "") {
-    //         for (let data in prop.datas) {
-    //             if (data["topic"] == selectedObject.value) {
-    //                 for (let lesson in topic.lesson) {
-    //                     if (newnamecontent.value != lesson.name)
-    //                         return errortext + "Can't add because name could unique"
-    //                 }
-    //             }
-    //         }
-    //     } else if (newnamecontent.value == "") {
-    //         return errortext + "Name is not null"
-    //     }
-    //     if (text.value == "") {
-    //         return errortext + "Description is not null"
-    //     }
-
-    //     if (result.isConfirmed && errortext == "") {
-    //         console.log("test")
-    //         emit('isClick', "true");
-    //     } else {
-    //         Swal.fire({
-    //     title: "Error",
-    //     text: errortext,
-    //     icon: "warning",
-    //     showCancelButton: true,
-    //     confirmButtonColor: "#3085d6",
-    //     confirmButtonText: "i understand"
-    // })
-    //     }
+                title: "Error",
+                text: errortext,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "i understand"
+            })
+        }
     });
 }
 
@@ -104,7 +89,7 @@ const clickFunc = () => {
                 Name: <input v-model="newnamecontent">
             </h2>
             <div class="w3-container">
-                <vmdeditor  v-model="text"></vmdeditor>
+                <vmdeditor v-model="text"></vmdeditor>
                 <hr>
                 {{ text }}
                 <button @click="clearInput()">Clear</button>
