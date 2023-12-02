@@ -3,7 +3,7 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
-const { VITE_BASE } = process.env;
+const VITE_BASE = process.env.VITE_BASE;
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
