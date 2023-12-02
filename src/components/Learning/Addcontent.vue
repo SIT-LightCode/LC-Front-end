@@ -27,13 +27,17 @@ const clearInput = () => {
 const clickFunc = () => {
     let errortext = ""
     let query = gql.mutation({
-        operation: 'UpsertLesson',
+        operation: 'upsertLesson',
         variables: {
             lessonInput: {
-                id: { value: null },
-                tagId: { value: selectedObject.value },
-                name: { value: newnamecontent.value },
-                content: { value: text.value }
+                value: {
+                    id: null,
+                    tagId: selectedObject.value,
+                    name: newnamecontent.value,
+                    content: text.value
+                },
+                type: "LessonInput",
+                required: true
             }
         },
         fields: ['id', { tag: ['id', 'topic'] }
