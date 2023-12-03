@@ -25,6 +25,7 @@ const buttonFunc = (e) => {
         }, undefined, {
             operationName: 'RemoveLesson'
         })
+        isEdit.value = false
         emit('buttonemit', 'Delete', query)
 
     }

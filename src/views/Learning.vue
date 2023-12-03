@@ -21,9 +21,13 @@ console.log(query)
 
     if (type == "Delete") {
         mybackend.deleteContent(query)
+        isAdd.value = false
+        currentlesson.value = ''
     }
     if (type == "Add" || type == "Edit") {
         mybackend.addContent(query)
+        isAdd.value = false
+        currentlesson.value = ''
     }
 
 

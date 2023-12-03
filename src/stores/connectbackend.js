@@ -33,13 +33,20 @@ export const connectbackend = defineStore("connectBackend", () => {
 
         // return await res.json();
       } else {
-        alert(
-          "response state : " + res.status + "\n response :" + res.statusText
-        );
+       
+        Swal.fire({
+          title: "Error!",
+          text: "response state : " + res.status + "\n response :" + res.statusText,
+          icon: "error",
+        });
         console.error("Error:", res.status, res.statusText);
       }
     } catch (error) {
-      alert("Error:" + error);
+      Swal.fire({
+        title: "Error!",
+        text: "Error:" + error,
+        icon: "error",
+      });
       console.error("Error:", error);
     }
   };
@@ -63,16 +70,28 @@ export const connectbackend = defineStore("connectBackend", () => {
       });
 
       if (res.ok) {
+        Swal.fire({
+          title: "Complete!",
+          text: "this operation is success .",
+          icon: "success",
+        });
         getAllTag();
         return true;
       } else {
-        alert(
-          "response state : " + res.status + "\n response :" + res.statusText
-        );
+      
+        Swal.fire({
+          title: "Error!",
+          text: "response state : " + res.status + "\n response :" + res.statusText,
+          icon: "error",
+        });
         console.error("Error:", res.status, res.statusText);
       }
     } catch (error) {
-      alert("Error:" + error);
+      Swal.fire({
+        title: "Error!",
+        text: "Error:" + error,
+        icon: "error",
+      });
       console.error("Error:", error);
     }
   };
