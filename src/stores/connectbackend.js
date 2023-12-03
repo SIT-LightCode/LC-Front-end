@@ -44,22 +44,24 @@ export const connectbackend = defineStore("connectBackend", () => {
     }
   };
 
-  const addContent = async (query) => {
+  const addContent = async (querys) => {
     try {
       const res = await fetch(`${import.meta.env.VITE_BASE_URL}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({query}),
+        body: JSON.stringify({
+          query: querys.query,
+          variables: querys.variables,
+        }),
 
         // body: JSON.stringify({
-//   query: `mutation UpsertLesson{\n    upsertLesson(lessonInput: {\n        id: null\n        tagId: ${id}\n        name: \"${name}\"\n        content: \"${content}\"\n    }) {\n        id\n        tag {\n          id\n          topic\n        }\n        name\n        content\n    }\n}`,
-//   operationName: "UpsertLesson",
-// })
+        //   query: `mutation UpsertLesson{\n    upsertLesson(lessonInput: {\n        id: null\n        tagId: ${id}\n        name: \"${name}\"\n        content: \"${content}\"\n    }) {\n        id\n        tag {\n          id\n          topic\n        }\n        name\n        content\n    }\n}`,
+        //   operationName: "UpsertLesson",
+        // })
       });
 
-      
       if (res.ok) {
         getAllTag();
         return true;
@@ -75,7 +77,7 @@ export const connectbackend = defineStore("connectBackend", () => {
     }
   };
 
-  const deleteContent = async (selected) => {
+  const deleteContent = async (querys) => {
     try {
       const res = await fetch(`${import.meta.env.VITE_BASE_URL}`, {
         method: "POST",
@@ -83,8 +85,8 @@ export const connectbackend = defineStore("connectBackend", () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          query: `mutation RemoveLesson { removeLesson(lessonId: ${selected}) }`,
-          operationName: "RemoveLesson",
+          query: querys.query,
+          variables: querys.variables,
         }),
       });
       if (res.ok) {

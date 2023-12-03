@@ -9,11 +9,13 @@ const emit = defineEmits(['addfunc', 'addstatus'])
 
 const prop = defineProps({
     datas: Object,
+    type: String,
+    List: Object
 })
 
-const selectedObject = ref("")
-const newnamecontent = ref("")
-const text = ref("")
+const selectedObject = ref(0)
+const newnamecontent = ref('')
+const text = ref('')
 
 const clearInput = () => {
     selectedObject.value = ""
@@ -22,17 +24,27 @@ const clearInput = () => {
 }
 
 
-
-
 const clickFunc = () => {
-    let errortext = ""
+    let id = ''
+    if (prop.type == "Add") {
+        id = null
+    } else if (prop.type == "Edit") {
+        id = prop.datas.lesson.id
+
+    }
     let query = gql.mutation({
-        operation: 'UpsertLesson',
+        operation: 'upsertLesson',
         variables: {
-            lessonInput: {  id: { value: null },
-            tagId: { value: selectedObject.value },
-            name: { value: newnamecontent.value },
-            content: { value: text.value } }
+            lessonInput: {
+                value: {
+                    id: id,
+                    tagId: selectedObject.value,
+                    name: newnamecontent.value,
+                    content: text.value
+                },
+                type: "LessonInput",
+                required: true
+            }
         },
         fields: ['id', { tag: ['id', 'topic'] }
             , 'name', 'content']
@@ -51,47 +63,43 @@ const clickFunc = () => {
     }).then((result) => {
         console.log("test")
         if (result.isConfirmed) {
-            console.log("test")
-            emit('addfunc', 'add', query);
-            console.log()
-        } else {
-            Swal.fire({
-                title: "Error",
-                text: errortext,
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                confirmButtonText: "i understand"
-            })
+
+            emit('addfunc', prop.type, query);
         }
+
     });
+}
+if (prop.datas != undefined) {
+    selectedObject.value = prop.datas.id
+    newnamecontent.value = prop.datas.lesson.name
+    text.value = prop.datas.lesson.content
 }
 
 </script>
  
 <template>
     <!-- contents  -->
+
     <div class="w3-container w3-card w3-white w3-margin-bottom">
         <hr>
         <div> <button @click="$emit('addstatus', false)">Back</button>
-
-            <label for="objectSelect"> Select tag for content to add: </label>
-            <select id="objectSelect" v-model="selectedObject">
-                <option :value="null" disabled>Select an object</option>
-                <option v-for="object in datas" :key="object.id" :value="object.id">
-                    {{ object["topic"] }}
-                </option>
-            </select>
-
+            <div v-if="prop.type == 'Add'">
+                <label for="objectSelect"> Select tag for content to add: </label>
+                <select id="objectSelect" v-model="selectedObject">
+                    <option :value="null" disabled>Select an object</option>
+                    <option v-for="object in List" :key="object.id" :value="object.id">
+                        {{ object["topic"] }}
+                    </option>
+                </select>
+            </div>
             <h2 class="w3-text-grey w3-padding-16">
                 Name: <input v-model="newnamecontent">
             </h2>
             <div class="w3-container">
                 <vmdeditor v-model="text"></vmdeditor>
                 <hr>
-                {{ text }}
                 <button @click="clearInput()">Clear</button>
-                <button @click="clickFunc()">Add</button>
+                <button @click="clickFunc()">{{ prop.type }}</button>
                 <hr>
             </div>
 

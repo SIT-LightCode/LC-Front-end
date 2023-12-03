@@ -26,7 +26,7 @@ const prop = defineProps({
                 <div class="w3-bar-block" v-for="topic in contents">
                     <div style="color:cornflowerblue"> {{ topic["topic"] }} </div>
                     <div v-if="topic.lesson.length > 0" class="w3-bar-block" v-for="lesson in topic.lesson">
-                        <button class="w3-bar-item w3-center w3-button" @click="$emit('selected', lesson)"> {{
+                        <button class="w3-bar-item w3-center w3-button" @click="$emit('selected', lesson , topic.id)"> {{
                             lesson.name }} </button>
                     </div>
                     <div v-else class="w3-bar-item w3-center">
