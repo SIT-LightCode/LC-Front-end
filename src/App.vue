@@ -3,14 +3,12 @@ import { RouterLink, RouterView } from 'vue-router'
 
 </script>
 
-<template class="w3-content" style="max-width:1200px">
-  <div>
+<template >
+  <div class="text-white min-h-screen bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-blue-700 via-blue-800 to-gray-900 relative">
     <!-- header -->
-    <div class="w3-top w3-white ">
-      <div class="w3-bar-item w3-right w3-xlarge " style="margin:10px" >
-        <img src='./assets/picture/logo_Lightcode_removebg.png' alt="logo_my_froup" width="100" height="60">
-        Lightcode
-      </div>
+    <div class="absolute top-5 right-5 flex items-center gap-4">
+        <img  src='./assets/picture/lclogo.png' alt="logo_my_froup" width="100" height="60">
+        <div class="text-3xl font-roboto font-bold">Lightcode</div>
     </div>
     <!--  -->
     
@@ -26,11 +24,11 @@ import { RouterLink, RouterView } from 'vue-router'
 
 
     <!-- Menu -->
-    <nav class="w3-sidebar w3-bar-block w3-white w3-collapse " style="z-index:3; width:250px" id="mySidebar">
+    <nav class="bg-white w-1/6 rounded-r-lg flex flex-col items-center border-2 border-white absolute top-1/2 left-0 transform -translate-y-1/2 " >
 
-      <div class="w3-container w3-display-container w3-padding-16 w3-center">
-        <img src='./assets/picture/proxypic.jpg' alt="proxypic" width="200" height="200">
-        <div >
+      <div class=" min-w-full flex flex-col items-center ">
+        <img src='./assets/picture/proxypic.jpg' class="rounded-lg" alt="proxypic" width="200" height="200">
+        <div class="mt-4 mb-4 text-black">
           <div >Name : Tuslnwza007</div>
           <ul>
             <li>Score : 100</li>
@@ -40,36 +38,34 @@ import { RouterLink, RouterView } from 'vue-router'
         </div>
       </div>
 
-      <div class="line"></div>
+  
       
-      <div class="w3-large w3-text-grey " style="font-weight:bold">
-        <RouterLink to="/">
-          <a href="#" class="w3-bar-item w3-center w3-button">
-            Home
-          </a>
+      <div class="flex flex-col min-w-full text-black gap-1 p-1" >
+        <RouterLink to="/" class="bg-slate-400 hover:bg-indigo-800 rounded-lg text-white transition flex flex-col items-center p-3">
+            <a>Home</a>
         </RouterLink>
-        <RouterLink to="/Problem">
-          <a href="#" class="w3-bar-item w3-center w3-button">
+        <RouterLink to="/Problem" class="bg-slate-400 hover:bg-indigo-800 rounded-lg text-white transition flex flex-col items-center p-3">
+          <a href="#">
             Problem
           </a>
         </RouterLink>
-        <RouterLink to="/Learning">
-          <a href="#" class="w3-bar-item w3-center w3-button">
+        <RouterLink to="/Learning" class="bg-slate-400 hover:bg-indigo-800 rounded-lg text-white transition flex flex-col items-center p-3">
+          <a href="#">
             Learning
           </a>
         </RouterLink>
-        <RouterLink to="/Addproblem">
-          <a href="#" class="w3-bar-item w3-center w3-button">
+        <RouterLink to="/Addproblem" class="bg-slate-400 hover:bg-indigo-800 rounded-lg text-white transition flex flex-col items-center p-3">
+          <a href="#" >
             Add Problem
           </a>
         </RouterLink>
-        <RouterLink to="/About">
-          <a href="#" class="w3-bar-item w3-center w3-button">
+        <RouterLink to="/About" class="bg-slate-400 hover:bg-indigo-800 rounded-lg text-white transition flex flex-col items-center p-3">
+          <a href="#">
             About
           </a>
         </RouterLink>
-        <RouterLink to="/Codeeditor">
-          <a href="#" class="w3-bar-item w3-center w3-button">
+        <RouterLink to="/Codeeditor" class="bg-slate-400 hover:bg-indigo-800 rounded-lg text-white transition flex flex-col items-center p-3">
+          <a href="#" >
             CodeEditor
           </a>
         </RouterLink>
@@ -79,13 +75,13 @@ import { RouterLink, RouterView } from 'vue-router'
 
 
     <!-- main -->
-    <div class="w3-main w3-padding-64" style="margin-left:300px">
-      <div class="w3-hide-large" style="margin-top:83px"></div>
-      <div class="w3-row ">
-        <RouterView />
+    <div class="grid grid-cols-8">
+      <div class="col-start-3 col-span-6" >
+            <RouterView class="mt-36 mr-16"/>
       </div>
     </div>
   </div>
+
     <!--  -->
 
   <!-- footer -->
@@ -109,20 +105,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </template>
 
 <style scoped>
-.w3-sidebar a {
-  font-family: "Roboto", sans-serif
-}
 
-body,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.w3-wide {
-  font-family: "Montserrat", sans-serif;
-}
 
 ul li { 
         list-style: none;
