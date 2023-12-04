@@ -24,11 +24,11 @@ import { RouterLink, RouterView } from 'vue-router'
 
 
     <!-- Menu -->
-    <nav class="bg-white w-1/6 rounded-r-lg flex flex-col items-center border-2 border-white absolute top-1/2 left-0 transform -translate-y-1/2 " >
+    <nav class="bg-indigo-950 w-1/6 rounded-r-lg flex flex-col items-center absolute top-1/2 left-0 transform -translate-y-1/2 " >
 
       <div class=" min-w-full flex flex-col items-center ">
         <img src='./assets/picture/proxypic.jpg' class="rounded-lg" alt="proxypic" width="200" height="200">
-        <div class="mt-4 mb-4 text-black">
+        <div class="mt-4 mb-4 ">
           <div >Name : Tuslnwza007</div>
           <ul>
             <li>Score : 100</li>
@@ -41,30 +41,30 @@ import { RouterLink, RouterView } from 'vue-router'
   
       
       <div class="flex flex-col min-w-full text-black gap-1 p-1" >
-        <RouterLink to="/" class="bg-slate-400 hover:bg-indigo-800 rounded-lg text-white transition flex flex-col items-center p-3">
+        <RouterLink to="/" class=" rounded-lg text-white transition flex flex-col items-center p-3">
             <a>Home</a>
         </RouterLink>
-        <RouterLink to="/Problem" class="bg-slate-400 hover:bg-indigo-800 rounded-lg text-white transition flex flex-col items-center p-3">
+        <RouterLink to="/Problem" class="rounded-lg text-white transition flex flex-col items-center p-3">
           <a href="#">
             Problem
           </a>
         </RouterLink>
-        <RouterLink to="/Learning" class="bg-slate-400 hover:bg-indigo-800 rounded-lg text-white transition flex flex-col items-center p-3">
+        <RouterLink to="/Learning" class="rounded-lg text-white transition flex flex-col items-center p-3">
           <a href="#">
             Learning
           </a>
         </RouterLink>
-        <RouterLink to="/Addproblem" class="bg-slate-400 hover:bg-indigo-800 rounded-lg text-white transition flex flex-col items-center p-3">
+        <RouterLink to="/Addproblem" class=" rounded-lg text-white transition flex flex-col items-center p-3">
           <a href="#" >
             Add Problem
           </a>
         </RouterLink>
-        <RouterLink to="/About" class="bg-slate-400 hover:bg-indigo-800 rounded-lg text-white transition flex flex-col items-center p-3">
+        <RouterLink to="/About" class=" rounded-lg text-white transition flex flex-col items-center p-3">
           <a href="#">
             About
           </a>
         </RouterLink>
-        <RouterLink to="/Codeeditor" class="bg-slate-400 hover:bg-indigo-800 rounded-lg text-white transition flex flex-col items-center p-3">
+        <RouterLink to="/Codeeditor" class="rounded-lg text-white transition flex flex-col items-center p-3">
           <a href="#" >
             CodeEditor
           </a>
