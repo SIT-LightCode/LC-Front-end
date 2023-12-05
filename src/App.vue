@@ -41,30 +41,30 @@ import { RouterLink, RouterView } from 'vue-router'
   
       
       <div class="flex flex-col min-w-full text-black gap-1 p-1" >
-        <RouterLink to="/" class=" rounded-lg text-white transition flex flex-col items-center p-3">
+        <RouterLink to="/" class=" rounded-lg hover:bg-slate-500 text-white transition flex flex-col items-center p-3">
             <a>Home</a>
         </RouterLink>
-        <RouterLink to="/Problem" class="rounded-lg text-white transition flex flex-col items-center p-3">
+        <RouterLink to="/Problem" class="rounded-lg hover:bg-slate-500 text-white transition flex flex-col items-center p-3">
           <a href="#">
             Problem
           </a>
         </RouterLink>
-        <RouterLink to="/Learning" class="rounded-lg text-white transition flex flex-col items-center p-3">
+        <RouterLink to="/Learning" class="rounded-lg hover:bg-slate-500 text-white transition flex flex-col items-center p-3">
           <a href="#">
             Learning
           </a>
         </RouterLink>
-        <RouterLink to="/Addproblem" class=" rounded-lg text-white transition flex flex-col items-center p-3">
+        <RouterLink to="/Addproblem" class=" rounded-lg hover:bg-slate-500 text-white transition flex flex-col items-center p-3">
           <a href="#" >
             Add Problem
           </a>
         </RouterLink>
-        <RouterLink to="/About" class=" rounded-lg text-white transition flex flex-col items-center p-3">
+        <RouterLink to="/About" class=" rounded-lg hover:bg-slate-500 text-white transition flex flex-col items-center p-3">
           <a href="#">
             About
           </a>
         </RouterLink>
-        <RouterLink to="/Codeeditor" class="rounded-lg text-white transition flex flex-col items-center p-3">
+        <RouterLink to="/Codeeditor" class="rounded-lg hover:bg-slate-500 text-white transition flex flex-col items-center p-3">
           <a href="#" >
             CodeEditor
           </a>
