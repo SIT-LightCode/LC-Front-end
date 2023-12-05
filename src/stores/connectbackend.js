@@ -1,57 +1,13 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
 import { computed, ref } from "vue";
-import Swal from "sweetalert2/dist/sweetalert2.js";
-import "sweetalert2/src/sweetalert2.scss";
+import { modalSwal } from "../stores/modal.js";
+import * as gql from 'gql-query-builder'
+
+const mymodal = modalSwal();
 
 export const connectbackend = defineStore("connectBackend", () => {
   let tagList = ref({});
-
-  const getAllTag = async () => {
-    try {
-      const res = await fetch(`${import.meta.env.VITE_BASE_URL}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          query:
-            "query GetTag { getTag { id\n    topic\n    description\n    lesson {\n      id\n      name\n      content\n    }\n  }\n}",
-          operationName: "GetTag",
-        }),
-      });
-
-      if (res.ok) {
-        await res
-          .json()
-          .then((data) => {
-            tagList.value = data["data"]["getTag"];
-          })
-          .catch((error) => {
-            alert("Error:" + error);
-            console.error("Error:", error);
-          });
-
-        // return await res.json();
-      } else {
-       
-        Swal.fire({
-          title: "Error!",
-          text: "response state : " + res.status + "\n response :" + res.statusText,
-          icon: "error",
-        });
-        console.error("Error:", res.status, res.statusText);
-      }
-    } catch (error) {
-      Swal.fire({
-        title: "Error!",
-        text: "Error:" + error,
-        icon: "error",
-      });
-      console.error("Error:", error);
-    }
-  };
-
-  const addContent = async (querys) => {
+  const content = async (querys) => {
     try {
       const res = await fetch(`${import.meta.env.VITE_BASE_URL}`, {
         method: "POST",
@@ -62,82 +18,72 @@ export const connectbackend = defineStore("connectBackend", () => {
           query: querys.query,
           variables: querys.variables,
         }),
-
-        // body: JSON.stringify({
-        //   query: `mutation UpsertLesson{\n    upsertLesson(lessonInput: {\n        id: null\n        tagId: ${id}\n        name: \"${name}\"\n        content: \"${content}\"\n    }) {\n        id\n        tag {\n          id\n          topic\n        }\n        name\n        content\n    }\n}`,
-        //   operationName: "UpsertLesson",
-        // })
       });
-
       if (res.ok) {
-        Swal.fire({
-          title: "Complete!",
-          text: "this operation is success .",
-          icon: "success",
-        });
         getAllTag();
-        return true;
+        return res;
       } else {
-      
-        Swal.fire({
-          title: "Error!",
-          text: "response state : " + res.status + "\n response :" + res.statusText,
-          icon: "error",
-        });
-        console.error("Error:", res.status, res.statusText);
+        mymodal.modalNormal(
+          "Error!",
+          "response state : " + res.status + "\n response :" + res.statusText,
+          "error"
+        );
+        return false;
       }
     } catch (error) {
-      Swal.fire({
-        title: "Error!",
-        text: "Error:" + error,
-        icon: "error",
-      });
+      mymodal.modalNormal("Error!", "Error:" + error, "error");
       console.error("Error:", error);
+      return false;
     }
+  };
+  const getAllTag = async () => {
+    let querys = gql.query({
+      operation: 'getTag',
+      fields: ['id', 'topic', 'description', 'description', { lesson: ['id', 'name', 'content'] }]
+      ,
+  }, undefined, {
+      operationName: 'GetTag'
+  })
+    content(querys).then(async(res) => {
+      if (res.ok) {
+        await res
+        .json()
+        .then((data) => {
+          tagList.value = data["data"]["getTag"];
+        })
+        .catch((error) => {
+          mymodal.modalNormal("Error!", error, "error");
+          console.error("Error:", error);
+        });
+      }
+    });
+      };
+
+
+  const addContent = async (querys) => {
+    content(querys).then((res) => {
+      if (res.ok) {
+          mymodal.modalNormal(
+            "Complete!",
+            "this operation is success.",
+            "success"
+          );
+      }
+    });
+     
   };
 
   const deleteContent = async (querys) => {
-    try {
-      const res = await fetch(`${import.meta.env.VITE_BASE_URL}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          query: querys.query,
-          variables: querys.variables,
-        }),
-      });
+    content(querys).then((res) => {
       if (res.ok) {
-        Swal.fire({
-          title: "Deleted!",
-          text: "This Content has been deleted.",
-          icon: "success",
-        });
-
-        getAllTag();
-        return true;
-      } else {
-        Swal.fire({
-          title: "ERROR!",
-          text:
-            "response state : " + res.status + "\n response :" + res.statusText,
-          icon: "error",
-        });
+        mymodal.modalNormal(
+          "Deleted!",
+          "This Content has been deleted.",
+          "success"
+        );
       }
-    } catch (error) {
-      Swal.fire({
-        title: "ERROR!",
-        text: "Error : " + error,
-        icon: "error",
-      });
-      console.error("Error:", error);
-    }
+    });
   };
 
   return { tagList, getAllTag, addContent, deleteContent };
 });
-// body: JSON.stringify({
-//   query: `mutation UpsertLesson{\n    upsertLesson(lessonInput: {\n        id: null\n        tagId: ${id}\n        name: \"${name}\"\n        content: \"${content}\"\n    }) {\n        id\n        tag {\n          id\n          topic\n        }\n        name\n        content\n    }\n}`,
-//   operationName: "UpsertLesson",
-// })

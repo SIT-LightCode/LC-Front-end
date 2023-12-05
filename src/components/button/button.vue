@@ -1,28 +1,21 @@
 <script setup>
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
-import vmdeditor from "../Learning/vmdeditor.vue"
+import { modalSwal } from "../../stores/modal.js";
+const mymodal = modalSwal();
 
-const emit = defineEmits(['isClick', 'value'])
+const emit = defineEmits(['buttonClick'])
 
 const prop = defineProps({
     name: String,
 })
 // ใช้เป็นอันนี้ไปก่อนนะเดียวหา modal ใส่ให้
-const clickFunc = () => {
-    Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
-    }).then((result) => {
-        if (result.isConfirmed) {
-            emit('isClick', "true");
+const clickFunc = async () => {
+    await mymodal.modalTwoฺButton("Are you sure?", "Are you sure to " + prop.name, prop.name).then((result) => { 
+        if (result) {
+            emit('buttonClick', true);
         }
-    });
+    })
 }
 
 </script>

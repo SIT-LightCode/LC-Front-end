@@ -9,26 +9,22 @@ const emit = defineEmits(['buttonemit', 'type'])
 const prop = defineProps({
     contents: Object
 })
-
 const isEdit = ref(false)
-const buttonFunc = (e) => {
-    if (e == "true") {
 
-        let query = gql.mutation({
-            operation: 'removeLesson',
-            variables: {
-                lessonId: {
-                    value: prop.contents.lesson.id,
-                },
-            }
-            ,
-        }, undefined, {
-            operationName: 'RemoveLesson'
-        })
-        isEdit.value = false
-        emit('buttonemit', 'Delete', query)
-
-    }
+const buttonDeleteFunc = () => {
+    let query = gql.mutation({
+        operation: 'removeLesson',
+        variables: {
+            lessonId: {
+                value: prop.contents.lesson.id,
+            },
+        }
+        ,
+    }, undefined, {
+        operationName: 'RemoveLesson'
+    })
+    isEdit.value = false
+    emit('buttonemit', 'Delete', query)
 }
 
 
@@ -43,12 +39,12 @@ const buttonFunc = (e) => {
                 <div class="w3-container" v-if="!isEdit">
                     <v-md-preview :text="contents.lesson.content"></v-md-preview>
                     <hr>
-                    <buttonVue @isClick="(e) => buttonFunc(e)" :name="'delete'"></buttonVue>
+                    <buttonVue @buttonClick="buttonDeleteFunc()" :name="'delete'"></buttonVue>
                     <button @click="isEdit = !isEdit">Edit</button>
                 </div>
                 <div class="w3-container" v-else-if="isEdit">
-                    <Addcontent @addstatus="(e) => isEdit = e" :datas="contents" :type="'Edit'"
-                        @addfunc="(e, query) => $emit('buttonemit', e, query)"></Addcontent>
+                    <Addcontent @addstatus="(e) => isEdit = e" :datas="contents" :type="'Edit'" @addfunc="(e, query) => { $emit('buttonemit', e, query); isEdit = false }
+                        "></Addcontent>
                 </div>
             </div>
         </div>
