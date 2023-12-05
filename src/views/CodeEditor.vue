@@ -1,5 +1,7 @@
 <template>
-  <prism-editor class="my-editor" v-model="code" :highlight="highlighter" line-numbers></prism-editor>
+  <div class="">
+    <prism-editor class="my-editor" v-model="code" :highlight="highlighter" line-numbers></prism-editor>
+  </div>
 </template>
   
 <script>
