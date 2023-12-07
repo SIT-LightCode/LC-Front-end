@@ -29,9 +29,9 @@ const deleteNewarray = () => {
         <h3>Example of Input and Output * </h3>
         <div v-for="(i, key) of example.example.val">
             <div>
-                Example of Input {{ key }}
+                Example of Input {{ key+1 }}
                 <textarea v-model="i.input.val" @change="$emit('example',example)"></textarea>
-                Example of Output {{ key }}
+                Example of Output {{ key+1 }}
                 <textarea v-model="i.output.val" @change="$emit('example',example)"></textarea>
             </div>
         </div>
