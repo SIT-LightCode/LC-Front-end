@@ -64,11 +64,6 @@ import { RouterLink, RouterView } from 'vue-router'
             About
           </a>
         </RouterLink>
-        <RouterLink to="/Codeeditor" class="rounded-lg hover:bg-slate-500 text-white transition flex flex-col items-center p-3">
-          <a href="#" >
-            CodeEditor
-          </a>
-        </RouterLink>
       </div>
     </nav>
     <!--  -->

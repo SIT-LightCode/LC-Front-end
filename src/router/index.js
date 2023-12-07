@@ -33,11 +33,7 @@ const router = createRouter({
       name: 'addProblem',
       component: () => import('../views/AddProblem.vue')
     },
-    {
-      path: '/Codeeditor',
-      name: 'codeeditor',
-      component: () => import('../views/CodeEditor.vue')
-    },
+
 
   ]
 })

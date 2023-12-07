@@ -1,10 +1,4 @@
-<template>
-  <div class="">
-    <prism-editor class="my-editor" v-model="code" :highlight="highlighter" line-numbers></prism-editor>
-  </div>
-</template>
-  
-<script>
+<script setup>
 // import Prism Editor
 import { PrismEditor } from 'vue-prism-editor';
 import 'vue-prism-editor/dist/prismeditor.min.css'; // import the styles somewhere
@@ -15,18 +9,24 @@ import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism-tomorrow.css'; // import syntax highlighting styles
 
-export default {
-  components: {
-    PrismEditor,
-  },
-  data: () => ({ code: 'console.log("Hello World")' }),
-  methods: {
-    highlighter(code) {
-      return highlight(code, languages.js); // languages.<insert language> to return html with markup
-    },
-  },
-};
+import { ref, onBeforeMount } from "vue";
+const emit = defineEmits(['code'])
+
+const code = ref('console.log("Hello World")')
+
+const highlighter = (code) => {
+  return highlight(code, languages.js); // languages.<insert language> to return html with markup
+}
+
 </script>
+
+<template>
+  <div class="">
+    {{ code }}
+    <prism-editor class="my-editor" v-model="code" :highlight="highlighter"   line-numbers :tabSize="5" ></prism-editor>
+    <button @click="$emit('code', code);">Next</button>
+  </div>
+</template>
   
 <style>
 /* required class */
@@ -47,14 +47,10 @@ export default {
   display: flex;
   position: relative;
 
-
-
 }
 
 /* optional class for removing the outline */
 .prism-editor__textarea:focus {
   outline: none;
 }
-
-
 </style>
