@@ -38,19 +38,7 @@ export const problemCon = defineStore("problemCon", () => {
         operationName: "GetProblem",
       }
     );
-    // myconnectBackend.connectBack(querys).then(async (res) => {
-    //   if (res.ok) {
-    //     await res
-    //       .json()
-    //       .then((data) => {
-    //         //ยังไม่รู้
-    //       })
-    //       .catch((error) => {
-    //         mymodal.modalNormal("Error!", error, "error");
-    //         console.error("Error:", error);
-    //       });
-    //   }
-    // });
+
   };
 
   const getTagProblem = async () => {
