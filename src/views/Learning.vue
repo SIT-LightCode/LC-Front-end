@@ -1,32 +1,35 @@
 <script setup>
-import { connectbackend } from "../stores/connectbackend.js"
-import { ref, onBeforeMount } from "vue"
-import { computed } from "@vue/reactivity"
-import LearningContent from "../components/Learning/Learningcontent.vue"
-import LearningList from "../components/Learning/LearningList.vue"
-import Addcontent from "../components/Learning/Addcontent.vue"
 
-const mybackend = connectbackend()
+import { learningCon } from "../stores/learningCon.js";
+import { ref, onBeforeMount } from "vue";
+import { computed } from "@vue/reactivity";
+import learningcontent from "../components/Learning/Learningcontent.vue";
+import Sidebar from "../components/Learning/Sidebar.vue";
+import Addcontent from "../components/Learning/Addcontent.vue";
 
-// let datafromback = ref({})
+
+const mylearningCon = learningCon();
+
+
 const currentlesson = ref({})
 const status = ref("list")
 
-mybackend.getAllTag()
+mylearningCon.getAllTag()
 const conBackend = (type, query) => {
 	console.log(type)
 	console.log(query)
 
-	if (type == "Delete") {
-		mybackend.deleteContent(query)
-		status.value = "list"
-		currentlesson.value = ""
-	}
-	if (type == "Add" || type == "Edit") {
-		mybackend.addContent(query)
-		status.value = "list"
-		currentlesson.value = ""
-	}
+    if (type == "Delete") {
+        mylearningCon.deleteContent(query)
+        isAdd.value = false
+        currentlesson.value = ''
+    }
+    if (type == "Add" || type == "Edit") {
+        mylearningCon.addContent(query)
+        isAdd.value = false
+        currentlesson.value = ''
+    }
+
 }
 
 const selectLesson = (lesson, id) => {
@@ -34,6 +37,10 @@ const selectLesson = (lesson, id) => {
 	status.value = "show"
 }
 </script>
+
+ 
+<template>
+
 
 <template>
 	<div class="">
