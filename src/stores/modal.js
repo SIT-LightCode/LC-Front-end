@@ -8,7 +8,7 @@ export const modalSwal = defineStore("modalSwal", () => {
     await Swal.fire({
       title: title,
       text: text,
-      icon: "warning",
+      icon: "question",
       showCancelButton: true,
       confirmButtonText: "Yes, " + type + " it!",
       cancelButtonText: "No, cancel!",

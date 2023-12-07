@@ -7,7 +7,7 @@ const input = ref({totalScore:0, level:0})
  
 <template>
     <div>
-        <h3 :color="red">Setting Problem * </h3>
+        <h3>Setting Problem * </h3>
 
         <div>
             totalScore

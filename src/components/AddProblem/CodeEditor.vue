@@ -23,7 +23,7 @@ const highlighter = (code) => {
 <template>
   <div class="">
     {{ code }}
-    <prism-editor class="my-editor" v-model="code" :highlight="highlighter"   line-numbers :tabSize="5" ></prism-editor>
+    <prism-editor class="my-editor" v-model="code" :highlight="highlighter"   line-numbers :tabSize="5" @change="$emit('code', code);"></prism-editor>
     <button @click="$emit('code', code);">Next</button>
   </div>
 </template>

@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@kangc/v-md-editor": "^2.3.18",
+    "flowbite": "^2.2.0",
     "gql-query-builder": "^3.8.0",
     "pinia": "^2.1.6",
     "prismjs": "^1.29.0",

@@ -6,7 +6,7 @@ const emit = defineEmits(['solution'])
  
 <template>
     <div>
-        <h3 :color="red">Solution for the problem * </h3>
+        <h3>Solution for the problem * </h3>
         <CodeEditor @code="(e1) => { $emit('solution', e1); }" />
     </div>
 </template>
