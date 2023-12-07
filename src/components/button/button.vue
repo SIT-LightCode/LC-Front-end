@@ -21,7 +21,7 @@ const clickFunc = async () => {
 </script>
  
 <template>
-    <button class="w3-bar-item w3-button w3-gray w3-padding-16" @click="clickFunc()"> {{ name }} </button>
+    <button class="border-5" @click="clickFunc()"> {{ name }} </button>
 </template>
  
 <style></style>
