@@ -14,7 +14,7 @@ export const learningCon = defineStore("learningCon", () => {
   const getAllTag = async () => {
     let querys = gql.query({
       operation: 'getTag',
-      fields: ['id', 'topic', 'description', 'description', { lesson: ['id', 'name', 'content'] }]
+      fields: ['id', 'topic', 'description', { lesson: ['id', 'name', 'content'] }]
       ,
   }, undefined, {
       operationName: 'GetTag'

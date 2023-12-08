@@ -1,5 +1,7 @@
 <script setup>
 import { ref } from "vue";
+import { modalSwal } from "../../../stores/modal.js";
+
 import buttonPage from "../../button/buttonpage.vue"
 
 const emit = defineEmits(['returnval', 'page'])
@@ -8,6 +10,7 @@ const prop = defineProps({
         type: Array,
     }
 })
+const mymodal = modalSwal()
 const example = ref({
     example:
     {
@@ -17,6 +20,28 @@ const example = ref({
 }
 )
 
+const checkValue = () => {
+    let errorText = ""
+    example.value.example.val.forEach((data) => {
+        data.forEach((da) => {
+            console.log(da)
+            if (da == '') {
+                errorText = errorText + "\n Error example: you are not have example"
+            }
+        })
+    })
+
+    if (errorText != "") {
+        mymodal.modalNormal("Error", errorText, "error")
+        return false
+    } else return true
+}
+
+const inputExam = (e1) => {
+    if(checkValue()){
+        emit('page', e1)
+    }
+}
 
 const csstextarea = "p-2.5 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 
@@ -78,7 +103,8 @@ const addDeleteExample = (type, id) => {
             Delete Example parameter
         </button>
     </div>
-    <buttonPage @page="(e1) => { $emit('page', e1) }"></buttonPage>
+    <!-- <buttonPage @page="(e1) => { $emit('page', e1) }"></buttonPage> -->
+    <buttonPage @page="(e1) => { inputExam(e1) }"></buttonPage>
 </template>
  
 <style></style>

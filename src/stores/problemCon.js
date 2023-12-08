@@ -12,6 +12,13 @@ export const problemCon = defineStore("problemCon", () => {
   let problemList = ref({});
 
   const getAllproblem = async () => {
+  //   let querys = gql.query({
+  //     operation: 'getTag',
+  //     fields: ['id', 'topic', 'description', 'description', { lesson: ['id', 'name', 'content'] }]
+  //     ,
+  // }, undefined, {
+  //     operationName: 'GetTag'
+  // })
     let querys = gql.query(
       {
         operation: "getProblem",
@@ -21,15 +28,22 @@ export const problemCon = defineStore("problemCon", () => {
           {
             tagProblem: [
               "id",
-              { tag: ["id", "topic"] },
-              { problem: ["id", "name"] },
+              { tag: 
+                  ["id", 
+                  "topic", 
+                  "description"
+                  ] 
+              },
             ],
           },
           "description",
-          "solution",
-          "typeParameter",
-          { example: ["id", "input", "output"] },
-          { testcase: ["id", "input", "output"] },
+          "exampleParameter",
+          { example: [
+              "id", 
+              "input", 
+              "output"] 
+          },
+          "level",
           "totalScore",
         ],
       },
@@ -43,8 +57,7 @@ export const problemCon = defineStore("problemCon", () => {
         await res
           .json()
           .then((data) => {
-            console.log(data);
-            // problemList.value = data["data"]["getTag"];
+            problemList.value = data["data"]["getProblem"];
           })
           .catch((error) => {
             mymodal.modalNormal("Error!", error, "error");
@@ -90,19 +103,16 @@ export const problemCon = defineStore("problemCon", () => {
     totalScoreProblem,
     levelProblem
   ) => {
-console.log(exampleParameterProblem.toString())
-console.log(tagProblem.toString())
-
     const query = gql.mutation(
       {
         operation: "upsertProblem",
         variables: {
-          id: { type:"Int" , value: null },
+          id: { type: "Int", value: null },
           arrayTagId: { value: `[${tagProblem}]` },
           name: { value: nameProblem },
           description: { value: descriptionProblem },
           solution: { value: solutionProblem },
-          exampleParameter: { value: JSON.stringify(exampleParameterProblem)},
+          exampleParameter: { value: JSON.stringify(exampleParameterProblem) },
           level: { value: parseInt(levelProblem) },
           totalScore: { value: parseInt(totalScoreProblem) },
         },
@@ -120,48 +130,23 @@ console.log(tagProblem.toString())
         operationName: "UpsertProblem ",
       }
     );
-    // const query = {
-    //   query: `mutation UpsertProblem {\n  upsertProblem(\n    
-    //     id: ${null}\n    
-    //     arrayTagId: \"[${tagProblem}]\"\n    
-    //     name: \"${nameProblem}\"\n    
-    //     description: \"${descriptionProblem}\"\n    
-    //     solution: \"\"\"\n    
-    //           ${solutionProblem}
-    //           \"\"\"\n    
-    //     exampleParameter: 
-    //     \"\"\"\n    
-    //                 ${exampleParameterProblem}
-    //                 \"\"\"\n    
-    //     level:${totalScoreProblem}
-    //     \n    
-    //     totalScore: ${levelProblem}
-    //     \n  ) {\n    
-    //       id\n    
-    //       name\n    
-    //       description\n    
-    //       solution\n    
-    //       level\n    
-    //       totalScore\n  
-    //     }\n}`,
-    //   operationName: "UpsertProblem",
-    // };
-    console.log(query);
-    // myconnectBackend.connectBack(query).then(async (res) => {
-    //   if (res.ok) {
-    //     await res.json().then((data) => {
-    //       mymodal.modalNormal("Error!", data["errors"]["message"], "error");
-    //       // problemList.value = data["data"]["getTag"];
-    //     });
 
-    // mymodal.modalNormal(
-    //   "Complete!",
-    //   "this operation is success.",
-    //   "success"
-    //     // );
-    //   }
-    // });
+    console.log(query);
+    myconnectBackend.connectBack(query).then(async (res) => {
+      if (res.ok) {
+        await res.json().then(async (data) => {
+          // mymodal.modalNormal("Error!", data["errors"]["message"], "error");
+          // problemList.value = data["data"]["getTag"];
+        });
+
+        mymodal.modalNormal(
+          "Complete!",
+          "this operation is success.",
+          "success"
+        );
+      }
+    });
   };
 
-  return { problemList, AddProblem };
+  return { problemList, AddProblem, getAllproblem };
 });

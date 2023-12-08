@@ -1,6 +1,6 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
 import { modalSwal } from "../stores/modal.js";
-
+import { ref, computed } from "vue";
 const mymodal = modalSwal();
 
 export const connectBackend = defineStore("connectBackend", () => {
@@ -32,10 +32,5 @@ export const connectBackend = defineStore("connectBackend", () => {
       return false;
     }
   };
-
-
-
-  
-
   return { connectBack };
 });
