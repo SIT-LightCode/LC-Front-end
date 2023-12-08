@@ -97,12 +97,12 @@ console.log(tagProblem.toString())
       {
         operation: "upsertProblem",
         variables: {
-          id: { value: Number(null)          },
-          arrayTagId: { value: [tagProblem.toString()] },
+          id: { type:"Int" , value: null },
+          arrayTagId: { value: `[${tagProblem}]` },
           name: { value: nameProblem },
           description: { value: descriptionProblem },
           solution: { value: solutionProblem },
-          exampleParameter: { type: 'String' , value: exampleParameterProblem },
+          exampleParameter: { value: JSON.stringify(exampleParameterProblem)},
           level: { value: parseInt(levelProblem) },
           totalScore: { value: parseInt(totalScoreProblem) },
         },

@@ -34,11 +34,12 @@ const upSetProblem = () => {
         let object = {};
         value.forEach((val, v) => {
             object[v + 1] = val;
+            text = text+val
         });
         exampleParameter.push(object);
     });
 
-
+console.log(text)
     myproblemCon.AddProblem(
         inputProblemData.value.arrayTagId,
         inputProblemData.value.name,
