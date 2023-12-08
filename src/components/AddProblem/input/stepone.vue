@@ -1,7 +1,7 @@
 <script setup>
-import vmdeditor from '../../learning/vmdeditor.vue';
-import { modalSwal } from "../../../stores/modal.js";
-import buttonPage from "../../button/buttonpage.vue"
+import vmdeditor from '../../learning/VmdEditor.vue';
+import { modalSwal } from "../../../stores/Modal.js";
+import buttonPage from "../../button/ButtonPage.vue"
 import { ref, computed } from "vue";
 
 const emit = defineEmits(['returnval'])

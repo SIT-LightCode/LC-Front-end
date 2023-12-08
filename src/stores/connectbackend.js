@@ -1,5 +1,5 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
-import { modalSwal } from "../stores/modal.js";
+import { modalSwal } from "./Modal.js";
 import { ref, computed } from "vue";
 const mymodal = modalSwal();
 

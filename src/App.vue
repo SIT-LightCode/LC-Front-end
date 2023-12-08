@@ -2,8 +2,8 @@
 import { RouterLink, RouterView } from 'vue-router'
 import { ref} from 'vue'
 
-import Navbar from "./components/main/Navber.vue";
-import Sidebar from "./components/main/Sidebar.vue";
+import Navbar from "./components/main/NavBar.vue";
+import Sidebar from "./components/main/SideBar.vue";
 
 const links = ref([
   { message:'Home',path:'/' }, 

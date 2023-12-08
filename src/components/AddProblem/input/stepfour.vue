@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import buttonPage from "../../button/buttonpage.vue"
+import buttonPage from "../../button/ButtonPage.vue"
 
 const prop = defineProps({
     datas: {

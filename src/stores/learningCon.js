@@ -1,7 +1,7 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
 import { computed, ref } from "vue";
-import { modalSwal } from "../stores/modal.js";
-import { connectBackend } from "./connectbackend.js";
+import { modalSwal } from "./Modal.js";
+import { connectBackend } from "./ConnectBackend.js";
 
 import * as gql from 'gql-query-builder'
 

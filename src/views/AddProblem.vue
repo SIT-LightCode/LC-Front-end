@@ -1,15 +1,13 @@
 <script setup>
 import { ref } from "vue";
-import stepone from "../components/AddProblem/input/stepone.vue";
-import steptwo from "../components/AddProblem/input/steptwo.vue";
-import stepthree from "../components/AddProblem/input/stepthree.vue";
-import stepfour from "../components/AddProblem/input/stepfour.vue";
+import stepone from "../components/addproblem/input/StepOne.vue";
+import steptwo from "../components/addproblem/input/StepTwo.vue";
+import stepthree from "../components/addproblem/input/StepThree.vue";
+import stepfour from "../components/addproblem/input/StepFour.vue";
 
-import outputProblem from '../components/AddProblem/outputProblem.vue';
-import statusInput from '../components/AddProblem/statusInput.vue';
 
-import { learningCon } from "../stores/learningCon.js"
-import { problemCon } from "../stores/problemCon.js"
+import { learningCon } from "../stores/LearningCon.js"
+import { problemCon } from "../stores/ProblemCon.js"
 
 const mylearningCon = learningCon()
 const myproblemCon = problemCon()

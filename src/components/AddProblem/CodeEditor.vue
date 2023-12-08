@@ -9,7 +9,7 @@ import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism-tomorrow.css'; // import syntax highlighting styles
 
-import buttomSubmit from "../button/button.vue"
+import buttomSubmit from "../button/Button.vue"
 import { ref, onBeforeMount } from "vue";
 const emit = defineEmits(['code'])
 

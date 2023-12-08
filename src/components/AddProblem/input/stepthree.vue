@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from "vue";
-import { modalSwal } from "../../../stores/modal.js";
+import { modalSwal } from "../../../stores/Modal.js";
 
-import buttonPage from "../../button/buttonpage.vue"
+import buttonPage from "../../button/ButtonPage.vue"
 
 const emit = defineEmits(['returnval', 'page'])
 const prop = defineProps({

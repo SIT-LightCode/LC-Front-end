@@ -1,5 +1,5 @@
 <script setup>
-import { problemCon } from '../../stores/problemCon';
+import { problemCon } from '../../stores/ProblemCon';
 const myproblemCon = problemCon()
 myproblemCon.getAllproblem()
 </script>

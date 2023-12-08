@@ -1,6 +1,6 @@
 <script setup>
-import fillerBar from '../components/Problem/fillerBar.vue';
-import listProblem from '../components/Problem/listProblem.vue';
+import fillerBar from '../components/problem/FillerBar.vue';
+import listProblem from '../components/problem/ListProblem.vue';
 
 </script>
 <template>

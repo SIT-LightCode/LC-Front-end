@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue"
-import ButtonVue from "../button/button.vue"
-import Addcontent from "./Addcontent.vue"
+import ButtonVue from "../button/Button.vue"
+import Addcontent from "./AddContent.vue"
 import * as gql from "gql-query-builder"
 
 const emit = defineEmits(["buttonemit", "type", "addstatus"])

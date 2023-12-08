@@ -1,7 +1,7 @@
 <script setup>
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
-import { modalSwal } from "../../stores/modal.js";
+import { modalSwal } from "../../stores/Modal.js";
 const mymodal = modalSwal();
 
 const emit = defineEmits(['buttonClick'])
