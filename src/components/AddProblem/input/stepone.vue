@@ -1,5 +1,5 @@
 <script setup>
-import vmdeditor from '../../learning/vmdeditor.vue';
+import vmdeditor from '../../Learning/vmdeditor.vue';;
 import { modalSwal } from "../../../stores/modal.js";
 import { ref, computed } from "vue";
 
