@@ -9,10 +9,11 @@ import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism-tomorrow.css'; // import syntax highlighting styles
 
+import buttomSubmit from "../button/button.vue"
 import { ref, onBeforeMount } from "vue";
 const emit = defineEmits(['code'])
 
-const code = ref('console.log("Hello World")')
+const code = ref('const answer = (input) => {\n \n \n 	//Code Here \n console.log(input)   \n \n \n \n  }')
 
 const highlighter = (code) => {
   return highlight(code, languages.js); // languages.<insert language> to return html with markup
@@ -22,9 +23,8 @@ const highlighter = (code) => {
 
 <template>
   <div class="">
-    {{ code }}
-    <prism-editor class="my-editor" v-model="code" :highlight="highlighter"   line-numbers :tabSize="5" @change="$emit('code', code);"></prism-editor>
-    <button @click="$emit('code', code);">Next</button>
+    <prism-editor class="my-editor" v-model="code" :highlight="highlighter"   line-numbers :tabSize="5"></prism-editor>
+    <buttomSubmit :name="'submit'" @buttonClick="$emit('code', code);"></buttomSubmit>
   </div>
 </template>
   
@@ -40,7 +40,7 @@ const highlighter = (code) => {
   font-size: 14px;
   line-height: 1.5;
   padding: 5px;
-
+  height: 450px  ;
 
   /*  */
   margin-top: 2rem;
@@ -50,7 +50,7 @@ const highlighter = (code) => {
 }
 
 /* optional class for removing the outline */
-.prism-editor__textarea:focus {
+/* .prism-editor__textarea:focus {
   outline: none;
-}
+} */
 </style>

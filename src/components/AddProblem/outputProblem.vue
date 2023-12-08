@@ -25,7 +25,6 @@ const prop = defineProps({
             </div>
         </div>
         {{ prop.datas }}
-        name: "", description: "", solution: "", example: "", totalScore: 0, level: 0
     </div>
 </template>
  

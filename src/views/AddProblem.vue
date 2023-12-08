@@ -8,50 +8,72 @@ import stepfour from "../components/AddProblem/input/stepfour.vue";
 import outputProblem from '../components/AddProblem/outputProblem.vue';
 import statusInput from '../components/AddProblem/statusInput.vue';
 
-const inputProblemData = ref({
-    name: "", description: "", solution: "", example: [
-        { input: { type: 'input', val: '' }, output: { type: 'output', val: '' } },
-        { input: { type: 'input', val: '' }, output: { type: 'output', val: '' } },
-        { input: { type: 'input', val: '' }, output: { type: 'output', val: '' } }]
-    , totalScore: 0, level: 0
-})
-const page = ref(2)
-const setValue = (key, val) => {
-    inputProblemData.value[key] = val
-}
+import { learningCon } from "../stores/learningCon.js"
+import { problemCon } from "../stores/problemCon.js"
 
-const pageFunc = (input, actionpage) => {
+const mylearningCon = learningCon()
+const myproblemCon = problemCon()
+
+const inputProblemData = ref({
+    name: "", description: "", solution: "", example: [[[undefined]]]
+    , totalScore: 0, level: 0, arrayTagId: []
+})
+const page = ref(1)
+
+const setValueFunc = (input) => {
     for (let i in input) {
-        console.log(input[i])
-        setValue(input[i].type, input[i].val);
+        inputProblemData.value[input[i].type] = input[i].val
     }
 
-    if (actionpage == 1) {
+}
+// exampleParameter: \"\"\"\n    [{\n    \"1\": [2, 7, 11, 15],\n    \"2\": 9\n    },\n    {\n    \"1\": [3, 1, 2, 7],\n    \"2\": 4\n    }]\n
+const upSetProblem = () => {
+    let exampleParameter = []; // Initialize as an empty object
+    let text = ""
+    inputProblemData.value.example.forEach(function (value, i) {
+        let object = {};
+        value.forEach((val, v) => {
+            object[v + 1] = val;
+        });
+        exampleParameter.push(object);
+    });
+
+
+    myproblemCon.AddProblem(
+        inputProblemData.value.arrayTagId,
+        inputProblemData.value.name,
+        inputProblemData.value.description,
+        inputProblemData.value.solution,
+        exampleParameter,
+        inputProblemData.value.totalScore,
+        inputProblemData.value.level
+    );
+};
+
+const changePage = (e1) => {
+    if (e1 > 0) {
         ++page.value
     }
-    else if (actionpage == -1) {
-        --page.value
-    }
+    else --page.value
 }
 
-// const arrayFunc = (input) =>{
-//     for (let i in input) {
-//         console.log(input[i])
-//         pageFunc(input[i])
-//     }
-//}
+mylearningCon.getAllTag()
 </script>
 
 <template>
     <statusInput />
-    <stepone v-if="page == 1" @namedescription="(e1, e2) => { pageFunc(e1, e2) }" />
-    <!-- <steptwo v-else-if="page == 2" @solution="(e1) => { inputProblemData.solution = e1; }" /> -->
-    <stepthree v-else-if="page == 2" @example="(e1,e2) => { pageFunc(e1,e2) }" @page="(e1) => { page + e1 }" />
-    <stepfour
-        @totalScorelevel="(e1) => { inputProblemData.totalScore = e1.totalScore; inputProblemData.level = e1.level; }" />
-
-    <!-- @examplechange="(e1) => { setValue() }" /> -->
-    <outputProblem :datas="inputProblemData" />
+    <stepone v-if="page == 1" :name="inputProblemData.name" :description="inputProblemData.description"
+        @returnval="(e1) => { setValueFunc(e1); changePage(1); }" />
+    <stepthree v-else-if="page == 2" :example="inputProblemData.example" @returnval="(e1) => { setValueFunc(e1) }"
+        @page="(e1) => { changePage(e1) }" />
+    <stepfour v-show="page == 3" :datas="mylearningCon.tagList" :totalScore="inputProblemData.totalScore"
+        :level="inputProblemData.level" :arrayTagId="inputProblemData.arrayTagId" @returnval="(e1) => { setValueFunc(e1) }"
+        @page="(e1) => { changePage(e1) }" />
+    <steptwo v-show="page == 4" @returnval="(e1) => { setValueFunc(e1); upSetProblem(); }" />
+    <!-- <stepone @returnval="(e1) => { setValueFunc(e1); changePage(1); }" />
+    <stepthree @returnval="(e1) => { setValueFunc(e1) }" @page="(e1) => { changePage(e1) }" />
+    <stepfour :datas="mylearningCon.tagList" @returnval="(e1) => { setValueFunc(e1) }" @page="(e1) => { changePage(e1) }" />
+    <steptwo @returnval="(e1) => { setValueFunc(e1); upSetProblem(); }" /> -->
 </template>
  
 <style></style>

@@ -1,15 +1,23 @@
 <script setup>
 import vmdeditor from '../../learning/vmdeditor.vue';
 import { modalSwal } from "../../../stores/modal.js";
+import buttonPage from "../../button/buttonpage.vue"
 import { ref, computed } from "vue";
 
-const emit = defineEmits(['namedescription'])
+const emit = defineEmits(['returnval'])
 const mymodal = modalSwal()
+const prop = defineProps({
+    name: {
+        type: String,
+        default: ""
+    },
+    description: {
+        type: String,
+        default: ""
+    }
+})
 
-// const input = ref({ 
-//     name: '', description: '' 
-// })
-const input = ref({ name: { type: 'name', val: '' }, description: { type: 'description', val: '' } }
+const input = ref({ name: { type: 'name', val: prop.name }, description: { type: 'description', val: prop.description } }
 )
 const checkValue = () => {
     let errorText = ""
@@ -27,14 +35,9 @@ const checkValue = () => {
 
 
 const valuetoaddpage = async () => {
-    await mymodal.modalTwoฺButton("Are you sure ?", "Are you sure to continue next page", "continue it").then((result) => {
-        if (result) {
-            if (checkValue()) {
-                emit('namedescription', input.value,1);
-            }
-        }
-    })
-
+    if (checkValue()) {
+        emit('returnval', input.value);
+    }
 }
 const classObject = computed(() => {
     return input.value.name.val != '' ? "bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500"
@@ -45,17 +48,18 @@ const classObject = computed(() => {
  
 <template>
     <div class="mb-6">
-        <label for="success" class="block mb-2 text-sm font-medium text-green-700 dark:text-green-500">Name of problem want
+        <label for="success" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name of problem want
             to create *</label>
 
 
         <input type="text" id="error" v-bind:class="classObject" placeholder="input pls" v-model="input.name.val">
 
     </div>
-    <label for="success" class="block mb-2 text-sm font-medium text-green-700 dark:text-green-500">Description for the
+    <label for="success" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description for the
         problem * </label>
     <vmdeditor v-model="input.description.val" />
-    <button @click="valuetoaddpage()">Next</button>
+
+    <buttonPage @page="(e1) => { valuetoaddpage() }"></buttonPage>
 </template>
  
 <style></style>
