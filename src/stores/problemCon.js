@@ -90,19 +90,16 @@ export const problemCon = defineStore("problemCon", () => {
     totalScoreProblem,
     levelProblem
   ) => {
-console.log(exampleParameterProblem.toString())
-console.log(tagProblem.toString())
-
     const query = gql.mutation(
       {
         operation: "upsertProblem",
         variables: {
-          id: { value: Number(null)          },
-          arrayTagId: { value: [tagProblem.toString()] },
+          id: { type: "Int", value: null },
+          arrayTagId: { value: `[${tagProblem}]` },
           name: { value: nameProblem },
           description: { value: descriptionProblem },
           solution: { value: solutionProblem },
-          exampleParameter: { type: 'String' , value: exampleParameterProblem },
+          exampleParameter: { value: JSON.stringify(exampleParameterProblem) },
           level: { value: parseInt(levelProblem) },
           totalScore: { value: parseInt(totalScoreProblem) },
         },
@@ -121,28 +118,28 @@ console.log(tagProblem.toString())
       }
     );
     // const query = {
-    //   query: `mutation UpsertProblem {\n  upsertProblem(\n    
-    //     id: ${null}\n    
-    //     arrayTagId: \"[${tagProblem}]\"\n    
-    //     name: \"${nameProblem}\"\n    
-    //     description: \"${descriptionProblem}\"\n    
-    //     solution: \"\"\"\n    
+    //   query: `mutation UpsertProblem {\n  upsertProblem(\n
+    //     id: ${null}\n
+    //     arrayTagId: \"[${tagProblem}]\"\n
+    //     name: \"${nameProblem}\"\n
+    //     description: \"${descriptionProblem}\"\n
+    //     solution: \"\"\"\n
     //           ${solutionProblem}
-    //           \"\"\"\n    
-    //     exampleParameter: 
-    //     \"\"\"\n    
+    //           \"\"\"\n
+    //     exampleParameter:
+    //     \"\"\"\n
     //                 ${exampleParameterProblem}
-    //                 \"\"\"\n    
+    //                 \"\"\"\n
     //     level:${totalScoreProblem}
-    //     \n    
+    //     \n
     //     totalScore: ${levelProblem}
-    //     \n  ) {\n    
-    //       id\n    
-    //       name\n    
-    //       description\n    
-    //       solution\n    
-    //       level\n    
-    //       totalScore\n  
+    //     \n  ) {\n
+    //       id\n
+    //       name\n
+    //       description\n
+    //       solution\n
+    //       level\n
+    //       totalScore\n
     //     }\n}`,
     //   operationName: "UpsertProblem",
     // };
