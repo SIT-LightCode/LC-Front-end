@@ -21,18 +21,20 @@ const example = ref({
 )
 
 const checkValue = () => {
-    let errorText = ""
+    let errorText = false
     example.value.example.val.forEach((data,key1) => {
         data.forEach((da,key2) => {
-            if (da == '') {
-                errorText = errorText + "\n Error example: you are not have example"
-            }
+
+            if (example.value.example.val[key1][key2] == '' ) {
+                errorText = true
+            } else {
             example.value.example.val[key1][key2] = da.trim()
+            }
         })
     })
 
-    if (errorText != "") {
-        mymodal.modalNormal("Error", errorText, "error")
+    if (errorText) {
+        mymodal.modalNormal("Error", "\n Error example: you are not have example", "error")
         return false
     } else return true
 }
@@ -56,9 +58,9 @@ const csstextarea = "p-2.5 text-sm text-gray-900 bg-gray-50 rounded-lg border bo
 const addDeleteExample = (type, id) => {
     if (type == "add") {
         if (id != undefined) {
-            example.value.example.val[id].push([undefined])
+            example.value.example.val[id].push([''])
         }
-        else example.value.example.val.push([undefined])
+        else example.value.example.val.push([''])
     }
     if (type == "delete") {
         if (id != undefined) {

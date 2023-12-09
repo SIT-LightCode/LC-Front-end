@@ -29,10 +29,10 @@ const clearInput = async (value) => {
 }
 const checkValue = (selectid) => {
 	let errorText = ""
-	if (text.value == "") {
+	if (text.value.trim() == "") {
 		errorText = errorText + "\n Error Content: Dont has value for content"
 	}
-	if (newnamecontent.value == "" || newnamecontent.value.length > 255) {
+	if (newnamecontent.value.trim() == "" || newnamecontent.value.length > 255) {
 		errorText = errorText + "\n Error Name: input value invaild "
 	}
 	if (selectid == 0) {
@@ -77,7 +77,7 @@ const clickAddEdit = async (value) => {
 								id: id,
 								tagId: selectid,
 								name: newnamecontent.value.trim(),
-								content: text.value,
+								content: text.value.trim(),
 							},
 							type: "LessonInput",
 							required: true,

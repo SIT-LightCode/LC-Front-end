@@ -13,13 +13,12 @@ const mylearningCon = learningCon()
 const myproblemCon = problemCon()
 
 const inputProblemData = ref({
-    name: "", description: "", solution: 'const answer = (input) => {\n \n \n 	//Code Here \n console.log(input)   \n \n \n \n  }', example: [[[undefined]]]
+    name: "", description: "", solution: 'const answer = (input) => {\n \n \n 	//Code Here \n console.log(input)   \n \n \n \n  }', example: [[['']]]
     , totalScore: 0, level: 0, arrayTagId: []
 })
 const page = ref(1)
 
 const setValueFunc = (input) => {
-    console.log(input)
     for (let i in input) {
         inputProblemData.value[input[i].type] = input[i].val
     }
@@ -41,7 +40,7 @@ const upSetProblem = () => {
     myproblemCon.AddProblem(
         inputProblemData.value.arrayTagId,
         inputProblemData.value.name.trim(),
-        inputProblemData.value.description,
+        inputProblemData.value.description.trim(),
         inputProblemData.value.solution,
         exampleParameter,
         inputProblemData.value.totalScore,

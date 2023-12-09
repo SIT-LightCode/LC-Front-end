@@ -21,10 +21,10 @@ const input = ref({ name: { type: 'name', val: prop.name }, description: { type:
 )
 const checkValue = () => {
     let errorText = ""
-    if (input.value.name.val == "" || input.value.name.val > 255) {
+    if (input.value.name.val.trim() == "" || input.value.name.val > 255) {
         errorText = errorText + "\n Error Content: Dont has value for name"
     }
-    if (input.value.description.val == "") {
+    if (input.value.description.val.trim() == "") {
         errorText = errorText + "\n Error Name: input value description "
     }
     if (errorText != "") {
