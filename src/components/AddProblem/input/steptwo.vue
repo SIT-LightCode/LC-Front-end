@@ -24,7 +24,9 @@ const checkValue = () => {
     let errorText = false
     example.value.example.val.forEach((data,key1) => {
         data.forEach((da,key2) => {
-
+            if(da.trim() === ""){
+                errorText = true
+            }
             if (example.value.example.val[key1][key2] == '' ) {
                 errorText = true
             } else {
