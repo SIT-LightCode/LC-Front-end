@@ -22,13 +22,16 @@ const example = ref({
 
 const checkValue = () => {
     let errorText = false
-    example.value.example.val.forEach((data,key1) => {
-        data.forEach((da,key2) => {
-
-            if (example.value.example.val[key1][key2] == '' ) {
+    example.value.example.val.forEach((data, key1) => {
+        data.forEach((da, key2) => {
+            console.log(da)
+            if (da == '') {
                 errorText = true
+            }
+            else if (da.trim() == '') {
+                console.log(da.trim())
             } else {
-            example.value.example.val[key1][key2] = da.trim()
+                example.value.example.val[key1][key2] = da.trim()
             }
         })
     })
@@ -40,7 +43,7 @@ const checkValue = () => {
 }
 
 const inputExam = (e1) => {
-    
+
     if (e1 > 0) {
         if (checkValue()) {
             emit('page', e1)
@@ -75,12 +78,12 @@ const addDeleteExample = (type, id) => {
         }
     }
 }
-const text = 
-'# Example parameter for your problem\n'+
-' ## example : \n '+ 
-' 1 ; if parameters is text or Number \n '+ 
-'1,2,3,4,5,6 ; if parameters is array \n '+ 
-'** You can insert up to 4 parameters. and add  up to 4 examples**'
+const text =
+    '# Example parameter for your problem\n' +
+    ' ## example : \n ' +
+    ' 1 ; if parameters is text or Number \n ' +
+    '1,2,3,4,5,6 ; if parameters is array \n ' +
+    '** You can insert up to 4 parameters. and add  up to 4 examples**'
 </script>
  
 <template>
@@ -117,7 +120,7 @@ const text =
 
 
         </div>
-        <button :disabled="example.example.val.length > 3" 
+        <button :disabled="example.example.val.length > 3"
             class=" text-gray-900 dark:text-white font-bold m-2 py-2 px-4 rounded-full"
             :class="[example.example.val.length > 3 ? 'bg-gray-300 ' : 'bg-blue-400 hover:bg-blue-500']"
             @click="addDeleteExample('add')">
