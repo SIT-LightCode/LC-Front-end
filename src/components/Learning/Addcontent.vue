@@ -76,7 +76,7 @@ const clickAddEdit = async (value) => {
 							value: {
 								id: id,
 								tagId: selectid,
-								name: newnamecontent.value,
+								name: newnamecontent.value.trim(),
 								content: text.value,
 							},
 							type: "LessonInput",

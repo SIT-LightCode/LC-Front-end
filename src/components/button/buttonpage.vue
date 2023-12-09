@@ -16,7 +16,7 @@ const buttoncss = "bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold m-3 py-
             <button v-show="prop.pages != 4" @click="$emit('page', 1);"  :class=buttoncss>
                 Next
             </button>
-            <button v-show="prop.pages == 4" @click="$emit('page', 0);"  :class=buttoncss>
+            <button v-show="prop.pages == 4" @click="$emit('page', 1);"  :class=buttoncss>
                 Submit
             </button>
         </div>

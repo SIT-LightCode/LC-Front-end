@@ -51,14 +51,14 @@ export const connectBackend = defineStore("connectBackend", () => {
         } else {
           loader.hide();
           mymodal.modalNormal("Error!", "response : " + errortext, "error");
-          return false;
+          return '';
         }
       }
     } catch (error) {
       loader.hide();
       mymodal.modalNormal("Error!", "Error:" + error, "error");
       console.error("Error:", error);
-      return false;
+      return '';
     }
   };
 

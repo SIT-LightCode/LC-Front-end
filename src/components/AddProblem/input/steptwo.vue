@@ -22,12 +22,12 @@ const example = ref({
 
 const checkValue = () => {
     let errorText = ""
-    example.value.example.val.forEach((data) => {
-        data.forEach((da) => {
-            console.log(da)
+    example.value.example.val.forEach((data,key1) => {
+        data.forEach((da,key2) => {
             if (da == '') {
                 errorText = errorText + "\n Error example: you are not have example"
             }
+            example.value.example.val[key1][key2] = da.trim()
         })
     })
 

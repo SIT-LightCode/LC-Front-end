@@ -40,7 +40,7 @@ const upSetProblem = () => {
     console.log(text)
     myproblemCon.AddProblem(
         inputProblemData.value.arrayTagId,
-        inputProblemData.value.name,
+        inputProblemData.value.name.trim(),
         inputProblemData.value.description,
         inputProblemData.value.solution,
         exampleParameter,
@@ -72,7 +72,7 @@ mylearningCon.getAllTag()
     <statusInput class="p-1" :pageAdd="page" />
 
     <div class="p-5">
-        <stepone v-if="page == 1" :name="inputProblemData.name" :description="inputProblemData.description"
+        <stepone v-if="page == 1" :name="inputProblemData.name.trim()" :description="inputProblemData.description"
             @returnval="(e1) => { setValueFunc(e1); changePage(1); }" />
         <steptwo v-else-if="page == 2" :example="inputProblemData.example" @returnval="(e1) => { setValueFunc(e1) }"
             @page="(e1) => { changePage(e1) }" />

@@ -29,32 +29,34 @@ export const learningCon = defineStore("learningCon", () => {
     );
 
     myconnectBackend.connectBack(querys).then(async (data) => {
-          tagList.value = data["data"]["getTag"];
+      if (data != "") {
+        tagList.value = data["data"]["getTag"];
+      }
     });
   };
 
   const addContent = async (querys) => {
     myconnectBackend.connectBack(querys).then((res) => {
-      if (res.ok) {
+      if (res != "") {
+        getAllTag();
         mymodal.modalNormal(
           "Complete!",
           "this operation is success.",
           "success"
         );
-        getAllTag();
       }
     });
   };
 
   const deleteContent = async (querys) => {
     myconnectBackend.connectBack(querys).then((res) => {
-      if (res.ok) {
+      if (res != "") {
+        getAllTag();
         mymodal.modalNormal(
           "Deleted!",
           "This Content has been deleted.",
           "success"
         );
-        getAllTag();
       }
     });
   };

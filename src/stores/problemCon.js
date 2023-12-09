@@ -41,7 +41,9 @@ export const problemCon = defineStore("problemCon", () => {
       }
     );
     myconnectBackend.connectBack(querys).then(async (data) => {
-      problemList.value = data["data"]["getProblem"];
+      if (data != "") {
+        problemList.value = data["data"]["getProblem"];
+      }
     });
   };
 

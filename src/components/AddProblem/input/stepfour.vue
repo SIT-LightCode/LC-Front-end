@@ -31,7 +31,7 @@ const checkValue = () => {
 
 
 const valuetoaddpage = async (e1) => {
-    if (e1 == 0) {
+    if (e1 ==1) {
         if (checkValue()) {
             emit('page', e1);
             emit('returnval', input.value);
