@@ -1,7 +1,12 @@
 <script setup>
+<<<<<<< HEAD
 import vmdeditor from '../../learning/VmdEditor.vue';
 import { modalSwal } from "../../../stores/Modal.js";
 import buttonPage from "../../button/ButtonPage.vue"
+=======
+import vmdeditor from '../../Learning/vmdeditor.vue';;
+import { modalSwal } from "../../../stores/modal.js";
+>>>>>>> origin/tuskingcup-patch-1
 import { ref, computed } from "vue";
 
 const emit = defineEmits(['returnval'])
