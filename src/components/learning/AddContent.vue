@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue"
-import VmdEditor from "./vmdeditor.vue"
+import VmdEditor from "./VmdEditor.vue"
 import * as gql from "gql-query-builder"
 import buttonvue from "../button/Button.vue"
 import { modalSwal } from "../../stores/modal.js"
