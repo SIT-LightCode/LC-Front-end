@@ -1,9 +1,8 @@
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
-import { ref } from "vue";
-
-import Navbar from "./components/main/Navber.vue";
-import Sidebar from "./components/main/Sidebar.vue";
+import { RouterLink, RouterView } from 'vue-router'
+import { ref} from 'vue'
+import Navbar from "./components/main/NavBar.vue";
+import Sidebar from "./components/main/SideBar.vue";
 
 const links = ref([
   { message: "Home", path: "/" },
@@ -26,34 +25,13 @@ const openCloseSidebar = (isShow) => {
     <Navbar />
     <Sidebar @openCloseSidebarEmit="openCloseSidebar" />
     <!-- main -->
-    <div class="grid grid-cols-12">
-      <div
-        class="col-start-1 px-14col-start-1 col-span-12 px-14 pt-16 tansition-all"
-      >
-        <RouterView class="" />
+    <div class="grid grid-cols-12 ">
+      <div class="col-start-1 px-14col-start-1 col-span-12 px-14 pt-10 tansition-all" >
+            <RouterView class=""/>
       </div>
     </div>
   </div>
 
-  <!--  -->
-
-  <!-- footer -->
-  <!-- <footer class="w3-container w3-padding-32 w3-light-grey w3-center " id="footer" style="margin-left:300px">
-    <div class="w3-row-padding">
-      <div class="w3-col s4">
-        <h4>Contact</h4>
-      </div>
-
-      <div class="w3-col s4">
-        <h4>About</h4>
-      </div>
-
-      <div class="w3-col s4 ">
-        <h4>Store</h4>
-      </div>
-    </div>
-  </footer> -->
-  <!--  -->
 </template>
 
 <style scoped>

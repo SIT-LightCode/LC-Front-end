@@ -1,7 +1,7 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
 import { computed, ref } from "vue";
-import { modalSwal } from "../stores/modal.js";
-import { connectBackend } from "../stores/connectbackend.js";
+import { modalSwal } from "./Modal.js";
+import { connectBackend } from "./ConnectBackend.js";
 
 import * as gql from "gql-query-builder";
 
@@ -12,6 +12,13 @@ export const problemCon = defineStore("problemCon", () => {
   let problemList = ref({});
 
   const getAllproblem = async () => {
+    //   let querys = gql.query({
+    //     operation: 'getTag',
+    //     fields: ['id', 'topic', 'description', 'description', { lesson: ['id', 'name', 'content'] }]
+    //     ,
+    // }, undefined, {
+    //     operationName: 'GetTag'
+    // })
     let querys = gql.query(
       {
         operation: "getProblem",
@@ -19,17 +26,12 @@ export const problemCon = defineStore("problemCon", () => {
           "id",
           "name",
           {
-            tagProblem: [
-              "id",
-              { tag: ["id", "topic"] },
-              { problem: ["id", "name"] },
-            ],
+            tagProblem: ["id", { tag: ["id", "topic", "description"] }],
           },
           "description",
-          "solution",
-          "typeParameter",
+          "exampleParameter",
           { example: ["id", "input", "output"] },
-          { testcase: ["id", "input", "output"] },
+          "level",
           "totalScore",
         ],
       },
@@ -38,18 +40,9 @@ export const problemCon = defineStore("problemCon", () => {
         operationName: "GetProblem",
       }
     );
-    myconnectBackend.connectBack(querys).then(async (res) => {
-      if (res.ok) {
-        await res
-          .json()
-          .then((data) => {
-            console.log(data);
-            // problemList.value = data["data"]["getTag"];
-          })
-          .catch((error) => {
-            mymodal.modalNormal("Error!", error, "error");
-            console.error("Error:", error);
-          });
+    myconnectBackend.connectBack(querys).then(async (data) => {
+      if (data != "") {
+        problemList.value = data["data"]["getProblem"];
       }
     });
   };
@@ -117,48 +110,18 @@ export const problemCon = defineStore("problemCon", () => {
         operationName: "UpsertProblem ",
       }
     );
-    // const query = {
-    //   query: `mutation UpsertProblem {\n  upsertProblem(\n
-    //     id: ${null}\n
-    //     arrayTagId: \"[${tagProblem}]\"\n
-    //     name: \"${nameProblem}\"\n
-    //     description: \"${descriptionProblem}\"\n
-    //     solution: \"\"\"\n
-    //           ${solutionProblem}
-    //           \"\"\"\n
-    //     exampleParameter:
-    //     \"\"\"\n
-    //                 ${exampleParameterProblem}
-    //                 \"\"\"\n
-    //     level:${totalScoreProblem}
-    //     \n
-    //     totalScore: ${levelProblem}
-    //     \n  ) {\n
-    //       id\n
-    //       name\n
-    //       description\n
-    //       solution\n
-    //       level\n
-    //       totalScore\n
-    //     }\n}`,
-    //   operationName: "UpsertProblem",
-    // };
-    console.log(query);
-    // myconnectBackend.connectBack(query).then(async (res) => {
-    //   if (res.ok) {
-    //     await res.json().then((data) => {
-    //       mymodal.modalNormal("Error!", data["errors"]["message"], "error");
-    //       // problemList.value = data["data"]["getTag"];
-    //     });
 
-    // mymodal.modalNormal(
-    //   "Complete!",
-    //   "this operation is success.",
-    //   "success"
-    //     // );
-    //   }
-    // });
+    myconnectBackend.connectBack(query).then(async (data) => {
+      if (data["data"] != undefined) {
+        mymodal.modalNormal(
+          "Complete!",
+          "this operation is success.",
+          "success"
+        );
+        getAllproblem();
+      }
+    });
   };
 
-  return { problemList, AddProblem };
+  return { problemList, AddProblem, getAllproblem };
 });

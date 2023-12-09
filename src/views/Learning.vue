@@ -1,10 +1,10 @@
 <script setup>
-import { learningCon } from "../stores/learningCon.js"
+import { learningCon } from "../stores/LearningCon.js"
 import { ref, onBeforeMount } from "vue"
 import { computed } from "@vue/reactivity"
-import LearningContent from "../components/Learning/Learningcontent.vue"
-import LearningList from "../components/Learning/LearningList.vue"
-import Addcontent from "../components/Learning/Addcontent.vue"
+import LearningContent from "../components/learning/LearningContent.vue"
+import LearningList from "../components/learning/LearningList.vue"
+import Addcontent from "../components/learning/AddContent.vue"
 
 const mylearningCon = learningCon()
 

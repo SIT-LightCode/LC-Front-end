@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from "vue"
-import VmdEditor from "./VmdEditor.vue"
+import VmdEditor from "./vmdeditor.vue"
 import * as gql from "gql-query-builder"
-import buttonvue from "../button/button.vue"
+import buttonvue from "../button/Button.vue"
 import { modalSwal } from "../../stores/modal.js"
 const mymodal = modalSwal()
 
@@ -29,10 +29,10 @@ const clearInput = async (value) => {
 }
 const checkValue = (selectid) => {
 	let errorText = ""
-	if (text.value == "") {
+	if (text.value.trim() == "") {
 		errorText = errorText + "\n Error Content: Dont has value for content"
 	}
-	if (newnamecontent.value == "" || newnamecontent.value.length > 255) {
+	if (newnamecontent.value.trim() == "" || newnamecontent.value.length > 255) {
 		errorText = errorText + "\n Error Name: input value invaild "
 	}
 	if (selectid == 0) {
@@ -76,8 +76,8 @@ const clickAddEdit = async (value) => {
 							value: {
 								id: id,
 								tagId: selectid,
-								name: newnamecontent.value,
-								content: text.value,
+								name: newnamecontent.value.trim(),
+								content: text.value.trim(),
 							},
 							type: "LessonInput",
 							required: true,

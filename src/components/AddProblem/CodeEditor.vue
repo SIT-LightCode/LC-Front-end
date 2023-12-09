@@ -9,7 +9,7 @@ import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism-tomorrow.css'; // import syntax highlighting styles
 
-import buttomSubmit from "../button/button.vue"
+import buttomSubmit from "../button/ButtonPage.vue"
 import { ref, onBeforeMount } from "vue";
 const emit = defineEmits(['code'])
 
@@ -24,7 +24,7 @@ const highlighter = (code) => {
 <template>
   <div class="">
     <prism-editor class="my-editor" v-model="code" :highlight="highlighter"   line-numbers :tabSize="5"></prism-editor>
-    <buttomSubmit :name="'submit'" @buttonClick="$emit('code', code);"></buttomSubmit>
+    <buttomSubmit :pages="4" :name="'submit'" @buttonClick="$emit('code', code);"></buttomSubmit>
   </div>
 </template>
   
