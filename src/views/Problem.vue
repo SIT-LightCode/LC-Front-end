@@ -1,5 +1,5 @@
 <script setup>
-import fillerBar from '../components/problem/FillerBar.vue';
+import filterBar from '../components/problem/FilterBar.vue';
 import listProblem from '../components/problem/ListProblem.vue';
 
 </script>
@@ -8,7 +8,7 @@ import listProblem from '../components/problem/ListProblem.vue';
         <div class="flex">
         <!-- Filter-->
 
-        <fillerBar></fillerBar>
+        <filterBar></filterBar>
         <!--  -->
 
        <listProblem></listProblem>
