@@ -12,13 +12,13 @@ export const problemCon = defineStore("problemCon", () => {
   let problemList = ref({});
 
   const getAllproblem = async () => {
-  //   let querys = gql.query({
-  //     operation: 'getTag',
-  //     fields: ['id', 'topic', 'description', 'description', { lesson: ['id', 'name', 'content'] }]
-  //     ,
-  // }, undefined, {
-  //     operationName: 'GetTag'
-  // })
+    //   let querys = gql.query({
+    //     operation: 'getTag',
+    //     fields: ['id', 'topic', 'description', 'description', { lesson: ['id', 'name', 'content'] }]
+    //     ,
+    // }, undefined, {
+    //     operationName: 'GetTag'
+    // })
     let querys = gql.query(
       {
         operation: "getProblem",
@@ -26,23 +26,11 @@ export const problemCon = defineStore("problemCon", () => {
           "id",
           "name",
           {
-            tagProblem: [
-              "id",
-              { tag: 
-                  ["id", 
-                  "topic", 
-                  "description"
-                  ] 
-              },
-            ],
+            tagProblem: ["id", { tag: ["id", "topic", "description"] }],
           },
           "description",
           "exampleParameter",
-          { example: [
-              "id", 
-              "input", 
-              "output"] 
-          },
+          { example: ["id", "input", "output"] },
           "level",
           "totalScore",
         ],
@@ -52,18 +40,8 @@ export const problemCon = defineStore("problemCon", () => {
         operationName: "GetProblem",
       }
     );
-    myconnectBackend.connectBack(querys).then(async (res) => {
-      if (res.ok) {
-        await res
-          .json()
-          .then((data) => {
-            problemList.value = data["data"]["getProblem"];
-          })
-          .catch((error) => {
-            mymodal.modalNormal("Error!", error, "error");
-            console.error("Error:", error);
-          });
-      }
+    myconnectBackend.connectBack(querys).then(async (data) => {
+      problemList.value = data["data"]["getProblem"];
     });
   };
 
@@ -131,19 +109,14 @@ export const problemCon = defineStore("problemCon", () => {
       }
     );
 
-    console.log(query);
-    myconnectBackend.connectBack(query).then(async (res) => {
-      if (res.ok) {
-        await res.json().then(async (data) => {
-          // mymodal.modalNormal("Error!", data["errors"]["message"], "error");
-          // problemList.value = data["data"]["getTag"];
-        });
-
+    myconnectBackend.connectBack(query).then(async (data) => {
+      if (data["data"] != undefined) {
         mymodal.modalNormal(
           "Complete!",
           "this operation is success.",
           "success"
         );
+        getAllproblem();
       }
     });
   };

@@ -35,6 +35,7 @@ const checkValue = () => {
 
 
 const valuetoaddpage = async () => {
+    
     if (checkValue()) {
         emit('returnval', input.value);
     }
@@ -59,7 +60,7 @@ const classObject = computed(() => {
         problem * </label>
     <vmdeditor v-model="input.description.val" />
 
-    <buttonPage @page="(e1) => { valuetoaddpage() }"></buttonPage>
+    <buttonPage :pages="1" @page="(e1) => { valuetoaddpage(e1) }"></buttonPage>
 </template>
  
 <style></style>

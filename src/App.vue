@@ -1,7 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import { ref} from 'vue'
-import loading from './components/loader/loading.vue';
 import Navbar from "./components/main/NavBar.vue";
 import Sidebar from "./components/main/SideBar.vue";
 
@@ -35,7 +34,6 @@ const openCloseSidebar = (isShow) =>{
       </div>
     </div>
   </div>
-<loading></loading>
 
 </template>
 
