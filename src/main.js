@@ -49,9 +49,6 @@ import hljs from 'highlight.js';
 
 
 
-import {LoadingPlugin} from 'vue-loading-overlay';
-import 'vue-loading-overlay/dist/css/index.css';
-
 
 
 VMdPreview.use(githubTheme, {
@@ -74,7 +71,6 @@ app.use(createPinia())
 app.use(VMdEditor);
 app.use(VMdPreview);
 
-app.use(LoadingPlugin);
 
 app.mount('#app')
 
