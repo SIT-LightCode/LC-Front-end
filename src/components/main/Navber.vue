@@ -3,10 +3,10 @@
     import { ref} from 'vue'
     const links = ref([
         { message:'Home',path:'/' }, 
-        { message:'Problem' ,path:'/Problem'}, 
-        { message:'Learning', path:'/Learning'},
-        { message:'Addproblem', path:'/Addproblem'},
-        { message:'About', path:'/About'},
+        { message:'Problem' ,path:'/problem'}, 
+        { message:'Learning', path:'/learning'},
+        { message:'Add problem', path:'/add-problem'},
+        { message:'About', path:'/about'},
 ])
 </script>
 
