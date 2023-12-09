@@ -1,21 +1,3 @@
-<!-- <script setup>
-import { ref } from "vue"
-import CodeEditor from '../CodeEditor.vue';
-
-const emit = defineEmits(['returnval'])
-const input = ref({ solution: { type: 'solution', val: '' } })
-
-const setValue = (value) => {
-    input.value.solution.val = value
-    emit('returnval', input.value);
-}
-</script>
- 
-
- 
-<style></style> -->
-
-
 <script setup>
 import { PrismEditor } from 'vue-prism-editor';
 import 'vue-prism-editor/dist/prismeditor.min.css';
@@ -28,9 +10,13 @@ import 'prismjs/themes/prism-tomorrow.css';
 import buttomSubmit from "../../button/ButtonPage.vue"
 import { ref, onBeforeMount } from "vue";
 const emit = defineEmits(['returnval','page'])
+const prop = defineProps({
+    solution: {
+        type: String,
+    }
+})
 
-
-const input = ref({ solution: { type: 'solution', val: 'const answer = (input) => {\n \n \n 	//Code Here \n console.log(input)   \n \n \n \n  }' } })
+const input = ref({ solution: { type: 'solution', val: prop.solution } })
 
 const checkValue = () => {
     let errorText = ""
@@ -47,11 +33,13 @@ const checkValue = () => {
 const valuetoaddpage = async (e1) => {
     if (e1 == 0) {
         if (checkValue()) {
+            emit('page', e1);
             emit('returnval', input.value);
         }
     }
     else {
         emit('page', e1);
+        emit('returnval', input.value);
     }
 }
 
@@ -62,36 +50,27 @@ const highlighter = (code) => {
 </script>
 
 <template>
-    <div class="">
-        <h3>Solution for the problem * </h3>
+        <h3 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Solution for the problem * </h3>
         <prism-editor class="my-editor" v-model="input.solution.val" :highlight="highlighter" line-numbers
             :tabSize="5"></prism-editor>
         <buttomSubmit :pages="4" @page="(e1) => { valuetoaddpage(e1) }"></buttomSubmit>
-    </div>
 </template>
   
 <style>
-/* required class */
 .my-editor {
-    /* we dont use `language-` classes anymore so thats why we need to add background and text color manually */
     background: #2d2d2d;
     color: #ccc;
 
-    /* you must provide font-family font-size line-height. Example: */
     font-family: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace;
     font-size: 14px;
     line-height: 1.5;
     padding: 5px;
     height: 450px;
 
-    /*  */
     margin-top: 2rem;
     display: flex;
     position: relative;
 
 }
 
-/* optional class for removing the outline */
-/* .prism-editor__textarea:focus {
-  outline: none;
-} */</style>
+</style>

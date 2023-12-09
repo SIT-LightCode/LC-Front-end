@@ -38,12 +38,15 @@ const checkValue = () => {
 }
 
 const inputExam = (e1) => {
+    
     if (e1 > 0) {
         if (checkValue()) {
             emit('page', e1)
+            emit('returnval', example)
         }
     } else {
         emit('page', e1)
+        emit('returnval', example)
     }
 
 }
@@ -70,45 +73,61 @@ const addDeleteExample = (type, id) => {
         }
     }
 }
-
+const text = 
+'# Example parameter for your problem\n'+
+' ## example : \n '+ 
+' 1 ; if parameters is text or Number \n '+ 
+'1,2,3,4,5,6 ; if parameters is array \n '+ 
+'** You can insert up to 4 parameters. and add  up to 4 examples**'
 </script>
  
 <template>
-    <div class=" mb-2 text-sm font-medium text-gray-900 dark:text-white">
-        <h3>Example parameters for problem</h3>
-        <div>
-            <h2>example :</h2>
-            <p>1 -- if parameters is text or Number</p>
-            <p>1,2,3,4,5,6 -- if parameters is array </p>
+    <div class=" mb-2 text-sm font-medium text-gray-900 dark:text-white ">
+        <div class="p-3 mx-5">
+            <v-md-preview :text="text"></v-md-preview>
         </div>
-        <div v-for="( i, key1 ) of example.example.val">
+        <div v-for="( i, key1 ) of example.example.val" class="py-5 ">
             <h3>Example [{{ key1 + 1 }}]</h3>
-            <div v-for="( j, key2) of i">
-                <h3>Parameters [{{ key2 + 1 }}]</h3>
-                <input rows="4" v-bind:class="csstextarea" v-model="example.example.val[key1][key2]"
-                    @change="$emit('returnval', example)" />
+            <div class="flex flex-row">
+                <div v-for="( j, key2) of i" class="flex flex-row py-3 ">
+                    <h3 class="place-self-center px-5">Parameters [{{ key2 + 1 }}]</h3>
+                    <input rows="4" v-bind:class="csstextarea" v-model="example.example.val[key1][key2]" />
+                </div>
+                <div class="flex flex-col ">
+                    <button :disabled="example.example.val[key1].length > 3"
+                        class=" text-gray-900 dark:text-white rounded-full flex-auto w-25 p-3 mx-5 my-1"
+                        :class="[example.example.val[key1].length > 3 ? 'bg-gray-300 ' : 'bg-blue-400 hover:bg-blue-500']"
+                        @click="addDeleteExample('add', key1)">
+                        Add parameter
+                    </button>
+                    <button :disabled="example.example.val[key1].length <= 1"
+                        class="text-gray-900 dark:text-white rounded-full flex-auto w-25 p-3 mx-5 my-1"
+                        :class="[example.example.val[key1].length <= 1 ? 'bg-gray-300 ' : 'bg-blue-400 hover:bg-blue-500']"
+                        @click="addDeleteExample('delete', key1)">
+                        Delete parameter
+                    </button>
+
+
+                </div>
+
             </div>
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-                @click="addDeleteExample('add', key1)">
-                Add parameter
-            </button>
-            <button v-show="example.example.val[key1].length > 1"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-                @click="addDeleteExample('delete', key1)">
-                Delete parameter
-            </button>
+
+
+
         </div>
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+        <button :disabled="example.example.val.length > 3" 
+            class=" text-gray-900 dark:text-white font-bold m-2 py-2 px-4 rounded-full"
+            :class="[example.example.val.length > 3 ? 'bg-gray-300 ' : 'bg-blue-400 hover:bg-blue-500']"
             @click="addDeleteExample('add')">
             Add Example parameter
         </button>
-        <button v-show="example.example.val.length > 1"
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+        <button :disabled="example.example.val.length <= 1"
+            class=" text-gray-900 dark:text-white font-bold m-2 py-2 px-4 rounded-full"
+            :class="[example.example.val.length <= 1 ? 'bg-gray-300 ' : 'bg-blue-400 hover:bg-blue-500']"
             @click="addDeleteExample('delete')">
             Delete Example parameter
         </button>
     </div>
-    <!-- <buttonPage @page="(e1) => { $emit('page', e1) }"></buttonPage> -->
     <buttonPage :pages="2" @page="(e1) => { inputExam(e1) }"></buttonPage>
 </template>
  

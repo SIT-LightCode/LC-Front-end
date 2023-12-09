@@ -29,7 +29,7 @@ const openCloseSidebar = (isShow) =>{
     <Sidebar @openCloseSidebarEmit="openCloseSidebar"/>
     <!-- main -->
     <div class="grid grid-cols-12 ">
-      <div class="col-start-1 px-14col-start-1 col-span-12 px-14 pt-16 tansition-all" >
+      <div class="col-start-1 px-14col-start-1 col-span-12 px-14 pt-10 tansition-all" >
             <RouterView class=""/>
       </div>
     </div>
