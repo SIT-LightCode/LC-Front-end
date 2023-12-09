@@ -13,8 +13,9 @@ const prop = defineProps({
 	<div v-if="contents.length > 0" class="flex ">
 		
 		<IconAdd @click="$emit('addstatus', 'add')" class="fixed transition right-6 bottom-6 w-20 h-20 hover:text-blue-500 hover:cursor-pointer"/>
-		<b class="text-black">List Topic</b>
 		<div class="flex flex-col space-y-5">
+
+			<b class="text-black">List Topic</b>
 			<div
 				v-for="topic in contents"
 				class="flex flex-col content-center text-black "

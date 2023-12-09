@@ -12,6 +12,7 @@ const prop = defineProps({
 	datas: Object,
 	type: String,
 	List: Object,
+
 })
 
 const selectedObjectNew = ref(0)
@@ -101,6 +102,7 @@ if (prop.datas != undefined) {
 	newnamecontent.value = prop.datas.lesson.name
 	text.value = prop.datas.lesson.content
 }
+
 </script>
 
 <template>
@@ -109,8 +111,8 @@ if (prop.datas != undefined) {
 	<div class="w3-container w3-card w3-white w3-margin-bottom">
 		<hr />
 		<div>
-			<button @click="$emit('addstatus', 'list')">Back</button>
-			<div v-if="prop.type == 'Add'" class="w3-text-grey w3-padding-16">
+			<buttonvue @buttonClick="$emit('addstatus', 'list')" :name="'Back'"></buttonvue>
+			<div v-if="prop.type == 'Add'" class="text-gray-900 text-sm">
 				<label for="objectSelect"> Select tag for content to add: </label>
 				<select id="objectSelect" v-model="selectedObjectNew">
 					<option :value="null" disabled>Select an object</option>
@@ -119,20 +121,15 @@ if (prop.datas != undefined) {
 					</option>
 				</select>
 			</div>
-			<div class="w3-text-grey w3-padding-16">
-				Name: <input v-model="newnamecontent" />
+			<div class="text-gray-900 text-sm m-5">
+				Name: <input v-model="newnamecontent"
+					class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
 			</div>
 			<div class="w3-container">
 				<VmdEditor v-model="text"></VmdEditor>
 				<hr />
-				<buttonvue
-					@buttonClick="(value) => clearInput(value)"
-					:name="'clear'"
-				/>
-				<buttonvue
-					@buttonClick="(value) => clickAddEdit(value)"
-					:name="prop.type"
-				/>
+				<buttonvue @buttonClick="(value) => clearInput(value)" :name="'clear'" />
+				<buttonvue @buttonClick="(value) => clickAddEdit(value)" :name="prop.type" />
 				<hr />
 			</div>
 		</div>

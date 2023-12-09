@@ -30,39 +30,30 @@ const conBackend = (type, query) => {
 
 const selectLesson = (lesson, id) => {
 	currentlesson.value = { lesson, id: id }
-	status.value = "show"
 }
 </script>
 
 <template>
 	<div class="">
-		{{ status }}
-		<div v-show="status == 'add'">
-			<Addcontent
-				:List="mylearningCon.tagList"
-				:type="'Add'"
-				@addstatus="(e) => (status = e)"
-				@addfunc="(e, query) => conBackend(e, query)"
-			></Addcontent>
+		<div v-if="status == 'add'">
+			<Addcontent :List="mylearningCon.tagList" :type="'Add'" @addstatus="(e) => (status = e)"
+				@addfunc="(e, query) => conBackend(e, query)"></Addcontent>
 		</div>
-		<div v-show="status == 'list'">
+		<div v-if="status == 'edit'">
+			<Addcontent :datas="currentlesson" :type="'Edit'"  @addstatus="(e) => (status = e)"
+			@addfunc="(e, query) => conBackend(e, query)"></Addcontent>
+		</div>
+		<div class="flex" v-show="status == 'list'">
 			<!-- Sidebar/menu -->
-			<LearningList
-				:contents="mylearningCon.tagList"
-				@selected="selectLesson"
-				@addstatus="(e) => (status = e)"
-			>
+			<LearningList class="flex-initial w-32 " :contents="mylearningCon.tagList" @selected="selectLesson"
+				@addstatus="(e) => (status = e)">
 			</LearningList>
-		</div>
-		<div v-show="status == 'show'">
 			<!-- context -->
-			<LearningContent
-				:contents="currentlesson"
-				@buttonemit="(e, e1) => conBackend(e, e1)"
-				@addstatus="(e) => (status = e)"
-			></LearningContent>
+			<LearningContent class="flex-initial w-64 " :contents="currentlesson" @buttonemit="(e, e1) => conBackend(e, e1)"
+				@addstatus="(e) => (status = e)"></LearningContent>
 			<!--  -->
 		</div>
+
 	</div>
 </template>
 

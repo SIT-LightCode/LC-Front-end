@@ -36,7 +36,7 @@ const buttonDeleteFunc = () => {
 	<div
 		class="w3-main w3-padding-64"
 		style="margin-left: 300px; margin-right: 100px"
-	><button @click="$emit('addstatus', 'list')">Back</button>
+	>
 		<div v-if="contents.id != null" class="w3-container w3-card w3-white">
 			<div>{{contents.lesson.name  }}
 				<div class="w3-container" v-if="!isEdit">
@@ -46,9 +46,13 @@ const buttonDeleteFunc = () => {
 						@buttonClick="buttonDeleteFunc()"
 						:name="'delete'"
 					></ButtonVue>
-					<button @click="isEdit = !isEdit">Edit</button>
+					<ButtonVue 
+						@buttonClick=" $emit('addstatus','edit')"
+						:name="'change to edit'"
+					></ButtonVue>
+
 				</div>
-				<div class="w3-container" v-else-if="isEdit">
+				<!-- <div class="w3-container" v-else-if="isEdit">
 					<Addcontent
 						@addstatus="(e) => (isEdit = e)"
 						:datas="contents"
@@ -60,7 +64,7 @@ const buttonDeleteFunc = () => {
 							}
 						"
 					></Addcontent>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div>
