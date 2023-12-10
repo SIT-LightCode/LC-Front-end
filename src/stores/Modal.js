@@ -10,7 +10,7 @@ export const modalSwal = defineStore("modalSwal", () => {
       text: text,
       icon: "question",
       showCancelButton: true,
-      confirmButtonText: "Yes, " + type + " it!",
+      confirmButtonText: "Yes, " + type.toLowerCase() + " it!",
       cancelButtonText: "No, cancel!",
       reverseButtons: true,
     }).then((result) => {

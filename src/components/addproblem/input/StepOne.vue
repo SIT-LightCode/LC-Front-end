@@ -50,13 +50,13 @@ const classObject = computed(() => {
 <template>
     <div class="mb-6">
         <label for="success" class="block mb-2  text-sm font-medium text-gray-900 dark:text-white">Name of problem want
-            to create *</label>
+            to create <span class="text-red">*</span></label>
 
         <input :maxlength="30" type="text" v-bind:class="classObject" placeholder="" v-model="input.name.val">
 
     </div>
     <label for="success" class="block  mb-2 text-sm font-medium text-gray-900 dark:text-white">Description for the
-        problem * </label>
+        problem <span class="text-red">*</span></label>
     <vmdeditor v-model="input.description.val" />
 
     <buttonPage :pages="1" @page="(e1) => { valuetoaddpage(e1) }"></buttonPage>

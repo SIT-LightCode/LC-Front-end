@@ -32,16 +32,16 @@ const buttonDeleteFunc = () => {
 
 <template>
 	<!-- contents  -->
-	<div class="flex" style="margin-left: 100px; margin-right: 100px;">
-		<div v-if="contents.id != null" class="border-2 rounded-lg p-5 ">
+	<div class="">
+		<div v-if="contents.id != null" class="border-2 rounded-lg p-5 min-h-max">
 			<div>
-				<div class="max-w-screen-md break-all">{{ contents.lesson.name }}</div>
-				<div class="min-w-max " v-if="!isEdit">
+				<div class="break-all">{{ contents.lesson.name }}</div>
+				<div class="" v-if="!isEdit">
 					<v-md-preview :text="contents.lesson.content"></v-md-preview>
 					<hr />
-					<div class="m-3">
-						<ButtonVue @buttonClick="buttonDeleteFunc()" :name="'delete'"></ButtonVue>
-						<ButtonVue @buttonClick=" $emit('addstatus', 'edit')" :name="'change to edit'"></ButtonVue>
+					<div class="flex justify-end mt-5 mr-5">
+						<ButtonVue @buttonClick="buttonDeleteFunc()" :name="'Delete'"></ButtonVue>
+						<ButtonVue @buttonClick=" $emit('addstatus', 'edit')" :name="'Edit'"></ButtonVue>
 					</div>
 
 

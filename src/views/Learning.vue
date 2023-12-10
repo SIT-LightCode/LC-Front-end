@@ -43,16 +43,18 @@ const selectLesson = (lesson, id) => {
 			<Addcontent :datas="currentlesson" :type="'Edit'"  @addstatus="(e) => (status = e)"
 			@addfunc="(e, query) => conBackend(e, query)"></Addcontent>
 		</div>
-		<div class="flex" v-show="status == 'list'">
-			<!-- Sidebar/menu -->
-			<LearningList class="flex-initial " :contents="mylearningCon.tagList" @selected="selectLesson"
-				@addstatus="(e) => (status = e)">
-			</LearningList>
-			<!-- context -->
-			<LearningContent class="flex-initial " :contents="currentlesson" @buttonemit="(e, e1) => conBackend(e, e1)"
-				@addstatus="(e) => (status = e)"></LearningContent>
-			<!--  -->
-		</div>
+		<div class="flex space-x-20" v-show="status == 'list'">
+    <!-- Sidebar/menu -->
+    <LearningList class="" :contents="mylearningCon.tagList" @selected="selectLesson"
+        @addstatus="(e) => (status = e)">
+    </LearningList>
+
+    <!-- Full-width content -->
+    <div class="flex-1">
+        <LearningContent class="w-full" :contents="currentlesson" @buttonemit="(e, e1) => conBackend(e, e1)"
+            @addstatus="(e) => (status = e)"></LearningContent>
+    </div>
+</div>
 
 	</div>
 </template>
