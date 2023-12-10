@@ -1,11 +1,20 @@
 <script setup>
-import { ref, onBeforeMount } from 'vue'
+import { ref, defineProps } from 'vue'
 import IconAdd from '../icons/IconAdd.vue'
-defineEmits(['selected', 'topic', 'id', 'addstatus'])
 
-const prop = defineProps({
+// Capture the emit function
+const emit = defineEmits(['selected', 'addstatus'])
+
+const props = defineProps({
   contents: Object,
 })
+
+const selectedLesson = ref(1)
+
+const handleLessonClick = (lesson, topicId) => {
+  selectedLesson.value = lesson.id
+  emit('selected', lesson, topicId) // Use the emit function directly
+}
 </script>
 
 <template>
@@ -22,16 +31,17 @@ const prop = defineProps({
           >
             <div id="topic-name" class="font-bold text-xl">{{ topic['topic'] }}</div>
             <div
-              v-if="topic.lesson.length > 0"
               v-for="lesson in topic.lesson"
-              @click="$emit('selected', lesson, topic.id)"
-              class="text-black transition hover:border-blue-500 border-b-2 hover:text-blue-500 hover:cursor-pointer"
+              @click="handleLessonClick(lesson, topic.id)"
+              :class="
+                lesson.id === selectedLesson
+                  ? 'text-black transition border-blue-500 border-b-2 text-blue-600 cursor-pointer'
+                  : 'text-black transition border-b-2 hover:text-blue-400 hover:cursor-pointer'
+              "
             >
               {{ lesson.name }}
             </div>
-            <div v-else>
-              <div><b style="color: red"> No lesson </b></div>
-            </div>
+            <div v-show="topic.lesson == null"><b style="color: red"> No lesson </b></div>
           </div>
         </div>
       </div>
