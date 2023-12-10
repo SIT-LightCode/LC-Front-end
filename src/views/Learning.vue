@@ -11,6 +11,25 @@ const mylearningCon = learningCon()
 const currentlesson = ref({})
 const status = ref('list')
 
+onBeforeMount(async () => {
+  await mylearningCon.getAllTag()
+
+  if (mylearningCon.tagList.length > 0) {
+    selectLesson(mylearningCon.tagList[0].lesson[0], mylearningCon.tagList[0].id)
+  } else {
+    setDefaultLesson()
+  }
+})
+
+const setDefaultLesson = () => {
+  if (mylearningCon.tagList[0]) {
+    currentlesson.value = {
+      lesson: mylearningCon.tagList[0].lesson[0],
+      id: mylearningCon.tagList[0].id,
+    }
+  }
+}
+
 const conBackend = (type, query) => {
   if (type == 'Delete') {
     mylearningCon.deleteContent(query)
@@ -28,24 +47,18 @@ const selectLesson = (lesson, id) => {
   currentlesson.value = { lesson, id: id }
 }
 
-onBeforeMount(async () => {
-	await mylearningCon.getAllTag();
-});
-
-const isObjectEmpty = (obj) => {
-  return Object.keys(obj).length == 0;
-}
-
-const currentValue = computed(() =>{
-	if(mylearningCon.tagList[0] !== undefined){
-		if(isObjectEmpty(currentlesson.value)){
-		currentlesson.value = { lesson: mylearningCon.tagList[0].lesson[0], id: mylearningCon.tagList[0].id };
-		}
-	}
-
-	return currentlesson.value 
+const currentSet = computed(() => {
+  if (Object.keys(currentlesson.value).length === 0) {
+    if (mylearningCon.tagList[0] !== undefined) {
+      return {
+        lesson: mylearningCon.tagList[0].lesson[0],
+        id: mylearningCon.tagList[0].id,
+      }
+    }
+  } else {
+    return currentlesson.value
+  }
 })
-
 </script>
 
 <template>
