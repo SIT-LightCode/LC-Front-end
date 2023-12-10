@@ -12,6 +12,18 @@ on:
         options:
           - stable
           - dev
+  push:
+    branches:
+      - main
+    inputs:
+      tag:
+        type: string
+        required: true
+        default: "alpha"
+      type:
+        type: string
+        required: true
+        default: dev
 
 
 jobs:
