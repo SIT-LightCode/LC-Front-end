@@ -9,7 +9,6 @@ export const connectBackend = defineStore("connectBackend", () => {
 
     try {
 
-
       const res = await fetch(`${import.meta.env.VITE_BASE_URL}`, {
         method: "POST",
         headers: {
