@@ -13,8 +13,7 @@ const status = ref("list")
 
 mylearningCon.getAllTag()
 const conBackend = (type, query) => {
-	console.log(type)
-	console.log(query)
+
 
 	if (type == "Delete") {
 		mylearningCon.deleteContent(query)
@@ -31,6 +30,17 @@ const conBackend = (type, query) => {
 const selectLesson = (lesson, id) => {
 	currentlesson.value = { lesson, id: id }
 }
+
+if (mylearningCon.tagList.length > 0) {
+	selectLesson(mylearningCon.tagList[0].lesson[0], mylearningCon.tagList[0].id)
+}
+
+const currentSet = computed(() => {
+	if (currentlesson.value == {}) {
+		return { lesson: mylearningCon.tagList[0].lesson[0], id: mylearningCon.tagList[0].id }
+	} else return currentlesson.value
+}
+)
 </script>
 
 <template>
@@ -40,8 +50,8 @@ const selectLesson = (lesson, id) => {
 				@addfunc="(e, query) => conBackend(e, query)"></Addcontent>
 		</div>
 		<div v-if="status == 'edit'">
-			<Addcontent :datas="currentlesson" :type="'Edit'"  @addstatus="(e) => (status = e)"
-			@addfunc="(e, query) => conBackend(e, query)"></Addcontent>
+			<Addcontent :datas="currentlesson" :type="'Edit'" @addstatus="(e) => (status = e)"
+				@addfunc="(e, query) => conBackend(e, query)"></Addcontent>
 		</div>
 		<div class="flex" v-show="status == 'list'">
 			<!-- Sidebar/menu -->
@@ -49,7 +59,7 @@ const selectLesson = (lesson, id) => {
 				@addstatus="(e) => (status = e)">
 			</LearningList>
 			<!-- context -->
-			<LearningContent class="flex-initial " :contents="currentlesson" @buttonemit="(e, e1) => conBackend(e, e1)"
+			<LearningContent class="flex-initial " :contents="currentSet" @buttonemit="(e, e1) => conBackend(e, e1)"
 				@addstatus="(e) => (status = e)"></LearningContent>
 			<!--  -->
 		</div>
