@@ -3,15 +3,6 @@ on:
   push:
     branches:
       - main
-    inputs:
-      tag:
-        type: string
-        required: true
-        default: "alpha"
-      type:
-        type: string
-        required: true
-        default: "dev"
 
 jobs:
   build-front-image:
@@ -22,6 +13,6 @@ jobs:
       uses: SIT-LightCode/LC-Deployment/actions/build-push-front@main
       with:
         image: "front-end"
-        tags: ${{ inputs.tag }}
-        type: ${{ inputs.type }}
+        tags: "automated"
+        type: "dev"
         ghcr_pat: ${{ secrets.GHCR_PAT }}
