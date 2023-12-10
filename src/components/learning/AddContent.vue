@@ -122,8 +122,8 @@ if (prop.datas != undefined) {
 				</select>
 			</div>
 			<div class="text-gray-900 text-sm m-5">
-				Name: <input v-model="newnamecontent"
-					class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+				Name: <input :maxlength="30" v-model="newnamecontent"
+					class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
 			</div>
 			<div class="w3-container">
 				<VmdEditor v-model="text"></VmdEditor>

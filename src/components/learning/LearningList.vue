@@ -18,12 +18,12 @@ const prop = defineProps({
 			<b class="text-black">List Topic</b>
 			<div
 				v-for="topic in contents"
-				class="flex flex-col content-center text-black "
+				class="flex flex-col  content-center text-black "
 			>
 				<div>
 					{{ topic["topic"] }}
 					<div
-						class="border-2  rounded-lg min-w-max p-5 flex flex-col space-y-5 "
+						class="border-2 rounded-lg p-5 flex flex-col w-64 space-y-5 text-ellipsis overflow-hidden "
 					>
 						<div
 							v-if="topic.lesson.length > 0"

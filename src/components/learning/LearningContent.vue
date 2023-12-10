@@ -32,38 +32,20 @@ const buttonDeleteFunc = () => {
 
 <template>
 	<!-- contents  -->
-	<div
-		class="w3-main w3-padding-64"
-		style="margin-left: 300px; margin-right: 100px"
-	>
-		<div v-if="contents.id != null" class="w3-container w3-card w3-white">
-			<div>{{contents.lesson.name  }}
-				<div class="w3-container" v-if="!isEdit">
+	<div class="flex" style="margin-left: 100px; margin-right: 100px;">
+		<div v-if="contents.id != null" class="border-2 rounded-lg p-5 ">
+			<div>
+				<div class="max-w-screen-md break-all">{{ contents.lesson.name }}</div>
+				<div class="max-w-screen-md" v-if="!isEdit">
 					<v-md-preview :text="contents.lesson.content"></v-md-preview>
 					<hr />
-					<ButtonVue
-						@buttonClick="buttonDeleteFunc()"
-						:name="'delete'"
-					></ButtonVue>
-					<ButtonVue 
-						@buttonClick=" $emit('addstatus','edit')"
-						:name="'change to edit'"
-					></ButtonVue>
+					<div class="m-3">
+						<ButtonVue @buttonClick="buttonDeleteFunc()" :name="'delete'"></ButtonVue>
+						<ButtonVue @buttonClick=" $emit('addstatus', 'edit')" :name="'change to edit'"></ButtonVue>
+					</div>
+
 
 				</div>
-				<!-- <div class="w3-container" v-else-if="isEdit">
-					<Addcontent
-						@addstatus="(e) => (isEdit = e)"
-						:datas="contents"
-						:type="'Edit'"
-						@addfunc="
-							(e, query) => {
-								$emit('buttonemit', e, query)
-								isEdit = false
-							}
-						"
-					></Addcontent>
-				</div> -->
 			</div>
 		</div>
 	</div>

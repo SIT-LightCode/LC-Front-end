@@ -20,18 +20,18 @@ const prop = defineProps({
     }
 })
 const emit = defineEmits(["returnval", "page"])
-const input = ref({ totalScore: { type: 'totalScore', val: prop.totalScore }, level: { type: 'level', val: prop.level }, arrayTagId: { type: 'arrayTagId', val: prop.arrayTagId} })
+const input = ref({ totalScore: { type: 'totalScore', val: prop.totalScore }, level: { type: 'level', val: prop.level }, arrayTagId: { type: 'arrayTagId', val: prop.arrayTagId } })
 const mymodal = modalSwal()
 
 const checkValue = () => {
     let errorText = ""
     if (input.value.totalScore.val < 0 || input.value.totalScore.val > 100) {
-        errorText = errorText + "\n Error totalScore: Dont has value for totalScore" 
+        errorText = errorText + "\n Error totalScore: Dont has value for totalScore"
     }
     if (input.value.level.val == "") {
         errorText = errorText + "\n Error level: input value level "
-    } 
-    if (input.value.arrayTagId.val.length == 0 ) {
+    }
+    if (input.value.arrayTagId.val.length == 0) {
         errorText = errorText + "\n Error arrayTagId: input value arrayTagId "
     }
     if (errorText != "") {
@@ -52,17 +52,26 @@ const inputdata = (e1) => {
     }
 
 }
+const limitVal = () => {
+    if (input.value.totalScore.val > 100
+    ) {
+        input.value.totalScore.val = 100
+    }
+    else if (input.value.totalScore.val < 1
+    ) {
+        input.value.totalScore.val = 1
+    }
+}
 </script>
  
 <template>
     <div>
         <h3>Setting Problem</h3>
         <div class="mb-6">
-            <label 
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> total-Score <div class="text-red-500">** insert value between 0 to 100 **</div>
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> total-Score <div
+                    class="text-red-500">** insert value between 0 to 100 **</div>
             </label>
-            <input type="Number" v-model="input.totalScore.val" 
-                min="1" max="100"
+            <input @change="limitVal()" type="Number" min="1" max="100" v-model="input.totalScore.val"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
         </div>
 
@@ -81,8 +90,7 @@ const inputdata = (e1) => {
         <h3 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white py-2.5">Choose tag for:</h3>
         <ul class="grid w-full gap-6 md:grid-cols-3">
             <li v-for="(topic, key ) in datas">
-                <input type="checkbox" :id=key class="hidden peer" :value=topic.id v-model="input.arrayTagId.val"
-                    >
+                <input type="checkbox" :id=key class="hidden peer" :value=topic.id v-model="input.arrayTagId.val">
                 <label :for=key
                     class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                     <div class="block">

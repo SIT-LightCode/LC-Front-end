@@ -21,7 +21,7 @@ const input = ref({ name: { type: 'name', val: prop.name }, description: { type:
 )
 const checkValue = () => {
     let errorText = ""
-    if (input.value.name.val.trim() == "" || input.value.name.val > 255) {
+    if (input.value.name.val.trim() == "" || input.value.name.val > 30) {
         errorText = errorText + "\n Error Content: Dont has value for name"
     }
     if (input.value.description.val.trim() == "") {
@@ -49,11 +49,12 @@ const classObject = computed(() => {
  
 <template>
     <div class="mb-6">
+        {{ input.name.val }}
         <label for="success" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name of problem want
             to create *</label>
 
 
-        <input type="text" id="error" v-bind:class="classObject" placeholder="" v-model="input.name.val">
+        <input :maxlength="30" type="text" v-bind:class="classObject" placeholder="" v-model="input.name.val">
 
     </div>
     <label for="success" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description for the

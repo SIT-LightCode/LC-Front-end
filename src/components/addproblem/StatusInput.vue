@@ -9,8 +9,8 @@ const descriptionOfStep = ['General information','Sample Parameter','Information
 </script>
  
 <template>
-    <div class="flex">
-        <div v-for="n in 4" class="flex-auto w-32 p-3 mx-5 flex justify-center rounded-1"
+    <div class="flex rounded-1">
+        <div v-for="n in 4" class="flex-auto w-32 p-3 mx-5 flex justify-center "
             :class="[n == prop.pageAdd ? 'bg-blue-300' : 'bg-gray-300']">
 
             <div class="flex flex-col mb-2 text-sm font-medium text-gray-900 dark:text-white">
