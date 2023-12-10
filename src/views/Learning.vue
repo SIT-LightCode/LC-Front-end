@@ -61,7 +61,7 @@ const currentSet = computed(() => {
         @addfunc="(e, query) => conBackend(e, query)"
       ></Addcontent>
     </div>
-    <div class="flex space-x-20" v-show="status == 'list'">
+    <div class="flex space-x-16" v-show="status == 'list'">
       <!-- Sidebar/menu with its own scroll bar -->
       <div class="learning-list-container" style="overflow-y: auto; max-height: 100vh">
         <LearningList
