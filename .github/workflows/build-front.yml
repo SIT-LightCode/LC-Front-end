@@ -7,7 +7,7 @@ on:
       type:
         description: 'type of image is stable or dev'
         required: true
-        default: 'dev'
+        default: dev
         type: choice
         options:
           - stable
@@ -20,14 +20,9 @@ on:
         type: string
         required: true
         default: "alpha"
-      type:
-        type: string
-        required: true
-        default: dev
-
 
 jobs:
-  build-froint-image:
+  build-front-image:
     # needs: install-back-dependencies
     runs-on: ubuntu-latest
     steps:
