@@ -14,17 +14,16 @@ const prop = defineProps({
 		
 		<IconAdd @click="$emit('addstatus', 'add')" class="fixed transition right-6 bottom-6 w-20 h-20 hover:text-blue-500 hover:cursor-pointer"/>
 		<div class="flex flex-col space-y-5">
-
-			<b class="text-black">List Topic</b>
 			<div
 				v-for="topic in contents"
 				class="flex flex-col  content-center text-black "
 			>
 				<div>
-					{{ topic["topic"] }}
+					
 					<div
 						class="border-2 rounded-lg p-5 flex flex-col w-64 space-y-5 text-ellipsis overflow-hidden "
 					>
+					<div id="topic-name" class="font-bold text-xl">{{ topic["topic"] }}</div>
 						<div
 							v-if="topic.lesson.length > 0"
 							v-for="lesson in topic.lesson"
