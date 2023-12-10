@@ -20,8 +20,8 @@ const prop = defineProps({
 })
 const emit = defineEmits(['returnval', 'page'])
 const input = ref({
-  totalScore: { type: 'totalScore', val: prop.totalScore },
-  level: { type: 'level', val: prop.level },
+  totalScore: { type: 'totalScore', val: prop.totalScore > 0 ? prop.totalScore : 100 },
+  level: { type: 'level', val: prop.level > 0 ? prop.level : 1 },
   arrayTagId: { type: 'arrayTagId', val: prop.arrayTagId },
 })
 const mymodal = modalSwal()
