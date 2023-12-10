@@ -63,7 +63,7 @@ const currentSet = computed(() => {
 
 <template>
   <div class="">
-	<div v-if="status == 'add'">
+    <div v-if="status == 'add'">
       <Addcontent
         :List="mylearningCon.tagList"
         :type="'Add'"
@@ -95,7 +95,7 @@ const currentSet = computed(() => {
       <div class="flex-1" style="overflow-y: auto; max-height: 100vh">
         <LearningContent
           class="w-full"
-          :contents="currentValue"
+          :contents="currentSet"
           @buttonemit="(e, e1) => conBackend(e, e1)"
           @addstatus="(e) => (status = e)"
         ></LearningContent>
