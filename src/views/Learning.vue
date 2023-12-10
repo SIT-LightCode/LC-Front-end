@@ -45,6 +45,15 @@ const currentValue = computed(() =>{
 
 	return currentlesson.value 
 })
+
+if (Object.keys(currentlesson.value).length === 0) {
+  if (mylearningCon.tagList[0] !== undefined) {
+    currentlesson.value = {
+      lesson: mylearningCon.tagList[0].lesson[0],
+      id: mylearningCon.tagList[0].id,
+    }
+  }
+}
 </script>
 
 <template>
