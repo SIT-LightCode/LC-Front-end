@@ -36,7 +36,7 @@ const buttonDeleteFunc = () => {
 		<div v-if="contents.id != null" class="border-2 rounded-lg p-5 ">
 			<div>
 				<div class="max-w-screen-md break-all">{{ contents.lesson.name }}</div>
-				<div class="max-w-screen-md" v-if="!isEdit">
+				<div class="min-w-max " v-if="!isEdit">
 					<v-md-preview :text="contents.lesson.content"></v-md-preview>
 					<hr />
 					<div class="m-3">
