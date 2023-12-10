@@ -6,7 +6,7 @@ on:
 
 jobs:
   build-front-image:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
     - name: Use Build and Push Docker Image action
       uses: SIT-LightCode/LC-Deployment/actions/build-push-front@main
