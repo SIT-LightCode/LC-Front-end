@@ -57,31 +57,30 @@ const inputExam = (e1) => {
 const csstextarea =
   "p-2.5 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500";
 
-const addPara = (id) => {
-  example.value.example.val[id].push([""]);
-}
-
 const addDeleteExample = (type, id) => {
-  if (type == "add") {
+  if (type === "add") {
+    if (id === 'para') {
+      example.value.example.val.forEach((exa) => {
+        exa.push([""]);
+      });
+    } else {
+      // Create a new example with the same number of parameters as the existing ones
+      const newExample = Array.from({ length: example.value.example.val[0].length }, () => [""]);
+      example.value.example.val.push(newExample);
+    }
+  }
+  
+  if (type == "delete") {
     if (id == 'para') {
-      console.log(example.value.example.val.length)      
       for (let exa in example.value.example.val) {
-        console.log(example.value.example.val[exa].length)  
-        example.value.example.val[exa].push([""]);
+        example.value.example.val[exa].pop();
       }
-    } 
-  }
-if (type == "delete") {
-  if (id == 'para') {
-    for (let exa in example.value.example.val) {
-      example.value.example.val[exa].pop();
-    }
-  } else {
-    if (example.value.example.val.length > 1) {
-      example.value.example.val.pop();
+    } else {
+      if (example.value.example.val.length > 1) {
+        example.value.example.val.pop();
+      }
     }
   }
-}
 };
 const text =
   "# Example parameter for your problem\n" +
@@ -98,13 +97,15 @@ const text =
     </div>
 
     <div class="flex flex-row">
-      <button
-        class="text-gray-900 dark:text-white rounded-full flex-auto w-25 p-3 mx-5 my-1 bg-blue-400 hover:bg-blue-500"
+      <button :disabled="example.example.val[0].length > 3 "
+               class="text-gray-900 dark:text-white font-bold m-2 py-2 px-4 rounded-full" :class="[
+               example.example.val[0].length > 3  ? 'bg-gray-300 ': 'bg-blue-400 hover:bg-blue-500',]"
         @click="addDeleteExample('add', 'para')">
         Add parameter
       </button>
-      <button
-        class="text-gray-900 dark:text-white rounded-full flex-auto w-25 p-3 mx-5 my-1 bg-blue-400 hover:bg-blue-500"
+      <button :disabled="example.example.val[0].length <= 1 "
+               class="text-gray-900 dark:text-white font-bold m-2 py-2 px-4 rounded-full" :class="[
+               example.example.val[0].length <= 1  ? 'bg-gray-300 ': 'bg-blue-400 hover:bg-blue-500',]"
         @click="addDeleteExample('delete', 'para')">
         Delete parameter
       </button>

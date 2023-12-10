@@ -37,28 +37,19 @@ const isObjectEmpty = (obj) => {
 }
 
 const currentValue = computed(() =>{
-	if(isObjectEmpty(mylearningCon.tagList)){
+	if(mylearningCon.tagList[0] !== undefined){
 		if(isObjectEmpty(currentlesson.value)){
 		currentlesson.value = { lesson: mylearningCon.tagList[0].lesson[0], id: mylearningCon.tagList[0].id };
-	}
+		}
 	}
 
 	return currentlesson.value 
 })
 
-if (Object.keys(currentlesson.value).length === 0) {
-  if (mylearningCon.tagList[0] !== undefined) {
-    currentlesson.value = {
-      lesson: mylearningCon.tagList[0].lesson[0],
-      id: mylearningCon.tagList[0].id,
-    }
-  }
-}
 </script>
 
 <template>
   <div class="">
-    {{ isObjectEmpty(currentlesson) }}
 	<div v-if="status == 'add'">
       <Addcontent
         :List="mylearningCon.tagList"
