@@ -32,10 +32,9 @@ const buttonDeleteFunc = () => {
 
 <template>
 	<!-- contents  -->
-	<div class="">
+	<div>
 		<div v-if="contents.id != null" class="border-2 rounded-lg p-5 min-h-max">
 			<div>
-				<div class="break-all">{{ contents.lesson.name }}</div>
 				<div class="" v-if="!isEdit">
 					<v-md-preview :text="contents.lesson.content"></v-md-preview>
 					<hr />
