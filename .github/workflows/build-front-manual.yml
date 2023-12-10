@@ -1,17 +1,17 @@
-name: 'Build push front image'
+name: 'Build push front image manual'
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
     inputs:
       tag:
-        type: string
-        required: true
-        default: "alpha"
+        description: tag name
       type:
-        type: string
+        description: 'type of image is stable or dev'
         required: true
-        default: "dev"
+        default: dev
+        type: choice
+        options:
+          - stable
+          - dev
 
 jobs:
   build-front-image:
