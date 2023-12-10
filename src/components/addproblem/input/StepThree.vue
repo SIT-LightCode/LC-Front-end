@@ -69,7 +69,7 @@ const limitVal = () => {
         <h3>Setting Problem</h3>
         <div class="mb-6">
             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> total-Score <div
-                    class="text-red-500">** insert value between 0 to 100 **</div>
+                    class="text-red-500">** insert value between 1 to 100 **</div>
             </label>
             <input @change="limitVal()" type="Number" min="1" max="100" v-model="input.totalScore.val"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">

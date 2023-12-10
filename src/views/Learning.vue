@@ -11,7 +11,6 @@ const mylearningCon = learningCon()
 const currentlesson = ref({})
 const status = ref("list")
 
-mylearningCon.getAllTag()
 const conBackend = (type, query) => {
 	if (type == "Delete") {
 		mylearningCon.deleteContent(query)
@@ -29,55 +28,45 @@ const selectLesson = (lesson, id) => {
 	currentlesson.value = { lesson, id: id }
 }
 
-if (mylearningCon.tagList.length > 0) {
-	selectLesson(mylearningCon.tagList[0].lesson[0], mylearningCon.tagList[0].id)
+onBeforeMount(async () => {
+	await mylearningCon.getAllTag();
+});
+
+const isObjectEmpty = (obj) => {
+  return Object.keys(obj).length === 0;
 }
 
-const currentSet = computed(() => {
-	if (currentlesson.value == {}) {
-		return {
-			lesson: mylearningCon.tagList[0].lesson[0],
-			id: mylearningCon.tagList[0].id,
-		}
-	} else return currentlesson.value
+const currentValue = computed(() =>{
+	if(isObjectEmpty(currentlesson.value)){
+		const firstLesson = mylearningCon.tagList[0];
+		currentlesson.value = { lesson: firstLesson.lesson[0], id: firstLesson.id };
+	}
+	return currentlesson.value 
 })
 </script>
 
 <template>
+
+
 	<div class="">
+
 		<div v-if="status == 'add'">
-			<Addcontent
-				:List="mylearningCon.tagList"
-				:type="'Add'"
-				@addstatus="(e) => (status = e)"
-				@addfunc="(e, query) => conBackend(e, query)"
-			></Addcontent>
+			<Addcontent :List="mylearningCon.tagList" :type="'Add'" @addstatus="(e) => (status = e)"
+				@addfunc="(e, query) => conBackend(e, query)"></Addcontent>
 		</div>
 		<div v-if="status == 'edit'">
-			<Addcontent
-				:datas="currentlesson"
-				:type="'Edit'"
-				@addstatus="(e) => (status = e)"
-				@addfunc="(e, query) => conBackend(e, query)"
-			></Addcontent>
+			<Addcontent :datas="currentlesson" :type="'Edit'" @addstatus="(e) => (status = e)"
+				@addfunc="(e, query) => conBackend(e, query)"></Addcontent>
 		</div>
 		<div class="flex space-x-20" v-show="status == 'list'">
 			<!-- Sidebar/menu -->
-			<LearningList
-				class=""
-				:contents="mylearningCon.tagList"
-				@selected="selectLesson"
-				@addstatus="(e) => (status = e)"
-			>
+			<LearningList class="" :contents="mylearningCon.tagList" @selected="selectLesson"
+				@addstatus="(e) => (status = e)">
 			</LearningList>
 			<!-- context -->
 			<div class="flex-1">
-				<LearningContent
-					class="w-full"
-					:contents="currentSet"
-					@buttonemit="(e, e1) => conBackend(e, e1)"
-					@addstatus="(e) => (status = e)"
-				></LearningContent>
+				<LearningContent class="w-full" :contents="currentValue" @buttonemit="(e, e1) => conBackend(e, e1)"
+					@addstatus="(e) => (status = e)"></LearningContent>
 				<!--  -->
 			</div>
 		</div>
