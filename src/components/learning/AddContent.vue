@@ -35,8 +35,11 @@ const checkValue = (selectid) => {
 	if (text.value.trim() == "") {
 		errorText = errorText + "\n Error Content: Dont has value for content"
 	}
-	if (newnamecontent.value.trim() == "" || newnamecontent.value.length > 255) {
-		errorText = errorText + "\n Error Name: input value invaild "
+	if (newnamecontent.value.trim() == "" ) {
+		errorText = errorText + "\n Error Name: you dont input value "
+	}
+	if (newnamecontent.value.length > 30) {
+		errorText = errorText + "\n Error Name: you input name more than 30 characters"
 	}
 	if (selectid == 0) {
 		errorText = errorText + "\n Error Tag: you dont select tag"
@@ -52,6 +55,7 @@ const checkValue = (selectid) => {
 		}
 	}
 	if (errorText != "") {
+		toast.error('Your input error')
 		mymodal.modalNormal("Error", errorText, "error")
 		return false
 	} else return true
