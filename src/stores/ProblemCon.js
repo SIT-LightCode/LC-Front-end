@@ -41,32 +41,6 @@ export const problemCon = defineStore("problemCon", () => {
     });
   };
 
-  const getTagProblem = async () => {
-    let querys = gql.query(
-      {
-        operation: "getTagProblem",
-        fields: ["id", { tag: ["id", "topic"] }, { problem: ["id", "name"] }],
-      },
-      undefined,
-      {
-        operationName: "getTagProblem",
-      }
-    );
-  };
-
-  // ยังไม่เสด
-  const getTagProblemByTagId = async () => {
-    let querys = gql.query(
-      {
-        operation: "getTagProblemByTagId",
-        fields: ["id", { tag: ["id", "topic"] }, { problem: ["id", "name"] }],
-      },
-      undefined,
-      {
-        operationName: "getTagProblemByTagId",
-      }
-    );
-  };
 
   const AddProblem = async (
     tagProblem,
@@ -118,5 +92,31 @@ export const problemCon = defineStore("problemCon", () => {
     });
   };
 
-  return { problemList, AddProblem, getAllproblem };
+  const deleteProblem = async(id) => {
+
+      console.log(id)
+        let query = gql.mutation(
+          {
+            operation: 'removeProblem',
+            variables: { 
+              id:{type:'Int!',value: id},
+              
+            },
+          },
+          undefined,
+          {
+            operationName: 'RemoveProblem',
+          },
+        )
+        myconnectBackend.connectBack(query).then((res) => {
+          if (res != '') {
+            getAllproblem()
+            toast.success('Problem has been deleted')
+            //mymodal.modalNormal('Deleted!', 'This Content has been deleted.', 'success')
+          }
+        })
+      
+    
+  }
+  return { problemList, AddProblem, getAllproblem ,deleteProblem};
 });

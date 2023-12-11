@@ -1,5 +1,6 @@
 <script setup>
 import buttonVue from '../button/Button.vue';
+const emit = defineEmits(['deleteProblem'])
 
 const prop = defineProps({
 	datas: Object,
@@ -24,7 +25,7 @@ const returnLevel = (id) => {
                     class="block h-64 rounded-lg bg-white text-left shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 ">
                     <div class="p-6 ">
                         <h5 class="mb-1 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
-                            {{ i.name }}
+                            {{ i.name }}{{  }}
                         </h5>
 
                         <p class="mb-4 text-base  leading-normal text-neutral-600 dark:text-neutral-200">
@@ -41,10 +42,10 @@ const returnLevel = (id) => {
                     </div>
 
                 </div>
-                <!-- <div class="flex justify-end mt-5 mr-5">
-                    <buttonVue :buttonClick="() => buttonCheck()" :name="'delete'">
+                <div class="flex justify-end m-5">
+                    <buttonVue @buttonClick="() => $emit('deleteProblem',i.id)" :name="'delete'">
                     </buttonVue>
-                </div> -->
+                </div>
             </div>
 
 

@@ -53,7 +53,7 @@ onBeforeMount(async () => {
             <filterBar @filterValue="(e1) => { filterFunc(e1); }"></filterBar>
             <!--  -->
 
-            <listProblem :datas="test"></listProblem>
+            <listProblem @deleteProblem="(e1) => {myproblemCon.deleteProblem(e1) }" :datas="test"></listProblem>
             <!--  -->
 
         </div>
