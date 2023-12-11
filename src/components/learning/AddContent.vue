@@ -100,6 +100,10 @@ const clickAddEdit = async (value) => {
 }
 
 function addTag(id, topic, description) {
+  if ((prop.type = 'Add')) {
+    id = null
+  }
+
   let query = gql.mutation(
     {
       operation: 'upsertTag',
@@ -121,6 +125,8 @@ function addTag(id, topic, description) {
       operationName: 'UpsertLesson',
     },
   )
+
+  emit('addfunc', prop.type, query)
 }
 
 if (prop.datas != undefined) {
