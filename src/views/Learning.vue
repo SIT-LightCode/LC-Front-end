@@ -5,11 +5,13 @@ import { computed } from '@vue/reactivity'
 import LearningContent from '../components/learning/LearningContent.vue'
 import LearningList from '../components/learning/LearningList.vue'
 import Addcontent from '../components/learning/AddContent.vue'
+import { Toaster, toast } from 'vue-sonner'
 
 const mylearningCon = learningCon()
 
 const currentlesson = ref({})
 const status = ref('list')
+const selectedLesson = ref({})
 
 onBeforeMount(async () => {
   await mylearningCon.getAllTag()
@@ -30,21 +32,33 @@ const setDefaultLesson = () => {
   }
 }
 
-const conBackend = (type, query) => {
+const conBackend = async (type, query) => {
   if (type == 'Delete') {
     mylearningCon.deleteContent(query)
     status.value = 'list'
     currentlesson.value = ''
   }
   if (type == 'Add' || type == 'Edit') {
-    mylearningCon.addContent(query)
+    await mylearningCon.addContent(query)
     status.value = 'list'
-    currentlesson.value = ''
+    await mylearningCon.getAllTag()
+
+    const tagListIdx = mylearningCon.tagList.findIndex((o) => o.id == selectedLesson.value.id)
+    currentlesson.value = {
+      lesson:
+        mylearningCon.tagList[tagListIdx].lesson[
+          mylearningCon.tagList[tagListIdx].lesson.findIndex(
+            (o) => o.id == selectedLesson.value.lesson.id,
+          )
+        ],
+      id: mylearningCon.tagList[tagListIdx].id,
+    }
   }
 }
 
 const selectLesson = (lesson, id) => {
   currentlesson.value = { lesson, id: id }
+  selectedLesson.value = currentlesson.value
 }
 
 const currentSet = computed(() => {
@@ -63,6 +77,7 @@ const currentSet = computed(() => {
 
 <template>
   <div class="">
+    <Toaster richColors position="top-right" />
     <div v-if="status == 'add'">
       <Addcontent
         :List="mylearningCon.tagList"
