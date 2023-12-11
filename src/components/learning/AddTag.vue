@@ -1,7 +1,7 @@
 <script setup>
 import { ref, defineProps, defineEmits } from 'vue'
 import * as gql from 'gql-query-builder'
-
+import buttonvue from '../button/Button.vue'
 const emit = defineEmits(['addfunc'])
 
 const props = defineProps({

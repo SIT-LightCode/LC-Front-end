@@ -2,6 +2,7 @@ import { defineStore, acceptHMRUpdate } from "pinia";
 import { computed, ref } from "vue";
 import { modalSwal } from "./Modal.js";
 import { connectBackend } from "./ConnectBackend.js";
+import { Toaster, toast } from 'vue-sonner'
 
 import * as gql from "gql-query-builder";
 
@@ -12,13 +13,6 @@ export const problemCon = defineStore("problemCon", () => {
   let problemList = ref({});
 
   const getAllproblem = async () => {
-    //   let querys = gql.query({
-    //     operation: 'getTag',
-    //     fields: ['id', 'topic', 'description', 'description', { lesson: ['id', 'name', 'content'] }]
-    //     ,
-    // }, undefined, {
-    //     operationName: 'GetTag'
-    // })
     let querys = gql.query(
       {
         operation: "getProblem",

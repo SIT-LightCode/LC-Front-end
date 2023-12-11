@@ -1,8 +1,9 @@
 <script setup>
-import { problemCon } from '../../stores/ProblemCon';
 import buttonVue from '../button/Button.vue';
-const myproblemCon = problemCon()
-myproblemCon.getAllproblem()
+
+const prop = defineProps({
+	datas: Object,
+})
 const colorTags = ['bg-[#ff6961]', 'bg-[#ffb480]', 'bg-[#f8f38d]', 'bg-[#42d6a4]', 'bg-[#08cad1]', 'bg-[#59adf6]', 'bg-[#9d94ff]', 'bg-[#c780e8]']
 const levelArray = [['Easier', 'text-[#2dc937]'], ['Beginner', 'text-[#99c140]'], ['Medium', 'text-[#e7b416]'], ['Hard', 'text-[#db7b2b]'], ['Expert', 'text-[#cc3232]'],]
 
@@ -14,12 +15,13 @@ const returnLevel = (id) => {
 </script>
  
 <template>
-    <div class="" style="margin-left:300px">
+    <div class="flex-1" style="overflow-y: auto; max-height: 100vh">
         <!-- First Photo Grid-->
-        <div class="grid grid-cols-4 gap-4 ">
-            <div v-for="i in myproblemCon.problemList" class="border  rounded-lg border-zinc-950">
+
+        <div class="grid grid-cols-3 gap-3 ">
+            <div v-for="i in datas" class="border  rounded-lg border-zinc-950">
                 <div
-                    class="block h-64	rounded-lg bg-white text-left shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 ">
+                    class="block h-64 rounded-lg bg-white text-left shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 ">
                     <div class="p-6 ">
                         <h5 class="mb-1 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
                             {{ i.name }}
@@ -34,15 +36,14 @@ const returnLevel = (id) => {
                         </p>
 
                         <span v-for="t in i.tagProblem"
-                            class="inline-flex items-center px-3 rounded-full text-xs font-medium leading-4  text-gray-800"
-                            :class="colorTags[t.tag.id - 1]">{{ t.tag.topic }}</span>
+                            class="inline-flex items-center px-3 rounded-full text-xs font-medium leading-4  text-gray-800">{{ t.tag.topic }} </span>
                     </div>
 
                 </div>
-                <div class="flex justify-end mt-5 mr-5">
+                <!-- <div class="flex justify-end mt-5 mr-5">
                     <buttonVue :buttonClick="() => buttonCheck()" :name="'delete'">
                     </buttonVue>
-                </div>
+                </div> -->
             </div>
 
 
