@@ -5,7 +5,6 @@ import { computed } from '@vue/reactivity'
 import LearningContent from '../components/learning/LearningContent.vue'
 import LearningList from '../components/learning/LearningList.vue'
 import Addcontent from '../components/learning/AddContent.vue'
-import { Toaster, toast } from 'vue-sonner'
 
 const mylearningCon = learningCon()
 
@@ -77,7 +76,6 @@ const currentSet = computed(() => {
 
 <template>
   <div class="">
-    <Toaster richColors position="top-right" />
     <div v-if="status == 'add'">
       <Addcontent
         :List="mylearningCon.tagList"

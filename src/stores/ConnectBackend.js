@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { modalSwal } from './Modal.js'
+import { Toaster, toast } from 'vue-sonner'
 
 const mymodal = modalSwal()
 
@@ -38,6 +39,8 @@ export const connectBackend = defineStore('connectBackend', () => {
         }
       }
     } catch (error) {
+      console.log('ss')
+      console.log(error)
       toast.error('An error when try to get data!')
       // mymodal.modalNormal('Error!', 'Error:' + error, 'error')
       // console.error('Error:', error)
