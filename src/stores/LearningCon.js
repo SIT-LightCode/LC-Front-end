@@ -31,11 +31,19 @@ export const learningCon = defineStore('learningCon', () => {
     })
   }
 
-  const addTag = async (querys) => {
+  const addTag = async (querys, type) => {
+    console.log('here')
+    console.log(type)
     await myconnectBackend.connectBack(querys).then((res) => {
       if (res != '') {
         getAllTag()
-        toast.success('Topic has been created')
+        let operation = ''
+        if (type === 'Add') {
+          operation = 'created'
+        } else if (type === 'Edit') {
+          operation = 'updated'
+        }
+        toast.success(`Topic has been ${operation}`)
         //mymodal.modalNormal('Complete!', 'this operation is success.', 'success')
       }
     })

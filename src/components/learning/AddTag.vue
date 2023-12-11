@@ -7,20 +7,29 @@ const emit = defineEmits(['addfunc'])
 const props = defineProps({
   tagData: Object, // Pass existing tag data for editing, if any
   type: String, // 'Add' or 'Edit'
+  List: Object,
 })
 
 const topic = ref(props.tagData?.topic || '')
 const description = ref(props.tagData?.description || '')
+const tagId = ref(null)
 
 const submitTag = () => {
-  const id = props.type === 'Edit' ? props.tagData.id : null
+  console.log(tagId.value)
+  let type = ''
+  if (tagId.value > 0) {
+    type = 'Edit'
+  } else if (tagId.value == null) {
+    type = 'Add'
+    tagId.value = null
+  }
 
   let query = gql.mutation({
     operation: 'upsertTag',
     variables: {
       tagInput: {
         value: {
-          id: id,
+          id: Number(tagId.value),
           topic: topic.value,
           description: description.value,
         },
@@ -31,12 +40,24 @@ const submitTag = () => {
     fields: ['id', 'topic', 'description'],
   })
 
-  emit('addfunc', props.type, query, 'tag')
+  emit('addfunc', type, query, 'tag')
 }
 </script>
 
 <template>
   <div class="p-4">
+    <div class="mb-4">
+      <label for="id" class="block text-sm font-medium text-gray-700">Id:</label>
+      <select id="objectSelect" v-model="tagId">
+        <option :value="null" disabled>Select an object</option>
+        <option v-for="object in List" :key="object.id" :value="object.id">
+          {{ object['topic'] }}
+        </option>
+      </select>
+      <label for="id" class="block text-sm font-medium text-gray-700"
+        >Please leave it empty to insert</label
+      >
+    </div>
     <div class="mb-4">
       <label for="topic" class="block text-sm font-medium text-gray-700">Topic:</label>
       <input

@@ -39,7 +39,7 @@ const conBackend = async (type, query, name) => {
   }
   if (type == 'Add' || type == 'Edit') {
     if (name === 'tag') {
-      await mylearningCon.addTag(query)
+      await mylearningCon.addTag(query, type)
     } else {
       await mylearningCon.addContent(query)
     }
