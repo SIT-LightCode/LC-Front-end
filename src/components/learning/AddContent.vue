@@ -4,6 +4,8 @@ import VmdEditor from './VmdEditor.vue'
 import * as gql from 'gql-query-builder'
 import buttonvue from '../button/Button.vue'
 import { modalSwal } from '../../stores/Modal.js'
+import { Toaster, toast } from 'vue-sonner'
+
 const mymodal = modalSwal()
 
 const emit = defineEmits(['addfunc', 'addstatus'])
@@ -32,8 +34,11 @@ const checkValue = (selectid) => {
   if (text.value.trim() == '') {
     errorText = errorText + '\n Error Content: Dont has value for content'
   }
-  if (newnamecontent.value.trim() == '' || newnamecontent.value.length > 255) {
-    errorText = errorText + '\n Error Name: input value invaild '
+  if (newnamecontent.value.trim() == '') {
+    errorText = errorText + '\n Error Name: you dont input value '
+  }
+  if (newnamecontent.value.length > 30) {
+    errorText = errorText + '\n Error Name: you input name more than 30 characters'
   }
   if (selectid == 0) {
     errorText = errorText + '\n Error Tag: you dont select tag'
@@ -46,7 +51,8 @@ const checkValue = (selectid) => {
     }
   }
   if (errorText != '') {
-    mymodal.modalNormal('Error', errorText, 'error')
+    toast.error('Your input error')
+    // mymodal.modalNormal("Error", errorText, "error")
     return false
   } else return true
 }

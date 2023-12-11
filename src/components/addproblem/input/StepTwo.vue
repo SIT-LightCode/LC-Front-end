@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { modalSwal } from "../../../stores/Modal.js";
+import { Toaster, toast } from 'vue-sonner'
 
 import buttonPage from "../../button/ButtonPage.vue";
 
@@ -33,6 +34,7 @@ const checkValue = () => {
   });
 
   if (errorText) {
+    toast.error('Your input error')
     mymodal.modalNormal(
       "Error",
       "\n Error example: you are not have example",
