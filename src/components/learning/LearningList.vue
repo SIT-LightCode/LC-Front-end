@@ -1,6 +1,7 @@
 <script setup>
 import { ref, defineProps } from 'vue'
 import IconAdd from '../icons/IconAdd.vue'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 // Capture the emit function
 const emit = defineEmits(['selected', 'addstatus'])
@@ -15,12 +16,28 @@ const handleLessonClick = (lesson, topicId) => {
   selectedLesson.value = lesson.id
   emit('selected', lesson, topicId) // Use the emit function directly
 }
+
+const showModalToAddContent = async () => {
+  await Swal.fire({
+    title: 'What do you want to add?',
+    showCancelButton: true,
+    confirmButtonText: 'Add Lesson',
+    cancelButtonText: 'Add Tag',
+    reverseButtons: true,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      emit('addstatus', 'addLesson')
+    } else if (result.dismiss === 'cancel') {
+      emit('addstatus', 'addTag')
+    }
+  })
+}
 </script>
 
 <template>
   <div v-if="contents.length > 0" class="flex">
     <IconAdd
-      @click="$emit('addstatus', 'add')"
+      @click="showModalToAddContent"
       class="fixed transition right-6 bottom-6 w-20 h-20 hover:text-blue-500 hover:cursor-pointer"
     />
     <div class="flex flex-col space-y-5 pr-6">

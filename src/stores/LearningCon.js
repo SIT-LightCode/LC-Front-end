@@ -61,5 +61,5 @@ export const learningCon = defineStore('learningCon', () => {
     })
   }
 
-  return { tagList, getAllTag, addContent, deleteContent }
+  return { tagList, getAllTag, addContent, deleteContent, addTag }
 })

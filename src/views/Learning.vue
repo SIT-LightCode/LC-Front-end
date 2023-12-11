@@ -5,7 +5,7 @@ import { computed } from '@vue/reactivity'
 import LearningContent from '../components/learning/LearningContent.vue'
 import LearningList from '../components/learning/LearningList.vue'
 import Addcontent from '../components/learning/AddContent.vue'
-
+import AddTag from '../components/learning/AddTag.vue'
 const mylearningCon = learningCon()
 
 const currentlesson = ref({})
@@ -31,14 +31,18 @@ const setDefaultLesson = () => {
   }
 }
 
-const conBackend = async (type, query) => {
+const conBackend = async (type, query, name) => {
   if (type == 'Delete') {
     mylearningCon.deleteContent(query)
     status.value = 'list'
     currentlesson.value = ''
   }
   if (type == 'Add' || type == 'Edit') {
-    await mylearningCon.addContent(query)
+    if (name === 'tag') {
+      await mylearningCon.addTag(query)
+    } else {
+      await mylearningCon.addContent(query)
+    }
     status.value = 'list'
     await mylearningCon.getAllTag()
 
@@ -76,9 +80,15 @@ const currentSet = computed(() => {
 
 <template>
   <div class="">
-
-
-    <div v-if="status == 'add'">
+    <div v-if="status == 'addTag'">
+      <AddTag
+        :List="mylearningCon.tagList"
+        :type="'Add'"
+        @addstatus="(e) => (status = e)"
+        @addfunc="(e, query, name) => conBackend(e, query, name)"
+      ></AddTag>
+    </div>
+    <div v-if="status == 'addLesson'">
       <Addcontent
         :List="mylearningCon.tagList"
         :type="'Add'"
