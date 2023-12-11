@@ -27,7 +27,7 @@ const openCloseSidebar = (isShow) => {
 
     <Navbar />
     <Sidebar @openCloseSidebarEmit="openCloseSidebar" />
-    <!-- main -->
+    <!-- mainn -->
     <div class="grid grid-cols-12">
       <div class="col-start-1 px-14col-start-1 col-span-12 px-14 pt-10 tansition-all">
         <RouterView class="" />
