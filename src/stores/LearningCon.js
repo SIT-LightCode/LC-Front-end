@@ -91,7 +91,7 @@ export const learningCon = defineStore('learningCon', () => {
     myconnectBackend.connectBack(query).then((res) => {
       if (res != '') {
         getAllTag()
-        toast.success('Lesson has been deleted')
+        toast.success('Tag has been deleted')
         //mymodal.modalNormal('Deleted!', 'This Content has been deleted.', 'success')
       }
     })
