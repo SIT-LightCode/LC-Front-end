@@ -31,6 +31,16 @@ export const learningCon = defineStore('learningCon', () => {
     })
   }
 
+  const addTag = async (querys) => {
+    await myconnectBackend.connectBack(querys).then((res) => {
+      if (res != '') {
+        getAllTag()
+        toast.success('Topic has been created')
+        //mymodal.modalNormal('Complete!', 'this operation is success.', 'success')
+      }
+    })
+  }
+
   const addContent = async (querys) => {
     await myconnectBackend.connectBack(querys).then((res) => {
       if (res != '') {
