@@ -36,7 +36,8 @@ const returnLevel = (id) => {
                         </p>
 
                         <span v-for="t in i.tagProblem"
-                            class="inline-flex items-center px-3 rounded-full text-xs font-medium leading-4  text-gray-800">{{ t.tag.topic }} </span>
+                            class="inline-flex items-center px-3 rounded-full text-xs font-medium leading-4  text-gray-800"
+                            :class="colorTags[(t.tag.id-1)%8]">{{ t.tag.topic }} </span>
                     </div>
 
                 </div>

@@ -33,8 +33,8 @@ const checkValue = () => {
         errorText = errorText + "\n Error Name: :you do not insert value for description "
     }
     if (errorText != "") {
-        toast.error('Your input error')
-        mymodal.modalNormal("Error", errorText, "error")
+        toast.error('Your input error:' +errorText)
+        // mymodal.modalNormal("Error", errorText, "error")
         return false
     } else {
         return true

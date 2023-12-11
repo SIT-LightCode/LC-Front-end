@@ -68,6 +68,34 @@ export const learningCon = defineStore('learningCon', () => {
       }
     })
   }
+  const deleteTag = async (id) => {
+  //   { variables: {
+    // id: { type: "Int", value: null },
+  //     "query": "mutation RemoveTag{\n  removeTag(tagId: 1)\n}",
+  //     "operationName": "RemoveTag"
+  // }
+  console.log(id)
+    let query = gql.mutation(
+      {
+        operation: 'removeTag',
+        variables: { 
+          tagId:{type:'Int!',value: id},
+          
+        },
+      },
+      undefined,
+      {
+        operationName: 'RemoveTag',
+      },
+    )
+    myconnectBackend.connectBack(query).then((res) => {
+      if (res != '') {
+        getAllTag()
+        toast.success('Lesson has been deleted')
+        //mymodal.modalNormal('Deleted!', 'This Content has been deleted.', 'success')
+      }
+    })
+  }
 
-  return { tagList, getAllTag, addContent, deleteContent, addTag }
+  return { tagList, getAllTag, addContent, deleteContent, addTag ,deleteTag}
 })

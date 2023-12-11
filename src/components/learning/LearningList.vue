@@ -2,9 +2,9 @@
 import { ref, defineProps } from 'vue'
 import IconAdd from '../icons/IconAdd.vue'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
-
+import buttonVue from '../button/Button.vue';
 // Capture the emit function
-const emit = defineEmits(['selected', 'addstatus'])
+const emit = defineEmits(['selected', 'addstatus','deleteTag'])
 
 const props = defineProps({
   contents: Object,
@@ -36,29 +36,26 @@ const showModalToAddContent = async () => {
 
 <template>
   <div v-if="contents.length > 0" class="flex">
-    <IconAdd
-      @click="showModalToAddContent"
-      class="fixed transition right-6 bottom-6 w-20 h-20 hover:text-blue-500 hover:cursor-pointer"
-    />
+    <IconAdd @click="showModalToAddContent"
+      class="fixed transition right-6 bottom-6 w-20 h-20 hover:text-blue-500 hover:cursor-pointer" />
     <div class="flex flex-col space-y-5 pr-6">
       <div v-for="topic in contents" class="flex flex-col content-center text-black">
         <div>
-          <div
-            class="border-2 rounded-lg p-5 flex flex-col w-64 space-y-5 text-ellipsis overflow-hidden"
-          >
+          <div class="border-2 rounded-lg p-5 flex flex-col w-64 space-y-5 text-ellipsis overflow-hidden">
             <div id="topic-name" class="font-bold text-xl">{{ topic['topic'] }}</div>
-            <div
-              v-for="lesson in topic.lesson"
-              @click="handleLessonClick(lesson, topic.id)"
-              :class="
-                lesson.id === selectedLesson
-                  ? 'transition border-blue-500 border-b-2 text-blue-600 cursor-pointer'
-                  : 'text-black transition border-b-2 hover:text-blue-400 hover:cursor-pointer'
-              "
-            >
+
+
+            <div v-for="lesson in topic.lesson" @click="handleLessonClick(lesson, topic.id)" :class="lesson.id === selectedLesson
+              ? 'transition border-blue-500 border-b-2 text-blue-600 cursor-pointer'
+              : 'text-black transition border-b-2 hover:text-blue-400 hover:cursor-pointer'
+              ">
               {{ lesson.name }}
+
+
             </div>
             <div v-show="topic.lesson == null"><b style="color: red"> No lesson </b></div>
+            <div class=""> <buttonVue @buttonClick="  $emit('deleteTag', topic.id)" :name="'Delete Tag'"></buttonVue>
+            </div>
           </div>
         </div>
       </div>

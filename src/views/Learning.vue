@@ -112,6 +112,7 @@ const currentSet = computed(() => {
           :contents="mylearningCon.tagList"
           @selected="selectLesson"
           @addstatus="(e) => (status = e)"
+          @deleteTag="(e1)=>{ mylearningCon.deleteTag(e1)}"
         >
         </LearningList>
       </div>

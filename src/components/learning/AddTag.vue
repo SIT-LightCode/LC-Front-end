@@ -46,6 +46,7 @@ const submitTag = () => {
 
 <template>
   <div class="p-4">
+    <buttonvue class="m-5" @buttonClick="$emit('addstatus', 'list')" :name="'Back'"></buttonvue>
     <div class="mb-4">
       <label for="id" class="block text-sm font-medium text-gray-700">Id:</label>
       <select id="objectSelect" v-model="tagId">

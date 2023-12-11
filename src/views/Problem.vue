@@ -28,15 +28,13 @@ const filterFunc = (dataFilter) => {
         data.value = uniq.filter(function (item, pos) {
             return uniq.indexOf(item) == pos;
         })
-
-
-    }else  isFilter.value = false
+    } else isFilter.value = false
 
 }
 
 
 const test = computed(() => {
-    if ( isFilter.value) {
+    if (isFilter.value) {
         return data.value
     }
     else return myproblemCon.problemList
@@ -52,7 +50,7 @@ onBeforeMount(async () => {
     <div class="w3-center">
         <div class="flex">
             <!-- Filter-->
-            <filterBar @filterValue="(e1) => { filterFunc(e1);}"></filterBar>
+            <filterBar @filterValue="(e1) => { filterFunc(e1); }"></filterBar>
             <!--  -->
 
             <listProblem :datas="test"></listProblem>
