@@ -4,6 +4,8 @@ import VmdEditor from "./VmdEditor.vue"
 import * as gql from "gql-query-builder"
 import buttonvue from "../button/Button.vue"
 import { modalSwal } from "../../stores/Modal.js"
+import { Toaster, toast } from 'vue-sonner'
+
 const mymodal = modalSwal()
 
 const emit = defineEmits(["addfunc", "addstatus"])
@@ -107,30 +109,31 @@ if (prop.datas != undefined) {
 
 <template>
 	<!-- contents  -->
-		<div class="space-y-5">
-			<hr />
-			<buttonvue class="" @buttonClick="$emit('addstatus', 'list')" :name="'Back'"></buttonvue>
-			<div v-if="prop.type == 'Add'" class="text-gray-900 text-sm">
-				<label for="objectSelect"> Select tag for content to add: </label>
-				<select id="objectSelect" v-model="selectedObjectNew">
-					<option :value="null" disabled>Select an object</option>
-					<option v-for="object in List" :key="object.id" :value="object.id">
-						{{ object["topic"] }}
-					</option>
-				</select>
-			</div>
-			<div class="text-gray-900 text-sm ">
-				Name: <input :maxlength="30" v-model="newnamecontent"
-					class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-			</div>
-			<div class="space-y-5">
-				<VmdEditor v-model="text"></VmdEditor>
-				<hr />
-				<buttonvue @buttonClick="(value) => clearInput(value)" :name="'Clear'" />
-				<buttonvue @buttonClick="(value) => clickAddEdit(value)" :name="prop.type == 'Edit' ? 'Update' : prop.type" />
-				<hr />
-				</div>
+	<div class="space-y-5">
+		<hr />
+		<buttonvue class="" @buttonClick="$emit('addstatus', 'list')" :name="'Back'"></buttonvue>
+		<div v-if="prop.type == 'Add'" class="text-gray-900 text-sm">
+			<label for="objectSelect"> Select tag for content to add: </label>
+			<select id="objectSelect" v-model="selectedObjectNew">
+				<option :value="null" disabled>Select an object</option>
+				<option v-for="object in List" :key="object.id" :value="object.id">
+					{{ object["topic"] }}
+				</option>
+			</select>
 		</div>
+		<div class="text-gray-900 text-sm ">
+			Name: <input :maxlength="30" v-model="newnamecontent"
+				class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+		</div>
+		<div class="space-y-5">
+			<VmdEditor v-model="text"></VmdEditor>
+			<hr />
+			<buttonvue @buttonClick="(value) => clearInput(value)" :name="'Clear'" />
+			<buttonvue @buttonClick="(value) => clickAddEdit(value)" :name="prop.type == 'Edit' ? 'Update' : prop.type" />
+			<hr />
+
+		</div>
+	</div>
 </template>
 
 <style>

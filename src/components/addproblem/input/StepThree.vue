@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import buttonPage from '../../button/ButtonPage.vue'
 import { modalSwal } from '../../../stores/Modal.js'
+import { Toaster, toast } from 'vue-sonner'
 
 const prop = defineProps({
   datas: {
@@ -28,16 +29,20 @@ const mymodal = modalSwal()
 
 const checkValue = () => {
   let errorText = ''
-  if (input.value.totalScore.val < 0 || input.value.totalScore.val > 100) {
-    errorText = errorText + '\n Error totalScore: Dont has value for totalScore'
+  if ( input.value.totalScore.val > 100) {
+    errorText = errorText + '\n Error totalScore: value is more over 100'
+  }
+  if (input.value.totalScore.val < 1 ) {
+    errorText = errorText + '\n Error totalScore: value is lower than 1'
   }
   if (input.value.level.val == '') {
-    errorText = errorText + '\n Error level: input value level '
+    errorText = errorText + '\n Error level: you do not input value for level '
   }
   if (input.value.arrayTagId.val.length == 0) {
-    errorText = errorText + '\n Error arrayTagId: input value arrayTagId '
+    errorText = errorText + '\n Error tag: you do not select tag'
   }
   if (errorText != '') {
+    toast.error('Your input error')
     mymodal.modalNormal('Error', errorText, 'error')
     return false
   } else return true
