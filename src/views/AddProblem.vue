@@ -5,6 +5,7 @@ import steptwo from "../components/addproblem/input/StepTwo.vue";
 import stepthree from "../components/addproblem/input/StepThree.vue";
 import stepfour from "../components/addproblem/input/StepFour.vue";
 import statusInput from "../components/addproblem/StatusInput.vue"
+import { Toaster, toast } from 'vue-sonner'
 
 import { learningCon } from "../stores/LearningCon.js"
 import { problemCon } from "../stores/ProblemCon.js"
@@ -68,6 +69,7 @@ mylearningCon.getAllTag()
 </script>
 
 <template>
+        <Toaster richColors position="top-right"/>
     <statusInput class="p-1" :pageAdd="page" />
 
     <div class="p-5">

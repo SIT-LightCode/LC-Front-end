@@ -2,6 +2,8 @@
 import vmdeditor from '../../learning/VmdEditor.vue';
 import { modalSwal } from "../../../stores/Modal.js";
 import buttonPage from "../../button/ButtonPage.vue"
+import { Toaster, toast } from 'vue-sonner'
+
 import { ref, computed } from "vue";
 
 const emit = defineEmits(['returnval'])
@@ -21,16 +23,22 @@ const input = ref({ name: { type: 'name', val: prop.name }, description: { type:
 )
 const checkValue = () => {
     let errorText = ""
-    if (input.value.name.val.trim() == "" || input.value.name.val > 30) {
-        errorText = errorText + "\n Error Content: Dont has value for name"
+    if (input.value.name.val > 30) {
+        errorText = errorText + "\n Error Content: name is more than 30 characters"
+    }
+    if (input.value.name.val.trim() == "" ) {
+        errorText = errorText + "\n Error Content: you do not insert name"
     }
     if (input.value.description.val.trim() == "") {
-        errorText = errorText + "\n Error Name: input value description "
+        errorText = errorText + "\n Error Name: :you do not insert value for description "
     }
     if (errorText != "") {
+        toast.error('Your input error')
         mymodal.modalNormal("Error", errorText, "error")
         return false
-    } else return true
+    } else {
+        return true
+    }
 }
 
 

@@ -113,6 +113,7 @@ export const problemCon = defineStore("problemCon", () => {
 
     myconnectBackend.connectBack(query).then(async (data) => {
       if (data["data"] != undefined) {
+        toast.success('Problem has been created')
         mymodal.modalNormal(
           "Complete!",
           "this operation is success.",

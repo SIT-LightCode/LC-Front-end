@@ -35,7 +35,7 @@ const handleLessonClick = (lesson, topicId) => {
               @click="handleLessonClick(lesson, topic.id)"
               :class="
                 lesson.id === selectedLesson
-                  ? 'text-black transition border-blue-500 border-b-2 text-blue-600 cursor-pointer'
+                  ? 'transition border-blue-500 border-b-2 text-blue-600 cursor-pointer'
                   : 'text-black transition border-b-2 hover:text-blue-400 hover:cursor-pointer'
               "
             >

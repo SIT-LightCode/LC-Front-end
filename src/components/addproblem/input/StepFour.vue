@@ -6,6 +6,7 @@ import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism-tomorrow.css';
+import { Toaster, toast } from 'vue-sonner'
 
 import buttomSubmit from "../../button/ButtonPage.vue"
 import { ref, onBeforeMount } from "vue";
@@ -21,9 +22,10 @@ const input = ref({ solution: { type: 'solution', val: prop.solution } })
 const checkValue = () => {
     let errorText = ""
     if (input.value.solution.val == "") {
-        errorText = errorText + "\n Error solution: Dont has value for solution"
+        errorText = errorText + "\n Error solution: you do not input value for solution"
     }
     if (errorText != "") {
+        toast.error('Your input error')
         mymodal.modalNormal("Error", errorText, "error")
         return false
     } else return true

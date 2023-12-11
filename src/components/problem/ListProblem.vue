@@ -1,19 +1,50 @@
 <script setup>
 import { problemCon } from '../../stores/ProblemCon';
+import buttonVue from '../button/Button.vue';
 const myproblemCon = problemCon()
 myproblemCon.getAllproblem()
+const colorTags = ['bg-[#ff6961]', 'bg-[#ffb480]', 'bg-[#f8f38d]', 'bg-[#42d6a4]', 'bg-[#08cad1]', 'bg-[#59adf6]', 'bg-[#9d94ff]', 'bg-[#c780e8]']
+const levelArray = [['Easier', 'text-[#2dc937]'], ['Beginner', 'text-[#99c140]'], ['Medium', 'text-[#e7b416]'], ['Hard', 'text-[#db7b2b]'], ['Expert', 'text-[#cc3232]'],]
+
+const returnLevel = (id) => {
+    if (levelArray[id - 1] != undefined) {
+        return levelArray[id - 1][0]
+    }
+}
 </script>
  
 <template>
-    <div class="w3-main w3-padding-64" style="margin-left:300px">
+    <div class="" style="margin-left:300px">
         <!-- First Photo Grid-->
-        <div class="w3-row-padding w3-padding-16" >
+        <div class="grid grid-cols-4 gap-4 ">
+            <div v-for="i in myproblemCon.problemList" class="border  rounded-lg border-zinc-950">
+                <div
+                    class="block h-64	rounded-lg bg-white text-left shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 ">
+                    <div class="p-6 ">
+                        <h5 class="mb-1 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
+                            {{ i.name }}
+                        </h5>
 
-            <div class="w3-quarter" v-for="i in myproblemCon.problemList">
-                <h3>{{ i.name }}</h3>
-                <p>{{ i.description }}</p>
-            --------------------------------------
+                        <p class="mb-4 text-base  leading-normal text-neutral-600 dark:text-neutral-200">
+                        <div class="mb-4 text-base">
+                            <div> Scroce: {{ i.totalScore }}</div>
+                            <div v-if=" i.level > 0 && i.level < 6 " :class="levelArray[i.level-1]"> Difficulty: {{ returnLevel(i.level) }}
+                            </div>
+                        </div>
+                        </p>
+
+                        <span v-for="t in i.tagProblem"
+                            class="inline-flex items-center px-3 rounded-full text-xs font-medium leading-4  text-gray-800"
+                            :class="colorTags[t.tag.id - 1]">{{ t.tag.topic }}</span>
+                    </div>
+
+                </div>
+                <div class="flex justify-end mt-5 mr-5">
+                    <buttonVue :buttonClick="() => buttonCheck()" :name="'delete'">
+                    </buttonVue>
+                </div>
             </div>
+
 
         </div>
         <!--  -->
