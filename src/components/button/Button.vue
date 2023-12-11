@@ -12,7 +12,7 @@ const prop = defineProps({
 // ใช้เป็นอันนี้ไปก่อนนะเดียวหา modal ใส่ให้
 const clickFunc = async () => {
   await mymodal
-    .modalTwoฺButton('Are you sure?', 'Are you sure to ' + prop.name, prop.name)
+    .modalTwoButton('Are you sure?', 'Are you sure to ' + prop.name, prop.name)
     .then((result) => {
       if (result) {
         emit('buttonClick', true)
