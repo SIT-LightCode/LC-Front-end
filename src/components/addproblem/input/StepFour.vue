@@ -25,7 +25,7 @@ const checkValue = () => {
         errorText = errorText + "\n Error solution: you do not input value for solution"
     }
     if (errorText != "") {
-        toast.error('Your input error:' +errorText)
+        toast.error(errorText)
         // mymodal.modalNormal("Error", errorText, "error")
         return false
     } else return true

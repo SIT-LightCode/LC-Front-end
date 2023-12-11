@@ -34,10 +34,10 @@ const checkValue = () => {
   });
 
   if (errorText) {
-    toast.error('Your input error:' +errorText)
+    toast.error('Error example: you have not example')
     // mymodal.modalNormal(
     //   "Error",
-    //   "\n Error example: you are not have example",
+    //   "\n Error example: you have not example",
     //   "error"
     // );
     return false;

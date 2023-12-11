@@ -24,16 +24,16 @@ const input = ref({ name: { type: 'name', val: prop.name }, description: { type:
 const checkValue = () => {
     let errorText = ""
     if (input.value.name.val > 30) {
-        errorText = errorText + "\n Error Content: name is more than 30 characters"
+        errorText = errorText + "\n Error name: name is more than 30 characters"
     }
     if (input.value.name.val.trim() == "" ) {
-        errorText = errorText + "\n Error Content: you do not insert name"
+        errorText = errorText + "\n Error name: you do not insert name"
     }
     if (input.value.description.val.trim() == "") {
-        errorText = errorText + "\n Error Name: :you do not insert value for description "
+        errorText = errorText + "\n Error description: you do not insert value for description "
     }
     if (errorText != "") {
-        toast.error('Your input error:' +errorText)
+        toast.error(errorText)
         // mymodal.modalNormal("Error", errorText, "error")
         return false
     } else {

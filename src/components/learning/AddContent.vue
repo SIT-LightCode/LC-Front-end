@@ -51,7 +51,7 @@ const checkValue = (selectid) => {
     }
   }
   if (errorText != '') {
-    toast.error('Your input error')
+    toast.error(errorText)
     // mymodal.modalNormal("Error", errorText, "error")
     return false
   } else return true

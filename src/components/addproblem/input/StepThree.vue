@@ -42,7 +42,7 @@ const checkValue = () => {
     errorText = errorText + '\n Error tag: you do not select tag'
   }
   if (errorText != '') {
-    toast.error('Your input error: ' +errorText)
+    toast.error(errorText)
     // mymodal.modalNormal('Error', errorText, 'error')
     return false
   } else return true
