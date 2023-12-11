@@ -1,7 +1,7 @@
 <script setup>
 import { ref, defineProps, defineEmits } from 'vue'
 import * as gql from 'gql-query-builder'
-
+import buttonvue from "../button/Button.vue"
 const emit = defineEmits(['addfunc'])
 
 const props = defineProps({
@@ -37,7 +37,8 @@ const submitTag = () => {
 
 <template>
   <div class="p-4">
-    <div class="mb-4">
+    <buttonvue class="m-5" @buttonClick="$emit('addstatus', 'list')" :name="'Back'"></buttonvue>
+    <div class="mb-4 ">
       <label for="topic" class="block text-sm font-medium text-gray-700">Topic:</label>
       <input
         id="topic"
