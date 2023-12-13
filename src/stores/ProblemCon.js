@@ -1,46 +1,45 @@
-import { defineStore, acceptHMRUpdate } from "pinia";
-import { computed, ref } from "vue";
-import { modalSwal } from "./Modal.js";
-import { connectBackend } from "./ConnectBackend.js";
+import { defineStore, acceptHMRUpdate } from 'pinia'
+import { computed, ref } from 'vue'
+import { modalSwal } from './Modal.js'
+import { connectBackend } from './ConnectBackend.js'
 import { Toaster, toast } from 'vue-sonner'
 
-import * as gql from "gql-query-builder";
+import * as gql from 'gql-query-builder'
 
-const mymodal = modalSwal();
-const myconnectBackend = connectBackend();
+const mymodal = modalSwal()
+const myconnectBackend = connectBackend()
 
-export const problemCon = defineStore("problemCon", () => {
-  let problemList = ref({});
+export const problemCon = defineStore('problemCon', () => {
+  let problemList = ref({})
 
   const getAllproblem = async () => {
     let querys = gql.query(
       {
-        operation: "getProblem",
+        operation: 'getProblem',
         fields: [
-          "id",
-          "name",
+          'id',
+          'name',
           {
-            tagProblem: ["id", { tag: ["id", "topic", "description"] }],
+            tagProblem: ['id', { tag: ['id', 'topic', 'description'] }],
           },
-          "description",
-          "exampleParameter",
-          { example: ["id", "input", "output"] },
-          "level",
-          "totalScore",
+          'description',
+          'exampleParameter',
+          { example: ['id', 'input', 'output'] },
+          'level',
+          'totalScore',
         ],
       },
       undefined,
       {
-        operationName: "GetProblem",
-      }
-    );
+        operationName: 'GetProblem',
+      },
+    )
     myconnectBackend.connectBack(querys).then(async (data) => {
-      if (data != "") {
-        problemList.value = data["data"]["getProblem"];
+      if (data != '') {
+        problemList.value = data['data']['getProblem']
       }
-    });
-  };
-
+    })
+  }
 
   const AddProblem = async (
     tagProblem,
@@ -49,13 +48,13 @@ export const problemCon = defineStore("problemCon", () => {
     solutionProblem,
     exampleParameterProblem,
     totalScoreProblem,
-    levelProblem
+    levelProblem,
   ) => {
     const query = gql.mutation(
       {
-        operation: "upsertProblem",
+        operation: 'upsertProblem',
         variables: {
-          id: { type: "Int", value: null },
+          id: { type: 'Int', value: null },
           arrayTagId: { value: `[${tagProblem}]` },
           name: { value: nameProblem },
           description: { value: descriptionProblem },
@@ -64,59 +63,91 @@ export const problemCon = defineStore("problemCon", () => {
           level: { value: parseInt(levelProblem) },
           totalScore: { value: parseInt(totalScoreProblem) },
         },
-        fields: [
-          "id",
-          "name",
-          "description",
-          "solution",
-          "level",
-          "totalScore",
-        ],
+        fields: ['id', 'name', 'description', 'solution', 'level', 'totalScore'],
       },
       undefined,
       {
-        operationName: "UpsertProblem ",
-      }
-    );
+        operationName: 'UpsertProblem ',
+      },
+    )
 
     myconnectBackend.connectBack(query).then(async (data) => {
-      if (data["data"] != undefined) {
+      if (data['data'] != undefined) {
         toast.success('Problem has been created')
         // mymodal.modalNormal(
         //   "Complete!",
         //   "this operation is success.",
         //   "success"
         // );
-        getAllproblem();
+        getAllproblem()
       }
-    });
-  };
-
-  const deleteProblem = async(id) => {
-
-      console.log(id)
-        let query = gql.mutation(
-          {
-            operation: 'removeProblem',
-            variables: { 
-              id:{type:'Int!',value: id},
-              
-            },
-          },
-          undefined,
-          {
-            operationName: 'RemoveProblem',
-          },
-        )
-        myconnectBackend.connectBack(query).then((res) => {
-          if (res != '') {
-            getAllproblem()
-            toast.success('Problem has been deleted')
-            //mymodal.modalNormal('Deleted!', 'This Content has been deleted.', 'success')
-          }
-        })
-      
-    
+    })
   }
-  return { problemList, AddProblem, getAllproblem ,deleteProblem};
-});
+
+  const deleteProblem = async (id) => {
+    console.log(id)
+    let query = gql.mutation(
+      {
+        operation: 'removeProblem',
+        variables: {
+          id: { type: 'Int!', value: id },
+        },
+      },
+      undefined,
+      {
+        operationName: 'RemoveProblem',
+      },
+    )
+    myconnectBackend.connectBack(query).then((res) => {
+      if (res != '') {
+        getAllproblem()
+        toast.success('Problem has been deleted')
+        //mymodal.modalNormal('Deleted!', 'This Content has been deleted.', 'success')
+      }
+    })
+  }
+
+  const EditProblem = async (
+    tagId,
+    tagProblem,
+    nameProblem,
+    descriptionProblem,
+    totalScoreProblem,
+    levelProblem,
+  ) => {
+    console.log(levelProblem)
+    console.log(totalScoreProblem)
+
+    const query = gql.mutation(
+      {
+        operation: 'upsertProblem',
+        variables: {
+          id: { type: 'Int', value: tagId },
+          arrayTagId: { value: `[${tagProblem}]` },
+          name: { value: nameProblem },
+          description: { value: descriptionProblem },
+          level: { value: parseInt(levelProblem) },
+          totalScore: { value: parseInt(totalScoreProblem) },
+        },
+        fields: ['id', 'name', 'description', 'solution', 'level', 'totalScore'],
+      },
+      undefined,
+      {
+        operationName: 'UpsertProblem ',
+      },
+    )
+    myconnectBackend.connectBack(query).then(async (data) => {
+      if (data['data'] != undefined) {
+        toast.success('Problem has been edit')
+        // mymodal.modalNormal(
+        //   "Complete!",
+        //   "this operation is success.",
+        //   "success"
+        // );
+        getAllproblem()
+      }
+    })
+  }
+
+  return { problemList, AddProblem, getAllproblem, deleteProblem ,EditProblem}
+})

@@ -16,6 +16,9 @@ const prop = defineProps({
     description: {
         type: String,
         default: ""
+    },
+    type:{
+        type: String,
     }
 })
 
@@ -58,7 +61,7 @@ const classObject = computed(() => {
 <template>
     <div class="mb-6">
         <label for="success" class="block mb-2  text-sm font-medium text-gray-900 dark:text-white">Name of problem want
-            to create <span class="text-red">*</span></label>
+            to {{ prop.type }} <span class="text-red">*</span></label>
 
         <input :maxlength="30" type="text" v-bind:class="classObject" placeholder="" v-model="input.name.val">
 

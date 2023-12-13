@@ -56,9 +56,10 @@ const upSetProblem = () => {
 };
 
 const changePage = (e1) => {
+    console.log(e1)
     if (e1 > 0) {
         ++page.value
-        if (page.value == 5) {
+        if (page.value > 4) {
             upSetProblem();
         }
     }
@@ -73,7 +74,7 @@ mylearningCon.getAllTag()
     <statusInput class="p-1" :pageAdd="page" />
 
     <div class="p-5">
-        <stepone v-if="page == 1" :name="inputProblemData.name.trim()" :description="inputProblemData.description"
+        <stepone v-if="page == 1" :type="'add'" :name="inputProblemData.name.trim()" :description="inputProblemData.description"
             @returnval="(e1) => { setValueFunc(e1); changePage(1); }" />
         <steptwo v-else-if="page == 2" :example="inputProblemData.example" @returnval="(e1) => { setValueFunc(e1) }"
             @page="(e1) => { changePage(e1) }" />

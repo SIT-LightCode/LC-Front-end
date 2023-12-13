@@ -18,6 +18,10 @@ const prop = defineProps({
   arrayTagId: {
     type: Array,
   },
+  type:{
+    type: String,
+    default: ""
+  }
 })
 const emit = defineEmits(['returnval', 'page'])
 const input = ref({
@@ -49,14 +53,13 @@ const checkValue = () => {
 }
 
 const inputdata = (e1) => {
+  emit('returnval', input.value)
   if (e1 > 0) {
     if (checkValue()) {
       emit('page', e1)
-      emit('returnval', input.value)
     }
   } else {
     emit('page', e1)
-    emit('returnval', input.value)
   }
 }
 const limitVal = () => {
@@ -137,7 +140,7 @@ const limitVal = () => {
         </label>
       </li>
     </ul>
-    <buttonPage
+    <buttonPage :type="prop.type"
       :pages="3"
       @page="
         (e1) => {

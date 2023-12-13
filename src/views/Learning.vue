@@ -4,8 +4,8 @@ import { ref, onBeforeMount } from 'vue'
 import { computed } from '@vue/reactivity'
 import LearningContent from '../components/learning/LearningContent.vue'
 import LearningList from '../components/learning/LearningList.vue'
-import Addcontent from '../components/learning/AddContent.vue'
-import AddTag from '../components/learning/AddTag.vue'
+import InputContent from '../components/learning/InputContent.vue'
+import InputTag from '../components/learning/InputTag.vue'
 const mylearningCon = learningCon()
 
 const currentlesson = ref({})
@@ -81,28 +81,28 @@ const currentSet = computed(() => {
 <template>
   <div class="">
     <div v-if="status == 'addTag'">
-      <AddTag
+      <InputTag
         :List="mylearningCon.tagList"
         :type="'Add'"
         @addstatus="(e) => (status = e)"
         @addfunc="(e, query, name) => conBackend(e, query, name)"
-      ></AddTag>
+      ></InputTag>
     </div>
     <div v-if="status == 'addLesson'">
-      <Addcontent
+      <InputContent
         :List="mylearningCon.tagList"
         :type="'Add'"
         @addstatus="(e) => (status = e)"
         @addfunc="(e, query) => conBackend(e, query)"
-      ></Addcontent>
+      ></InputContent>
     </div>
     <div v-if="status == 'edit'">
-      <Addcontent
+      <InputContent
         :datas="currentlesson"
         :type="'Edit'"
         @addstatus="(e) => (status = e)"
         @addfunc="(e, query) => conBackend(e, query)"
-      ></Addcontent>
+      ></InputContent>
     </div>
     <div class="flex space-x-16" v-show="status == 'list'">
       <!-- Sidebar/menu with its own scroll bar -->

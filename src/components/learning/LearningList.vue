@@ -18,6 +18,7 @@ const handleLessonClick = (lesson, topicId) => {
 }
 
 const showModalToAddContent = async () => {
+
   await Swal.fire({
     title: 'What do you want to add?',
     showCancelButton: true,
