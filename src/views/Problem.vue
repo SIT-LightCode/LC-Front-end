@@ -1,7 +1,7 @@
 <script setup>
 import filterBar from '../components/problem/FilterBar.vue';
 import listProblem from '../components/problem/ListProblem.vue';
-import EditProblem from '../components/addproblem/EditProblem.vue';
+import editPro from '../components/addproblem/EditProblem.vue';
 import { learningCon } from '../stores/LearningCon.js'
 
 import { problemCon } from '../stores/ProblemCon';
@@ -96,8 +96,8 @@ const editProblem = (val) => {
             <!--  -->
         </div>
         <div class="" v-if="isEdit">
-            <EditProblem @addstatus="isEdit = false" :learning="mylearningCon" :data=dataEdit
-                @isEditProblem="(e1) => { editProblem(e1) }"></EditProblem>
+            <editPro @addstatus="isEdit = false" :learning="mylearningCon" :data=dataEdit
+                @isEditProblem="(e1) => { editProblem(e1) }"></editPro>
         </div>
     </div>
 </template>
