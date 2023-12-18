@@ -141,7 +141,7 @@ const limitVal = () => {
       </li>
     </ul>
     <buttonPage :type="prop.type"
-      :pages="3"
+      :pages="4"
       @page="
         (e1) => {
           inputdata(e1)

@@ -87,7 +87,7 @@ const addDeleteExample = (type, id) => {
 const text =
   "# Example parameter for your problem\n" +
   " ## example : \n " +
-  " 1 ; if parameters is text or Number \n " +
+  " 1 ; if parameters is text or number \n " +
   "1,2,3,4,5,6 ; if parameters is array \n " +
   "** You can insert up to 4 parameters. and add  up to 4 examples**";
 </script>
@@ -141,7 +141,7 @@ const text =
       Delete Example parameter
     </button>
   </div>
-  <buttonPage :pages="2" @page="(e1) => {
+  <buttonPage :pages="3" @page="(e1) => {
     inputExam(e1);
   }
     "></buttonPage>

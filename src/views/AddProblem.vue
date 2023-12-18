@@ -1,9 +1,9 @@
 <script setup>
 import { ref } from "vue";
-import stepone from "../components/addproblem/input/StepOne.vue";
-import steptwo from "../components/addproblem/input/StepTwo.vue";
-import stepthree from "../components/addproblem/input/StepThree.vue";
-import stepfour from "../components/addproblem/input/StepFour.vue";
+import information from "../components/addproblem/input/Information.vue";
+import solution from "../components/addproblem/input/Solution.vue";
+import parameter from "../components/addproblem/input/Parameter.vue";
+import publishing from "../components/addproblem/input/Publishing.vue";
 import statusInput from "../components/addproblem/StatusInput.vue"
 import { Toaster, toast } from 'vue-sonner'
 
@@ -14,7 +14,7 @@ const mylearningCon = learningCon()
 const myproblemCon = problemCon()
 
 const inputProblemData = ref({
-    name: "", description: "", solution: 'const answer = (input) => {\n \n \n 	//Code Here \n console.log(input)   \n \n \n \n  }', example: [[['']]]
+    name: "", description: "", solution: 'const answer = (input) => {\n \n \n 	//Code Here \n return input;  \n \n \n \n  }', example: [[['']]]
     , totalScore: 0, level: 0, arrayTagId: []
 })
 const page = ref(1)
@@ -49,7 +49,7 @@ const upSetProblem = () => {
     ).then(() => {
         page.value = 1
         inputProblemData.value = {
-            name: "", description: "", solution: 'const answer = (input) => {\n \n \n 	//Code Here \n console.log(input)   \n \n \n \n  }', example: [[[undefined]]]
+            name: "", description: "", solution: 'const answer = (input) => {\n \n \n 	//Code Here \n return input;   \n \n \n \n  }', example: [[[undefined]]]
             , totalScore: 0, level: 0, arrayTagId: []
         }
     })
@@ -74,15 +74,18 @@ mylearningCon.getAllTag()
     <statusInput class="p-1" :pageAdd="page" />
 
     <div class="p-5">
-        <stepone v-if="page == 1" :type="'add'" :name="inputProblemData.name.trim()" :description="inputProblemData.description"
+        <information v-if="page == 1" :type="'add'" :name="inputProblemData.name.trim()" :description="inputProblemData.description"
             @returnval="(e1) => { setValueFunc(e1); changePage(1); }" />
-        <steptwo v-else-if="page == 2" :example="inputProblemData.example" @returnval="(e1) => { setValueFunc(e1) }"
+
+        <solution v-else-if="page == 2" :solution="inputProblemData.solution" @page="(e1) => { changePage(e1) }"
+            @returnval="(e1) => { setValueFunc(e1); }" />
+
+        <parameter v-else-if="page == 3" :example="inputProblemData.example" @returnval="(e1) => { setValueFunc(e1) }"
             @page="(e1) => { changePage(e1) }" />
-        <stepthree v-else-if="page == 3" :datas="mylearningCon.tagList" :totalScore="inputProblemData.totalScore"
+
+        <publishing v-else-if="page == 4" :datas="mylearningCon.tagList" :totalScore="inputProblemData.totalScore"
             :level="inputProblemData.level" :arrayTagId="inputProblemData.arrayTagId"
             @returnval="(e1) => { setValueFunc(e1) }" @page="(e1) => { changePage(e1) }" />
-        <stepfour v-else-if="page == 4" :solution="inputProblemData.solution" @page="(e1) => { changePage(e1) }"
-            @returnval="(e1) => { setValueFunc(e1); }" />
     </div>
 </template>
  

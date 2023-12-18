@@ -1,7 +1,10 @@
 <script setup>
-import stepOne from "./input/StepOne.vue"
-import stepThree from "./input/StepThree.vue"
+import information from "./input/Information.vue"
+import publishing from "./input/Publishing.vue"
 import buttonvue from "../button/Button.vue"
+
+
+
 import { modalSwal } from "../../stores/Modal";
 import { ref, onBeforeMount } from "vue";
 const mymodal = modalSwal()
@@ -68,13 +71,13 @@ onBeforeMount(async () => {
         <buttonvue class="" @buttonClick="$emit('addstatus', 'list')" :name="'Back'"></buttonvue>
 
         <div class="text-gray-900 text-sm">
-            <stepOne v-if="page == 1" :name="inputProblemData.name" :description="inputProblemData.description"
-                :type="'edit'" @returnval="(e1) => { setValueFunc(e1); changePage(1); }"></stepOne>
+            <information v-if="page == 1" :name="inputProblemData.name" :description="inputProblemData.description"
+                :type="'edit'" @returnval="(e1) => { setValueFunc(e1); changePage(1); }"></information>
         </div>
         <div class="text-gray-900 text-sm">
-            <stepThree v-if="page == 2" :datas="prop.learning.tagList" :totalScore="inputProblemData.totalScore"
+            <publishing v-if="page == 2" :datas="prop.learning.tagList" :totalScore="inputProblemData.totalScore"
                 :level="inputProblemData.level" :arrayTagId="inputProblemData.arrayTagId" :type="'edit'"
-                @page="(e1) => { changePage(e1) }" @returnval="(e1) => { setValueFunc(e1) }"></stepThree>
+                @page="(e1) => { changePage(e1) }" @returnval="(e1) => { setValueFunc(e1) }"></publishing>
             <hr />
         </div>
     </div>
