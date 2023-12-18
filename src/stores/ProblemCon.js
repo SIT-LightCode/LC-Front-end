@@ -37,6 +37,13 @@ export const problemCon = defineStore('problemCon', () => {
     myconnectBackend.connectBack(querys).then(async (data) => {
       if (data != '') {
         problemList.value = data['data']['getProblem']
+        data['data']['getProblem'].forEach( async(dataTag,id) => {
+          let arrayTagId = []
+          dataTag.tagProblem.forEach((dataTagListc,idlist)=>{
+            arrayTagId.push(dataTagListc.tag.id)   
+          })
+          problemList.value[id].arrayTagId = arrayTagId
+        });
       }
     })
   }
@@ -55,7 +62,7 @@ export const problemCon = defineStore('problemCon', () => {
         operation: 'upsertProblem',
         variables: {
           id: { type: 'Int', value: null },
-          arrayTagId: { value: `[${tagProblem}]` },
+          arrayTagId: { value: `[${tagProblem.sort()}]` },
           name: { value: nameProblem },
           description: { value: descriptionProblem },
           solution: { value: solutionProblem },
@@ -115,15 +122,14 @@ export const problemCon = defineStore('problemCon', () => {
     totalScoreProblem,
     levelProblem,
   ) => {
-    console.log(levelProblem)
-    console.log(totalScoreProblem)
+
 
     const query = gql.mutation(
       {
         operation: 'upsertProblem',
         variables: {
           id: { type: 'Int', value: tagId },
-          arrayTagId: { value: `[${tagProblem}]` },
+          arrayTagId: { value: `[${tagProblem.sort()}]` },
           name: { value: nameProblem },
           description: { value: descriptionProblem },
           level: { value: parseInt(levelProblem) },

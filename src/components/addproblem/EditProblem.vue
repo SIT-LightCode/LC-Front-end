@@ -2,8 +2,11 @@
 import stepOne from "./input/StepOne.vue"
 import stepThree from "./input/StepThree.vue"
 import buttonvue from "../button/Button.vue"
+import { modalSwal } from "../../stores/Modal";
 import { ref, onBeforeMount } from "vue";
-const emit = defineEmits(['addfunc', 'addstatus','isEditProblem'])
+const mymodal = modalSwal()
+
+const emit = defineEmits(['addfunc', 'addstatus', 'isEditProblem'])
 const prop = defineProps({
     data: Object,
     learning: Object
@@ -16,7 +19,6 @@ const inputProblemData = ref({
 
 const setValueFunc = (input) => {
     for (let i in input) {
-        console.log(input[i].val)
         inputProblemData.value[input[i].type] = input[i].val
     }
 
@@ -24,26 +26,28 @@ const setValueFunc = (input) => {
 const page = ref(1)
 
 const changePage = (e1) => {
-    console.log(e1)
     if (e1 > 0) {
         ++page.value
         if (page.value > 2) {
-            console.log(inputProblemData.value)
             upSetProblem();
         }
     }
     else --page.value
 }
 const upSetProblem = () => {
-    // if (prop.data.name == inputProblemData.value.name
-    //     && prop.data.description == inputProblemData.value.description
-    //     && prop.data.totalScore == inputProblemData.value.totalScore
-    //     && prop.data.level == inputProblemData.value.level
-    //     && prop.data.score == inputProblemData.value.score
-    //     && ) {
-    // }c
-    console.log(inputProblemData.value)
-    emit('isEditProblem',inputProblemData.value)
+
+    if (prop.data.name == inputProblemData.value.name
+        && prop.data.description == inputProblemData.value.description
+        && prop.data.totalScore == inputProblemData.value.totalScore
+        && prop.data.level == inputProblemData.value.level
+        && JSON.stringify(prop.data.arrayTagId) == JSON.stringify(inputProblemData.value.arrayTagId.sort())) {
+        mymodal.modalNormal(
+          "Error!",
+          "edit is same value.",
+          "error"
+        );
+        emit('isEditProblem','')
+    } else emit('isEditProblem', inputProblemData.value)
 }
 
 
@@ -70,7 +74,7 @@ onBeforeMount(async () => {
         <div class="text-gray-900 text-sm">
             <stepThree v-if="page == 2" :datas="prop.learning.tagList" :totalScore="inputProblemData.totalScore"
                 :level="inputProblemData.level" :arrayTagId="inputProblemData.arrayTagId" :type="'edit'"
-                @page="(e1) => { changePage(e1) }"  @returnval="(e1) => { setValueFunc(e1) }" ></stepThree>
+                @page="(e1) => { changePage(e1) }" @returnval="(e1) => { setValueFunc(e1) }"></stepThree>
             <hr />
         </div>
     </div>

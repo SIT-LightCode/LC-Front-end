@@ -52,7 +52,6 @@ const filterFunc = (dataFilter) => {
 
         return acc;
     }, []);
-    console.log(uniqueProblems)
 
     data.value = Array.from(new Set(uniqueProblems));
 };
@@ -74,14 +73,16 @@ onBeforeMount(async () => {
 // })
 
 const editProblem = (val) => {
-    myproblemCon.EditProblem(
-        dataEdit.value.id,
-        val.arrayTagId,
-        val.name,
-        val.description,
-        val.totalScore,
-        val.level,)
-        isEdit.value = false
+    if (val != '') {
+        myproblemCon.EditProblem(
+            dataEdit.value.id,
+            val.arrayTagId,
+            val.name,
+            val.description,
+            val.totalScore,
+            val.level,)
+    }
+    isEdit.value = false
 }
 </script>
 <template>
