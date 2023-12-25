@@ -2,8 +2,10 @@
 import filterBar from '../components/problem/FilterBar.vue';
 import listProblem from '../components/problem/ListProblem.vue';
 import editPro from '../components/addproblem/EditProblem.vue';
-import { learningCon } from '../stores/LearningCon.js'
+import inputAnswer from '../components/answerproblem/InputAnswer.vue';
+import resultPage from '../components/answerproblem/resultPage.vue';
 
+import { learningCon } from '../stores/LearningCon.js'
 import { problemCon } from '../stores/ProblemCon';
 import { computed, ref, onBeforeMount } from 'vue';
 const myproblemCon = problemCon()
@@ -11,12 +13,15 @@ const mylearningCon = learningCon()
 
 const filter = ref({ tag: [], level: 0, ScroceMax: 0, ScroceMin: 0 })
 const data = ref([])
-const dataEdit = ref([])
+const dataCurrent = ref([])
 
 const isFilter = ref(false)
 const isEdit = ref(false)
+const isDo = ref(false)
+const page = ref('')
 
-
+const result = ref('')
+const isResult = ref(false)
 
 const filterFunc = (dataFilter) => {
     console.log(dataFilter);
@@ -62,11 +67,7 @@ const test = computed(() => {
     else return myproblemCon.problemList
 })
 
-onBeforeMount(async () => {
-    await myproblemCon.getAllproblem()
-    await mylearningCon.getAllTag()
 
-})
 // const inputProblemData = ref({
 //     name: prop.data.name, description: prop.data.description
 //     , totalScore: prop.data.totalScore, level: prop.data.level, arrayTagId: []
@@ -75,30 +76,61 @@ onBeforeMount(async () => {
 const editProblem = (val) => {
     if (val != '') {
         myproblemCon.EditProblem(
-            dataEdit.value.id,
+            dataCurrent.value.id,
             val.arrayTagId,
             val.name,
             val.description,
             val.totalScore,
             val.level,)
     }
-    isEdit.value = false
+    page.value = 'isEdit'
 }
+
+const doSubmit = async (id, answer) => {
+  try {
+    const data = await myproblemCon.checkAnswer(id, answer);
+    console.log(data);
+    result.value = data;
+    console.log(result.value);
+    page.value = 'isResult';
+  } catch (error) {
+    console.error(error);
+    // Handle the error appropriately
+  }
+};
+
+onBeforeMount(async () => {
+    await myproblemCon.getAllproblem()
+    await mylearningCon.getAllTag()
+})
+
+
 </script>
 <template>
     <div class="w3-center">
-        <div class="flex" v-if="!isEdit">
+
+        <div class="" v-if="page=='isEdit'">
+            <editPro @addstatus="(e1)=>{page = e1}"  :learning="mylearningCon" :data=dataCurrent
+                @isEditProblem="(e1) => { editProblem(e1) }"></editPro>
+        </div>
+        <div class="" v-else-if="page=='isDo'">
+            <inputAnswer :data=dataCurrent @addstatus="(e1)=>{page = e1}" @Submit="(e1,e2)=>{doSubmit(e1,e2)}"></inputAnswer>
+        </div>
+        <div class="flex" v-else-if="page=='isResult'">
+            <resultPage :data="result" @addstatus="(e1)=>{page = e1}"></resultPage>
+        </div>
+        <div class="flex" v-else>
             <!-- Filter-->
             <filterBar :datas="mylearningCon" @filterValue="(e1) => { filterFunc(e1); }"></filterBar>
             <!--  -->
             <listProblem @deleteProblem="(e1) => { myproblemCon.deleteProblem(e1) }"
-                @editProblem="(e1) => { isEdit = true; dataEdit = e1 }" :datas="test"></listProblem>
+                @editProblem="(e1) => { page = 'isEdit'; dataCurrent = e1 }" 
+                @doProblem="(e1) => { page = 'isDo' ; dataCurrent = e1 }" 
+                :datas="test"></listProblem>
             <!--  -->
         </div>
-        <div class="" v-if="isEdit">
-            <editPro @addstatus="isEdit = false" :learning="mylearningCon" :data=dataEdit
-                @isEditProblem="(e1) => { editProblem(e1) }"></editPro>
-        </div>
+        
+
     </div>
 </template>
  

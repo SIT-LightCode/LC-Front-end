@@ -43,6 +43,8 @@ const returnLevel = (id) => {
 
                 </div>
                 <div class="flex justify-end m-5">
+                    <buttonVue @buttonClick="() => $emit('doProblem',i)" :name="'do'">
+                    </buttonVue>
                     <buttonVue @buttonClick="() => $emit('deleteProblem',i.id)" :name="'delete'">
                     </buttonVue>
                     <buttonVue @buttonClick="() => $emit('editProblem',i)" :name="'edit'">

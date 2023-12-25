@@ -68,7 +68,7 @@ onBeforeMount(async () => {
     <!-- contents  -->
     <div class="space-y-5">
         <hr />
-        <buttonvue class="" @buttonClick="$emit('addstatus', 'list')" :name="'Back'"></buttonvue>
+        <buttonvue class="" @buttonClick="$emit('addstatus', '')" :name="'Back'"></buttonvue>
 
         <div class="text-gray-900 text-sm">
             <information v-if="page == 1" :name="inputProblemData.name" :description="inputProblemData.description"

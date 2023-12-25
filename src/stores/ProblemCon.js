@@ -37,13 +37,13 @@ export const problemCon = defineStore('problemCon', () => {
     myconnectBackend.connectBack(querys).then(async (data) => {
       if (data != '') {
         problemList.value = data['data']['getProblem']
-        data['data']['getProblem'].forEach( async(dataTag,id) => {
+        data['data']['getProblem'].forEach(async (dataTag, id) => {
           let arrayTagId = []
-          dataTag.tagProblem.forEach((dataTagListc,idlist)=>{
-            arrayTagId.push(dataTagListc.tag.id)   
+          dataTag.tagProblem.forEach((dataTagListc, idlist) => {
+            arrayTagId.push(dataTagListc.tag.id)
           })
           problemList.value[id].arrayTagId = arrayTagId
-        });
+        })
       }
     })
   }
@@ -122,8 +122,6 @@ export const problemCon = defineStore('problemCon', () => {
     totalScoreProblem,
     levelProblem,
   ) => {
-
-
     const query = gql.mutation(
       {
         operation: 'upsertProblem',
@@ -154,6 +152,68 @@ export const problemCon = defineStore('problemCon', () => {
       }
     })
   }
+  // mutation CheckAnswer {
+  //   checkAnswer(
+  //     problemId : 16
+  //     solution : """
+  //     const answer = (arr, targetSum) => {
+  //       for (let i = 0; i < arr.length; i++) {
+  //         for (let j = i + 1; j < arr.length; j++) {
+  //           if (arr[i] + arr[j] === targetSum) {
+  //                   console.log([i, j])
+  //             return "dog"
+  //           }
+  //         }
+  //       }
+  //     }
+  //     """
+  //   )
+  //   {
+  //     exampleResults {
+  //       id
+  //       status
+  //       message
+  //     }
+  //     testcaseResults {
+  //       id
+  //       status
+  //       message
+  //     }
+  //   }
+  // }
 
-  return { problemList, AddProblem, getAllproblem, deleteProblem ,EditProblem}
+  const checkAnswer = async (problemId, solution) => {
+    try {
+    const query = gql.mutation(
+      {
+        operation: 'checkAnswer',
+        variables: {
+          problemId: { type: 'Int!', value: problemId },
+          solution: { type: 'String!' ,value: solution },
+        },
+        fields: [
+          { exampleResults: ['id', 'status', 'message'] },
+          { testcaseResults: ['id', 'status', 'message'] },
+        ],
+      },
+      undefined,
+      {
+        operationName: 'CheckAnswer ',
+      },
+    )
+    const data = await myconnectBackend.connectBack(query);
+
+    if (data['data'] !== undefined) {
+      let res = data['data']['checkAnswer'];
+      console.log(res);
+      return res;
+    }
+  } catch (error) {
+    console.error(error);
+    // Handle the error appropriately
+    return 0; // Return 0 or some other value to indicate failure
+  }
+};
+
+  return { problemList, AddProblem, getAllproblem, deleteProblem, EditProblem, checkAnswer }
 })
