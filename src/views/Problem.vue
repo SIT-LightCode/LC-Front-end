@@ -3,7 +3,7 @@ import filterBar from '../components/problem/FilterBar.vue';
 import listProblem from '../components/problem/ListProblem.vue';
 import editPro from '../components/addproblem/EditProblem.vue';
 import inputAnswer from '../components/answerproblem/InputAnswer.vue';
-import resultPage from '../components/answerproblem/resultPage.vue';
+import resultPage from '../components/answerproblem/ResultPage.vue';
 
 import { learningCon } from '../stores/LearningCon.js'
 import { problemCon } from '../stores/ProblemCon';
