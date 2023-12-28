@@ -8,11 +8,17 @@ import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism-tomorrow.css';
 import { Toaster, toast } from 'vue-sonner'
 
+
 import buttonvue from '../button/Button.vue'
+import CodingInput from './CodingInput.vue';
+import description from './DescriptionProblem.vue'
 import { ref, onBeforeMount } from "vue";
-const emit = defineEmits([ 'addstatus' , 'Submit'])
+const emit = defineEmits(['addstatus', 'Submit'])
 const prop = defineProps({
     data: {
+        type: Object,
+    },
+    result:{
         type: Object,
     }
 })
@@ -29,19 +35,11 @@ const highlighter = (code) => {
 
 <template>
     <div class="grid grid-cols-2 gap-4">
-        <div>
-            <buttonvue class="" @buttonClick="$emit('addstatus', '')" :name="'Back'"></buttonvue>
-            <buttonvue class="" @buttonClick="input = 'const answer = (input) => {\n \n \n 	//Code Here \n return input;   \n \n \n \n  }'" :name="'Reset'"></buttonvue>
-            <buttonvue class="" @buttonClick="$emit('Submit', prop.data.id , input)" :name="'Submit'"></buttonvue>
-            <div >
-                <prism-editor class="my-editor" v-model="input" :highlight="highlighter" line-numbers
-                    :tabSize="5"></prism-editor>
-            </div>
-        </div>
-        <div>
-            <h3 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ prop.data }}</h3>
-            <v-md-preview  :text="prop.data.description"></v-md-preview>
-        </div>
+        <CodingInput @addstatus="$emit('addstatus', '')" @Submit="(e)=>$emit('Submit', prop.data.id, e)"></CodingInput>
+        <description :result = "prop.result" :data="prop.data"></description>
+
+
+   
 
     </div>
 </template>

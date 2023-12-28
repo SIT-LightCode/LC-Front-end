@@ -92,7 +92,6 @@ const doSubmit = async (id, answer) => {
     console.log(data);
     result.value = data;
     console.log(result.value);
-    page.value = 'isResult';
   } catch (error) {
     console.error(error);
     // Handle the error appropriately
@@ -114,11 +113,9 @@ onBeforeMount(async () => {
                 @isEditProblem="(e1) => { editProblem(e1) }"></editPro>
         </div>
         <div class="" v-else-if="page=='isDo'">
-            <inputAnswer :data=dataCurrent @addstatus="(e1)=>{page = e1}" @Submit="(e1,e2)=>{doSubmit(e1,e2)}"></inputAnswer>
+            <inputAnswer :result="result" :data=dataCurrent @addstatus="(e1)=>{page = e1 ; result = ''}" @Submit="(e1,e2)=>{doSubmit(e1,e2)}"></inputAnswer>
         </div>
-        <div class="flex" v-else-if="page=='isResult'">
-            <resultPage :data="result" @addstatus="(e1)=>{page = e1}"></resultPage>
-        </div>
+    
         <div class="flex" v-else>
             <!-- Filter-->
             <filterBar :datas="mylearningCon" @filterValue="(e1) => { filterFunc(e1); }"></filterBar>
