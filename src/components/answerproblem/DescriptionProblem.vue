@@ -27,13 +27,15 @@ const colorTags = ['bg-[#ff6961]', 'bg-[#ffb480]', 'bg-[#f8f38d]', 'bg-[#42d6a4]
         </div>
         <div>
             <h1>Example</h1>
-            <table  class="items-center m-5 ">
+            <table class="items-center m-5 ">
                 <tr>
                     <th>Input</th>
                     <th>Output</th>
                 </tr>
                 <tr v-for="example in  prop.data.example" class="font-medium leading-4 text-gray-800">
-                    <td>{{ example.input }}</td>
+                    <td>
+                    {{ example.input.slice(1, -1) }}
+                    </td>
                     <td>{{ example.output }}</td>
                 </tr>
             </table>
