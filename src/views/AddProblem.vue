@@ -69,8 +69,8 @@ const changePage = (e1) => {
 mylearningCon.getAllTag()
 </script>
 
-<template>
-        <Toaster richColors position="top-right"/>
+<template >
+    <Toaster richColors position="top-right"/>
     <statusInput class="p-1" :pageAdd="page" />
 
     <div class="p-5">

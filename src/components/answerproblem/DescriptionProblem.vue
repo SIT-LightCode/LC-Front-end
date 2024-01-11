@@ -40,7 +40,7 @@ const colorTags = ['bg-[#ff6961]', 'bg-[#ffb480]', 'bg-[#f8f38d]', 'bg-[#42d6a4]
                 </tr>
             </table>
         </div>
-        <ResultPage :data="prop.result"></ResultPage>
+        <ResultPage v-if="prop.result != {}" :data="prop.result"></ResultPage>
     </div>
 </template>
  

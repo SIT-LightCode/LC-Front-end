@@ -106,7 +106,7 @@ onBeforeMount(async () => {
 
 </script>
 <template>
-    <div class="w3-center">
+    <div class="px-10">
 
         <div class="" v-if="page=='isEdit'">
             <editPro @addstatus="(e1)=>{page = e1}"  :learning="mylearningCon" :data=dataCurrent

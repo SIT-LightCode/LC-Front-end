@@ -79,7 +79,7 @@ const currentSet = computed(() => {
 </script>
 
 <template>
-  <div class="">
+  <div class="px-10">
     <div v-if="status == 'addTag'">
       <InputTag
         :List="mylearningCon.tagList"

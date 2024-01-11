@@ -2,8 +2,8 @@
 
 </script>
  
-<template>
-  <div class="flex flex-col items-center mt-16" >
+<template >
+  <div class="flex flex-col items-center mt-16 px-10" >
             <!-- Recommended -->
     <h1 class="text-3xl">Recommended Problems</h1><br>
     <p class="flex justify-center gap-5">
