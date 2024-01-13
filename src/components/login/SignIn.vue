@@ -1,11 +1,29 @@
 <script setup>
 import { ref } from 'vue'
 import ButtonPage from '../button/Button.vue';
+import { Toaster, toast } from 'vue-sonner'
+
 const emit = defineEmits(['login','status'])
 
-const email = ref('')
-const password = ref('')
+const dataForLogin = ref({
+    email: '', password: ''
+})
 
+
+const checkLogin = () =>{
+    let errortext = ""
+    for (const data in dataForLogin.value){
+        if(dataForLogin.value[data]==''){
+            // alert('error')
+            errortext = errortext + data + ' is null value ,'
+        }
+    }
+    if(errortext == ""){
+        emit('login', dataForLogin.value)
+    } else {
+        toast.error(errortext)
+    }
+}
 
 
 </script>
@@ -52,7 +70,7 @@ const password = ref('')
                                     <input type="email"
                                         class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                                         placeholder="Email" style="transition: all 0.15s ease 0s;" id="email"
-                                        v-model="email" />
+                                        v-model="dataForLogin.email" />
                                 </div>
                                 <div class="relative w-full mb-3">
                                     <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
@@ -61,12 +79,12 @@ const password = ref('')
                                     <input type="password"
                                         class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                                         placeholder="Password" style="transition: all 0.15s ease 0s;" id="password"
-                                        v-model="password" />
+                                        v-model="dataForLogin.password" />
                                 </div>
                             </form>
                             <button @click="$emit('status',true)">Create Account</button>
                             <div class="text-center mt-6">
-                                <ButtonPage @buttonClick="$emit('login',true)" :name="'Log In'"></ButtonPage>
+                                <ButtonPage @buttonClick="checkLogin()" :name="'Log In'"></ButtonPage>
                             </div>
                         </div>
                     </div>
