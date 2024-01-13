@@ -1,122 +1,59 @@
 <script setup>
+import amon from "../../assets/picture/amon.jpg"
+import tus from "../../assets/picture/tus.jpg"
+import mark from "../../assets/picture/mark.jpg"
 
+const member = {
+  amon: {
+    name: "Amornpong Duangchawee",
+    img : amon,
+    studentID: "",
+    position: "Backend Database",
+  },
+  tus: {
+    name: "Rapeepat Klamjeen",
+    img : tus,
+    studentID: "",
+    position: "Infrastructure",
+  },
+  mark: {
+    name: "Aritach Krudminburee",
+    img : mark,
+    studentID: "63130500133",
+    position: "Frontend",
+  }
+}
 </script>
  
 <template>
-<section class="pt-20 pb-48">
-        <div class="container mx-auto px-4">
-          <div class="flex flex-wrap justify-center text-center mb-24">
-            <div class="w-full lg:w-6/12 px-4">
-              <h2 class="text-4xl font-semibold">Member for LightCode Team</h2>
-              <p class="text-lg leading-relaxed m-4 text-gray-600">
-                According to the National Oceanic and Atmospheric
-                Administration, Ted, Scambos, NSIDClead scentist, puts the
-                potentially record maximum.
+  <section class="pt-20 pb-48">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-wrap justify-center text-center mb-24">
+        <div class="w-full lg:w-6/12 px-4">
+          <h2 class="text-4xl font-semibold">Member for LightCode Team</h2>
+          <p class="text-lg leading-relaxed m-4 text-gray-600">
+            Students of King Mongkut's University of Technology Thonburi,
+            Faculty of Information Technology, Department of Information Technology
+
+          </p>
+        </div>
+      </div>
+      <div class="flex flex-wrap justify-center text-center">
+        <div v-for="name in member" class="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
+          <div class="px-6">
+            <img alt="..." :src= "name.img" class="shadow-lg rounded-full max-w-full mx-auto" style="max-width: 120px;" />
+            <div class="pt-6 text-center">
+              <h5 class="text-xl font-bold">{{ name.name }}</h5>
+              <p class="mt-1 text-sm text-gray-500 uppercase font-semibold">
+                {{ name.position }}
               </p>
-            </div>
-          </div>
-          <div class="flex flex-wrap">
-            <div class="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
-              <div class="px-6">
-                <img alt="..." src="../assets/img/team-1-800x800.jpg" class="shadow-lg rounded-full max-w-full mx-auto"
-                  style="max-width: 120px;" />
-                <div class="pt-6 text-center">
-                  <h5 class="text-xl font-bold">Ryan Tompson</h5>
-                  <p class="mt-1 text-sm text-gray-500 uppercase font-semibold">
-                    Web Developer
-                  </p>
-                  <div class="mt-6">
-                    <button class="bg-blue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                      type="button">
-                      <i class="fab fa-twitter"></i></button><button
-                      class="bg-blue-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                      type="button">
-                      <i class="fab fa-facebook-f"></i></button><button
-                      class="bg-pink-500 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                      type="button">
-                      <i class="fab fa-dribbble"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
-              <div class="px-6">
-                <img alt="..." src="../assets/img/team-2-800x800.jpg" class="shadow-lg rounded-full max-w-full mx-auto"
-                  style="max-width: 120px;" />
-                <div class="pt-6 text-center">
-                  <h5 class="text-xl font-bold">Romina Hadid</h5>
-                  <p class="mt-1 text-sm text-gray-500 uppercase font-semibold">
-                    Marketing Specialist
-                  </p>
-                  <div class="mt-6">
-                    <button class="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                      type="button">
-                      <i class="fab fa-google"></i></button><button
-                      class="bg-blue-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                      type="button">
-                      <i class="fab fa-facebook-f"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
-              <div class="px-6">
-                <img alt="..." src="../assets/img/team-3-800x800.jpg" class="shadow-lg rounded-full max-w-full mx-auto"
-                  style="max-width: 120px;" />
-                <div class="pt-6 text-center">
-                  <h5 class="text-xl font-bold">Alexa Smith</h5>
-                  <p class="mt-1 text-sm text-gray-500 uppercase font-semibold">
-                    UI/UX Designer
-                  </p>
-                  <div class="mt-6">
-                    <button class="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                      type="button">
-                      <i class="fab fa-google"></i></button><button
-                      class="bg-blue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                      type="button">
-                      <i class="fab fa-twitter"></i></button><button
-                      class="bg-gray-800 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                      type="button">
-                      <i class="fab fa-instagram"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
-              <div class="px-6">
-                <img alt="..." src="../assets/img/team-4-470x470.png" class="shadow-lg rounded-full max-w-full mx-auto"
-                  style="max-width: 120px;" />
-                <div class="pt-6 text-center">
-                  <h5 class="text-xl font-bold">Jenna Kardi</h5>
-                  <p class="mt-1 text-sm text-gray-500 uppercase font-semibold">
-                    Founder and CEO
-                  </p>
-                  <div class="mt-6">
-                    <button class="bg-pink-500 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                      type="button">
-                      <i class="fab fa-dribbble"></i></button><button
-                      class="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                      type="button">
-                      <i class="fab fa-google"></i></button><button
-                      class="bg-blue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                      type="button">
-                      <i class="fab fa-twitter"></i></button><button
-                      class="bg-gray-800 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                      type="button">
-                      <i class="fab fa-instagram"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
+              
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </div>
+  </section>
 </template>
  
-<style>
-
-</style>
+<style></style>
