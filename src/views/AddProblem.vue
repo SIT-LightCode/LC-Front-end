@@ -1,15 +1,18 @@
 <script setup>
 import { ref } from "vue";
+import { useRouter } from 'vue-router'
+import { Toaster, toast } from 'vue-sonner'
+import { learningCon } from "../stores/LearningCon.js"
+import { problemCon } from "../stores/ProblemCon.js"
+
 import information from "../components/addproblem/input/Information.vue";
 import solution from "../components/addproblem/input/Solution.vue";
 import parameter from "../components/addproblem/input/Parameter.vue";
 import publishing from "../components/addproblem/input/Publishing.vue";
 import statusInput from "../components/addproblem/StatusInput.vue"
-import { Toaster, toast } from 'vue-sonner'
+import buttonvue from '../components/button/Button.vue'
 
-import { learningCon } from "../stores/LearningCon.js"
-import { problemCon } from "../stores/ProblemCon.js"
-
+const myRouter = useRouter()
 const mylearningCon = learningCon()
 const myproblemCon = problemCon()
 
@@ -71,6 +74,8 @@ mylearningCon.getAllTag()
 
 <template >
     <Toaster richColors position="top-right"/>
+    <buttonvue class="m-5" @buttonClick="myRouter.push({ name: 'problem' })" :name="'Back'"></buttonvue>
+    
     <statusInput class="p-1" :pageAdd="page" />
 
     <div class="p-5">

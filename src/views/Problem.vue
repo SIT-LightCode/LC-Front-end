@@ -1,13 +1,17 @@
 <script setup>
+import { useRouter } from 'vue-router'
+
 import filterBar from '../components/problem/FilterBar.vue';
 import listProblem from '../components/problem/ListProblem.vue';
 import editPro from '../components/addproblem/EditProblem.vue';
 import inputAnswer from '../components/answerproblem/InputAnswer.vue';
-import resultPage from '../components/answerproblem/ResultPage.vue';
 
 import { learningCon } from '../stores/LearningCon.js'
 import { problemCon } from '../stores/ProblemCon';
 import { computed, ref, onBeforeMount } from 'vue';
+import IconAdd from '../components/icons/IconAdd.vue'
+
+const myRouter = useRouter()
 const myproblemCon = problemCon()
 const mylearningCon = learningCon()
 
@@ -127,7 +131,8 @@ onBeforeMount(async () => {
             <!--  -->
         </div>
         
-
+        <IconAdd @click="myRouter.push({ name: 'addProblem' })"
+      class="fixed transition right-6 bottom-6 w-20 h-20 hover:text-blue-500 hover:cursor-pointer" />
     </div>
 </template>
  

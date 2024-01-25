@@ -5,7 +5,6 @@ const links = ref([
     { message: 'Home', path: '/lightcode' },
     { message: 'Problem', path: '/problem' },
     { message: 'Learning', path: '/learning' },
-    { message: 'Add problem', path: '/add-problem' },
     { message: 'About', path: '/about' },
 ])
 </script>

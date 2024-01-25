@@ -6,6 +6,7 @@ import { Toaster, toast } from 'vue-sonner'
 import { ref } from 'vue'
 import signin from '../components/login/SignIn.vue';
 import signup from '../components/login/SignUp.vue';
+
 const myRouter = useRouter()
 const page = ref('signin')
 </script>

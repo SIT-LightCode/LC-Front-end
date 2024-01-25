@@ -5,13 +5,6 @@ import Navbar from './components/main/NavBar.vue'
 import Sidebar from './components/main/SideBar.vue'
 import { Toaster, toast } from 'vue-sonner'
 
-const links = ref([
-  { message: 'Home', path: '/' },
-  { message: 'Problem', path: '/problem' },
-  { message: 'Learning', path: '/learning' },
-  { message: 'Add problem', path: '/add-problem' },
-  { message: 'About', path: '/about' },
-])
 
 const sidebarIsShow = ref(false)
 
