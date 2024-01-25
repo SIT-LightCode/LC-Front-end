@@ -38,9 +38,6 @@ const highlighter = (code) => {
         <CodingInput @addstatus="$emit('addstatus', '')" @Submit="(e)=>$emit('Submit', prop.data.id, e)"></CodingInput>
         <description :result = "prop.result" :data="prop.data"></description>
 
-
-   
-
     </div>
 </template>
   

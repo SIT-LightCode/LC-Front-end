@@ -10,6 +10,7 @@
     "test:unit": "vitest"
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^7.0.1",
     "@kangc/v-md-editor": "^2.3.18",
     "flowbite": "^2.2.0",
     "gql-query-builder": "^3.8.0",

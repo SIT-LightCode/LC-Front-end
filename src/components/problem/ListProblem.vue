@@ -1,5 +1,11 @@
 <script setup>
 import buttonVue from '../button/Button.vue';
+import { useRouter } from 'vue-router'
+
+import IconAdd from '../icons/IconAdd.vue'
+
+const myRouter = useRouter()
+
 const emit = defineEmits(['deleteProblem','editProblem'])
 
 const prop = defineProps({
@@ -51,7 +57,8 @@ const returnLevel = (id) => {
                     </buttonVue>
                 </div>
             </div>
-
+            <IconAdd @click="myRouter.push({ name: 'addProblem' })"
+      class="fixed transition right-6 bottom-6 w-20 h-20 hover:text-blue-500 hover:cursor-pointer" />
 
         </div>
         <!--  -->
