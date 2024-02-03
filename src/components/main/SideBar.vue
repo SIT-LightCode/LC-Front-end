@@ -2,6 +2,9 @@
 import IconArrowSmallLeft from "../icons/IconArrowSmallLeft.vue"
 import IconArrowSmallRight from "../icons/IconArrowSmallRight.vue"
 import { ref } from "vue"
+import { account } from "../../stores/Account.js"
+
+const myAccount = account()
 const emit = defineEmits(["openCloseSidebarEmit"])
 const sidebarIsShow = ref(false)
 
@@ -23,7 +26,7 @@ const openCloseSideBar = () => {
 				<div class="flex flex-col items-center p-4 ">
 					<div class="relative w-full pb-3">
 						<div class="flex justify-center">
-							<div>Tuslnwza007</div>
+							<div>{{ myAccount.user.name }}</div>
 						</div>
 						<!-- <IconArrowSmallLeft @click="openCloseSideBar" class="absolute top-0 right-0 border-b-2 hover:cursor-pointer border-gray-800  hover:border-blue-500 hover:text-blue-500"/> -->
 					</div>
@@ -36,9 +39,9 @@ const openCloseSideBar = () => {
 					/>
 					<div class="mt-2">
 						<ul>
-							<li>Score : 100</li>
-							<li>Ranking : 1</li>
-							<li>Passed : 100</li>
+							<li>Score : {{  myAccount.user.Score }}</li>
+							<li>Ranking : {{  myAccount.user.Ranking }}</li>
+							<li>Passed : {{  myAccount.user.Passed }}</li>
 						</ul>
 					</div>
 				</div>

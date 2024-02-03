@@ -2,22 +2,27 @@
 import { RouterLink, RouterView } from 'vue-router'
 import { useRouter } from 'vue-router'
 import { Toaster, toast } from 'vue-sonner'
+import { loginCon } from '../stores/LoginCon.js'
 
 import { ref } from 'vue'
 import signin from '../components/login/SignIn.vue';
 import signup from '../components/login/SignUp.vue';
 
+const myLogin = loginCon()
 const myRouter = useRouter()
 const page = ref('signin')
+const createAccount = (e1) => {
+    myLogin.AddAccount(e1.name, e1.email, e1.password)
+}
+const loginAccount = (e1) => {
+    myLogin.SignIn(e1.email, e1.password)
+}
 </script>
  
 <template>
-<Toaster richColors position="top-right"/>
-<signin v-if="page=='signin'" @status="page = 'signup'" @login="myRouter.push({ name: 'lightcode' })"></signin>
-<signup v-else-if="page=='signup'"  @status="page = 'signin'"  @create="page = 'signin'"></signup>
-
+    <Toaster richColors position="top-right" />
+    <signin v-if="page == 'signin'" @status="page = 'signup'" @login="(e1)=>{loginAccount(e1)}"></signin>
+    <signup v-else-if="page == 'signup'" @status="page = 'signin'" @create="(e1) => { createAccount(e1) }"></signup>
 </template>
  
-<style>
-
-</style>
+<style></style>

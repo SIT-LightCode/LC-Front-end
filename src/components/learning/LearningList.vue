@@ -3,9 +3,11 @@ import { ref, defineProps } from 'vue'
 import IconAdd from '../icons/IconAdd.vue'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import buttonVue from '../button/Button.vue';
+import { account } from '../../stores/Account.js'
+
 // Capture the emit function
 const emit = defineEmits(['selected', 'addstatus','deleteTag'])
-
+const myAccount = account()
 const props = defineProps({
   contents: Object,
 })
@@ -37,7 +39,7 @@ const showModalToAddContent = async () => {
 
 <template>
   <div v-if="contents.length > 0" class="flex">
-    <IconAdd @click="showModalToAddContent"
+    <IconAdd @click="showModalToAddContent" v-if="myAccount.user.role == 'ADMIN'"
       class="fixed transition right-6 bottom-6 w-20 h-20 hover:text-blue-500 hover:cursor-pointer" />
     <div class="flex flex-col space-y-5 pr-6">
       <div v-for="topic in contents" class="flex flex-col content-center text-black">
@@ -55,7 +57,7 @@ const showModalToAddContent = async () => {
 
             </div>
             <div v-show="topic.lesson == null"><b style="color: red"> No lesson </b></div>
-            <div class=""> <buttonVue @buttonClick="  $emit('deleteTag', topic.id)" :name="'Delete Tag'"></buttonVue>
+            <div v-if="myAccount.user.role == 'ADMIN'"> <buttonVue  @buttonClick="  $emit('deleteTag', topic.id)" :name="'Delete Tag'"></buttonVue>
             </div>
           </div>
         </div>

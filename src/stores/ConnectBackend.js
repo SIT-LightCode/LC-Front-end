@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
 import { modalSwal } from './Modal.js'
 import { Toaster, toast } from 'vue-sonner'
-
+import { cookieData } from '../stores/CookieData.js'
+const myCookie = cookieData()
 const mymodal = modalSwal()
 
 export const connectBackend = defineStore('connectBackend', () => {
@@ -11,6 +12,7 @@ export const connectBackend = defineStore('connectBackend', () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: "Bearer " + myCookie.getCookie("TokenLightcode"),
         },
         body: JSON.stringify({
           query: querys.query,

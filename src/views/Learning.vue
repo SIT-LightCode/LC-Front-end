@@ -7,7 +7,6 @@ import LearningList from '../components/learning/LearningList.vue'
 import InputContent from '../components/learning/InputContent.vue'
 import InputTag from '../components/learning/InputTag.vue'
 const mylearningCon = learningCon()
-
 const currentlesson = ref({})
 const status = ref('list')
 const selectedLesson = ref({})
@@ -80,8 +79,9 @@ const currentSet = computed(() => {
 
 <template>
   <div class="px-10">
-    <div v-if="status == 'addTag'">
-      <InputTag
+    <div v-if="status == 'addTag' 
+" >
+      <InputTag 
         :List="mylearningCon.tagList"
         :type="'Add'"
         @addstatus="(e) => (status = e)"
@@ -96,7 +96,7 @@ const currentSet = computed(() => {
         @addfunc="(e, query) => conBackend(e, query)"
       ></InputContent>
     </div>
-    <div v-if="status == 'edit'">
+    <div v-if="status == 'edit'" >
       <InputContent
         :datas="currentlesson"
         :type="'Edit'"

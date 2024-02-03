@@ -1,11 +1,11 @@
 <script setup>
 import buttonVue from '../button/Button.vue';
 import { useRouter } from 'vue-router'
-
+import { account } from '../../stores/Account';
 import IconAdd from '../icons/IconAdd.vue'
 
 const myRouter = useRouter()
-
+const myAccount = account()
 const emit = defineEmits(['deleteProblem','editProblem'])
 
 const prop = defineProps({
@@ -51,13 +51,14 @@ const returnLevel = (id) => {
                 <div class="flex justify-end m-5">
                     <buttonVue @buttonClick="() => $emit('doProblem',i)" :name="'do'">
                     </buttonVue>
-                    <buttonVue @buttonClick="() => $emit('deleteProblem',i.id)" :name="'delete'">
+                    <buttonVue v-if="myAccount.user.role == 'ADMIN'" @buttonClick="() => $emit('deleteProblem',i.id)" :name="'delete'">
                     </buttonVue>
-                    <buttonVue @buttonClick="() => $emit('editProblem',i)" :name="'edit'">
+                    <buttonVue v-if="myAccount.user.role == 'ADMIN'" @buttonClick="() => $emit('editProblem',i)" :name="'edit'">
                     </buttonVue>
                 </div>
             </div>
-            <IconAdd @click="myRouter.push({ name: 'addProblem' })"
+
+            <IconAdd v-if="myAccount.user.role == 'ADMIN'" @click="myRouter.push({ name: 'addProblem' })"
       class="fixed transition right-6 bottom-6 w-20 h-20 hover:text-blue-500 hover:cursor-pointer" />
 
         </div>
