@@ -1,5 +1,25 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+function getCookie(cname) {
+  let name = cname + '='
+  let ca = document.cookie.split(';')
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i]
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1)
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length)
+    }
+  }
+  return ''
+}
+
+function checkLogin(to, from) {
+  if (getCookie('TokenLightcode') == '') {
+    return { path: '/login' }
+  }
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,11 +27,7 @@ const router = createRouter({
     {
       path: '/lightcode',
       name: 'lightcode',
-      beforeEnter: (to, from) => {
-        if(document.cookie.split(';') == ''){
-          return { path: '/login' }
-        }
-      },
+      beforeEnter: checkLogin,
       component: HomeView,
     },
     {
@@ -22,56 +38,41 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
+      beforeEnter: (to, from) => {
+        if (getCookie('TokenLightcode') != '') {
+          return { path: '/lightcode' }
+        } 
+      },
       component: () => import('../views/Login.vue'),
     },
     {
       path: '/about',
       name: 'about',
-      beforeEnter: (to, from) => {
-        if(document.cookie.split(';') == ''){
-          return { path: '/login' }
-        }
-      },
+      beforeEnter: checkLogin,
       component: () => import('../views/AboutView.vue'),
     },
     {
       path: '/problem',
       name: 'problem',
-      beforeEnter: (to, from) => {
-        if(document.cookie.split(';') == ''){
-          return { path: '/login' }
-        }
-      },
+      beforeEnter: checkLogin,
       component: () => import('../views/Problem.vue'),
     },
     {
       path: '/learning',
       name: 'learning',
-      beforeEnter: (to, from) => {
-        if(document.cookie.split(';') == ''){
-          return { path: '/login' }
-        }
-      },
+      beforeEnter: checkLogin,
       component: () => import('../views/Learning.vue'),
     },
     {
       path: '/add-problem',
       name: 'addProblem',
-      beforeEnter: (to, from) => {
-        if(document.cookie.split(';') == ''){
-          return { path: '/login' }
-        }
-      },
+      beforeEnter: checkLogin,
       component: () => import('../views/AddProblem.vue'),
     },
     {
       path: '/view-user',
       name: 'viewuser',
-      beforeEnter: (to, from) => {
-        if(document.cookie.split(';') == ''){
-          return { path: '/login' }
-        }
-      },
+      beforeEnter: checkLogin,
       component: () => import('../Views/viewUser.vue'),
     },
     { path: '/:pathMatch(.*)*', component: () => import('../Views/NotFound.vue') },

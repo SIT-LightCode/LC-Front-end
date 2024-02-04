@@ -3,9 +3,8 @@ import IconArrowSmallLeft from "../icons/IconArrowSmallLeft.vue"
 import IconArrowSmallRight from "../icons/IconArrowSmallRight.vue"
 import { ref } from "vue"
 import { account } from "../../stores/Account.js"
-
 const myAccount = account()
-const emit = defineEmits(["openCloseSidebarEmit"])
+const emit = defineEmits(["openCloseSidebarEmit","OpenModal"])
 const sidebarIsShow = ref(false)
 
 const openCloseSideBar = () => {
@@ -16,6 +15,7 @@ const openCloseSideBar = () => {
 
 <template>
 	<div>
+		
 		<div
 			:class="
 				(sidebarIsShow ? `w-1/6` : `w-44 h-10`) +
@@ -30,6 +30,7 @@ const openCloseSideBar = () => {
 						</div>
 						<!-- <IconArrowSmallLeft @click="openCloseSideBar" class="absolute top-0 right-0 border-b-2 hover:cursor-pointer border-gray-800  hover:border-blue-500 hover:text-blue-500"/> -->
 					</div>
+					{{ myAccount.user }}
 					<img
 						src="../../assets/picture/proxypic.jpg"
 						class="rounded-lg"
@@ -44,6 +45,8 @@ const openCloseSideBar = () => {
 							<li>Passed : {{  myAccount.user.Passed }}</li>
 						</ul>
 					</div>
+					<button class="bg-blue-300 hover:bg-blue-500 text-gray-800 font-bold py-2 px-4 mx-2 rounded" @click="()=>{ sidebarIsShow = false; $emit('OpenModal',true) }">Setting</button>
+					
 				</div>
 				<div
 					@click="openCloseSideBar"
