@@ -2,10 +2,13 @@
 import { ref } from "vue"
 import buttonVue from '../button/Button.vue';
 import { account } from '../../stores/Account';
-const emit = defineEmits(["CloseModal", "LogOut"])
+const emit = defineEmits(["CloseModal", "LogOut","EditUserByUser"])
 const myAccount = account()
 const editMode = ref(false)
 const EditUser = ref({ name: myAccount.user.name, email: myAccount.user.email })
+const EditByUser = () => {
+    myAccount.EditAccount(EditUser.value.name,EditUser.value.email)
+}
 </script>
  
 <template>
@@ -38,7 +41,8 @@ const EditUser = ref({ name: myAccount.user.name, email: myAccount.user.email })
                             </div>
                             <div class="p-5"> email : {{ myAccount.user.email }}
                             </div>
-                            <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 mx-2 rounded" @click="editMode = false">Edit</button>
+                            <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 mx-2 rounded"
+                                @click="editMode = false">Edit</button>
                         </div>
                         <div v-show="!editMode">
                             <div class="p-5">
@@ -48,16 +52,18 @@ const EditUser = ref({ name: myAccount.user.name, email: myAccount.user.email })
                             <div class="p-5">
                                 email : <input :maxlength="30" type="text" placeholder="" v-model="EditUser.email">
                             </div>
-                            <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 mx-2 rounded" @click="editMode = true">Close</button>
-                            <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 mx-2 rounded" @click="editMode = false">Edit</button>
+                            <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 mx-2 rounded"
+                                @click="editMode = true">Close</button>
+                            <buttonVue :name="'Edit'" @buttonClick="EditByUser() ">Edit
+                            </buttonVue>
                         </div>
                     </div>
                 </div>
                 <!--footer-->
                 <div class="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                     <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 mx-2 rounded"
-                        @click="$emit('CloseModal', false)"> Close</button>
-                    <buttonVue :name="'Log Out'" @buttonClick="() => { $emit('LogOut', true) }"></buttonVue>
+                        @click="editMode = true ;  $emit('CloseModal', false);"> Close</button>
+                    <buttonVue :name="'Log Out'" @buttonClick="() => { $emit('LogOut', true); editMode = true }"></buttonVue>
                 </div>
             </div>
         </div>

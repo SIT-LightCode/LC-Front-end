@@ -30,7 +30,6 @@ const openCloseSideBar = () => {
 						</div>
 						<!-- <IconArrowSmallLeft @click="openCloseSideBar" class="absolute top-0 right-0 border-b-2 hover:cursor-pointer border-gray-800  hover:border-blue-500 hover:text-blue-500"/> -->
 					</div>
-					{{ myAccount.user }}
 					<img
 						src="../../assets/picture/proxypic.jpg"
 						class="rounded-lg"
@@ -39,10 +38,8 @@ const openCloseSideBar = () => {
 						height="200"
 					/>
 					<div class="mt-2">
-						<ul>
-							<li>Score : {{  myAccount.user.Score }}</li>
-							<li>Ranking : {{  myAccount.user.Ranking }}</li>
-							<li>Passed : {{  myAccount.user.Passed }}</li>
+						<ul v-for="(user,key) in myAccount.user">
+							<li>{{key}} : {{ user }}</li>
 						</ul>
 					</div>
 					<button class="bg-blue-300 hover:bg-blue-500 text-gray-800 font-bold py-2 px-4 mx-2 rounded" @click="()=>{ sidebarIsShow = false; $emit('OpenModal',true) }">Setting</button>

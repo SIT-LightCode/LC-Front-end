@@ -3,7 +3,7 @@ import { computed, ref } from 'vue'
 import { modalSwal } from './Modal.js'
 import { connectBackend } from './ConnectBackend.js'
 import { Toaster, toast } from 'vue-sonner'
-
+import { account } from './Account.js'
 import * as gql from 'gql-query-builder'
 
 const mymodal = modalSwal()
@@ -11,6 +11,7 @@ const myconnectBackend = connectBackend()
 
 export const problemCon = defineStore('problemCon', () => {
   let problemList = ref({})
+  const myAccount = account()
 
   const getAllproblem = async () => {
     let querys = gql.query(
@@ -57,6 +58,7 @@ export const problemCon = defineStore('problemCon', () => {
     totalScoreProblem,
     levelProblem,
   ) => {
+    let isOfficial = myAccount.user.authorities.includes('ADMIN')
     const query = gql.mutation(
       {
         operation: 'upsertProblem',
@@ -69,6 +71,7 @@ export const problemCon = defineStore('problemCon', () => {
           exampleParameter: { value: JSON.stringify(exampleParameterProblem) },
           level: { value: parseInt(levelProblem) },
           totalScore: { value: parseInt(totalScoreProblem) },
+          isOfficial: isOfficial,
         },
         fields: ['id', 'name', 'description', 'solution', 'level', 'totalScore'],
       },
@@ -184,36 +187,36 @@ export const problemCon = defineStore('problemCon', () => {
 
   const checkAnswer = async (problemId, solution) => {
     try {
-    const query = gql.mutation(
-      {
-        operation: 'checkAnswer',
-        variables: {
-          problemId: { type: 'Int!', value: problemId },
-          solution: { type: 'String!' ,value: solution },
+      const query = gql.mutation(
+        {
+          operation: 'checkAnswer',
+          variables: {
+            problemId: { type: 'Int!', value: problemId },
+            solution: { type: 'String!', value: solution },
+          },
+          fields: [
+            { exampleResults: ['id', 'status', 'message'] },
+            { testcaseResults: ['id', 'status', 'message'] },
+          ],
         },
-        fields: [
-          { exampleResults: ['id', 'status', 'message'] },
-          { testcaseResults: ['id', 'status', 'message'] },
-        ],
-      },
-      undefined,
-      {
-        operationName: 'CheckAnswer ',
-      },
-    )
-    const data = await myconnectBackend.connectBack(query);
+        undefined,
+        {
+          operationName: 'CheckAnswer ',
+        },
+      )
+      const data = await myconnectBackend.connectBack(query)
 
-    if (data['data'] !== undefined) {
-      let res = data['data']['checkAnswer'];
-      console.log(res);
-      return res;
+      if (data['data'] !== undefined) {
+        let res = data['data']['checkAnswer']
+        console.log(res)
+        return res
+      }
+    } catch (error) {
+      console.error(error)
+      // Handle the error appropriately
+      return 0 // Return 0 or some other value to indicate failure
     }
-  } catch (error) {
-    console.error(error);
-    // Handle the error appropriately
-    return 0; // Return 0 or some other value to indicate failure
   }
-};
 
   return { problemList, AddProblem, getAllproblem, deleteProblem, EditProblem, checkAnswer }
 })

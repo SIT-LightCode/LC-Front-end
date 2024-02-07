@@ -9,8 +9,8 @@ import inputAnswer from '../components/answerproblem/InputAnswer.vue';
 import { learningCon } from '../stores/LearningCon.js'
 import { problemCon } from '../stores/ProblemCon';
 import { computed, ref, onBeforeMount } from 'vue';
-
-
+import { account } from '../stores/Account'
+const myAccount = account()
 const myproblemCon = problemCon()
 const mylearningCon = learningCon()
 
@@ -104,6 +104,7 @@ const doSubmit = async (id, answer) => {
 onBeforeMount(async () => {
     await myproblemCon.getAllproblem()
     await mylearningCon.getAllTag()
+    await myAccount.GetUserByEmail()
 })
 
 
@@ -111,7 +112,7 @@ onBeforeMount(async () => {
 <template>
     <div class="px-10">
 
-        <div class="" v-if="page=='isEdit'">
+        <div class="" v-if= "page=='isEdit'">
             <editPro @addstatus="(e1)=>{page = e1}"  :learning="mylearningCon" :data=dataCurrent
                 @isEditProblem="(e1) => { editProblem(e1) }"></editPro>
         </div>

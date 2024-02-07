@@ -12,10 +12,8 @@ const myCookie = cookieData()
 const sidebarIsShow = ref(false)
 const showModal = ref(false)
 const openCloseSidebar = (isShow) => {
-  console.log('ss')
-  console.log(sidebarIsShow.value)
+
   sidebarIsShow.value = isShow
-  console.log(sidebarIsShow.value)
 
 }
 
@@ -49,7 +47,7 @@ const LogOut = () => {
     </div>
   </div>
   <div v-if="showModal">
-    <setting @CloseModal="(e1) => { showModal = e1 }" @LogOut="() => { LogOut() }"></setting>
+    <setting @CloseModal="(e1) => { showModal = e1 }" @LogOut="() => { LogOut() }" ></setting>
   </div>
 </template>
 

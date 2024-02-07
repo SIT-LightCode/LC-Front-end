@@ -51,14 +51,14 @@ const returnLevel = (id) => {
                 <div class="flex justify-end m-5">
                     <buttonVue @buttonClick="() => $emit('doProblem',i)" :name="'do'">
                     </buttonVue>
-                    <buttonVue v-if="myAccount.user.role == 'ADMIN'" @buttonClick="() => $emit('deleteProblem',i.id)" :name="'delete'">
+                    <buttonVue v-if="myAccount.user.authorities.includes('ADMIN')" @buttonClick="() => $emit('deleteProblem',i.id)" :name="'delete'">
                     </buttonVue>
-                    <buttonVue v-if="myAccount.user.role == 'ADMIN'" @buttonClick="() => $emit('editProblem',i)" :name="'edit'">
+                    <buttonVue v-if="myAccount.user.authorities.includes('ADMIN')" @buttonClick="() => $emit('editProblem',i)" :name="'edit'">
                     </buttonVue>
                 </div>
             </div>
 
-            <IconAdd v-if="myAccount.user.role == 'ADMIN'" @click="myRouter.push({ name: 'addProblem' })"
+            <IconAdd @click="myRouter.push({ name: 'addProblem' })"
       class="fixed transition right-6 bottom-6 w-20 h-20 hover:text-blue-500 hover:cursor-pointer" />
 
         </div>

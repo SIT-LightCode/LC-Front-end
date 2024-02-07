@@ -2,6 +2,7 @@
 import { learningCon } from '../stores/LearningCon.js'
 import { ref, onBeforeMount } from 'vue'
 import { computed } from '@vue/reactivity'
+import { account } from '../stores/Account'
 import LearningContent from '../components/learning/LearningContent.vue'
 import LearningList from '../components/learning/LearningList.vue'
 import InputContent from '../components/learning/InputContent.vue'
@@ -10,9 +11,11 @@ const mylearningCon = learningCon()
 const currentlesson = ref({})
 const status = ref('list')
 const selectedLesson = ref({})
+const myAccount = account()
 
 onBeforeMount(async () => {
   await mylearningCon.getAllTag()
+  await myAccount.GetUserByEmail()
 
   if (mylearningCon.tagList.length > 0) {
     selectLesson(mylearningCon.tagList[0].lesson[0], mylearningCon.tagList[0].id)

@@ -1,9 +1,10 @@
 <script setup>
-import { ref } from "vue";
+import { ref , onBeforeMount} from "vue";
 import { useRouter } from 'vue-router'
 import { Toaster, toast } from 'vue-sonner'
 import { learningCon } from "../stores/LearningCon.js"
 import { problemCon } from "../stores/ProblemCon.js"
+import { account } from "../stores/Account";
 
 import information from "../components/addproblem/input/Information.vue";
 import solution from "../components/addproblem/input/Solution.vue";
@@ -15,7 +16,7 @@ import buttonvue from '../components/button/Button.vue'
 const myRouter = useRouter()
 const mylearningCon = learningCon()
 const myproblemCon = problemCon()
-
+const myAccount = account()
 const inputProblemData = ref({
     name: "", description: "", solution: 'const answer = (input) => {\n \n \n 	//Code Here \n return input;  \n \n \n \n  }', example: [[['']]]
     , totalScore: 0, level: 0, arrayTagId: []
@@ -69,7 +70,10 @@ const changePage = (e1) => {
     else --page.value
 }
 
-mylearningCon.getAllTag()
+onBeforeMount(async () => {
+    await mylearningCon.getAllTag()
+    await myAccount.GetUserByEmail()
+})
 </script>
 
 <template >

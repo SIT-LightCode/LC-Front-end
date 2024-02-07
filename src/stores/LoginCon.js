@@ -15,31 +15,7 @@ export const loginCon = defineStore('loginCon', () => {
   const myconnectBackend = connectBackend()
   const myRouter = useRouter()
   const myAccount = account()
-
-  const AddAccount = async (nameAccount, emailAccount, passwordAccount) => {
-    const query = gql.mutation(
-      {
-        operation: 'upsertUser',
-        variables: {
-          id: { type: 'Int', value: null },
-          authorities: { value: 'USER' },
-          name: { value: nameAccount },
-          email: { value: emailAccount },
-          password: { value: passwordAccount },
-        },
-        fields: ['id', 'name', 'email'],
-      },
-      undefined,
-      {
-        operationName: 'UpsertUser ',
-      },
-    )
-
-    myconnectBackend.connectBack(query).then(async (data) => {
-      alert(data)
-      toast.success('Create user completed')
-    })
-  }
+  
   const parseJwt = (token) => {
     var base64Url = token.split(".")[1];
     var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
@@ -77,31 +53,8 @@ export const loginCon = defineStore('loginCon', () => {
         // let jsonFromToken = parseJwt(myCookie.getCookie("token"))
 				// myAccount.user.name = setCookie("name", jsonFromToken.name, 7)
 				// myAccount.setCookie("role", jsonFromToken.role, 7)
-				// myAccount.setCookie("email", jsonFromToken.sub, 7)
-        const query = gql.query(
-          {
-            operation: 'GetUserByEmail ',
-            variables: {
-              email: { value: email },
-            },
-            fields: ['id', 'name', 'email','authorities'],
-          },
-          undefined,
-          {
-            operationName: 'getUserByEmail ',
-          },
-        )
-    
-        myconnectBackend.connectBack(query).then(async (data) => {
-          myAccount.user.name = data.name
-          myAccount.user.email = data.email
-          myAccount.user.authorities = data.authorities
-        })
-
-        
+				myAccount.GetUserByEmail()
         toast.success('Login Completed')
-
-
         myRouter.push({ name: 'lightcode' })
       } 
     } catch (err) {
@@ -111,5 +64,5 @@ export const loginCon = defineStore('loginCon', () => {
   }
 
 
-  return { AddAccount, SignIn , parseJwt }
+  return {  SignIn , parseJwt }
 })

@@ -42,8 +42,8 @@ const buttonDeleteFunc = () => {
           <v-md-preview :text="contents.lesson.content"></v-md-preview>
           <hr />
           <div class="flex justify-end mt-5 mr-5">
-            <ButtonVue v-if="myAccount.user.role == 'ADMIN'" @buttonClick="buttonDeleteFunc()" :name="'Delete'"></ButtonVue>
-            <ButtonVue v-if="myAccount.user.role == 'ADMIN'" @buttonClick="$emit('addstatus', 'edit')" :name="'Edit'"></ButtonVue>
+            <ButtonVue v-if="myAccount.user.authorities.includes('ADMIN')" @buttonClick="buttonDeleteFunc()" :name="'Delete'"></ButtonVue>
+            <ButtonVue v-if="myAccount.user.authorities.includes('ADMIN')" @buttonClick="$emit('addstatus', 'edit')" :name="'Edit'"></ButtonVue>
           </div>
         </div>
       </div>

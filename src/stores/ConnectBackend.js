@@ -2,17 +2,22 @@ import { defineStore } from 'pinia'
 import { modalSwal } from './Modal.js'
 import { Toaster, toast } from 'vue-sonner'
 import { cookieData } from '../stores/CookieData.js'
-const myCookie = cookieData()
-const mymodal = modalSwal()
 
 export const connectBackend = defineStore('connectBackend', () => {
+  const myCookie = cookieData()
+  
   const connectBack = async (querys) => {
+    let token = ""
+    if(myCookie.getCookie("TokenLightcode") != "") {
+      token = myCookie.getCookie("TokenLightcode")
+    }
+
     try {
       const res = await fetch(`${import.meta.env.VITE_BASE_URL}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: "Bearer " + myCookie.getCookie("TokenLightcode"),
+          Authorization: token,
         },
         body: JSON.stringify({
           query: querys.query,
