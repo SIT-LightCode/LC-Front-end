@@ -67,7 +67,7 @@ const router = createRouter({
       path: '/view-user',
       name: 'viewuser',
       beforeEnter: checkLogin,
-      component: () => import('../views/viewUser.vue'),
+      component: () => import('../views/ViewUser.vue'),
     },
     {
       path: '/:pathMatch(.*)*',
