@@ -38,7 +38,11 @@ export const account = defineStore('account', () => {
     )
 
     myconnectBackend.connectBack(query).then(async (data) => {
-      toast.success('Create user completed')
+      if(data != ""){
+        toast.success('Create user completed')
+      }
+      else toast.error('Error')
+
     })
   }
 
