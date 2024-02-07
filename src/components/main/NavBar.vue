@@ -1,7 +1,8 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import { account } from '../../stores/Account';
 import { ref } from 'vue'
-
+const myAccount = account()
 const links = ref([
     { message: 'Home', path: '/lightcode' },
     { message: 'Problem', path: '/problem' },
@@ -23,9 +24,8 @@ const links = ref([
             </RouterLink>
         </div>
         <div v-else-if = "$route.path !== '/login'" class="flex justify-center space-x-10 text-black p-1 w-full ">
-            <RouterLink :to="link.path" v-for="link in links"
-                :class="($route.path === link.path ? `border-blue-500` : ``) + ` max-w-[800px] border-b-4  hover:border-blue-500 hover:text-blue-500 transition flex flex-col items-center p-3 `">
-                <a>{{ link.message }} </a>
+            <RouterLink :to="link.path" v-for="link in links">
+                <a v-if="link.path != '/view-user' "  :class="($route.path === link.path ? `border-blue-500` : ``) + ` max-w-[800px] border-b-4  hover:border-blue-500 hover:text-blue-500 transition flex flex-col items-center p-3 `">{{ link.message }} </a>
             </RouterLink>
         </div>
     </div>

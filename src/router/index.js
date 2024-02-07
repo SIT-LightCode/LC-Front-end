@@ -41,7 +41,7 @@ const router = createRouter({
       beforeEnter: (to, from) => {
         if (getCookie('TokenLightcode') != '') {
           return { path: '/lightcode' }
-        } 
+        }
       },
       component: () => import('../views/Login.vue'),
     },
@@ -69,7 +69,11 @@ const router = createRouter({
       beforeEnter: checkLogin,
       component: () => import('../Views/viewUser.vue'),
     },
-    { path: '/:pathMatch(.*)*', component: () => import('../Views/NotFound.vue') },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'NotFound',
+      component: () => import('../Views/NotFound.vue'),
+    },
   ],
 })
 

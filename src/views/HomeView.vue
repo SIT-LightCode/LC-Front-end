@@ -1,4 +1,10 @@
 <script setup>
+import { computed, ref, onBeforeMount } from 'vue';
+import { account } from '../stores/Account'
+const myAccount = account()
+onBeforeMount(async () => {
+    await myAccount.GetUserByEmail()
+})
 
 </script>
  
