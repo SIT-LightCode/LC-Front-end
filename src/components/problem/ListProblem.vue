@@ -48,7 +48,6 @@ const returnLevel = (id) => {
                             class="inline-flex items-center px-3 rounded-full text-xs font-medium leading-4  text-gray-800"
                             :class="colorTags[(t.tag.id - 1) % 8]">{{ t.tag.topic }} </span>
                     </div>
-
                 </div>
                 <div class="flex justify-end m-5">
                     <buttonVue @buttonClick="() => $emit('doProblem', i)" :name="'do'">

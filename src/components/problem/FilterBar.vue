@@ -3,9 +3,9 @@ import { ref } from 'vue'
 import buttonVue from '../button/Button.vue';
 const emit = defineEmits(["filterValue"])
 const prop = defineProps({
-	datas: Object,
+        datas: Object,
 })
-const filterValue = ref({ tag: [], level: 0, ScroceMax: 0, ScroceMin: 0 })
+const filterValue = ref({ tag: [], level: 0, isOfficial: "" })
 
 </script>
  
@@ -23,8 +23,19 @@ const filterValue = ref({ tag: [], level: 0, ScroceMax: 0, ScroceMin: 0 })
                         <option value="2">Beginner</option>
                         <option value="1">Easier</option>
                 </select>
+                <label for="underline_select" class="block mb-2 py-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Official Problem?</label>
+                <select id="underline_select"
+                        class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                        v-model="filterValue.isOfficial">
+                        <option value="">No select</option>
+                        <option value="true">True</option>
+                        <option value="false">False</option>
+
+                </select>
                 <ul class="">
-                        <li v-for="(topic, key) in datas.tagList" class=" p-5 flex flex-col w-64 space-y-5 text-ellipsis overflow-hidden">
+                        <li v-for="(topic, key) in datas.tagList"
+                                class=" p-5 flex flex-col w-64 space-y-5 text-ellipsis overflow-hidden">
                                 <div class="flex items-center">
                                         <input type="checkbox" v-model="filterValue.tag" :id="key" :value="topic.id">
                                         <label :for="key" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{

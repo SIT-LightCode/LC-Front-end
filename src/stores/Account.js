@@ -50,7 +50,7 @@ export const account = defineStore('account', () => {
         operation: 'upsertUser',
         variables: {
           id: { type: 'Int', value: user.value.id },
-          authorities: { value: user.value.authorities },
+          authorities: { value: `[${user.value.authorities}]`  },
           name: { value: nameAccount },
           email: { value: emailAccount },
         },

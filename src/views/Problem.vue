@@ -27,22 +27,20 @@ const result = ref('')
 const isResult = ref(false)
 
 const filterFunc = (dataFilter) => {
-    console.log(dataFilter);
 
     // Check if both tag and level filters are empty
-    if (dataFilter.tag.length == 0 && dataFilter.level == 0) {
+    if (dataFilter.tag.length == 0 && dataFilter.level == 0 && dataFilter.isOfficial == "") {
         isFilter.value = false;
         return;
     }
 
     isFilter.value = true;
     const selectedTags = new Set(dataFilter.tag);
-
     const uniqueProblems = myproblemCon.problemList.reduce((acc, problem) => {
         let tagsInProblem = []
         let hasCommonTag = false
         let hasMatchingLevel = false
-
+        let hasMatchingOffice = false
         if (dataFilter.tag.length > 0) {
             tagsInProblem = problem.tagProblem.map(tagObj => tagObj.tag.id);
             hasCommonTag = tagsInProblem.some(tag => selectedTags.has(tag));
@@ -53,11 +51,19 @@ const filterFunc = (dataFilter) => {
         // Check if the level filter matches
         if (dataFilter.level != 0) {
             hasMatchingLevel = problem.level == dataFilter.level;
-        } else hasMatchingLevel = true
-        if (hasCommonTag && hasMatchingLevel) {
+        } else { hasMatchingLevel = true }
+
+        if (dataFilter.isOfficial != "") {
+            if (problem.isOfficial != null) {
+                if (dataFilter.isOfficial == problem.isOfficial.toString()) {
+                    hasMatchingOffice = true
+                }
+            }
+
+        }
+        if (hasCommonTag && hasMatchingLevel && hasMatchingOffice) {
             acc.push(problem);
         }
-
         return acc;
     }, []);
 
@@ -90,15 +96,15 @@ const editProblem = (val) => {
 }
 
 const doSubmit = async (id, answer) => {
-  try {
-    const data = await myproblemCon.checkAnswer(id, answer);
-    console.log(data);
-    result.value = data;
-    console.log(result.value);
-  } catch (error) {
-    console.error(error);
-    // Handle the error appropriately
-  }
+    try {
+        const data = await myproblemCon.checkAnswer(id, answer);
+        console.log(data);
+        result.value = data;
+        console.log(result.value);
+    } catch (error) {
+        console.error(error);
+        // Handle the error appropriately
+    }
 };
 
 onBeforeMount(async () => {
@@ -112,25 +118,25 @@ onBeforeMount(async () => {
 <template>
     <div class="px-10">
 
-        <div class="" v-if= "page=='isEdit'">
-            <editPro @addstatus="(e1)=>{page = e1}"  :learning="mylearningCon" :data=dataCurrent
+        <div class="" v-if="page == 'isEdit'">
+            <editPro @addstatus="(e1) => { page = e1 }" :learning="mylearningCon" :data=dataCurrent
                 @isEditProblem="(e1) => { editProblem(e1) }"></editPro>
         </div>
-        <div class="" v-else-if="page=='isDo'">
-            <inputAnswer :result="result" :data=dataCurrent @addstatus="(e1)=>{page = e1 ; result = ''}" @Submit="(e1,e2)=>{doSubmit(e1,e2)}"></inputAnswer>
+        <div class="" v-else-if="page == 'isDo'">
+            <inputAnswer :result="result" :data=dataCurrent @addstatus="(e1) => { page = e1; result = '' }"
+                @Submit="(e1, e2) => { doSubmit(e1, e2) }"></inputAnswer>
         </div>
-    
+
         <div class="flex" v-else>
             <!-- Filter-->
             <filterBar :datas="mylearningCon" @filterValue="(e1) => { filterFunc(e1); }"></filterBar>
             <!--  -->
             <listProblem @deleteProblem="(e1) => { myproblemCon.deleteProblem(e1) }"
-                @editProblem="(e1) => { page = 'isEdit'; dataCurrent = e1 }" 
-                @doProblem="(e1) => { page = 'isDo' ; dataCurrent = e1 }" 
-                :datas="test"></listProblem>
+                @editProblem="(e1) => { page = 'isEdit'; dataCurrent = e1 }"
+                @doProblem="(e1) => { page = 'isDo'; dataCurrent = e1 }" :datas="test"></listProblem>
             <!--  -->
         </div>
-        
+
 
     </div>
 </template>
