@@ -92,7 +92,7 @@ onBeforeMount(async () => {
     
         <div class="flex">
             <!-- Filter-->
-            <!-- <filterBar  @filterValue="(e1) => { filterFunc(e1); }"></filterBar> -->
+            <filterBar  @filterValue="(e1) => { filterFunc(e1); }"></filterBar>
             <!--  -->
             <ListUser @deleteUser="(id)=>{}" :datas="test"></ListUser>
             <!--  -->
