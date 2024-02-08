@@ -35,8 +35,8 @@ const EditByUser = () => {
                 <!--body-->
                 <div class="relative p-6 flex ">
                     <div style="width: 50vh; height: 50vh" class="border-2 rounded-lg p-5 m-5 ">
-                        Edit Account
-                        <div v-show="editMode">
+                        Account
+                        <div v-if="editMode">
                             <div class="p-5"> name : {{ myAccount.user.name }}
                             </div>
                             <div class="p-5"> email : {{ myAccount.user.email }}
@@ -44,7 +44,7 @@ const EditByUser = () => {
                             <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 mx-2 rounded"
                                 @click="editMode = false">Edit</button>
                         </div>
-                        <div v-show="!editMode">
+                        <div v-if="!editMode">
                             <div class="p-5">
                                 name : <input :maxlength="30" type="text" placeholder="" v-model="EditUser.name">
 

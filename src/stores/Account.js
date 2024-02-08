@@ -38,12 +38,9 @@ export const account = defineStore('account', () => {
     )
 
     myconnectBackend.connectBack(query).then(async (data) => {
-      if(data != ""){
-        console.log(data)
+      if (data != '') {
         toast.success('Create user completed')
-      }
-      else toast.error('Error')
-
+      } else toast.error('Error')
     })
   }
 
@@ -66,7 +63,9 @@ export const account = defineStore('account', () => {
     )
 
     myconnectBackend.connectBack(query).then(async (data) => {
-      toast.success('edit user completed')
+      if (data != '') {
+        toast.success('edit user completed')
+      } else toast.error('Error')
     })
   }
 
@@ -87,9 +86,12 @@ export const account = defineStore('account', () => {
     )
 
     myconnectBackend.connectBack(query).then(async (data) => {
-      user.value = data.data.getUserByEmail
+      if (data != '') {
+        user.value = data.data.getUserByEmail
+      } else toast.error('Error')
     })
   }
+
   const GetUser = async () => {
     const query = gql.query(
       {
@@ -126,5 +128,5 @@ export const account = defineStore('account', () => {
       }
     })
   }
-  return { user, EditAccount, AddAccount, GetUserByEmail , GetUser, userList,DeteleUser}
+  return { user, EditAccount, AddAccount, GetUserByEmail, GetUser, userList, DeteleUser }
 })

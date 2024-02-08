@@ -17,7 +17,7 @@ export const connectBackend = defineStore('connectBackend', () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: token,
+          'Authorization': token,
         },
         body: JSON.stringify({
           query: querys.query,

@@ -16,11 +16,11 @@ const prop = defineProps({
 </script>
  
 <template>
-    <div class="flex-1" style="overflow-y: auto; max-height: 100vh">
+    <div class="">
         <!-- First Photo Grid-->
 
         <div class="grid grid-cols-1 gap-1 ">
-            <div class="border  rounded-lg border-zinc-950 p-5">
+            <div class="p-5">
                 <div
                     class="block h-64 rounded-lg bg-white text-left shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 ">
                     <div class="grid place-content-around " >

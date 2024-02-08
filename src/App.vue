@@ -3,7 +3,7 @@ import { RouterLink, RouterView, useRouter } from 'vue-router'
 import { ref } from 'vue'
 import Navbar from './components/main/NavBar.vue'
 import Sidebar from './components/main/SideBar.vue'
-import setting from './components/setting/Setting.vue'
+import setting from './components/settingmodal/Setting.vue'
 import { Toaster, toast } from 'vue-sonner'
 import { cookieData } from './stores/CookieData'
 
