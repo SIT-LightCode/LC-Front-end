@@ -2,53 +2,35 @@
 import { account } from '../stores/Account';
 import filterBar from '../components/viewUser/FilterBar.vue'
 import ListUser from '../components/viewUser/ListUser.vue'
+import EditUser from '../components/viewUser/EditUser.vue';
 import { computed, ref, onBeforeMount } from 'vue';
 
 const myAccount = account()
 const filter = ref({ tag: [], level: 0, ScroceMax: 0, ScroceMin: 0 })
 const data = ref([])
 const dataCurrent = ref([])
-
+const selectUser = ref([])
 const isFilter = ref(false)
 const isEdit = ref(false)
-// const filterFunc = (dataFilter) => {
-//     console.log(dataFilter);
 
-//     // Check if both tag and level filters are empty
-//     if (dataFilter.tag.length == 0 && dataFilter.level == 0) {
-//         isFilter.value = false;
-//         return;
-//     }
+const filterFunc = (filter) => {
+if (filter.keyword == "" && filter.type == "") {
+    isFilter.value = false;
+    return;
+}
 
-//     isFilter.value = true;
-//     const selectedTags = new Set(dataFilter.tag);
+isFilter.value = true;
+const uniqueUser = myAccount.GetUser.reduce((acc, user) => {
 
-//     const uniqueProblems = myproblemCon.problemList.reduce((acc, problem) => {
-//         let tagsInProblem = []
-//         let hasCommonTag = false
-//         let hasMatchingLevel = false
+    return acc;
+}, []);
 
-//         if (dataFilter.tag.length > 0) {
-//             tagsInProblem = problem.tagProblem.map(tagObj => tagObj.tag.id);
-//             hasCommonTag = tagsInProblem.some(tag => selectedTags.has(tag));
-//         }
-//         else {
-//             hasCommonTag = true
-//         }
-//         // Check if the level filter matches
-//         if (dataFilter.level != 0) {
-//             hasMatchingLevel = problem.level == dataFilter.level;
-//         } else hasMatchingLevel = true
-//         if (hasCommonTag && hasMatchingLevel) {
-//             acc.push(problem);
-//         }
+data.value = Array.from(new Set(uniqueUser));
+};
 
-//         return acc;
-//     }, []);
 
-//     data.value = Array.from(new Set(uniqueProblems));
-// };
-const test = computed(() => {
+
+const dataFilter = computed(() => {
     if (isFilter.value) {
         return data.value
     }
@@ -56,25 +38,12 @@ const test = computed(() => {
 })
 
 
-// const inputProblemData = ref({
-//     name: prop.data.name, description: prop.data.description
-//     , totalScore: prop.data.totalScore, level: prop.data.level, arrayTagId: []
-// })
-
-// const editUser = (val) => {
-//     if (val != '') {
-//         myproblemCon.EditProblem(
-//             dataCurrent.value.id,
-//             val.arrayTagId,
-//             val.name,
-//             val.description,
-//             val.totalScore,
-//             val.level,)
-//     }
-//     page.value = 'isEdit'
-// }
-
-
+const deleteUser = (id) =>{
+    myAccount.DeteleUser(id)
+}
+const editUser = (dataEdit) =>{
+    myAccount.EditAccount(dataEdit)
+}
 onBeforeMount(async () => {
     await myAccount.GetUser()
     await myAccount.GetUserByEmail()
@@ -85,23 +54,19 @@ onBeforeMount(async () => {
  
 <template>
     <div class="px-10">
-        <!-- <div class="" v-if= "page=='isEdit'">
-            <editPro @addstatus="(e1)=>{page = e1}"  :learning="mylearningCon" :data=dataCurrent
-                @isEditProblem="(e1) => { editProblem(e1) }"></editPro>
-        </div> -->
-    
         <div class="flex">
             <!-- Filter-->
-            <filterBar  @filterValue="(e1) => { filterFunc(e1); }"></filterBar>
+            <filterBar @filterValue="(e1) => { filterFunc(e1); }"></filterBar>
             <!--  -->
-            <ListUser @deleteUser="(id)=>{}" :datas="test"></ListUser>
+            <ListUser @deleteUser="(id) => { deleteUser(id) }" @editUser="(select) => { isEdit = true; selectUser = select; }" :datas="dataFilter">
+            </ListUser>
             <!--  -->
         </div>
-        
+        <div v-if="isEdit">
+            <EditUser @close="(e1)=>{isEdit=e1}" @editUser="(dataEdit)=>{editUser(dataEdit)}" :datas="selectUser"></EditUser>
+        </div>
 
     </div>
 </template>
  
-<style>
-
-</style>
+<style></style>

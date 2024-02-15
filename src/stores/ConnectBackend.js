@@ -2,15 +2,36 @@ import { defineStore } from 'pinia'
 import { modalSwal } from './Modal.js'
 import { Toaster, toast } from 'vue-sonner'
 import { cookieData } from '../stores/CookieData.js'
+import { jwtDecode } from 'jwt-decode'
+import { useRouter } from 'vue-router'
+import Cookies from 'js-cookie';
 
 export const connectBackend = defineStore('connectBackend', () => {
   const myCookie = cookieData()
-  
+  const myRouter =useRouter()
+ 
+  const refreshToken = () => {
+
+  }
+ 
+ 
+ 
   const connectBack = async (querys) => {
     let token = ""
     if(myCookie.getCookie("TokenLightcode") != "") {
-      token = myCookie.getCookie("TokenLightcode")
+        const jwtPayload = jwtDecode(myCookie.getCookie("TokenLightcode"));
+        console.log(jwtPayload.exp)
+        const d = new Date();
+
+        if (jwtPayload.exp < d.getTime()/1000) {
+
+            myCookie.setCookie("TokenLightcode","")
+            myRouter.push({ name: 'login' })
+            return ''
+
+        } else token = myCookie.getCookie("TokenLightcode") 
     }
+    
 
     try {
       const res = await fetch(`${import.meta.env.VITE_BASE_URL}`, {
@@ -25,8 +46,8 @@ export const connectBackend = defineStore('connectBackend', () => {
         }),
       })
 
+      
       let data = await res.json()
-
       if (res.ok) {
         let errortext = ''
         for (let e in data) {
@@ -36,7 +57,6 @@ export const connectBackend = defineStore('connectBackend', () => {
             }
           }
         }
-
         if (errortext == '') {
           return data
         } else {
@@ -44,6 +64,9 @@ export const connectBackend = defineStore('connectBackend', () => {
           // mymodal.modalNormal("Error!", "response : " + errortext, "error");
           return ''
         }
+      }
+      else if(res.status == 401) {
+        toast.error('error ')
       }
     } catch (error) {
       console.log(error)

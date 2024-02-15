@@ -18,7 +18,7 @@ function getCookie(cname) {
 function checkLogin(to, from) {
   if (getCookie('TokenLightcode') == '') {
     return { path: '/login' }
-  }
+  } 
 }
 
 const router = createRouter({

@@ -44,15 +44,15 @@ export const account = defineStore('account', () => {
     })
   }
 
-  const EditAccount = async (nameAccount, emailAccount) => {
+  const EditAccount = async (editUser) => {
     const query = gql.mutation(
       {
         operation: 'upsertUser',
         variables: {
-          id: { type: 'Int', value: user.value.id },
-          authorities: { value: `[${user.value.authorities}]`  },
-          name: { value: nameAccount },
-          email: { value: emailAccount },
+          id: { type: 'Int', value: editUser.id },
+          authorities: { value: `${editUser.authorities}` },
+          name: { value: editUser.name },
+          email: { value: editUser.email },
         },
         fields: ['id', 'authorities', 'name', 'email'],
       },
@@ -64,8 +64,12 @@ export const account = defineStore('account', () => {
 
     myconnectBackend.connectBack(query).then(async (data) => {
       if (data != '') {
+        console.log(data.data.upsertUser)
         toast.success('edit user completed')
-      } else toast.error('Error')
+        user.value = data.data.upsertUser
+      } else {
+        toast.error('Error')
+      }
     })
   }
 
@@ -113,18 +117,22 @@ export const account = defineStore('account', () => {
   const DeteleUser = async (id) => {
     const query = gql.query(
       {
-        operation: 'getUser',
-        fields: ['id', 'name', 'email', 'authorities', 'score'],
+        operation: 'removeUserById',
+        variables: {
+          id: { type: 'Int!', value: id },
+        },
       },
       undefined,
       {
-        operationName: 'GetUser',
+        operationName: 'RemoveUserById',
       },
     )
-
+      console.log(query)
     myconnectBackend.connectBack(query).then(async (data) => {
       if (data != '') {
-        userList.value = data['data']['getUser']
+        GetUser()
+        toast.success('User has been deleted')
+        //mymodal.modalNormal('Deleted!', 'This Content has been deleted.', 'success')
       }
     })
   }

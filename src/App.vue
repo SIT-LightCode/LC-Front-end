@@ -6,8 +6,10 @@ import Sidebar from './components/main/SideBar.vue'
 import setting from './components/settingmodal/Setting.vue'
 import { Toaster, toast } from 'vue-sonner'
 import { cookieData } from './stores/CookieData'
-
+import { loginCon } from './stores/LoginCon'
 const myRouter = useRouter()
+const myLogin = loginCon()
+
 const myCookie = cookieData()
 const sidebarIsShow = ref(false)
 const showModal = ref(false)
@@ -18,8 +20,8 @@ const openCloseSidebar = (isShow) => {
 }
 
 const LogOut = () => {
-  myCookie.setCookie('TokenLightcode', '')
-  myRouter.push({ name: 'home' })
+  myLogin.logout()
+
   showModal.value = false
 }
 

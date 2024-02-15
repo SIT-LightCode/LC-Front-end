@@ -5,9 +5,16 @@ import { account } from '../../stores/Account';
 const emit = defineEmits(["CloseModal", "LogOut", "EditUserByUser"])
 const myAccount = account()
 const editMode = ref(true)
-const EditUser = ref({ name: myAccount.user.name, email: myAccount.user.email })
+const EditUser = ref({
+    id: myAccount.user.id,
+    name: myAccount.user.name,
+    email: myAccount.user.email,
+    authorities: myAccount.user.authorities
+})
 const EditByUser = () => {
-    myAccount.EditAccount(EditUser.value.name, EditUser.value.email)
+    myAccount.EditAccount(EditUser.value).then(() => {
+        emit('CloseModal', false);
+    })
 }
 </script>
  

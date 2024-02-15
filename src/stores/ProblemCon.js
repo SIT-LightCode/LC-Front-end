@@ -28,7 +28,8 @@ export const problemCon = defineStore('problemCon', () => {
           { example: ['id', 'input', 'output'] },
           'level',
           'totalScore',
-          'isOfficial'
+          'isOfficial',
+          { user : ['id', 'name', 'email'] },
         ],
       },
       undefined,
