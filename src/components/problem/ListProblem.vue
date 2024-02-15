@@ -41,6 +41,7 @@ const returnLevel = (id) => {
                                 returnLevel(i.level) }}
                             </div>
                             <div> Official Problem: {{ i.isOfficial }}</div>
+                            <div> Problem Create: {{ i.user }}</div>
 
                         </div>
                         </p>
@@ -49,10 +50,10 @@ const returnLevel = (id) => {
                             :class="colorTags[(t.tag.id - 1) % 8]">{{ t.tag.topic }} </span>
                     </div>
                 </div>
-                <div class="flex justify-end m-5">
+                <div class="flex justify-end m-5" >
                     <buttonVue @buttonClick="() => $emit('doProblem', i)" :name="'do'">
                     </buttonVue>
-                    <buttonVue v-if="myAccount.user.authorities.includes('ADMIN')"
+                    <buttonVue v-if="myAccount.user.authorities.includes('ADMIN') "
                         @buttonClick="() => $emit('deleteProblem', i.id)" :name="'delete'">
                     </buttonVue>
                     <buttonVue v-if="myAccount.user.authorities.includes('ADMIN')"

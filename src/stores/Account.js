@@ -66,7 +66,8 @@ export const account = defineStore('account', () => {
       if (data != '') {
         console.log(data.data.upsertUser)
         toast.success('edit user completed')
-        user.value = data.data.upsertUser
+        GetUserByEmail()
+        GetUser()
       } else {
         toast.error('Error')
       }
@@ -81,7 +82,7 @@ export const account = defineStore('account', () => {
         variables: {
           email: { value: jsonFromToken.sub },
         },
-        fields: ['id', 'name', 'email', 'authorities'],
+        fields: ['id', 'name', 'email', 'authorities', 'score'],
       },
       undefined,
       {
@@ -115,19 +116,19 @@ export const account = defineStore('account', () => {
     })
   }
   const DeteleUser = async (id) => {
-    const query = gql.query(
+    const query = gql.mutation(
       {
-        operation: 'removeUserById',
+        operation: 'removeUser',
         variables: {
           id: { type: 'Int!', value: id },
         },
       },
       undefined,
       {
-        operationName: 'RemoveUserById',
+        operationName: 'RemoveUser',
       },
     )
-      console.log(query)
+    console.log(query)
     myconnectBackend.connectBack(query).then(async (data) => {
       if (data != '') {
         GetUser()

@@ -60,7 +60,9 @@ export const problemCon = defineStore('problemCon', () => {
     totalScoreProblem,
     levelProblem,
   ) => {
+
     let isOfficial = myAccount.user.authorities.includes('ADMIN')
+    console.log(myAccount.user.authorities.includes('ADMIN'))
     const query = gql.mutation(
       {
         operation: 'upsertProblem',
@@ -73,9 +75,9 @@ export const problemCon = defineStore('problemCon', () => {
           exampleParameter: { value: JSON.stringify(exampleParameterProblem) },
           level: { value: parseInt(levelProblem) },
           totalScore: { value: parseInt(totalScoreProblem) },
-          isOfficial: isOfficial,
+          isOfficial: { type: 'Boolean', value: isOfficial, }
         },
-        fields: ['id', 'name', 'description', 'solution', 'level', 'totalScore'],
+        fields: ['id', 'name', 'description', 'solution', 'level', 'totalScore','isOfficial'],
       },
       undefined,
       {
