@@ -60,6 +60,9 @@ export const loginCon = defineStore('loginCon', () => {
       else if(res.status == 401) {
         toast.error('Invalid password')
       }
+      else if(res.status == 500) {
+        toast.error('Invalid password')
+      }
     } catch (err) {
       console.log(err)
       toast.error("Error from Backend")

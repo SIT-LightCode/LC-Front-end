@@ -1,7 +1,7 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import { account } from '../../stores/Account';
-import { ref } from 'vue'
+import { ref,onBeforeMount } from 'vue'
 const myAccount = account()
 const links = ref([
     { message: 'Home', path: '/lightcode' },
@@ -9,6 +9,10 @@ const links = ref([
     { message: 'Learning', path: '/learning' },
     { message: 'View User', path: '/view-user' },
 ])
+
+onBeforeMount(async () => {
+  await myAccount.GetUserByEmail()
+})
 </script>
 
 <template>
@@ -24,8 +28,21 @@ const links = ref([
             </RouterLink>
         </div>
         <div v-else-if = "$route.path !== '/login'" class="flex justify-center space-x-10 text-black p-1 w-full ">
-            <RouterLink :to="link.path" v-for="link in links">
-                <a v-if="link.path != '/view-user' "  :class="($route.path === link.path ? `border-blue-500` : ``) + ` max-w-[800px] border-b-4  hover:border-blue-500 hover:text-blue-500 transition flex flex-col items-center p-3 `">{{ link.message }} </a>
+            <RouterLink :to="'/lightcode'"
+            :class="($route.path === '/lightcode' ? `border-blue-500` : ``) + ` max-w-[800px] border-b-4  hover:border-blue-500 hover:text-blue-500 transition flex flex-col items-center p-3 `">
+                <a> Home </a>
+            </RouterLink>
+            <RouterLink :to="'/problem'"
+            :class="($route.path === '/problem' ? `border-blue-500` : ``) + ` max-w-[800px] border-b-4  hover:border-blue-500 hover:text-blue-500 transition flex flex-col items-center p-3 `">
+                <a> Problem </a>
+            </RouterLink>
+            <RouterLink :to="'/learning'"
+            :class="($route.path === '/learning' ? `border-blue-500` : ``) + ` max-w-[800px] border-b-4  hover:border-blue-500 hover:text-blue-500 transition flex flex-col items-center p-3 `">
+                <a> Learning </a>
+            </RouterLink>
+            <RouterLink :to="'/view-user'" v-if="myAccount.user.authorities.includes('ADMIN') "
+            :class="($route.path === '/view-user' ? `border-blue-500` : ``) + ` max-w-[800px] border-b-4  hover:border-blue-500 hover:text-blue-500 transition flex flex-col items-center p-3 `">
+                <a> View User </a>
             </RouterLink>
         </div>
     </div>

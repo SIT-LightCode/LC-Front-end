@@ -46,7 +46,6 @@ const editUser = (dataEdit) =>{
 }
 onBeforeMount(async () => {
     await myAccount.GetUser()
-    await myAccount.GetUserByEmail()
 })
 
 

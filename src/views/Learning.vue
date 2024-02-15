@@ -15,7 +15,6 @@ const myAccount = account()
 
 onBeforeMount(async () => {
   await mylearningCon.getAllTag()
-  await myAccount.GetUserByEmail()
 
   if (mylearningCon.tagList.length > 0) {
     selectLesson(mylearningCon.tagList[0].lesson[0], mylearningCon.tagList[0].id)

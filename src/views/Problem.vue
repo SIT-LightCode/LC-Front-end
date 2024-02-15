@@ -110,7 +110,6 @@ const doSubmit = async (id, answer) => {
 onBeforeMount(async () => {
     await myproblemCon.getAllproblem()
     await mylearningCon.getAllTag()
-    await myAccount.GetUserByEmail()
 })
 
 

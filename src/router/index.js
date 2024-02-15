@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import { jwtDecode } from 'jwt-decode'
+
 function getCookie(cname) {
   let name = cname + '='
   let ca = document.cookie.split(';')
@@ -66,7 +68,16 @@ const router = createRouter({
     {
       path: '/view-user',
       name: 'viewuser',
-      beforeEnter: checkLogin,
+      beforeEnter: (to, from )=>{
+        if (getCookie('TokenLightcode') == '') {
+          return { path: '/login' }
+        }
+        let code = jwtDecode(getCookie("TokenLightcode"))        
+        if(!(code.role.includes('ADMIN'))){
+          return { name: 'NotFound' }
+        } 
+
+      },
       component: () => import('../views/ViewUser.vue'),
     },
     {

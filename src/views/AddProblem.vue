@@ -72,7 +72,6 @@ const changePage = (e1) => {
 
 onBeforeMount(async () => {
     await mylearningCon.getAllTag()
-    await myAccount.GetUserByEmail()
 })
 </script>
 

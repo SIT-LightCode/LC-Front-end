@@ -1,7 +1,7 @@
 <script setup>
 import IconArrowSmallLeft from "../icons/IconArrowSmallLeft.vue"
 import IconArrowSmallRight from "../icons/IconArrowSmallRight.vue"
-import { ref } from "vue"
+import { ref,onBeforeMount } from "vue"
 import { account } from "../../stores/Account.js"
 const myAccount = account()
 const emit = defineEmits(["openCloseSidebarEmit","OpenModal"])
@@ -11,6 +11,7 @@ const openCloseSideBar = () => {
 	sidebarIsShow.value = !sidebarIsShow.value
 	emit("openCloseSidebarEmit", sidebarIsShow.value)
 }
+
 </script>
 
 <template>
