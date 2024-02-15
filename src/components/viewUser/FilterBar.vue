@@ -7,6 +7,12 @@ const prop = defineProps({
 })
 const filterValue = ref({ keyword: "", type: ""})
 
+const resetFilter = () => {
+        emit('filterValue', 'reset');
+        filterValue.value.keyword = "";
+        filterValue.value.type = "";
+}
+
 </script>
  
 <template >
@@ -28,8 +34,9 @@ const filterValue = ref({ keyword: "", type: ""})
                 <ul class="p-5">
                         
                 </ul>
-                <buttonVue @buttonClick="$emit('filterValue', filterValue);" :name="'filter'"></buttonVue>
-        
+                <buttonVue @buttonClick="$emit('filterValue', filterValue);" :name="'Filter'"></buttonVue>
+                <buttonVue @buttonClick=" resetFilter() " :name="'Reset'"></buttonVue>
+
         </div>
 </template>
  

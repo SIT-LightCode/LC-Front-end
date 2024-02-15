@@ -14,18 +14,39 @@ const isFilter = ref(false)
 const isEdit = ref(false)
 
 const filterFunc = (filter) => {
-if (filter.keyword == "" && filter.type == "") {
-    isFilter.value = false;
-    return;
-}
+   let keyword = ""
+   let type = ""
+    if(filter != 'reset'){
+        keyword = filter.keyword
+        type = filter.type
 
-isFilter.value = true;
-const uniqueUser = myAccount.GetUser.reduce((acc, user) => {
+    }
+    if (keyword === "" && type === "") {
+        isFilter.value = false;
+        return;
+    }
 
-    return acc;
-}, []);
+    isFilter.value = true;
+    let filteredUsers = myAccount.userList
+    if (keyword !== "") {
+         filteredUsers = filteredUsers.filter(user => {
+            if (user.name.includes(keyword)) {
+                return user
+            }
+        });
+    }
 
-data.value = Array.from(new Set(uniqueUser));
+    if (type !== "") {
+        filteredUsers = filteredUsers.filter(user => {
+            if (user.authorities.includes(type)) {
+                return user
+            }
+        });
+    }
+
+    const uniqueUsers = Array.from(new Set(filteredUsers));
+
+    data.value = uniqueUsers;
 };
 
 
@@ -38,11 +59,13 @@ const dataFilter = computed(() => {
 })
 
 
-const deleteUser = (id) =>{
+const deleteUser = (id) => {
     myAccount.DeteleUser(id)
 }
-const editUser = (dataEdit) =>{
+const editUser = (dataEdit) => {
     myAccount.EditAccount(dataEdit)
+    isEdit.value = false
+
 }
 onBeforeMount(async () => {
     await myAccount.GetUser()
@@ -57,12 +80,14 @@ onBeforeMount(async () => {
             <!-- Filter-->
             <filterBar @filterValue="(e1) => { filterFunc(e1); }"></filterBar>
             <!--  -->
-            <ListUser @deleteUser="(id) => { deleteUser(id) }" @editUser="(select) => { isEdit = true; selectUser = select; }" :datas="dataFilter">
+            <ListUser @deleteUser="(id) => { deleteUser(id) }"
+                @editUser="(select) => { isEdit = true; selectUser = select; }" :datas="dataFilter">
             </ListUser>
             <!--  -->
         </div>
         <div v-if="isEdit">
-            <EditUser @close="(e1)=>{isEdit=e1}" @editUser="(dataEdit)=>{editUser(dataEdit)}" :datas="selectUser"></EditUser>
+            <EditUser @close="(e1) => { isEdit = e1 }" @editUser="(dataEdit) => { editUser(dataEdit) }" :datas="selectUser">
+            </EditUser>
         </div>
 
     </div>

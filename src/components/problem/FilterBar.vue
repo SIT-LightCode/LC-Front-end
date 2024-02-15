@@ -45,12 +45,7 @@ const filterValue = ref({ tag: [], level: 0, isOfficial: "" })
                         </li>
                 </ul>
                 <buttonVue @buttonClick="$emit('filterValue', filterValue);" :name="'filter'"></buttonVue>
-                <!-- <div>
-                        <label for="minmax-range" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Min-max
-                                range</label>
-                        <input id="minmax-range" type="range" min="0" max="10" value="5"
-                                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
-                </div> -->
+
         </div>
 </template>
  

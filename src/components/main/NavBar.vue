@@ -40,7 +40,7 @@ onBeforeMount(async () => {
             :class="($route.path === '/learning' ? `border-blue-500` : ``) + ` max-w-[800px] border-b-4  hover:border-blue-500 hover:text-blue-500 transition flex flex-col items-center p-3 `">
                 <a> Learning </a>
             </RouterLink>
-            <RouterLink :to="'/view-user'" v-if="myAccount.user.authorities.includes('ADMIN') "
+            <RouterLink :to="'/view-user'" v-if=" myAccount.user.authorities != [] || myAccount.user.authorities.includes('ADMIN') "
             :class="($route.path === '/view-user' ? `border-blue-500` : ``) + ` max-w-[800px] border-b-4  hover:border-blue-500 hover:text-blue-500 transition flex flex-col items-center p-3 `">
                 <a> View User </a>
             </RouterLink>
