@@ -62,8 +62,8 @@ const dataFilter = computed(() => {
 const deleteUser = (id) => {
     myAccount.DeteleUser(id)
 }
-const editUser = (dataEdit) => {
-    myAccount.EditAccount(dataEdit)
+const editUser = (dataEdit,olddata) => {
+    myAccount.EditAccount(dataEdit,olddata)
     isEdit.value = false
 
 }
@@ -86,7 +86,7 @@ onBeforeMount(async () => {
             <!--  -->
         </div>
         <div v-if="isEdit">
-            <EditUser @close="(e1) => { isEdit = e1 }" @editUser="(dataEdit) => { editUser(dataEdit) }" :datas="selectUser">
+            <EditUser @close="(e1) => { isEdit = e1 }" @editUser="(dataEdit,olddata) => {editUser(dataEdit,olddata) }" :datas="selectUser">
             </EditUser>
         </div>
 

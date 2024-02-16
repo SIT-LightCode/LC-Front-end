@@ -7,6 +7,7 @@ const prop = defineProps({
 const emit = defineEmits(["close","editUser"])
 
 const editUser = ref({ id:  prop.datas.id,name: prop.datas.name, email: prop.datas.email, authorities: prop.datas.authorities, })
+const oldUser = { id:  prop.datas.id,name: prop.datas.name, email: prop.datas.email, authorities: prop.datas.authorities, }
 
 </script>
  
@@ -43,7 +44,7 @@ const editUser = ref({ id:  prop.datas.id,name: prop.datas.name, email: prop.dat
             <div class="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b bg-sky-300">
                 <buttonVue :name="'Close'" @buttonClick="() => { $emit('close', false);}">
                 </buttonVue>
-                <buttonVue :name="'Edit'" @buttonClick="() => { $emit('editUser', editUser);}">
+                <buttonVue :name="'Edit'" @buttonClick="() => { $emit('editUser', editUser,oldUser); }">
                 </buttonVue>
             </div>
         </div>

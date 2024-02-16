@@ -25,12 +25,11 @@ export const validateInput = defineStore('validateInput', () => {
   const validateEmail = (email) => {
     let errorNote = ''
     const regex = new RegExp(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
     )
 
     let emailVaildate = email.trimStart().trimEnd()
-    if ( !(regex.test(emailVaildate))) {
+    if (!regex.test(emailVaildate)) {
       errorNote = errorNote + 'Email is invalid \n'
     }
 
@@ -54,15 +53,28 @@ export const validateInput = defineStore('validateInput', () => {
 
   const validateAuthorities = (authorities) => {
     let errorNote = ''
-    if (authorities.length > 0) {
+    if (authorities.length < 1) {
       errorNote = errorNote + 'User must has authorities \n'
     }
 
-    if (authorities.includes('USER')) {
+    if (!authorities.includes('USER')) {
       errorNote = errorNote + ' User must has USER \n'
     }
     return errorNote
   }
+  const validateSameValue = (newvalue, oldvalue) => {
+    let errorNote = ''
+    if (JSON.stringify(newvalue) === JSON.stringify(oldvalue)) {
+      errorNote = errorNote + 'newvalue is the same as oldvalue\n'
+    }
 
-  return { validatePassword, validateEmail, validateNameNull, validateAuthorities }
+    return errorNote
+  }
+  return {
+    validatePassword,
+    validateEmail,
+    validateNameNull,
+    validateAuthorities,
+    validateSameValue,
+  }
 })

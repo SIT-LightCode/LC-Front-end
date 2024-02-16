@@ -21,7 +21,6 @@ export const connectBackend = defineStore('connectBackend', () => {
     let token = ""
     if(myCookie.getCookie("TokenLightcode") != "") {
         const jwtPayload = jwtDecode(myCookie.getCookie("TokenLightcode"));
-        console.log(jwtPayload.exp)
         const d = new Date();
 
         if (jwtPayload.exp < d.getTime()/1000) {

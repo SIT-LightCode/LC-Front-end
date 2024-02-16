@@ -34,9 +34,9 @@ export const account = defineStore('account', () => {
           variables: {
             id: { type: 'Int', value: null },
             authorities: { value: 'USER' },
-            name: { value: nameAccount },
-            email: { value: emailAccount },
-            password: { value: passwordAccount },
+            name: { value: nameAccount.trimStart().trimEnd() },
+            email: { value: emailAccount.trimStart().trimEnd() },
+            password: { value: passwordAccount.trimStart().trimEnd() },
           },
           fields: ['id', 'name', 'email'],
         },
@@ -54,11 +54,12 @@ export const account = defineStore('account', () => {
     }
   }
 
-  const EditAccount = async (editUser) => {
+  const EditAccount = async (editUser,olddata) => {
     let errorValidate =
       myVaildate.validateNameNull(editUser.name) +
       myVaildate.validateEmail(editUser.email) +
-      myVaildate.validateAuthorities(editUser.authorities)
+      myVaildate.validateAuthorities(editUser.authorities)+
+      myVaildate.validateSameValue(editUser,olddata)
     if (errorValidate != '') {
       toast.error(errorValidate)
     } else {
@@ -68,8 +69,8 @@ export const account = defineStore('account', () => {
           variables: {
             id: { type: 'Int', value: editUser.id },
             authorities: { value: `${editUser.authorities}` },
-            name: { value: editUser.name },
-            email: { value: editUser.email },
+            name: { value: editUser.name.trimStart().trimEnd() },
+            email: { value: editUser.email.trimStart().trimEnd() },
           },
           fields: ['id', 'authorities', 'name', 'email'],
         },
@@ -81,7 +82,6 @@ export const account = defineStore('account', () => {
 
       myconnectBackend.connectBack(query).then(async (data) => {
         if (data != '') {
-          console.log(data.data.upsertUser)
           toast.success('edit user completed')
           GetUserByEmail()
           GetUser()
@@ -146,7 +146,6 @@ export const account = defineStore('account', () => {
         operationName: 'RemoveUser',
       },
     )
-    console.log(query)
     myconnectBackend.connectBack(query).then(async (data) => {
       if (data != '') {
         GetUser()

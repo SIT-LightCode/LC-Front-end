@@ -9,10 +9,12 @@ const EditUser = ref({
     id: myAccount.user.id,
     name: myAccount.user.name,
     email: myAccount.user.email,
-    authorities: myAccount.user.authorities
+    authorities: myAccount.user.authorities,
+    score: myAccount.user.score
+
 })
 const EditByUser = () => {
-    myAccount.EditAccount(EditUser.value).then(() => {
+    myAccount.EditAccount(EditUser.value,myAccount.user).then(() => {
         emit('CloseModal', false);
     })
 }

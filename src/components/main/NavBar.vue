@@ -17,7 +17,6 @@ const links = ref([
 onBeforeMount(async () => {
     if (myCookie.getCookie("TokenLightcode") != "") {
         await myAccount.GetUserByEmail()
-        console.log(myAccount.user)
     }
 
 })
