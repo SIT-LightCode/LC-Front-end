@@ -9,19 +9,19 @@ const dataForCreate = ref({
     name: '', email: '', password: '', passwordConfirm: ''
 })
 
-const checkCreate = () =>{
+const checkCreate = () => {
     let errortext = ""
-    for (const data in dataForCreate.value){
-        if(dataForCreate.value[data]==''){
-            // alert('error')
-            errortext = errortext + data + ' is null value ,'
-        }
-    }
-    if( dataForCreate.value.password != "" &&  dataForCreate.value.passwordConfirm != "" && dataForCreate.value.password !== dataForCreate.value.passwordConfirm ){
+    // for (const data in dataForCreate.value){
+    //     if(dataForCreate.value[data]==''){
+    //         // alert('error')
+    //         errortext = errortext + data + ' is null value ,'
+    //     }
+    // }
+    if (dataForCreate.value.password != "" && dataForCreate.value.passwordConfirm != "" && dataForCreate.value.password !== dataForCreate.value.passwordConfirm) {
         // alert('password and passwordConfirm dont same value')
         errortext = errortext + ' password and passwordConfirm dont same value ,'
     }
-    if(errortext == ""){
+    if (errortext == "") {
         emit('create', dataForCreate.value)
     } else {
         toast.error(errortext)
@@ -30,7 +30,6 @@ const checkCreate = () =>{
 </script>
  
 <template>
-    
     <div class="absolute w-full h-full">
         <div class="absolute top-0 w-full h-full bg-center bg-cover"
             style='background-image: url("https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1267&amp;q=80");'>
@@ -57,21 +56,25 @@ const checkCreate = () =>{
                                     </label>
                                     <input type="text"
                                         class="border-0 px-3 py-3 mb-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                                        placeholder="Name" style="transition: all 0.15s ease 0s;" v-model="dataForCreate.name" />
+                                        placeholder="Name" style="transition: all 0.15s ease 0s;"
+                                        v-model="dataForCreate.name" />
 
                                     <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
                                         for="grid-password">Email
                                     </label>
                                     <input type="email"
                                         class="border-0 px-3 py-3 mb-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                                        placeholder="Email" style="transition: all 0.15s ease 0s;" v-model="dataForCreate.email" />
+                                        placeholder="Email" style="transition: all 0.15s ease 0s;"
+                                        v-model="dataForCreate.email" />
+
 
                                     <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
                                         for="grid-password">Password
                                     </label>
                                     <input type="password"
                                         class="border-0 px-3 py-3 mb-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                                        placeholder="Password" style="transition: all 0.15s ease 0s;" v-model="dataForCreate.password" />
+                                        placeholder="Password" style="transition: all 0.15s ease 0s;"
+                                        v-model="dataForCreate.password" />
 
                                     <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
                                         for="grid-password">Confirm Password
@@ -81,6 +84,8 @@ const checkCreate = () =>{
                                         placeholder="Password" style="transition: all 0.15s ease 0s;"
                                         v-model="dataForCreate.passwordConfirm" />
                                 </div>
+                                <p class="text-red-400">* Password could more than 4 and could less than 10</p>
+
                             </form>
                             <div class="text-center mt-6">
                                 <ButtonPage @buttonClick="$emit('status', true)" :name="'Back'"></ButtonPage>

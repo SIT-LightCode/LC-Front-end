@@ -1,8 +1,12 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import { account } from '../../stores/Account';
-import { ref,onBeforeMount } from 'vue'
+import { cookieData } from '../../stores/CookieData';
+
+import { ref, onBeforeMount } from 'vue'
 const myAccount = account()
+const myCookie = cookieData()
+
 const links = ref([
     { message: 'Home', path: '/lightcode' },
     { message: 'Problem', path: '/problem' },
@@ -11,8 +15,10 @@ const links = ref([
 ])
 
 onBeforeMount(async () => {
-    await myAccount.GetUserByEmail()
-    console.log(myAccount.user)
+    if (myCookie.getCookie("TokenLightcode") != "") {
+        await myAccount.GetUserByEmail()
+        console.log(myAccount.user)
+    }
 
 })
 
@@ -30,26 +36,26 @@ onBeforeMount(async () => {
                 <a> login </a>
             </RouterLink>
         </div>
-        <div v-else-if = "$route.path !== '/login'" class="flex justify-center space-x-10 text-black p-1 w-full ">
+        <div v-else-if="$route.path !== '/login'" class="flex justify-center space-x-10 text-black p-1 w-full ">
             <RouterLink :to="'/lightcode'"
-            :class="($route.path === '/lightcode' ? `border-blue-500` : ``) + ` max-w-[800px] border-b-4  hover:border-blue-500 hover:text-blue-500 transition flex flex-col items-center p-3 `">
+                :class="($route.path === '/lightcode' ? `border-blue-500` : ``) + ` max-w-[800px] border-b-4  hover:border-blue-500 hover:text-blue-500 transition flex flex-col items-center p-3 `">
                 <a> Home </a>
             </RouterLink>
             <RouterLink :to="'/problem'"
-            :class="($route.path === '/problem' ? `border-blue-500` : ``) + ` max-w-[800px] border-b-4  hover:border-blue-500 hover:text-blue-500 transition flex flex-col items-center p-3 `">
+                :class="($route.path === '/problem' ? `border-blue-500` : ``) + ` max-w-[800px] border-b-4  hover:border-blue-500 hover:text-blue-500 transition flex flex-col items-center p-3 `">
                 <a> Problem </a>
             </RouterLink>
             <RouterLink :to="'/learning'"
-            :class="($route.path === '/learning' ? `border-blue-500` : ``) + ` max-w-[800px] border-b-4  hover:border-blue-500 hover:text-blue-500 transition flex flex-col items-center p-3 `">
+                :class="($route.path === '/learning' ? `border-blue-500` : ``) + ` max-w-[800px] border-b-4  hover:border-blue-500 hover:text-blue-500 transition flex flex-col items-center p-3 `">
                 <a> Learning </a>
             </RouterLink>
-            <RouterLink :to="'/view-user'" v-if=" myAccount.user.authorities != [] && myAccount.user.authorities.includes('ADMIN') "
-            :class="($route.path === '/view-user' ? `border-blue-500` : ``) + ` max-w-[800px] border-b-4  hover:border-blue-500 hover:text-blue-500 transition flex flex-col items-center p-3 `">
+            <RouterLink :to="'/view-user'"
+                v-if="myAccount.user.authorities != [] && myAccount.user.authorities.includes('ADMIN')"
+                :class="($route.path === '/view-user' ? `border-blue-500` : ``) + ` max-w-[800px] border-b-4  hover:border-blue-500 hover:text-blue-500 transition flex flex-col items-center p-3 `">
                 <a> View User </a>
             </RouterLink>
         </div>
     </div>
-    
 </template>
 
 <style scoped></style>

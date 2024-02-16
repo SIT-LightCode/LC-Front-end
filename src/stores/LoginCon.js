@@ -7,15 +7,15 @@ import * as gql from 'gql-query-builder'
 import { useRouter } from 'vue-router'
 import { cookieData } from '../stores/CookieData.js'
 import { account } from '../stores/Account.js'
-import Cookies from 'js-cookie';
-
+import Cookies from 'js-cookie'
+import { validateInput } from './ValidateInput.js'
 export const loginCon = defineStore('loginCon', () => {
   const mymodal = modalSwal()
   const myCookie = cookieData()
   const myconnectBackend = connectBackend()
   const myRouter = useRouter()
   const myAccount = account()
-
+  const myVaildate = validateInput()
   const parseJwt = (token) => {
     var base64Url = token.split('.')[1]
     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
@@ -32,40 +32,43 @@ export const loginCon = defineStore('loginCon', () => {
   }
 
   const SignIn = async (email, password) => {
-    try {
-      const res = await fetch(`http://lightcodedev.sit.kmutt.ac.th:8080/api/v1/auth/login`, {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      })
-      if (res.status === 200) {
-        const objectJson = await res.json()
-        Cookies.set('refreshToken', objectJson.refreshToken, { httpOnly: false, expires: 7 });
-        ////
-        Cookies.set('TokenLightcode', objectJson.token, { httpOnly: false, expires: 7 });        
+    let errorValidate = myVaildate.validateEmail(email) + myVaildate.validatePassword(password)
+    if (errorValidate != '') {
+      toast.error(errorValidate)
+    } else {
+      try {
+        const res = await fetch(`http://lightcodedev.sit.kmutt.ac.th:8080/api/v1/auth/login`, {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+        })
+        if (res.status === 200) {
+          const objectJson = await res.json()
+          Cookies.set('refreshToken', objectJson.refreshToken, { httpOnly: false, expires: 7 })
+          ////
+          Cookies.set('TokenLightcode', objectJson.token, { httpOnly: false, expires: 7 })
 
-        // let jsonFromToken = parseJwt(myCookie.getCookie("token"))
-        // myAccount.user.name = setCookie("name", jsonFromToken.name, 7)
-        // myAccount.setCookie("role", jsonFromToken.role, 7)
+          // let jsonFromToken = parseJwt(myCookie.getCookie("token"))
+          // myAccount.user.name = setCookie("name", jsonFromToken.name, 7)
+          // myAccount.setCookie("role", jsonFromToken.role, 7)
 
-        myAccount.GetUserByEmail()
-        toast.success('Login Completed')
-        myRouter.push({ name: 'lightcode' })
+          myAccount.GetUserByEmail()
+          toast.success('Login Completed')
+          myRouter.push({ name: 'lightcode' })
+        } else if (res.status == 401) {
+          toast.error('Invalid password')
+        } else if (res.status == 500) {
+          toast.error('Invalid password')
+        }
+      } catch (err) {
+        console.log(err)
+        toast.error('Error from Backend')
       }
-      else if(res.status == 401) {
-        toast.error('Invalid password')
-      }
-      else if(res.status == 500) {
-        toast.error('Invalid password')
-      }
-    } catch (err) {
-      console.log(err)
-      toast.error("Error from Backend")
     }
   }
   const logout = async () => {
@@ -81,7 +84,6 @@ export const loginCon = defineStore('loginCon', () => {
         }),
       })
       if (res.status === 200) {
-
         Cookies.remove('refreshToken', { path: '/' })
         Cookies.remove('TokenLightcode', { path: '/' })
 
@@ -95,5 +97,5 @@ export const loginCon = defineStore('loginCon', () => {
     }
   }
 
-  return { SignIn, parseJwt,logout }
+  return { SignIn, parseJwt, logout }
 })

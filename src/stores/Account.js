@@ -7,71 +7,89 @@ import * as gql from 'gql-query-builder'
 import { useRouter } from 'vue-router'
 import { cookieData } from '../stores/CookieData.js'
 import { jwtDecode } from 'jwt-decode'
+import { validateInput } from './ValidateInput.js'
 
 export const account = defineStore('account', () => {
   const mymodal = modalSwal()
   const myCookie = cookieData()
   const myconnectBackend = connectBackend()
   const myRouter = useRouter()
+  const myVaildate = validateInput()
 
-  const user = ref({id: null, name: '', email: '', authorities: [], score: 0})
+  const user = ref({ id: null, name: '', email: '', authorities: [], score: 0 })
   const userList = ref({})
 
   // const user = ref({name:'',role:'User'})
   const AddAccount = async (nameAccount, emailAccount, passwordAccount) => {
-    const query = gql.mutation(
-      {
-        operation: 'upsertUser',
-        variables: {
-          id: { type: 'Int', value: null },
-          authorities: { value: 'USER' },
-          name: { value: nameAccount },
-          email: { value: emailAccount },
-          password: { value: passwordAccount },
+    let errorValidate =
+      myVaildate.validateNameNull(nameAccount) +
+      myVaildate.validateEmail(emailAccount) +
+      myVaildate.validatePassword(passwordAccount)
+    if (errorValidate != '') {
+      toast.error(errorValidate)
+    } else {
+      const query = gql.mutation(
+        {
+          operation: 'upsertUser',
+          variables: {
+            id: { type: 'Int', value: null },
+            authorities: { value: 'USER' },
+            name: { value: nameAccount },
+            email: { value: emailAccount },
+            password: { value: passwordAccount },
+          },
+          fields: ['id', 'name', 'email'],
         },
-        fields: ['id', 'name', 'email'],
-      },
-      undefined,
-      {
-        operationName: 'UpsertUser ',
-      },
-    )
+        undefined,
+        {
+          operationName: 'UpsertUser ',
+        },
+      )
 
-    myconnectBackend.connectBack(query).then(async (data) => {
-      if (data != '') {
-        toast.success('Create user completed')
-      } else toast.error('Error')
-    })
+      myconnectBackend.connectBack(query).then(async (data) => {
+        if (data != '') {
+          toast.success('Create user completed')
+        } else toast.error('Error')
+      })
+    }
   }
 
   const EditAccount = async (editUser) => {
-    const query = gql.mutation(
-      {
-        operation: 'upsertUser',
-        variables: {
-          id: { type: 'Int', value: editUser.id },
-          authorities: { value: `${editUser.authorities}` },
-          name: { value: editUser.name },
-          email: { value: editUser.email },
+    let errorValidate =
+      myVaildate.validateNameNull(editUser.name) +
+      myVaildate.validateEmail(editUser.email) +
+      myVaildate.validateAuthorities(editUser.authorities)
+    if (errorValidate != '') {
+      toast.error(errorValidate)
+    } else {
+      const query = gql.mutation(
+        {
+          operation: 'upsertUser',
+          variables: {
+            id: { type: 'Int', value: editUser.id },
+            authorities: { value: `${editUser.authorities}` },
+            name: { value: editUser.name },
+            email: { value: editUser.email },
+          },
+          fields: ['id', 'authorities', 'name', 'email'],
         },
-        fields: ['id', 'authorities', 'name', 'email'],
-      },
-      undefined,
-      {
-        operationName: 'UpsertUser ',
-      },
-    )
+        undefined,
+        {
+          operationName: 'UpsertUser ',
+        },
+      )
 
-    myconnectBackend.connectBack(query).then(async (data) => {
-      if (data != '') {
-        console.log(data.data.upsertUser)
-        toast.success('edit user completed')
-        GetUserByEmail()
-        GetUser()
-      } else {
-        toast.error('Error')
-      }
-    })
+      myconnectBackend.connectBack(query).then(async (data) => {
+        if (data != '') {
+          console.log(data.data.upsertUser)
+          toast.success('edit user completed')
+          GetUserByEmail()
+          GetUser()
+        } else {
+          toast.error('Error')
+        }
+      })
+    }
   }
 
   const GetUserByEmail = async () => {
