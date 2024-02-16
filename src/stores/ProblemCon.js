@@ -212,7 +212,6 @@ export const problemCon = defineStore('problemCon', () => {
 
       if (data['data'] !== undefined) {
         let res = data['data']['checkAnswer']
-        console.log(res)
         return res
       }
     } catch (error) {

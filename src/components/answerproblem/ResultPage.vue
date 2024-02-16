@@ -5,7 +5,6 @@ const emit = defineEmits(['addstatus'])
 const prop = defineProps({
   data: {
     type: Object,
-    required: true,
   }
 })
 

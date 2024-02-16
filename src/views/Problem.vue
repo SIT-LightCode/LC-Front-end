@@ -95,11 +95,24 @@ const editProblem = (val) => {
     page.value = 'isEdit'
 }
 
+
+const countFailedTestCases = (data) => {
+    if (data.testcaseResults) {
+        return data.testcaseResults.reduce((count, testCase) => {
+            return count + (testCase.status === 'failed' ? 1 : 0);
+        }, 0);
+    }
+    else return null
+}
+
 const doSubmit = async (id, answer) => {
     try {
-        const data = await myproblemCon.checkAnswer(id, answer);
+        const data = await myproblemCon.checkAnswer(id, answer)
         console.log(data);
         result.value = data;
+        if (countFailedTestCases(result.value) == 0) {
+            alert("ALL Correct")
+        }
         console.log(result.value);
     } catch (error) {
         console.error(error);

@@ -35,7 +35,7 @@ const highlighter = (code) => {
 
 <template>
     <div class="grid grid-cols-2 gap-4">
-        <CodingInput @addstatus="$emit('addstatus', '')" @Submit="(e)=>$emit('Submit', prop.data.id, e)"></CodingInput>
+        <CodingInput :result = "prop.result" @addstatus="$emit('addstatus', '')" @Submit="(e)=>$emit('Submit', prop.data.id, e)"></CodingInput>
         <description :result = "prop.result" :data="prop.data"></description>
 
     </div>

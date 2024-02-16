@@ -14,7 +14,7 @@ export const account = defineStore('account', () => {
   const myconnectBackend = connectBackend()
   const myRouter = useRouter()
 
-  const user = ref([])
+  const user = ref({id: null, name: '', email: '', authorities: [], score: 0})
   const userList = ref({})
 
   // const user = ref({name:'',role:'User'})
