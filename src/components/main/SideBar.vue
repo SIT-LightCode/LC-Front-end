@@ -32,9 +32,9 @@ const openCloseSideBar = () => {
 						<!-- <IconArrowSmallLeft @click="openCloseSideBar" class="absolute top-0 right-0 border-b-2 hover:cursor-pointer border-gray-800  hover:border-blue-500 hover:text-blue-500"/> -->
 					</div>
 					<img
-						src="../../assets/picture/proxypic.jpg"
+						src="../../assets/picture/user_icon_01.jpg"
 						class="rounded-lg"
-						alt="proxypic"
+						alt="user_icon"
 						width="200"
 						height="200"
 					/>
