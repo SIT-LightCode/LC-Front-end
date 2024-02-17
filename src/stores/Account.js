@@ -50,7 +50,7 @@ export const account = defineStore('account', () => {
       myconnectBackend.connectBack(query).then(async (data) => {
         if (data != '') {
           toast.success('Create user completed')
-        } else toast.error('Error')
+        } 
       })
     }
   }
@@ -70,7 +70,7 @@ export const account = defineStore('account', () => {
           variables: {
             id: { type: 'Int', value: editUser.id },
             authorities: { value: `${editUser.authorities}` },
-            name: { value: editUser.name.trimStart().trimEnd() },
+            name: { value: '' },
             email: { value: editUser.email.trimStart().trimEnd() },
           },
           fields: ['id', 'authorities', 'name', 'email'],
@@ -86,9 +86,7 @@ export const account = defineStore('account', () => {
           toast.success('edit user completed')
           GetUserByEmail()
           GetUser()
-        } else {
-          toast.error('Error')
-        }
+        } 
       })
     }
   }
@@ -112,7 +110,7 @@ export const account = defineStore('account', () => {
     myconnectBackend.connectBack(query).then(async (data) => {
       if (data != '') {
         user.value = data.data.getUserByEmail
-      } else toast.error('Error')
+      } 
     })
   }
 
