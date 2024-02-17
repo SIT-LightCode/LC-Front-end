@@ -14,8 +14,10 @@ const myRouter = useRouter()
 const page = ref('signin')
 
 const createAccount = (e1) => {
-    myAccount.AddAccount(e1.name, e1.email, e1.password).then(()=>{
-        page.value = 'signin'
+    myAccount.AddAccount(e1.name, e1.email, e1.password).then((status)=>{
+        if(status != "error"){
+            page.value = 'signin'
+        }
     })
 }
 const loginAccount = (e1) => {

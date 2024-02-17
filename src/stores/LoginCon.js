@@ -32,10 +32,10 @@ export const loginCon = defineStore('loginCon', () => {
   }
 
   const SignIn = async (email, password) => {
-    let errorValidate = myVaildate.validateEmail(email) + myVaildate.validatePassword(password)
-    if (errorValidate != '') {
-      toast.error(errorValidate)
-    } else {
+    // let errorValidate = myVaildate.validateEmail(email) + myVaildate.validatePassword(password)
+    // if (errorValidate != '') {
+    //   toast.error(errorValidate)
+    // } else {
       try {
         const res = await fetch(`${import.meta.env.VITE_BASE_URL}/v1/auth/login`, {
           method: 'POST',
@@ -69,7 +69,7 @@ export const loginCon = defineStore('loginCon', () => {
         console.log(err)
         toast.error(err)
       }
-    }
+    //}
   }
   const logout = async () => {
     try {

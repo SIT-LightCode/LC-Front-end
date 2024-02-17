@@ -27,6 +27,7 @@ export const account = defineStore('account', () => {
       myVaildate.validatePassword(passwordAccount)
     if (errorValidate != '') {
       toast.error(errorValidate)
+      return "error"
     } else {
       const query = gql.mutation(
         {

@@ -84,7 +84,7 @@ const checkLogin = () =>{
                             </form>
                             <button @click="$emit('status',true)">Create Account</button>
                             <div class="text-center mt-6">
-                                <ButtonPage @buttonClick="checkLogin()" :name="'Log In'"></ButtonPage>
+                                <ButtonPage @buttonClick="checkLogin()" :status="false" :name="'Log In'"></ButtonPage>
                             </div>
                         </div>
                     </div>

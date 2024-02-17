@@ -8,16 +8,23 @@ const emit = defineEmits(['buttonClick'])
 
 const prop = defineProps({
   name: String,
+  status: { type: Boolean, default: true }
 })
 // ใช้เป็นอันนี้ไปก่อนนะเดียวหา modal ใส่ให้
 const clickFunc = async () => {
-  await mymodal
+  if(prop.status){
+    await mymodal
     .modalTwoButton('Are you sure?', 'Are you sure to ' + prop.name, prop.name)
     .then((result) => {
       if (result) {
         emit('buttonClick', true)
       }
-    })
+    })  
+  }else {
+    emit('buttonClick', true)
+  }
+
+  
 }
 </script>
 
