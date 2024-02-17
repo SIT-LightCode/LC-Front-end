@@ -70,7 +70,7 @@ export const account = defineStore('account', () => {
           variables: {
             id: { type: 'Int', value: editUser.id },
             authorities: { value: `${editUser.authorities}` },
-            name: { value: '' },
+            name: { value: editUser.name.trimStart().trimEnd()  },
             email: { value: editUser.email.trimStart().trimEnd() },
           },
           fields: ['id', 'authorities', 'name', 'email'],
