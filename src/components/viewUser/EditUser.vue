@@ -8,7 +8,9 @@ const emit = defineEmits(["close","editUser"])
 
 const editUser = ref({ id:  prop.datas.id,name: prop.datas.name, email: prop.datas.email, authorities: prop.datas.authorities, })
 const oldUser = { id:  prop.datas.id,name: prop.datas.name, email: prop.datas.email, authorities: prop.datas.authorities, }
-
+const lowCase = () => {
+    editUser.value.email = editUser.value.email.toLowerCase()
+}
 </script>
  
 <template>
@@ -28,7 +30,7 @@ const oldUser = { id:  prop.datas.id,name: prop.datas.name, email: prop.datas.em
                 <div class="relative p-6 flex ">
                     <div style="width: 50vh; height: 50vh" class="border-2 rounded-lg p-5 m-5 ">
                         <div>name : <input :maxlength="30" type="text" placeholder="" v-model="editUser.name"></div>
-                        <div>Email : <input :maxlength="30" type="text" placeholder="" v-model="editUser.email"></div>
+                        <div>Email : <input :maxlength="30" type="text" placeholder="" v-model="editUser.email" @change="lowCase()"></div>
                         <div>
                             Authorities:
                             <div>Checked names: {{ editUser.authorities }}</div>

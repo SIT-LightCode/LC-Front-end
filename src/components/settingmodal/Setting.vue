@@ -18,6 +18,9 @@ const EditByUser = () => {
         emit('CloseModal', false);
     })
 }
+const lowCase = () => {
+    EditUser.value.email = EditUser.value.email.toLowerCase()
+}
 </script>
  
 <template>
@@ -60,7 +63,7 @@ const EditByUser = () => {
                                 <div class="p-5"> name : <input :maxlength="30" type="text" placeholder=""
                                         v-model="EditUser.name">
                                 </div>
-                                <div class="p-5"> email : <input :maxlength="30" type="text" placeholder=""
+                                <div class="p-5"> email : <input :maxlength="30" type="text" placeholder="" @change="lowCase()"
                                         v-model="EditUser.email"></div>
                             </div>
                             <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 mx-2 rounded"

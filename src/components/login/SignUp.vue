@@ -27,6 +27,11 @@ const checkCreate = () => {
         toast.error(errortext)
     }
 }
+
+const lowCase = () => {
+    dataForCreate.value.email = dataForCreate.value.email.toLowerCase()
+}
+
 </script>
  
 <template>
@@ -64,7 +69,7 @@ const checkCreate = () => {
                                     </label>
                                     <input type="email"
                                         class="border-0 px-3 py-3 mb-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                                        placeholder="Email" style="transition: all 0.15s ease 0s;"
+                                        placeholder="Email" style="transition: all 0.15s ease 0s;"  @change="lowCase()"
                                         v-model="dataForCreate.email" />
 
 
