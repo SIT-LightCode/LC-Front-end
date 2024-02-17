@@ -84,7 +84,7 @@ const checkCreate = () => {
                                         placeholder="Password" style="transition: all 0.15s ease 0s;"
                                         v-model="dataForCreate.passwordConfirm" />
                                 </div>
-                                <p class="text-red-400">* Password could more than 4 and could less than 10</p>
+                                <p class="text-red-400" v-if="dataForCreate.password.length < 6 || dataForCreate.password.length >20">* Password could more than 6 and could less than 20</p>
 
                             </form>
                             <div class="text-center mt-6">
