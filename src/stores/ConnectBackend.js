@@ -34,7 +34,7 @@ export const connectBackend = defineStore('connectBackend', () => {
     
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_BASE_URL}`, {
+      const res = await fetch(`${import.meta.env.VITE_BASE_URL}/graphql`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ export const connectBackend = defineStore('connectBackend', () => {
         if (errortext == '') {
           return data
         } else {
-          toast.error('An error occured!')
+          toast.error(errortext)
           // mymodal.modalNormal("Error!", "response : " + errortext, "error");
           return ''
         }
@@ -70,7 +70,7 @@ export const connectBackend = defineStore('connectBackend', () => {
       }
     } catch (error) {
       console.log(error)
-      toast.error('An error when try to get data!')
+      toast.error(error)
       // mymodal.modalNormal('Error!', 'Error:' + error, 'error')
       // console.error('Error:', error)
       return ''

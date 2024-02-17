@@ -37,7 +37,7 @@ export const loginCon = defineStore('loginCon', () => {
       toast.error(errorValidate)
     } else {
       try {
-        const res = await fetch(`http://lightcodedev.sit.kmutt.ac.th:8080/api/v1/auth/login`, {
+        const res = await fetch(`${import.meta.env.VITE_BASE_URL}/v1/auth/login`, {
           method: 'POST',
           headers: {
             'content-type': 'application/json',
@@ -67,13 +67,13 @@ export const loginCon = defineStore('loginCon', () => {
         }
       } catch (err) {
         console.log(err)
-        toast.error('Error from Backend')
+        toast.error(err)
       }
     }
   }
   const logout = async () => {
     try {
-      const res = await fetch(`http://lightcodedev.sit.kmutt.ac.th:8080/api/v1/auth/logout`, {
+      const res = await fetch(`${import.meta.env.VITE_BASE_URL}/v1/auth/logout`, {
         method: 'POST',
         headers: {
           'content-type': 'application/json',
