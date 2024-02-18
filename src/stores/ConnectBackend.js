@@ -59,7 +59,7 @@ export const connectBackend = defineStore('connectBackend', () => {
       } else if (res.status == 400) {
         toast.error(data['errors'].message)
       } else if (res.status == 401) {
-        toast.error('Unauthorized')
+        toast.error(data['errors'].message)
       } else if (res.status == 500) {
         toast.error(data['errors'].message)
       }
