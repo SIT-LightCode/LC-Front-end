@@ -5,40 +5,33 @@ import { cookieData } from '../stores/CookieData.js'
 import { jwtDecode } from 'jwt-decode'
 
 import { useRouter } from 'vue-router'
-import Cookies from 'js-cookie';
+import Cookies from 'js-cookie'
 
 export const connectBackend = defineStore('connectBackend', () => {
   const myCookie = cookieData()
-  const myRouter =useRouter()
- 
-  const refreshToken = () => {
+  const myRouter = useRouter()
 
-  }
- 
- 
- 
+  const refreshToken = () => {}
+
   const connectBack = async (querys) => {
-    let token = ""
-    if(myCookie.getCookie("TokenLightcode") != "") {
-        const jwtPayload = jwtDecode(myCookie.getCookie("TokenLightcode"));
-        const d = new Date();
+    let token = ''
+    if (myCookie.getCookie('TokenLightcode') != '') {
+      const jwtPayload = jwtDecode(myCookie.getCookie('TokenLightcode'))
+      const d = new Date()
 
-        if (jwtPayload.exp < d.getTime()/1000) {
-
-            myCookie.setCookie("TokenLightcode","")
-            myRouter.push({ name: 'login' })
-            return ''
-
-        } else token = myCookie.getCookie("TokenLightcode") 
+      if (jwtPayload.exp < d.getTime() / 1000) {
+        myCookie.setCookie('TokenLightcode', '')
+        myRouter.push({ name: 'login' })
+        return ''
+      } else token = myCookie.getCookie('TokenLightcode')
     }
-    
 
     try {
       const res = await fetch(`${import.meta.env.VITE_BASE_URL}/graphql`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': token,
+          Authorization: token,
         },
         body: JSON.stringify({
           query: querys.query,
@@ -46,7 +39,6 @@ export const connectBackend = defineStore('connectBackend', () => {
         }),
       })
 
-      
       let data = await res.json()
       if (res.ok) {
         let errortext = ''
