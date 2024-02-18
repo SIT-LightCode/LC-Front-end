@@ -53,19 +53,16 @@ export const connectBackend = defineStore('connectBackend', () => {
           return data
         } else {
           toast.error(errortext)
-          // mymodal.modalNormal("Error!", "response : " + errortext, "error");
           return ''
         }
       }
-      else if(res.status == 400||res.status == 500||res.status == 401) {
+      else if(res.status == 400|| res.status == 500 || res.status == 401) {
         toast.error(data['errors'].message)
       }
      
     } catch (error) {
       console.log(error)
       toast.error(error)
-      // mymodal.modalNormal('Error!', 'Error:' + error, 'error')
-      // console.error('Error:', error)
       return ''
     }
   }
