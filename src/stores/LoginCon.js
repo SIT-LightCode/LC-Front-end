@@ -63,9 +63,9 @@ export const loginCon = defineStore('loginCon', () => {
       } else if (res.status == 400 ) {
         const objectJson = await res.json()
         toast.error(objectJson.errors[0].message)
-      } else if (res.status == 401 || res.status == 500) {
+      } else if (res.status == 401 || res.status ==500) {
         toast.error('Invalid password')
-      } 
+      }
     } catch (err) {
       console.log(err)
       toast.error(err)
