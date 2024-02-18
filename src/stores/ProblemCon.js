@@ -29,7 +29,7 @@ export const problemCon = defineStore('problemCon', () => {
           'level',
           'totalScore',
           'isOfficial',
-          { user : ['id', 'name', 'email'] },
+          { user: ['id', 'name', 'email'] },
         ],
       },
       undefined,
@@ -60,7 +60,6 @@ export const problemCon = defineStore('problemCon', () => {
     totalScoreProblem,
     levelProblem,
   ) => {
-
     let isOfficial = myAccount.user.authorities.includes('ADMIN')
     console.log(myAccount.user.authorities.includes('ADMIN'))
     const query = gql.mutation(
@@ -75,9 +74,9 @@ export const problemCon = defineStore('problemCon', () => {
           exampleParameter: { value: JSON.stringify(exampleParameterProblem) },
           level: { value: parseInt(levelProblem) },
           totalScore: { value: parseInt(totalScoreProblem) },
-          isOfficial: { type: 'Boolean', value: isOfficial, }
+          isOfficial: { type: 'Boolean', value: isOfficial },
         },
-        fields: ['id', 'name', 'description', 'solution', 'level', 'totalScore','isOfficial'],
+        fields: ['id', 'name', 'description', 'solution', 'level', 'totalScore', 'isOfficial'],
       },
       undefined,
       {
@@ -85,6 +84,7 @@ export const problemCon = defineStore('problemCon', () => {
       },
     )
 
+    toast.info('Creating problem...')
     myconnectBackend.connectBack(query).then(async (data) => {
       if (data['data'] != undefined) {
         toast.success('Problem has been created')
@@ -94,6 +94,8 @@ export const problemCon = defineStore('problemCon', () => {
         //   "success"
         // );
         getAllproblem()
+      } else {
+        toast.error('There was an issue creating the problem.')
       }
     })
   }
