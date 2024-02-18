@@ -65,10 +65,7 @@ export const connectBackend = defineStore('connectBackend', () => {
           return ''
         }
       }
-      else if(res.status == 400) {
-        toast.error(data['errors'].message)
-      }
-      else if(res.status == 500) {
+      else if(res.status == 400 || res.status == 401 ||  res.status == 500) {
         toast.error(data['errors'].message)
       }
     } catch (error) {

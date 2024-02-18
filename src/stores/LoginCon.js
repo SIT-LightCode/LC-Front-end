@@ -60,14 +60,12 @@ export const loginCon = defineStore('loginCon', () => {
         myAccount.GetUserByEmail()
         toast.success('Login Completed')
         myRouter.push({ name: 'lightcode' })
-      } else if (res.status == 400) {
+      } else if (res.status == 400 ) {
         const objectJson = await res.json()
         toast.error(objectJson.errors[0].message)
-      } else if (res.status == 401) {
+      } else if (res.status == 401 || res.status == 500) {
         toast.error('Invalid password')
-      } else if (res.status == 500) {
-        toast.error('Invalid password')
-      }
+      } 
     } catch (err) {
       console.log(err)
       toast.error(err)
