@@ -57,7 +57,7 @@ export const account = defineStore('account', () => {
 
   const EditAccount = async (editUser,olddata) => {
     let errorValidate =
-    myVaildate.validateNameNull(nameAccount,'name') +
+    myVaildate.validateNameNull(editUser.name,'name') +
     myVaildate.validateEmail(editUser.email) +
       myVaildate.validateAuthorities(editUser.authorities)+
       myVaildate.validateSameValue(editUser,olddata)
