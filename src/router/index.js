@@ -76,7 +76,7 @@ const router = createRouter({
         if(!(code.role.includes('ADMIN'))){
           return { name: 'NotFound' }
         } 
-
+ 
       },
       component: () => import('../views/ViewUser.vue'),
     },

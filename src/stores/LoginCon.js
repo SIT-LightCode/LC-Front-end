@@ -32,45 +32,46 @@ export const loginCon = defineStore('loginCon', () => {
   }
 
   const SignIn = async (email, password) => {
-    // let errorValidate = myVaildate.validateEmail(email) + myVaildate.validatePassword(password)
-    // if (errorValidate != '') {
-    //   toast.error(errorValidate)
-    // } else {
-    try {
-      const res = await fetch(`${import.meta.env.VITE_BASE_URL}/v1/auth/login`, {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      })
-      if (res.status === 200) {
-        const objectJson = await res.json()
-        Cookies.set('refreshToken', objectJson.refreshToken, { httpOnly: false, expires: 7 })
-        ////
-        Cookies.set('TokenLightcode', objectJson.token, { httpOnly: false, expires: 7 })
+    let errorValidate = myVaildate.validateEmail(email) + myVaildate.validatePassword(password)
+    if (errorValidate != '') {
+      toast.error(errorValidate)
+    } else {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_BASE_URL}/v1/auth/login`, {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+        })
+        if (res.status === 200) {
+          const objectJson = await res.json()
+          Cookies.set('refreshToken', objectJson.refreshToken, { httpOnly: false, expires: 7 })
+          ////
+          Cookies.set('TokenLightcode', objectJson.token, { httpOnly: false, expires: 7 })
 
-        // let jsonFromToken = parseJwt(myCookie.getCookie("token"))
-        // myAccount.user.name = setCookie("name", jsonFromToken.name, 7)
-        // myAccount.setCookie("role", jsonFromToken.role, 7)
+          // let jsonFromToken = parseJwt(myCookie.getCookie("token"))
+          // myAccount.user.name = setCookie("name", jsonFromToken.name, 7)
+          // myAccount.setCookie("role", jsonFromToken.role, 7)
 
-        myAccount.GetUserByEmail()
-        toast.success('Login Completed')
-        myRouter.push({ name: 'lightcode' })
-      } else if (res.status == 400 ) {
-        const objectJson = await res.json()
-        toast.error(objectJson.errors[0].message)
-      } else if (res.status == 401 || res.status ==500) {
-        toast.error('Invalid password')
+          myAccount.GetUserByEmail()
+          toast.success('Login Completed')
+          myRouter.push({ name: 'lightcode' })
+        } else if (res.status == 400) {
+          const objectJson = await res.json()
+          toast.error(objectJson.errors[0].message)
+        } else if (res.status == 401 || res.status == 500) {
+          toast.error('Invalid password')
+        }
+      } catch (err) {
+        console.log(err)
+        toast.error(err)
       }
-    } catch (err) {
-      console.log(err)
-      toast.error(err)
+      //}
     }
-    //}
   }
   const logout = async () => {
     try {

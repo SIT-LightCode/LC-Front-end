@@ -22,7 +22,7 @@ export const account = defineStore('account', () => {
   // const user = ref({name:'',role:'User'})
   const AddAccount = async (nameAccount, emailAccount, passwordAccount) => {
     let errorValidate =
-      myVaildate.validateNameNull(nameAccount) +
+      myVaildate.validateNameNull(nameAccount,'name') +
       myVaildate.validateEmail(emailAccount) +
       myVaildate.validatePassword(passwordAccount)
     if (errorValidate != '') {
@@ -57,8 +57,8 @@ export const account = defineStore('account', () => {
 
   const EditAccount = async (editUser,olddata) => {
     let errorValidate =
-      myVaildate.validateNameNull(editUser.name) +
-      myVaildate.validateEmail(editUser.email) +
+    myVaildate.validateNameNull(nameAccount,'name') +
+    myVaildate.validateEmail(editUser.email) +
       myVaildate.validateAuthorities(editUser.authorities)+
       myVaildate.validateSameValue(editUser,olddata)
     if (errorValidate != '') {

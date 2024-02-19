@@ -8,6 +8,7 @@ import { useRouter } from 'vue-router'
 import Cookies from 'js-cookie'
 
 export const validateInput = defineStore('validateInput', () => {
+  
   const validatePassword = (password) => {
     if (password != undefined && password != null) {
       let errorNote = ''
@@ -36,17 +37,17 @@ export const validateInput = defineStore('validateInput', () => {
     return errorNote
   }
 
-  const validateNameNull = (name) => {
+  const validateNameNull = (name,type) => {
     let errorNote = ''
     let nameVali = name.trimStart().trimEnd()
     if (nameVali == null) {
-      errorNote = errorNote + 'name is null \n'
+      errorNote = errorNote + type + ' is null \n'
     }
     if (nameVali == '') {
-      errorNote = errorNote + 'name is null \n'
+      errorNote = errorNote + type +' is null \n'
     }
     if (nameVali == undefined) {
-      errorNote = errorNote + 'name is undefined \n'
+      errorNote = errorNote + type +' is undefined \n'
     }
     return errorNote
   }

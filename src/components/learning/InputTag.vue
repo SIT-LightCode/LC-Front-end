@@ -2,8 +2,9 @@
 import { ref, defineProps, defineEmits, computed } from 'vue'
 import * as gql from 'gql-query-builder'
 import buttonvue from '../button/Button.vue'
+import { validateInput } from '../../stores/ValidateInput';
 const emit = defineEmits(['addfunc'])
-
+const myVaildate = validateInput()
 const props = defineProps({
   tagData: Object, // Pass existing tag data for editing, if any
   type: String, // 'Add' or 'Edit'
@@ -15,6 +16,7 @@ const description = ref(props.tagData?.description || '')
 const tagId = ref(null)
 const tag = ref(undefined)
 const Istype = ref('Add')
+
 const submitTag = () => {
   console.log(tagId.value)
   let type = ''
@@ -24,6 +26,14 @@ const submitTag = () => {
     type = 'Add'
     tagId.value = null
   }
+
+
+  let errorValidate =
+      myVaildate.validateNameNull(topic.value,'topic') 
+    if (errorValidate != '') {
+      toast.error(errorValidate)
+      return "error"
+    } else {
 
   let query = gql.mutation({
     operation: 'upsertTag',
@@ -42,6 +52,7 @@ const submitTag = () => {
   })
 
   emit('addfunc', type, query, 'tag')
+    }
 }
 
 const changeId = (e1) => {

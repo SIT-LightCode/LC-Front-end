@@ -3,7 +3,7 @@ import { computed, ref } from 'vue'
 import { modalSwal } from './Modal.js'
 import { connectBackend } from './ConnectBackend.js'
 import { Toaster, toast } from 'vue-sonner'
-
+import { validateInput } from './ValidateInput.js'}
 import * as gql from 'gql-query-builder'
 
 // const mymodal = modalSwal()
@@ -11,7 +11,7 @@ const myconnectBackend = connectBackend()
 
 export const learningCon = defineStore('learningCon', () => {
   let tagList = ref({})
-
+  const myValidate = validateInput()
   const getAllTag = async () => {
     let querys = gql.query(
       {
@@ -32,6 +32,8 @@ export const learningCon = defineStore('learningCon', () => {
   }
 
   const addTag = async (querys, type) => {
+
+
     console.log('here')
     console.log(type)
     await myconnectBackend.connectBack(querys).then((res) => {
