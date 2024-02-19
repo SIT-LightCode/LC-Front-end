@@ -3,7 +3,7 @@ import { computed, ref } from 'vue'
 import { modalSwal } from './Modal.js'
 import { connectBackend } from './ConnectBackend.js'
 import { Toaster, toast } from 'vue-sonner'
-import { validateInput } from './ValidateInput.js'}
+import { validateInput } from './ValidateInput.js'
 import * as gql from 'gql-query-builder'
 
 // const mymodal = modalSwal()
