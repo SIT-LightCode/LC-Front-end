@@ -16,10 +16,44 @@ export const account = defineStore('account', () => {
   const myRouter = useRouter()
   const myVaildate = validateInput()
 
-  const user = ref({ id: null, name: '', email: '', authorities: [], score: 0 })
+  const user = ref({ id: null, name: '', email: '', authorities: [], score: 0,scoreUnOfficial:0 })
   const userList = ref({})
 
   // const user = ref({name:'',role:'User'})
+  // const AddAccount = async (nameAccount, emailAccount, passwordAccount) => {
+  //   let errorValidate =
+  //     myVaildate.validateNameNull(nameAccount,'name') +
+  //     myVaildate.validateEmail(emailAccount) +
+  //     myVaildate.validatePassword(passwordAccount)
+  //   if (errorValidate != '') {
+  //     toast.error(errorValidate)
+  //     return "error"
+  //   } else {
+  //     const query = gql.mutation(
+  //       {
+  //         operation: 'upsertUser',
+  //         variables: {
+  //           id: { type: 'Int', value: null },
+  //           authorities: { value: 'USER' },
+  //           name: { value: nameAccount.trimStart().trimEnd() },
+  //           email: { value: emailAccount.trimStart().trimEnd() },
+  //           password: { value: passwordAccount.trimStart().trimEnd() },
+  //         },
+  //         fields: ['id', 'name', 'email'],
+  //       },
+  //       undefined,
+  //       {
+  //         operationName: 'UpsertUser ',
+  //       },
+  //     )
+
+  //     myconnectBackend.connectBack(query).then(async (data) => {
+  //       if (data != '') {
+  //         toast.success('Create user completed')
+  //       } 
+  //     })
+  //   }
+  // }
   const AddAccount = async (nameAccount, emailAccount, passwordAccount) => {
     let errorValidate =
       myVaildate.validateNameNull(nameAccount,'name') +
@@ -29,32 +63,36 @@ export const account = defineStore('account', () => {
       toast.error(errorValidate)
       return "error"
     } else {
-      const query = gql.mutation(
-        {
-          operation: 'upsertUser',
-          variables: {
-            id: { type: 'Int', value: null },
-            authorities: { value: 'USER' },
-            name: { value: nameAccount.trimStart().trimEnd() },
-            email: { value: emailAccount.trimStart().trimEnd() },
-            password: { value: passwordAccount.trimStart().trimEnd() },
+      try {
+        const res = await fetch(`${import.meta.env.VITE_BASE_URL}/v1/auth/register`, {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
           },
-          fields: ['id', 'name', 'email'],
-        },
-        undefined,
-        {
-          operationName: 'UpsertUser ',
-        },
-      )
-
-      myconnectBackend.connectBack(query).then(async (data) => {
-        if (data != '') {
-          toast.success('Create user completed')
+          body: JSON.stringify({
+            name: nameAccount,
+            email: emailAccount,
+            password: passwordAccount,
+          }),
+        })
+        if (res.status === 201) {
+          const objectJson = await res.json()
+          
+            if (objectJson.data != '') {
+              toast.success('Create user completed')
+            } 
+          
+        } else if (res.status == 400) {
+          const objectJson = await res.json()
+          toast.error(objectJson.errors[0].message)
         } 
-      })
+      } catch (err) {
+        console.log(err)
+        toast.error(err)
+      }
+  
     }
   }
-
   const EditAccount = async (editUser,olddata) => {
     let errorValidate =
     myVaildate.validateNameNull(editUser.name,'name') +
@@ -99,7 +137,7 @@ export const account = defineStore('account', () => {
         variables: {
           email: { value: jsonFromToken.sub },
         },
-        fields: ['id', 'name', 'email', 'authorities', 'score'],
+        fields: ['id', 'name', 'email', 'authorities', 'score','scoreUnOfficial'],
       },
       undefined,
       {

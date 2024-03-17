@@ -108,12 +108,13 @@ const countFailedTestCases = (data) => {
 const doSubmit = async (id, answer) => {
     try {
         const data = await myproblemCon.checkAnswer(id, answer)
-        console.log(data);
+
         result.value = data;
-        if (countFailedTestCases(result.value) == 0) {
+        if (result.value == 0) {
+        }
+        else if (countFailedTestCases(result.value) == 0) {
             alert("ALL Correct")
         }
-        console.log(result.value);
     } catch (error) {
         console.error(error);
         // Handle the error appropriately

@@ -18,7 +18,7 @@ function getCookie(cname) {
 }
 
 function checkLogin(to, from) {
-  if (getCookie('TokenLightcode') == '') {
+  if (getCookie('refreshToken') == '') {
     return { path: '/login' }
   } 
 }
@@ -35,13 +35,18 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
+      beforeEnter: (to, from) => {
+        if (getCookie('refreshToken') != '') {
+          return { path: '/lightcode' }
+        }
+      },
       component: () => import('../views/Landing.vue'),
     },
     {
       path: '/login',
       name: 'login',
       beforeEnter: (to, from) => {
-        if (getCookie('TokenLightcode') != '') {
+        if (getCookie('refreshToken') != '') {
           return { path: '/lightcode' }
         }
       },
@@ -69,7 +74,7 @@ const router = createRouter({
       path: '/view-user',
       name: 'viewuser',
       beforeEnter: (to, from )=>{
-        if (getCookie('TokenLightcode') == '') {
+        if (getCookie('refreshToken') == '') {
           return { path: '/login' }
         }
         let code = jwtDecode(getCookie("TokenLightcode"))        

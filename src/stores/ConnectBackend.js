@@ -3,6 +3,7 @@ import { modalSwal } from './Modal.js'
 import { Toaster, toast } from 'vue-sonner'
 import { cookieData } from '../stores/CookieData.js'
 import { jwtDecode } from 'jwt-decode'
+import { account } from '../stores/Account.js'
 
 import { useRouter } from 'vue-router'
 import Cookies from 'js-cookie'
@@ -10,20 +11,31 @@ import Cookies from 'js-cookie'
 export const connectBackend = defineStore('connectBackend', () => {
   const myCookie = cookieData()
   const myRouter = useRouter()
-
-  const refreshToken = () => {}
+  const inhours = 1 / 24
+  const myAccount = account()
+  const refreshToken = async () => {
+    const res = await fetch(`${import.meta.env.VITE_BASE_URL}/v1/auth/refresh`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        token: myCookie.getCookie('refreshToken'),
+      }),
+    })
+    const objectJson = await res.json()
+    if (res.status === 200) {
+      Cookies.set('TokenLightcode', objectJson.token, { httpOnly: false, expires: inhours })
+      myAccount.GetUser()
+    } else if (res.status == 400 || res.status == 500 || res.status == 401) {
+      Cookies.remove('refreshToken')
+      Cookies.remove('TokenLightcode')
+    }
+  }
 
   const connectBack = async (querys) => {
-    let token = ''
-    if (myCookie.getCookie('TokenLightcode') != '') {
-      const jwtPayload = jwtDecode(myCookie.getCookie('TokenLightcode'))
-      const d = new Date()
-
-      if (jwtPayload.exp < d.getTime() / 1000) {
-        myCookie.setCookie('TokenLightcode', '')
-        myRouter.push({ name: 'login' })
-        return ''
-      } else token = myCookie.getCookie('TokenLightcode')
+    if (myCookie.getCookie('TokenLightcode') == '') {
+      refreshToken()
     }
 
     try {
@@ -31,7 +43,7 @@ export const connectBackend = defineStore('connectBackend', () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: token,
+          Authorization: myCookie.getCookie('TokenLightcode'),
         },
         body: JSON.stringify({
           query: querys.query,
@@ -44,22 +56,22 @@ export const connectBackend = defineStore('connectBackend', () => {
         let errortext = ''
         for (let e in data) {
           if (e == 'errors') {
-            for (let err in data[e]) {
-              errortext = errortext + data[e][err].message + '\n'
-            }
+            errortext = errortext + data.errors[0].message
           }
         }
         if (errortext == '') {
           return data
         } else {
+          // if(errortext == ''){
+
+          // }
+
           toast.error(errortext)
           return ''
         }
-      }
-      else if(res.status == 400|| res.status == 500 || res.status == 401) {
+      } else if (res.status == 400 || res.status == 500 || res.status == 401) {
         toast.error(data['errors'].message)
       }
-     
     } catch (error) {
       console.log(error)
       toast.error(error)

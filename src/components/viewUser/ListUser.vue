@@ -3,6 +3,7 @@ import buttonVue from '../button/Button.vue';
 import { useRouter } from 'vue-router'
 import { account } from '../../stores/Account';
 import IconAdd from '../icons/IconAdd.vue'
+import PagingForUser from "../paging/PagingForUser.vue"
 
 const myRouter = useRouter()
 const myAccount = account()
@@ -14,7 +15,7 @@ const prop = defineProps({
 
 
 </script>
- 
+
 <template>
     <div class="">
         <!-- First Photo Grid-->
@@ -23,27 +24,10 @@ const prop = defineProps({
             <div class="p-5">
                 <div
                     class="block h-64 rounded-lg bg-white text-left shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 ">
-                    <div class="grid place-content-around " >
-                        <table>
-                            <tr class="p-5" >
-                                <th> Name </th>
-                                <td> Email </td>
-                                <td> Authorities </td>
-                                <td> Score </td>
-                            </tr>
-                            <tr v-for="i in datas" class="p-5 m-4 text-base">
-                                <th> {{ i.name }} </th>
-                                <td> {{ i.email }} </td>
-                                <td> {{ i.authorities }} </td>
-                                <td> {{ i.score }} </td>
-                                <div class="flex justify-end m-5">
-                                    <buttonVue @buttonClick="() => $emit('deleteUser', i.id)" :name="'delete'">
-                                    </buttonVue>
-                                    <buttonVue @buttonClick="() => $emit('editUser', i)" :name="'edit'">
-                                    </buttonVue>
-                                </div>
-                            </tr>
-                        </table>
+                    <div class="grid place-content-around ">
+                            <PagingForUser :listData="datas" :size="5" @deleteUser="(i) => { $emit('deleteUser', i) }"
+                                @editUser="(i) => { $emit('editUser', i) }" :datas="dataFilter">
+                            </PagingForUser>
                     </div>
                 </div>
             </div>
@@ -53,5 +37,5 @@ const prop = defineProps({
     </div>
     <!--  -->
 </template>
- 
+
 <style></style>

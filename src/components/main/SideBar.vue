@@ -2,9 +2,10 @@
 import IconArrowSmallLeft from "../icons/IconArrowSmallLeft.vue"
 import IconArrowSmallRight from "../icons/IconArrowSmallRight.vue"
 import { ref,onBeforeMount } from "vue"
+import buttonVue from '../button/Button.vue';
 import { account } from "../../stores/Account.js"
 const myAccount = account()
-const emit = defineEmits(["openCloseSidebarEmit","OpenModal"])
+const emit = defineEmits(["openCloseSidebarEmit","OpenModal","LogOut"])
 const sidebarIsShow = ref(false)
 
 const openCloseSideBar = () => {
@@ -43,8 +44,8 @@ const openCloseSideBar = () => {
 							<li>{{key}} : {{ user }}</li>
 						</ul>
 					</div>
-					<button class="bg-blue-300 hover:bg-blue-500 text-gray-800 font-bold py-2 px-4 mx-2 rounded" @click="()=>{ sidebarIsShow = false; $emit('OpenModal',true) }">Setting</button>
-					
+					<buttonVue @click="()=>{ sidebarIsShow = false; $emit('OpenModal',true) }" :name="'Setting'" :status="false"/>
+					<buttonVue @click="()=>{ $emit('LogOut',true) }" :name="'Log Out'"  />
 				</div>
 				<div
 					@click="openCloseSideBar"

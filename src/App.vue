@@ -38,9 +38,9 @@ const LogOut = () => {
     <Toaster richColors position="top-right" />
 
     <Navbar />
-    <Sidebar v-if="$route.path !== '/' && $route.path !== '/login'&& $route.name !== 'NotFound'" @openCloseSidebarEmit="openCloseSidebar" @OpenModal="() => {
-      showModal = true;
-    }" />
+    <Sidebar v-if="$route.path !== '/' && $route.path !== '/login'&& $route.name !== 'NotFound'" @openCloseSidebarEmit="openCloseSidebar"  @OpenModal="() => {
+      showModal = true; 
+    }" @LogOut="() => { LogOut() }"/>
     <!-- mainn -->
     <div class="grid grid-cols-12">
       <div class="col-start-1 px-14col-start-1 col-span-12 pt-10 tansition-all">
@@ -49,7 +49,7 @@ const LogOut = () => {
     </div>
   </div>
   <div v-if="showModal">
-    <setting @CloseModal="(e1) => { showModal = e1 }" @LogOut="() => { LogOut() }" ></setting>
+    <setting @CloseModal="(e1) => { showModal = e1 }"  ></setting>
   </div>
 </template>
 

@@ -2,7 +2,7 @@
 import { ref } from "vue"
 import buttonVue from '../button/Button.vue';
 import { account } from '../../stores/Account';
-const emit = defineEmits(["CloseModal", "LogOut", "EditUserByUser"])
+const emit = defineEmits(["CloseModal", "EditUserByUser"])
 const myAccount = account()
 const editMode = ref(true)
 const EditUser = ref({
@@ -77,8 +77,7 @@ const lowCase = () => {
                 <div class="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                     <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 mx-2 rounded"
                         @click="editMode = true; $emit('CloseModal', false);"> Close</button>
-                    <buttonVue :name="'Log Out'" @buttonClick="() => { $emit('LogOut', true); editMode = true }">
-                    </buttonVue>
+         
                 </div>
             </div>
         </div>

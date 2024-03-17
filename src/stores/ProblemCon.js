@@ -211,11 +211,10 @@ export const problemCon = defineStore('problemCon', () => {
         },
       )
       const data = await myconnectBackend.connectBack(query)
-
       if (data['data'] !== undefined) {
         let res = data['data']['checkAnswer']
         return res
-      }
+      } else return 0 
     } catch (error) {
       console.error(error)
       // Handle the error appropriately

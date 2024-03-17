@@ -16,6 +16,8 @@ export const loginCon = defineStore('loginCon', () => {
   const myRouter = useRouter()
   const myAccount = account()
   const myVaildate = validateInput()
+  const inhours  = 1/24;
+
   const parseJwt = (token) => {
     var base64Url = token.split('.')[1]
     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
@@ -49,9 +51,9 @@ export const loginCon = defineStore('loginCon', () => {
         })
         if (res.status === 200) {
           const objectJson = await res.json()
-          Cookies.set('refreshToken', objectJson.refreshToken, { httpOnly: false, expires: 7 })
+          Cookies.set('refreshToken', objectJson.refreshToken, { httpOnly: false, expires: 1 })
           ////
-          Cookies.set('TokenLightcode', objectJson.token, { httpOnly: false, expires: 7 })
+          Cookies.set('TokenLightcode', objectJson.token, { httpOnly: false, expires: inhours })
 
           // let jsonFromToken = parseJwt(myCookie.getCookie("token"))
           // myAccount.user.name = setCookie("name", jsonFromToken.name, 7)
@@ -63,8 +65,10 @@ export const loginCon = defineStore('loginCon', () => {
         } else if (res.status == 400) {
           const objectJson = await res.json()
           toast.error(objectJson.errors[0].message)
-        } else if (res.status == 401 || res.status == 500) {
+        } else if (res.status == 401) {
           toast.error('Invalid password')
+        }else if ( res.status == 500) {
+          toast.error('Internal Server Error')
         }
       } catch (err) {
         console.log(err)
