@@ -7,9 +7,14 @@ import LearningContent from '../components/learning/LearningContent.vue'
 import LearningList from '../components/learning/LearningList.vue'
 import InputContent from '../components/learning/InputContent.vue'
 import InputTag from '../components/learning/InputTag.vue'
+import IconHamberger from '../components/icons/IconHamberger.vue'
+import Hamberger from '../components/button/Hamburger.vue'
+
 const mylearningCon = learningCon()
 const currentlesson = ref({})
 const status = ref('list')
+const sidebarIsShow = ref(false)
+
 const selectedLesson = ref({})
 const myAccount = account()
 
@@ -81,8 +86,8 @@ const currentSet = computed(() => {
 
 <template>
   <div class="px-10">
-    <div v-if="status == 'addTag' 
-" >
+
+    <div v-if="status == 'addTag'">
       <InputTag 
         :List="mylearningCon.tagList"
         :type="'Add'"
@@ -106,11 +111,16 @@ const currentSet = computed(() => {
         @addfunc="(e, query) => conBackend(e, query)"
       ></InputContent>
     </div>
-    <div class="flex space-x-16" v-show="status == 'list'">
+    <div class="flex lg:space-x-0 space-x-16" v-show="status == 'list'">
       <!-- Sidebar/menu with its own scroll bar -->
-      <div class="learning-list-container" style="overflow-y: auto; max-height: 100vh">
+      <!-- hanberger on off -->
+      <div  class="fixed hover:cursor-pointer border-2 border-solid h-[43px]  px-2 flex items-center justify-center rounded-full lg:invisible transition-all hover:text-blue-400 hover:border-blue-400">
+        <Hamberger/>
+      </div>
+      <!-- lg -->
+      <div  class="pl-10 learning-list-container fixed max-h-[90%] overflow-auto invisible lg:visible">
         <LearningList
-          class=""
+          class="bg-white"
           :contents="mylearningCon.tagList"
           @selected="selectLesson"
           @addstatus="(e) => (status = e)"
@@ -118,11 +128,22 @@ const currentSet = computed(() => {
         >
         </LearningList>
       </div>
-
+      <!-- small -->
+      <div v-show="sidebarIsShow" class="pl-10 learning-list-container fixed max-h-[90%] overflow-auto lg:visible">
+        <LearningList
+          class="bg-white"
+          :contents="mylearningCon.tagList"
+          @selected="selectLesson"
+          @addstatus="(e) => (status = e)"
+          @deleteTag="(e1)=>{ mylearningCon.deleteTag(e1)}"
+        >
+        </LearningList>
+      </div>
       <!-- Content area with its own scroll bar -->
-      <div class="flex-1" style="overflow-y: auto; max-height: 100vh">
+      
+      <div class="ml-72" >
         <LearningContent
-          class="w-full"
+          class="lg:ml-80"
           :contents="currentSet"
           @buttonemit="(e, e1) => conBackend(e, e1)"
           @addstatus="(e) => (status = e)"

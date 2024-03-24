@@ -24,8 +24,8 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-    <div class="flex pb-4 pt-2 border-b-2">
-        <div class="flex items-center absolute pl-11 pt-3 gap-4">
+    <div class="flex pb-4 pt-2 border-b-2 fixed w-full bg-white">
+        <div class="flex items-center absolute pl-11 pt-3 gap-4 invisible md:visible">
             <img class="h-12" src='../../assets/picture/lclogo.png' alt="logo_my_froup">
             <h1 class=" font-roboto font-bold">Lightcode </h1>
         </div>

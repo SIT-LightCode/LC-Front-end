@@ -37,13 +37,13 @@ const LogOut = () => {
   <div class="text-black text-base min-h-screen bg-white relative">
     <Toaster richColors position="top-right" />
 
-    <Navbar />
+    <Navbar class=""/>
     <Sidebar v-if="$route.path !== '/' && $route.path !== '/login'&& $route.name !== 'NotFound'" @openCloseSidebarEmit="openCloseSidebar"  @OpenModal="() => {
       showModal = true; 
     }" @LogOut="() => { LogOut() }"/>
     <!-- mainn -->
     <div class="grid grid-cols-12">
-      <div class="col-start-1 px-14col-start-1 col-span-12 pt-10 tansition-all">
+      <div class="col-start-1 px-14col-start-1 col-span-12 pt-28 tansition-all">
         <RouterView class="" />
       </div>
     </div>

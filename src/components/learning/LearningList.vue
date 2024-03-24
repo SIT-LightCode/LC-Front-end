@@ -42,7 +42,7 @@ const showModalToAddContent = async () => {
     <IconAdd @click="showModalToAddContent" v-if="myAccount.user.authorities.includes('ADMIN')"
       class="fixed transition right-6 bottom-6 w-20 h-20 hover:text-blue-500 hover:cursor-pointer" />
     <div class="flex flex-col space-y-5 pr-6">
-      <div v-for="topic in contents" class="flex flex-col content-center text-black">
+      <div v-for="topic in contents" class="flex flex-col content-center text-black bg-white">
         <div>
           <div class="border-2 rounded-lg p-5 flex flex-col w-64 space-y-5 text-ellipsis overflow-hidden">
             <div id="topic-name" class="font-bold text-xl">{{ topic['topic'] }}</div>
@@ -55,7 +55,7 @@ const showModalToAddContent = async () => {
               {{ lesson.name }}
             </div>
             <div v-show="topic.lesson == null"><b style="color: red"> No lesson </b></div>
-            <div v-if="myAccount.user.authorities.includes('ADMIN')"> <buttonVue  @buttonClick="  $emit('deleteTag', topic.id)" :name="'Delete Tag'"></buttonVue>
+            <div v-if="myAccount.user.authorities.includes('ADMIN')"> <buttonVue  @buttonClick="$emit('deleteTag', topic.id)" :name="'Delete Tag'"></buttonVue>
             </div>
           </div>
         </div>
