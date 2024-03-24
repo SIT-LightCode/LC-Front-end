@@ -85,7 +85,7 @@ const currentSet = computed(() => {
 </script>
 
 <template>
-  <div class="px-10">
+  <div class="md:px5 px-1">
 
     <div v-if="status == 'addTag'">
       <InputTag 
@@ -111,10 +111,10 @@ const currentSet = computed(() => {
         @addfunc="(e, query) => conBackend(e, query)"
       ></InputContent>
     </div>
-    <div class="flex lg:space-x-0 space-x-16" v-show="status == 'list'">
+    <div class="flex lg:space-x-0 space-x-0 md:space-x-16" v-show="status == 'list'">
       <!-- Sidebar/menu with its own scroll bar -->
       <!-- hanberger on off -->
-      <div  class="fixed hover:cursor-pointer border-2 border-solid h-[43px]  px-2 flex items-center justify-center rounded-full lg:invisible transition-all hover:text-blue-400 hover:border-blue-400">
+      <div  class="fixed hover:cursor-pointer border-2 border-solid h-[43px]  px-2 flex items-center justify-center rounded-lg lg:invisible transition-all hover:text-blue-400 hover:border-blue-400">
         <Hamberger/>
       </div>
       <!-- lg -->

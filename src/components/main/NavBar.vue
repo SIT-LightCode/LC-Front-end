@@ -25,17 +25,20 @@ onBeforeMount(async () => {
 
 <template>
     <div class="flex pb-4 pt-2 border-b-2 fixed w-full bg-white">
-        <div class="flex items-center absolute pl-11 pt-3 gap-4 invisible md:visible">
-            <img class="h-12" src='../../assets/picture/lclogo.png' alt="logo_my_froup">
-            <h1 class=" font-roboto font-bold">Lightcode </h1>
-        </div>
+        <RouterLink :to="'/lightcode'">
+        <div class="flex items-center absolute pl-11 pt-3 gap-4 ">
+            
+            <img class="h-12 invisible sm:visible" src='../../assets/picture/lclogo.png' alt="logo_my_froup" >
+            <h1 class=" font-roboto font-bold invisible md:visible">Lightcode </h1>
+            
+        </div></RouterLink>
         <div v-if="$route.path == '/'" class="flex justify-end space-x-10  text-black p-1 w-full ">
             <RouterLink :to="'/login'"
                 :class="`max-w-[800px] border-2 rounded-full border-blue-500 text-white bg-blue-500 hover:border-gray-300 hover:text-blue-500 hover:bg-white transitionflex flex-col items-center p-3 `">
                 <a> login </a>
             </RouterLink>
         </div>
-        <div v-else-if="$route.path !== '/login'" class="flex justify-center space-x-10 text-black p-1 w-full ">
+        <div v-else-if="$route.path !== '/login'" class="flex justify-center space-x-2 sm:space-x-10 text-black p-1 w-full ">
             <RouterLink :to="'/lightcode'"
                 :class="($route.path === '/lightcode' ? `border-blue-500` : ``) + ` max-w-[800px] border-b-4  hover:border-blue-500 hover:text-blue-500 transition flex flex-col items-center p-3 `">
                 <a> Home </a>
