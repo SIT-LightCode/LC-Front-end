@@ -42,11 +42,8 @@ const LogOut = () => {
       showModal = true; 
     }" @LogOut="() => { LogOut() }"/>
     <!-- mainn -->
-    <div class="grid grid-cols-12">
-      <div class="col-start-1 px-14col-start-1 col-span-12 pt-28 tansition-all">
-        <RouterView class="" />
-      </div>
-    </div>
+    <RouterView class="pt-24" />
+
   </div>
   <div v-if="showModal">
     <setting @CloseModal="(e1) => { showModal = e1 }"  ></setting>

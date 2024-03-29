@@ -85,7 +85,7 @@ const currentSet = computed(() => {
 </script>
 
 <template>
-  <div class="md:px5 px-1">
+  <div class=" px-1">
 
     <div v-if="status == 'addTag'">
       <InputTag 

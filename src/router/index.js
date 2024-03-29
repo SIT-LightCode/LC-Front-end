@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import { jwtDecode } from 'jwt-decode'
-
+import AOS from "aos";
+import 'aos/dist/aos.css';
 function getCookie(cname) {
   let name = cname + '='
   let ca = document.cookie.split(';')
@@ -92,5 +93,10 @@ const router = createRouter({
     },
   ],
 })
+
+router.beforeEach((to, from, next) => {
+  AOS.init(); // Initialize AOS
+  next();
+});
 
 export default router

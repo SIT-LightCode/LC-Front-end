@@ -1,5 +1,5 @@
 <script setup>
-const targetGoal = [ "t1" , "t2" ,"t3"]
+const targetGoal = [ "Learn" , "Practice" ,"Track Your Progress", "Enjoy the Journey"]
 </script>
  
 <template>
@@ -14,21 +14,21 @@ const targetGoal = [ "t1" , "t2" ,"t3"]
         <div class="container mx-auto px-4">
             <div class="items-center flex flex-wrap">
                 <div class="w-full md:w-4/12 ml-auto mr-auto px-4">
-                    <img alt="..." class="max-w-full rounded-lg shadow-lg"
-                        src="https://images.unsplash.com/photo-1555212697-194d092e3b8f?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=634&amp;q=80" />
+                    <div class="flex">
+                            <img data-aos="fade-up" data-aos-duration="1000" class="invisible sm:visible content-center" src="../../assets/picture/lclogo.png" alt="logo_my_froup"/>
+                    </div>
                 </div>
                 <div class="w-full md:w-5/12 ml-auto mr-auto px-4">
-                    <div class="md:pr-12">
-                        <h3 class="text-3xl font-semibold">Goal</h3>
+                    <div data-aos="fade-up" data-aos-duration="1000" class="md:pr-12" >
+                        <h3 class="text-3xl font-semibold">What Lightcode do</h3>
                         <p class="mt-4 text-lg leading-relaxed text-gray-600">
-                       .........................................
                         </p>
                         <ul class="list-none mt-6">
                             <li class="py-2" v-for="goal in targetGoal">
                                 <div class="flex items-center">
                                     <div>
                                         <span
-                                            class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-pink-600 bg-pink-200 mr-3">
+                                            class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blue-800 bg-blue-400 mr-3">
                                             <i class="fas fa-fingerprint">
                                             </i>
                                         </span>

@@ -1,24 +1,33 @@
 <script setup>
+import IconArrowSmallRight from '../icons/IconArrowSmallRight.vue';
+import { RouterLink, RouterView, useRouter } from 'vue-router'
+import { ref } from "vue"
+const router = useRouter()
+const isButtonHover = ref(false)
+function hoverButton () {
+  isButtonHover.value = !isButtonHover.value
+}
 </script>
 
 <template>
       <div class="relative pt-16 pb-32 flex content-center items-center justify-center" style="min-height: 75vh;">
-        <div class="absolute top-0 w-full h-full bg-center bg-cover"
-          style='background-image: url("");'>
+        <div class="absolute top-0 w-full h-full bg-center bg-cover">
           <span id="blackOverlay" class="w-full h-full absolute opacity-75 bg-black"></span>
         </div>
         <div class="container relative mx-auto">
           <div class="items-center flex flex-wrap">
             <div class="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
-              <div class="pr-12">
-                <h1 class="text-white font-semibold text-5xl">
-                  Your story starts with us.
+              <div class="flex flex-col items-center">
+                <h1 data-aos="fade-up" data-aos-duration="1000" class="text-white font-semibold text-5xl">
+                  JavaScript Mastery Platform
                 </h1>
-                <p class="mt-4 text-lg text-gray-300">
-                  This is a simple example of a Landing Page you can build using
-                  Tailwind Starter Kit. It features multiple CSS components
-                  based on the Tailwindcss design system.
+                <p data-aos="fade-up" data-aos-duration="1000" class="mt-4 text-lg text-gray-300">
+                  Empower yourself with JavaScript expertise. Elevate your coding abilities through our dynamic platform offering hands-on learning and practice opportunities.
                 </p>
+                <div data-aos="fade-up" data-aos-duration="1000"  @click="router.push('/lightcode')" :onmouseenter="()=>{hoverButton()}" :onmouseleave="()=>{hoverButton()}" class="flex mt-7 pr-8 relative bg-white w-32 p-2 content-center justify-center rounded-lg hover:bg-slate-200 hover:cursor-pointer transition-all">
+                  Get Started
+                  <IconArrowSmallRight :class="`absolute transition-all `+(isButtonHover ? `ml-2 right-1` : `ml-1 right-2`)"/>
+                </div>
               </div>
             </div>
           </div>

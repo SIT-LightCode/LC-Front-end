@@ -2,7 +2,8 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import { createPinia } from 'pinia'
-
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 import './style.css'
 
 
@@ -69,7 +70,7 @@ app.use(createPinia())
 
 app.use(VMdEditor);
 app.use(VMdPreview);
-
+app.use(AOS)
 
 app.mount('#app')
 

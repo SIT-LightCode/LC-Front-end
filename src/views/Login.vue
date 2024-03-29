@@ -26,9 +26,9 @@ const loginAccount = (e1) => {
 </script>
  
 <template>
-    <Toaster richColors position="top-right" />
-    <signin v-if="page == 'signin'" @status="page = 'signup'" @login="(e1)=>{loginAccount(e1)}"></signin>
-    <signup v-else-if="page == 'signup'" @status="page = 'signin'" @create="(e1) => { createAccount(e1) }"></signup>
+        <Toaster richColors position="top-right" />
+        <signin v-if="page == 'signin'" @status="page = 'signup'" @login="(e1)=>{loginAccount(e1)}"></signin>
+        <signup v-else-if="page == 'signup'" @status="page = 'signin'" @create="(e1) => { createAccount(e1) }"></signup>
 </template>
  
 <style></style>
