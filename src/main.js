@@ -46,8 +46,12 @@ import '@kangc/v-md-editor/lib/style/preview.css';
 // highlightjs
 import hljs from 'highlight.js';
 
+import PrimeVue from 'primevue/config';
+import 'primevue/resources/themes/aura-light-green/theme.css'
+import 'primevue/resources/primevue.min.css';
+import 'primeicons/primeicons.css';
 
-
+import { Vue3Mq } from "vue3-mq";
 
 
 VMdPreview.use(githubTheme, {
@@ -69,7 +73,11 @@ app.use(createPinia())
 
 app.use(VMdEditor);
 app.use(VMdPreview);
+app.use(PrimeVue);
 
+app.use(Vue3Mq, {
+	preset: "tailwind",
+});
 
 app.mount('#app')
 

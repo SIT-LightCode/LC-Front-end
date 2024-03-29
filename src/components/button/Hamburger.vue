@@ -38,6 +38,7 @@ const clickFunc = async () => {
 </script>
 
 <template>
+  
   <button
     class="  font-bold   rounded"
     @click="clickFunc()"

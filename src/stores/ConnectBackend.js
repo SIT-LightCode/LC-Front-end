@@ -38,7 +38,6 @@ export const connectBackend = defineStore('connectBackend', () => {
       refreshToken()
     }
 
-    try {
       const res = await fetch(`${import.meta.env.VITE_BASE_URL}/graphql`, {
         method: 'POST',
         headers: {
@@ -50,10 +49,9 @@ export const connectBackend = defineStore('connectBackend', () => {
           variables: querys.variables,
         }),
       })
-
-      let data = await res.json()
       if (res.ok) {
         let errortext = ''
+        let data = await res.json()
         for (let e in data) {
           if (e == 'errors') {
             errortext = errortext + data.errors[0].message
@@ -62,21 +60,18 @@ export const connectBackend = defineStore('connectBackend', () => {
         if (errortext == '') {
           return data
         } else {
-          // if(errortext == ''){
-
-          // }
-
+       
           toast.error(errortext)
           return ''
         }
-      } else if (res.status == 400 || res.status == 500 || res.status == 401) {
+      } else if (res.status == 400 || res.status == 500 ) {
+        let data = await res.json()
         toast.error(data['errors'].message)
       }
-    } catch (error) {
-      console.log(error)
-      toast.error(error)
-      return ''
-    }
+      else if( res.status == 401){
+        refreshToken()
+      }
+    
   }
 
   return { connectBack }

@@ -5,6 +5,7 @@ import filterBar from '../components/problem/FilterBar.vue';
 import listProblem from '../components/problem/ListProblem.vue';
 import editPro from '../components/addproblem/EditProblem.vue';
 import inputAnswer from '../components/answerproblem/InputAnswer.vue';
+import { MqResponsive } from "vue3-mq";
 
 import { learningCon } from '../stores/LearningCon.js'
 import { problemCon } from '../stores/ProblemCon';
@@ -35,15 +36,18 @@ const filterFunc = (dataFilter) => {
     }
 
     isFilter.value = true;
-    const selectedTags = new Set(dataFilter.tag);
     const uniqueProblems = myproblemCon.problemList.reduce((acc, problem) => {
         let tagsInProblem = []
         let hasCommonTag = false
         let hasMatchingLevel = false
         let hasMatchingOffice = false
-        if (dataFilter.tag.length > 0) {
+        if (dataFilter.tag != "") {
             tagsInProblem = problem.tagProblem.map(tagObj => tagObj.tag.id);
-            hasCommonTag = tagsInProblem.some(tag => selectedTags.has(tag));
+            for (let i in tagsInProblem) {
+                if (tagsInProblem[i].toString() == dataFilter.tag.toString()) {
+                    hasCommonTag = true;
+                }
+            }
         }
         else {
             hasCommonTag = true
@@ -60,7 +64,9 @@ const filterFunc = (dataFilter) => {
                 }
             }
 
-        }
+        } else { hasMatchingOffice = true }
+
+
         if (hasCommonTag && hasMatchingLevel && hasMatchingOffice) {
             acc.push(problem);
         }
@@ -92,7 +98,7 @@ const editProblem = (val) => {
             val.totalScore,
             val.level,)
     }
-    page.value = 'isEdit'
+    page.value = ''
 }
 
 
@@ -140,18 +146,32 @@ onBeforeMount(async () => {
                 @Submit="(e1, e2) => { doSubmit(e1, e2) }"></inputAnswer>
         </div>
 
-        <div class="flex" v-else>
+        <div class="flex flex-row " v-else>
+
+
+
+            <MqResponsive group>
+                <template #lg-xxl>
+                    <div class=" p-10  ">
+                        <filterBar :datas="mylearningCon" @filterValue="(e1) => { filterFunc(e1); }"></filterBar>
+                    </div>
+                </template>
+            </MqResponsive>
+
+
+
+
             <!-- Filter-->
-            <filterBar :datas="mylearningCon" @filterValue="(e1) => { filterFunc(e1); }"></filterBar>
-            <!--  -->
-            <listProblem @deleteProblem="(e1) => { myproblemCon.deleteProblem(e1) }"
-                @editProblem="(e1) => { page = 'isEdit'; dataCurrent = e1 }"
-                @doProblem="(e1) => { page = 'isDo'; dataCurrent = e1 }" :datas="test"></listProblem>
-            <!--  -->
+            <div class="">
+                <listProblem class="" @deleteProblem="(e1) => { myproblemCon.deleteProblem(e1) }"
+                    @editProblem="(e1) => { page = 'isEdit'; dataCurrent = e1 }"
+                    @doProblem="(e1) => { page = 'isDo'; dataCurrent = e1 }" :datas="test"></listProblem>
+            </div>
+
         </div>
 
 
     </div>
 </template>
- 
+
 <style></style>

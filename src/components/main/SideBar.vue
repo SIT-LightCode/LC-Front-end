@@ -13,6 +13,7 @@ const openCloseSideBar = () => {
 	emit("openCloseSidebarEmit", sidebarIsShow.value)
 }
 
+const user = JSON.parse(localStorage.getItem('user'))
 </script>
 
 <template>
@@ -28,7 +29,7 @@ const openCloseSideBar = () => {
 				<div class="flex flex-col items-center p-4 ">
 					<div class="relative w-full pb-3">
 						<div class="flex justify-center">
-							<div>{{ myAccount.user.name }}</div>
+							<div>{{ user.name }}</div>
 						</div>
 						<!-- <IconArrowSmallLeft @click="openCloseSideBar" class="absolute top-0 right-0 border-b-2 hover:cursor-pointer border-gray-800  hover:border-blue-500 hover:text-blue-500"/> -->
 					</div>
@@ -40,12 +41,12 @@ const openCloseSideBar = () => {
 						height="200"
 					/>
 					<div class="mt-2">
-						<ul v-for="(user,key) in myAccount.user">
+						<ul v-for="(user,key) in user">
 							<li>{{key}} : {{ user }}</li>
 						</ul>
 					</div>
-					<buttonVue @click="()=>{ sidebarIsShow = false; $emit('OpenModal',true) }" :name="'Setting'" :status="false"/>
-					<buttonVue @click="()=>{ $emit('LogOut',true) }" :name="'Log Out'"  />
+					<buttonVue @buttonClick="()=>{ sidebarIsShow = false; $emit('OpenModal',true) }" :name="'Setting'" :status="false"/>
+					<buttonVue @buttonClick="()=>{ $emit('LogOut',true) }" :name="'Log Out'"  />
 				</div>
 				<div
 					@click="openCloseSideBar"

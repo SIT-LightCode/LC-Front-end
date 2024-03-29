@@ -1,8 +1,9 @@
 <script setup>
 import { ref, computed } from "vue"
 import buttonVue from '../button/Button.vue';
+import Paginator from 'primevue/paginator';
 
-const emit = defineEmits(['deleteUser','editUser'])
+const emit = defineEmits(['deleteUser', 'editUser'])
 const props = defineProps({
   listData: {
     type: Array,
@@ -22,10 +23,10 @@ const pageCount = computed(() => {
   return Math.ceil(l / s);
 })
 const paginatedData = computed(() => {
-  if(props.listData.length > 0){
+  if (props.listData.length > 0) {
     const start = pageNumber.value * props.size,
-    end = start + props.size;
-  return props.listData.slice(start, end);
+      end = start + props.size;
+    return props.listData.slice(start, end);
   }
   return 0
 
@@ -40,6 +41,8 @@ const nextPage = () => {
 const prevPage = () => {
   pageNumber.value--;
 }
+const user = JSON.parse(localStorage.getItem('user'))
+
 
 </script>
 
@@ -67,15 +70,16 @@ const prevPage = () => {
       </tr>
     </table>
 
-    <buttonVue v-show="!(pageNumber === 0)"  @buttonClick="prevPage" :status="false" :name="'Previous'">
-      
-    </buttonVue>
-    <buttonVue v-show="!(pageNumber === pageCount - 1 || pageCount === 0)"  @buttonClick="nextPage" :status="false" :name="'Next'">
-      
-    </buttonVue>
+    <Paginator v-model:first="pageNumber" rows="1" :totalRecords="pageCount" :template="{
+        '640px': 'PrevPageLink CurrentPageReport NextPageLink',
+        '960px': 'FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink',
+        '1300px': 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',
+        default: 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink JumpToPageDropdown '
+    }">
+      </Paginator>
+
+
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

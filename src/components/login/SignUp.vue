@@ -93,7 +93,7 @@ const lowCase = () => {
 
                             </form>
                             <div class="text-center mt-6">
-                                <ButtonPage @buttonClick="$emit('status', true)" :name="'Back'"></ButtonPage>
+                                <ButtonPage @buttonClick="$emit('status', true)" :name="'Back'" :status="false"></ButtonPage>
                                 <ButtonPage @buttonClick="checkCreate()" :name="'Create Account'"></ButtonPage>
                             </div>
                         </div>

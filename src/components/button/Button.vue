@@ -2,6 +2,8 @@
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 import { modalSwal } from '../../stores/Modal.js'
+import Button from 'primevue/button';
+
 const mymodal = modalSwal()
 
 const emit = defineEmits(['buttonClick'])
@@ -29,11 +31,11 @@ const clickFunc = async () => {
 </script>
 
 <template>
-  <button
-    class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 m-2 rounded"
+  <button 
+    class="text-sm/[9px] bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-2 m-1 rounded"
     @click="clickFunc()"
   >
-    {{ name }}
+{{ name }}
   </button>
 </template>
 
