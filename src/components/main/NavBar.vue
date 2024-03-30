@@ -1,24 +1,23 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import { account } from '../../stores/Account';
-import { cookieData } from '../../stores/CookieData';
+import { account } from '../../stores/Account'
+import { cookieData } from '../../stores/CookieData'
 
 import { ref, onBeforeMount } from 'vue'
 const myAccount = account()
 const myCookie = cookieData()
 
 const links = ref([
-    { message: 'Home', path: '/lightcode' },
-    { message: 'Problem', path: '/problem' },
-    { message: 'Learning', path: '/learning' },
-    { message: 'View User', path: '/view-user' },
+  { message: 'Home', path: '/lightcode' },
+  { message: 'Problem', path: '/problem' },
+  { message: 'Learning', path: '/learning' },
+  { message: 'View User', path: '/view-user' },
 ])
 
 onBeforeMount(async () => {
-    if (myCookie.getCookie("TokenLightcode") != "") {
-        await myAccount.GetUserByEmail()
-    }
-
+  if (myCookie.getCookie('TokenLightcode') != '') {
+    await myAccount.GetUserByEmail()
+  }
 })
 const user = JSON.parse(localStorage.getItem('user'))
 

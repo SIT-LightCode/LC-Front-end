@@ -3,10 +3,8 @@ import { ref, computed } from "vue"
 import buttonVue from '../button/Button.vue';
 import { account } from '../../stores/Account';
 import Paginator from 'primevue/paginator';
-import Menu from 'primevue/menu';
 import { MqResponsive } from "vue3-mq";
-import Card from 'primevue/card';
-
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 const emit = defineEmits(['doProblem', 'deleteProblem', 'editProblem'])
 const props = defineProps({
   listData: {
@@ -38,27 +36,15 @@ const paginatedData = computed(() => {
 
 })
 
+const indexShow = ref(null)
+function hoverDetail(index) {
+  if (index === indexShow.value) {
+    indexShow.value = null
+  } else
+    indexShow.value = index
+}
 
-const menu = ref();
-const items = ref([
-  {
-    label: 'Options',
-    items: [
-      {
-        label: 'Refresh',
-        icon: 'pi pi-refresh'
-      },
-      {
-        label: 'Export',
-        icon: 'pi pi-upload'
-      }
-    ]
-  }
-]);
 
-const toggle = (event) => {
-  menu.value.toggle(event);
-};
 
 const user = JSON.parse(localStorage.getItem('user'))
 
@@ -70,37 +56,115 @@ const returnLevel = (id) => {
     return levelArray[id - 1][0]
   }
 }
+
+
+const clickEvent = (i) => {
+  let isDen = user.authorities.includes('ADMIN') || user.id == i.user.id
+  let isCan = user.authorities.includes('ADMIN') || user.id == i.user.id
+
+
+  Swal.fire({
+    title: "Do you want to?",
+    showDenyButton: isDen,
+    showCancelButton: isCan,
+    confirmButtonText: "Do",
+    denyButtonText: `Delete`,
+    cancelButtonText: `Edit`
+  }).then((result) => {
+
+    if (result.isConfirmed) {
+      emit('doProblem', i)
+    } else if (result.isDenied) {
+      emit('deleteProblem', i.id)
+    } else if (result.dismiss === 'cancel') {
+      emit('editProblem', i)
+    }
+  });
+};
+
 </script>
 
 <template>
 
 
-
   <div>
-    <div class="grid grid-cols-3 ">
-      <Card  v-for="i in paginatedData" class="p-2"
-        v-if="pageCount != 0">
-        <template #title> {{ i.name }}</template>
-        <template #subtitle>
-          <div v-if="i.level > 0 && i.level < 6" :class="levelArray[i.level - 1]"> Difficulty: {{
-          returnLevel(i.level) }}
-          </div>
-        </template>
-        <template #content>
-          <p class="m-0">
-            <div> Scroce: {{ i.totalScore }}</div>
-            <MqResponsive group>
-              <template #lg-xxl>
-                <div> Official Problem: {{ i.isOfficial }}</div>
-                <div> Problem Create: {{ i.user.name }}</div>
-               
-              </template>
-            </MqResponsive>
-          </p>
-        </template>
-        <template #footer>
-          <div class="flex gap-3 mt-1">
 
+    <MqResponsive group>
+
+      <template #xs>
+        <p class="grid grid-cols-1  ">
+        <div :onmouseenter="() => { hoverDetail(index) }" :onmouseleave="() => { hoverDetail(index) }"
+          v-for="(i, index) in paginatedData"
+          :class="`hover:cursor-pointer rounded-lg text-black w-72 m-5 p-5 relative hover:scale-110 transition-all ` + (index === indexShow ? `bg-gray-200 z-[200000]` : ` bg-white h-[200px]`)">
+          <div @click="clickEvent(i)">
+            <p class="text-3xl">{{ i.name }}</p>
+            <p>Score: {{ i.totalScore }}</p>
+            <p>Official: {{ i.totalScore }}</p>
+            <p v-if="i.level > 0 && i.level < 6" :class="levelArray[i.level - 1]">difficulty: {{ returnLevel(i.level) }}
+            </p>
+            <p class=" invisible lg:visible">create by: {{ i.user.name }}</p>
+            <div class="line-clamp-4" v-if="index === indexShow">
+              <p>
+                Tag :
+                <span v-for="t in i.tagProblem"
+                  class="inline-flex items-center px-3 rounded-full text-xs font-medium leading-4 text-gray-800"
+                  :class="colorTags[(t.tag.id - 1) % 8]">{{ t.tag.topic }}
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+        </p>
+
+      </template>
+
+      <template #sm>
+        <p class="grid grid-cols-2  ">
+        <div :onmouseenter="() => { hoverDetail(index) }" :onmouseleave="() => { hoverDetail(index) }"
+          v-for="(i, index) in paginatedData"
+          :class="`hover:cursor-pointer rounded-lg text-black w-72 m-5 p-5 relative hover:scale-110 transition-all ` + (index === indexShow ? `bg-gray-200 z-[200000]` : ` bg-white h-[200px]`)">
+          <div @click="clickEvent(i)">
+            <p class="text-3xl">{{ i.name }}</p>
+            <p>Score: {{ i.totalScore }}</p>
+            <p>Official: {{ i.totalScore }}</p>
+            <p v-if="i.level > 0 && i.level < 6" :class="levelArray[i.level - 1]">difficulty: {{ returnLevel(i.level) }}
+            </p>
+            <p class=" invisible lg:visible">create by: {{ i.user.name }}</p>
+            <div class="line-clamp-4" v-if="index === indexShow">
+              <p>
+                Tag :
+                <span v-for="t in i.tagProblem"
+                  class="inline-flex items-center px-3 rounded-full text-xs font-medium leading-4 text-gray-800"
+                  :class="colorTags[(t.tag.id - 1) % 8]">{{ t.tag.topic }}
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+        </p>
+      </template>
+      <template #md-xxl>
+        <p class="grid grid-cols-3 ">
+        <div :onmouseenter="() => { hoverDetail(index) }" :onmouseleave="() => { hoverDetail(index) }"
+          v-for="(i, index) in paginatedData"
+          :class="`hover:cursor-pointer rounded-lg text-black w-72 m-5 p-5 relative hover:scale-110 transition-all ` + (index === indexShow ? `bg-gray-200 z-[200000]` : ` bg-white h-[200px]`)">
+          <p class="text-2xl">{{ i.name }}</p>
+          <p>Score: {{ i.totalScore }}</p>
+          <p>Official: {{ i.totalScore }}</p>
+          <p v-if="i.level > 0 && i.level < 6" :class="levelArray[i.level - 1]">difficulty: {{ returnLevel(i.level) }}
+          </p>
+          <p class=" invisible lg:visible">create by: {{ i.user.name }}</p>
+          <div class="line-clamp-4" v-if="index === indexShow">
+            <p>
+              Tag :
+              <span v-for="t in i.tagProblem"
+                class="inline-flex items-center px-3 rounded-full text-xs font-medium leading-4 text-gray-800"
+                :class="colorTags[(t.tag.id - 1) % 8]">{{ t.tag.topic }}
+              </span>
+            </p>
+
+          </div>
+          <div class="flex gap-3 mt-1">
             <buttonVue @buttonClick="() => $emit('doProblem', i)" :name="'do'">
             </buttonVue>
             <buttonVue v-if="user.authorities.includes('ADMIN') || user.id == i.user.id"
@@ -110,24 +174,27 @@ const returnLevel = (id) => {
               @buttonClick="() => $emit('editProblem', i)" :name="'edit'">
             </buttonVue>
           </div>
-        </template>
-      </Card>
+        </div>
+        </p>
 
-      <div v-else-if="pageCount == 0">
-        <span class="inline-block align-top ..."> Dont have any problems </span>
-      </div>
-    </div>
-   <div class="card">
-      <Paginator v-model:first="pageNumber" rows="1" :totalRecords="pageCount" v-if="pageCount !== 0" :template="{
-          '640px': 'PrevPageLink CurrentPageReport NextPageLink',
-          '960px': 'FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink',
-          '1300px': 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',
-          default: 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink JumpToPageDropdown '
-        }">
-      </Paginator>
-    </div>
+
+      </template>
+    </MqResponsive>
+
   </div>
 
+
+  <div class="p-5">
+
+
+    <Paginator v-model:first="pageNumber" rows="1" :totalRecords="pageCount" v-if="pageCount !== 0" :template="{
+            '640px': 'PrevPageLink CurrentPageReport NextPageLink',
+            '960px': 'FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink',
+            '1300px': 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',
+            default: 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink JumpToPageDropdown '
+          }">
+    </Paginator>
+  </div>
 
 </template>
 

@@ -3,6 +3,8 @@ import { account } from '../stores/Account';
 import filterBar from '../components/viewUser/FilterBar.vue'
 import ListUser from '../components/viewUser/ListUser.vue'
 import EditUser from '../components/viewUser/EditUser.vue';
+import { MqResponsive } from "vue3-mq";
+
 import { computed, ref, onBeforeMount } from 'vue';
 
 const myAccount = account()
@@ -14,9 +16,9 @@ const isFilter = ref(false)
 const isEdit = ref(false)
 
 const filterFunc = (filter) => {
-   let keyword = ""
-   let type = ""
-    if(filter != 'reset'){
+    let keyword = ""
+    let type = ""
+    if (filter != 'reset') {
         keyword = filter.keyword
         type = filter.type
 
@@ -29,7 +31,7 @@ const filterFunc = (filter) => {
     isFilter.value = true;
     let filteredUsers = myAccount.userList
     if (keyword !== "") {
-         filteredUsers = filteredUsers.filter(user => {
+        filteredUsers = filteredUsers.filter(user => {
             if (user.name.includes(keyword)) {
                 return user
             }
@@ -62,8 +64,8 @@ const dataFilter = computed(() => {
 const deleteUser = (id) => {
     myAccount.DeteleUser(id)
 }
-const editUser = (dataEdit,olddata) => {
-    myAccount.EditAccount(dataEdit,olddata)
+const editUser = (dataEdit, olddata) => {
+    myAccount.EditAccount(dataEdit, olddata)
     isEdit.value = false
 
 }
@@ -73,24 +75,39 @@ onBeforeMount(async () => {
 
 
 </script>
- 
+
 <template>
-    <div class="px-10">
-        <div class="flex">
-            <!-- Filter-->
-            <filterBar @filterValue="(e1) => { filterFunc(e1); }"></filterBar>
-            <!--  -->
-            <ListUser @deleteUser="(id) => { deleteUser(id) }"
-                @editUser="(select) => { isEdit = true; selectUser = select; }" :datas="dataFilter">
-            </ListUser>
-            <!--  -->
-        </div>
-        <div v-if="isEdit">
-            <EditUser @close="(e1) => { isEdit = e1 }" @editUser="(dataEdit,olddata) => {editUser(dataEdit,olddata) }" :datas="selectUser">
-            </EditUser>
+    <div class="px-10 relative">
+        <div class="">
+            <div v-if="isEdit">
+                <EditUser @close="(e1) => { isEdit = e1 }"
+                    @editUser="(dataEdit, olddata) => { editUser(dataEdit, olddata) }" :datas="selectUser">
+                </EditUser>
+            </div>
+            <div class="grid grid-cols-2 gap-4 fixed max-h-[90%] max-w-full overflow-y-scroll " v-else>
+
+                <MqResponsive group>
+                    <template #lg-xxl>
+                        <div class="fixed lg:visible">
+                            <filterBar @filterValue="(e1) => { filterFunc(e1); }"></filterBar>
+                        </div>
+                    </template>
+                </MqResponsive>
+
+
+                <!-- Filter-->
+                <div class="col-span-1">
+                    <ListUser @deleteUser="(id) => { deleteUser(id) }"
+                        @editUser="(select) => { isEdit = true; selectUser = select; }" :datas="dataFilter">
+                    </ListUser>
+                </div>
+
+            </div>
+
+
         </div>
 
     </div>
 </template>
- 
+
 <style></style>

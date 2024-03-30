@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import ButtonPage from '../button/Button.vue';
 import { Toaster, toast } from 'vue-sonner'
+import Password from 'primevue/password';
 
 const emit = defineEmits(['login','status'])
 
@@ -31,7 +32,7 @@ const lowCase = () => {
 </script>
 
 <template>
-    <div class="absolute w-full h-full">
+    <div class="absolute w-full h-full z-[5]">
         <div class="absolute top-0 w-full h-full bg-center bg-cover"
           style='background-image: url("https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1267&amp;q=80");'>
           <span id="blackOverlay" class="w-full h-full absolute opacity-75 bg-black"></span>
@@ -78,13 +79,12 @@ const lowCase = () => {
                                     <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
                                         for="grid-password">Password
                                     </label>
-                                    <input type="password"
-                                        class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                                        placeholder="Password" style="transition: all 0.15s ease 0s;" id="password"
-                                        v-model="dataForLogin.password" />
+                                    <Password v-model="dataForLogin.password" :feedback="false" toggleMask />
+
+
                                 </div>
                             </form>
-                            <button @click="$emit('status',true)">Create Account</button>
+                            <button @click="$emit('status',true)" class="hover:text-blue-500 transition-all">Create Account</button>
                             <div class="text-center mt-6">
                                 <ButtonPage @buttonClick="checkLogin()" :status="false" :name="'Log In'"></ButtonPage>
                             </div>

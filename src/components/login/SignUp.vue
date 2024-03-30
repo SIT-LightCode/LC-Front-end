@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import ButtonPage from '../button/Button.vue';
 import { Toaster, toast } from 'vue-sonner'
+import Password from 'primevue/password';
 
 const emit = defineEmits(['create', 'status'])
 
@@ -33,9 +34,9 @@ const lowCase = () => {
 }
 
 </script>
- 
+
 <template>
-    <div class="absolute w-full h-full">
+    <div class="absolute w-full h-full z-[5]">
         <div class="absolute top-0 w-full h-full bg-center bg-cover"
             style='background-image: url("https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1267&amp;q=80");'>
             <span id="blackOverlay" class="w-full h-full absolute opacity-75 bg-black"></span>
@@ -69,31 +70,45 @@ const lowCase = () => {
                                     </label>
                                     <input type="email"
                                         class="border-0 px-3 py-3 mb-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                                        placeholder="Email" style="transition: all 0.15s ease 0s;"  @change="lowCase()"
+                                        placeholder="Email" style="transition: all 0.15s ease 0s;" @change="lowCase()"
                                         v-model="dataForCreate.email" />
 
 
                                     <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
                                         for="grid-password">Password
                                     </label>
-                                    <input type="password"
-                                        class="border-0 px-3 py-3 mb-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                                        placeholder="Password" style="transition: all 0.15s ease 0s;"
-                                        v-model="dataForCreate.password" />
+                                    <Password v-model="dataForCreate.password" toggleMask >
+                                        <template #header>
+                                            <h6>Pick a password</h6>
+                                        </template>
+                                        <template #footer>
+                                            <Divider />
+                                            <p class="mt-2">Suggestions</p>
+                                            <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                                                <li>At least one lowercase</li>
+                                                <li>At least one uppercase</li>
+                                                <li>At least one numeric</li>
+                                                <li>Minimum 8 characters</li>
+                                            </ul>
+                                        </template>
+                                    </Password>
+
 
                                     <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
                                         for="grid-password">Confirm Password
                                     </label>
-                                    <input type="password"
-                                        class="border-0 px-3 py-3 mb-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                                        placeholder="Password" style="transition: all 0.15s ease 0s;"
-                                        v-model="dataForCreate.passwordConfirm" />
+                                    <Password v-model="value" :feedback="false" toggleMask />
+
                                 </div>
-                                <p class="text-red-400" v-if="dataForCreate.password.length < 6 || dataForCreate.password.length >20">* Password could more than 6 and could less than 20</p>
+                                <p class="text-red-400"
+                                    v-if="dataForCreate.password.length < 6 || dataForCreate.password.length > 20">*
+                                    Password could
+                                    more than 6 and could less than 20</p>
 
                             </form>
                             <div class="text-center mt-6">
-                                <ButtonPage @buttonClick="$emit('status', true)" :name="'Back'" :status="false"></ButtonPage>
+                                <ButtonPage @buttonClick="$emit('status', true)" :name="'Back'" :status="false">
+                                </ButtonPage>
                                 <ButtonPage @buttonClick="checkCreate()" :name="'Create Account'"></ButtonPage>
                             </div>
                         </div>
@@ -103,5 +118,5 @@ const lowCase = () => {
         </div>
     </div>
 </template>
- 
+
 <style></style>

@@ -2,7 +2,8 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import { createPinia } from 'pinia'
-
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 import './style.css'
 
 
@@ -67,6 +68,7 @@ VMdEditor.use(githubTheme);
 VMdEditor.lang.use('en-US', enUS);
 
 
+
 const app = createApp(App)
 app.use(router)
 app.use(createPinia())
@@ -74,11 +76,10 @@ app.use(createPinia())
 app.use(VMdEditor);
 app.use(VMdPreview);
 app.use(PrimeVue);
-
 app.use(Vue3Mq, {
 	preset: "tailwind",
 });
-
+app.use(AOS)
 app.mount('#app')
 
 

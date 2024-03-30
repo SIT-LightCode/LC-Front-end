@@ -25,14 +25,13 @@ const clickFunc = async () => {
   }else {
     emit('buttonClick', true)
   }
-
   
 }
 </script>
 
 <template>
   <button 
-    class="text-sm/[9px] bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-2 m-1 rounded"
+    class="text-sm/[10px] bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-2 m-1 rounded-full"
     @click="clickFunc()"
   >
 {{ name }}

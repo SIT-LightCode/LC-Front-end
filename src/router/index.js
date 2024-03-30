@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import { jwtDecode } from 'jwt-decode'
-
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 function getCookie(cname) {
   let name = cname + '='
   let ca = document.cookie.split(';')
@@ -20,7 +21,7 @@ function getCookie(cname) {
 function checkLogin(to, from) {
   if (getCookie('refreshToken') == '') {
     return { path: '/login' }
-  } 
+  }
 }
 
 const router = createRouter({
@@ -73,15 +74,17 @@ const router = createRouter({
     {
       path: '/view-user',
       name: 'viewuser',
-      beforeEnter: (to, from )=>{
+      beforeEnter: (to, from) => {
         if (getCookie('refreshToken') == '') {
           return { path: '/login' }
         }
-        let code = jwtDecode(getCookie("TokenLightcode"))        
-        if(!(code.role.includes('ADMIN'))){
-          return { name: 'NotFound' }
-        } 
- 
+        if (localStorage.getItem('user') !== '') {
+          const user = JSON.parse(localStorage.getItem('user'))
+          console.log(user)
+          if (!user.authorities.includes('ADMIN')) {
+            return { name: 'NotFound' }
+          }
+        } else return { path: '/login' }
       },
       component: () => import('../views/ViewUser.vue'),
     },
@@ -91,6 +94,11 @@ const router = createRouter({
       component: () => import('../views/NotFound.vue'),
     },
   ],
+})
+
+router.beforeEach((to, from, next) => {
+  AOS.init() // Initialize AOS
+  next()
 })
 
 export default router

@@ -8,10 +8,11 @@ import Feature from "../components/landingpage/Feature.vue"
 </script>
 <template>
   <div>
+    
     <WhatIsLightCode></WhatIsLightCode>
     <Goal></Goal>
     <Member></Member>
     <Feature></Feature>
-    <footer-component></footer-component>
+
   </div>
 </template>

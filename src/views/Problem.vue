@@ -135,8 +135,8 @@ onBeforeMount(async () => {
 
 </script>
 <template>
-    <div class="px-10">
-
+    <div class="px-10 relative  ">
+   
         <div class="" v-if="page == 'isEdit'">
             <editPro @addstatus="(e1) => { page = e1 }" :learning="mylearningCon" :data=dataCurrent
                 @isEditProblem="(e1) => { editProblem(e1) }"></editPro>
@@ -146,23 +146,20 @@ onBeforeMount(async () => {
                 @Submit="(e1, e2) => { doSubmit(e1, e2) }"></inputAnswer>
         </div>
 
-        <div class="flex flex-row " v-else>
-
-
+        
+        <div class="flex flex-row fixed max-h-[90%] overflow-auto" v-else>
 
             <MqResponsive group>
                 <template #lg-xxl>
-                    <div class=" p-10  ">
+                    <div class=" p-10  flex  flex-row  overflow-auto lg:visible">
                         <filterBar :datas="mylearningCon" @filterValue="(e1) => { filterFunc(e1); }"></filterBar>
                     </div>
                 </template>
             </MqResponsive>
 
-
-
-
+        
             <!-- Filter-->
-            <div class="">
+            <div class="flex flex-row overflow-auto hover:overflow-scroll">
                 <listProblem class="" @deleteProblem="(e1) => { myproblemCon.deleteProblem(e1) }"
                     @editProblem="(e1) => { page = 'isEdit'; dataCurrent = e1 }"
                     @doProblem="(e1) => { page = 'isDo'; dataCurrent = e1 }" :datas="test"></listProblem>

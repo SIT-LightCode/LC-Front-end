@@ -2,6 +2,12 @@
 import { ref, computed } from "vue"
 import buttonVue from '../button/Button.vue';
 import Paginator from 'primevue/paginator';
+import { MqResponsive } from "vue3-mq";
+
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
+import ColumnGroup from 'primevue/columngroup';   // optional
+import Row from 'primevue/row';                   // optional
 
 const emit = defineEmits(['deleteUser', 'editUser'])
 const props = defineProps({
@@ -32,54 +38,60 @@ const paginatedData = computed(() => {
 
 })
 
-
-
-const nextPage = () => {
-  pageNumber.value++;
-}
-
-const prevPage = () => {
-  pageNumber.value--;
-}
-const user = JSON.parse(localStorage.getItem('user'))
+const selectedUser = ref();
 
 
 </script>
 
 <template>
+<MqResponsive group>
+
+<template #xs>
+ 
+
+</template>
+
+<template #sm>
+ 
+</template>
+<template #md-xxl>
   <div>
-
-    <table>
-      <tr class="p-5">
-        <th> Name </th>
-        <td> Email </td>
-        <td> Authorities </td>
-        <td> Score </td>
-      </tr>
-      <tr v-for="i in paginatedData" class="p-5 m-4 text-base">
-        <th> {{ i.name }} </th>
-        <td> {{ i.email }} </td>
-        <td> {{ i.authorities }} </td>
-        <td> {{ i.score }} </td>
-        <div class="flex justify-end m-5">
-          <buttonVue @buttonClick="() => $emit('deleteUser', i.id)" :name="'delete'">
+    <DataTable v-model:selectionKeys="selectedKey" :value="props.listData" paginator :rows="10"
+      tableStyle="min-width: 50rem"
+      paginatorTemplate='FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink JumpToPageDropdown '
+      currentPageReportTemplate="{first} to {last} of {totalRecords}">
+      <Column field="name" header="Name" sortable style="width: 25%"></Column>
+      <Column field="email" header="Email" sortable style="width: 25%"></Column>
+      <Column field="authorities" header="Authorities" sortable style="width: 25%"></Column>
+      <Column field="score" header="Score" sortable style="width: 25%"></Column>
+      <Column headerStyle="width: 5rem; text-align: center" bodyStyle="text-align: center;">
+        <template #body={data}>
+          <buttonVue @buttonClick="() => $emit('deleteUser', data.id)" :name="'delete'">
           </buttonVue>
-          <buttonVue @buttonClick="() => $emit('editUser', i)" :name="'edit'">
+        </template>
+      </Column>
+      <Column headerStyle="width: 5rem; text-align: center" bodyStyle="text-align: center; ">
+        <template #body={data}>
+          <buttonVue @buttonClick="() =>  $emit('editUser', data)" :name="'edit'">
           </buttonVue>
-        </div>
-      </tr>
-    </table>
-
-    <Paginator v-model:first="pageNumber" rows="1" :totalRecords="pageCount" :template="{
-        '640px': 'PrevPageLink CurrentPageReport NextPageLink',
-        '960px': 'FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink',
-        '1300px': 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',
-        default: 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink JumpToPageDropdown '
-    }">
-      </Paginator>
-
+        </template>
+      </Column>
+    </DataTable>
 
   </div>
+
+
+</template>
+</MqResponsive>
+
+
+
+
+
+
+
+
+  
 </template>
 
 <style scoped></style>

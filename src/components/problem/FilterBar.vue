@@ -11,10 +11,10 @@ const filterValue = ref({ tag: "", level: 0, isOfficial: "" })
 
 <template>
         <div style=" width: 100%" class="border-2 rounded-lg p-5 m-5 ">
-                <label for="underline_select" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">the
-                        difficulty level?</label>
+                <label for="underline_select" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Difficulty level?</label>
                 <select id="underline_select"
-                        class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                        class="block py-2.5 my-2 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
                         v-model="filterValue.level">
                         <option value="0">No select</option>
                         <option value="5">Expert</option>
@@ -23,10 +23,10 @@ const filterValue = ref({ tag: "", level: 0, isOfficial: "" })
                         <option value="2">Beginner</option>
                         <option value="1">Easier</option>
                 </select>
-                <label for="underline_select" class="block mb-2 py-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label for="underline_select" class="block my-2 mb-2 py-2 text-sm font-medium text-gray-900 dark:text-white">
                         Official Problem?</label>
                 <select id="underline_select"
-                        class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                        class="block my-2  py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
                         v-model="filterValue.isOfficial">
                         <option value="">No select</option>
                         <option value="true">True</option>
@@ -36,11 +36,11 @@ const filterValue = ref({ tag: "", level: 0, isOfficial: "" })
                 <label for="underline_select" class="block mb-2 py-2 text-sm font-medium text-gray-900 dark:text-white">
                         Select tag ?</label>
                 <select v-model="filterValue.tag"
-                        class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                        class="block my-2 py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
                         <option value="">No select</option>
                         <option v-for="(topic, key) in datas.tagList" :value="topic.id">{{ topic.topic }}</option>
                 </select>
-                <buttonVue @buttonClick="$emit('filterValue', filterValue);" :name="'filter'"></buttonVue>
+                <buttonVue class="my-5" @buttonClick="$emit('filterValue', filterValue);" :name="'filter'"></buttonVue>
 
         </div>
 </template>

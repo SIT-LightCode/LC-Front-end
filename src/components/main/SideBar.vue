@@ -18,7 +18,6 @@ const user = JSON.parse(localStorage.getItem('user'))
 
 <template>
 	<div class="">
-		
 		<div
 			:class="
 				(sidebarIsShow ? `w-1/6` : `w-44 h-10`) +

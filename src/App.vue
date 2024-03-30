@@ -7,6 +7,7 @@ import setting from './components/settingmodal/Setting.vue'
 import { Toaster, toast } from 'vue-sonner'
 import { cookieData } from './stores/CookieData'
 import { loginCon } from './stores/LoginCon'
+
 const myRouter = useRouter()
 const myLogin = loginCon()
 
@@ -34,7 +35,7 @@ const LogOut = () => {
 </script>
 
 <template>
-  <div class="text-black text-base min-h-screen bg-white relative">
+  <div class="text-black text-base min-h-screen bg-white relative  ">
     <Toaster richColors position="top-right" />
 
     <Navbar class=""/>
@@ -42,11 +43,8 @@ const LogOut = () => {
       showModal = true; 
     }" @LogOut="() => { LogOut() }"/>
     <!-- mainn -->
-    <div class="grid grid-cols-12">
-      <div class="col-start-1 px-14col-start-1 col-span-12 pt-28 tansition-all">
-        <RouterView class="" />
-      </div>
-    </div>
+    <RouterView class="pt-24 inline-block  " />
+
   </div>
   <div v-if="showModal">
     <setting @CloseModal="(e1) => { showModal = e1 }"  ></setting>

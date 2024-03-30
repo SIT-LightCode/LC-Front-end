@@ -57,10 +57,7 @@ export const validateInput = defineStore('validateInput', () => {
     if (authorities.length < 1) {
       errorNote = errorNote + 'User must has authorities \n'
     }
-
-    if (!authorities.includes('USER')) {
-      errorNote = errorNote + ' User must has USER \n'
-    }
+    
     return errorNote
   }
   const validateSameValue = (newvalue, oldvalue) => {
