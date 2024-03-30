@@ -84,11 +84,11 @@ onBeforeMount(async () => {
                     @editUser="(dataEdit, olddata) => { editUser(dataEdit, olddata) }" :datas="selectUser">
                 </EditUser>
             </div>
-            <div class="grid grid-cols-2 gap-4 fixed max-h-[90%] max-w-full overflow-y-scroll " v-else>
+            <div class="grid grid-cols-[20%_minmax(50%,_1fr)_100px] gap-4 fixed max-h-[90%] w-[100%] overflow-y-scroll " v-else>
 
                 <MqResponsive group>
                     <template #lg-xxl>
-                        <div class="fixed lg:visible">
+                        <div class="lg:visible" >
                             <filterBar @filterValue="(e1) => { filterFunc(e1); }"></filterBar>
                         </div>
                     </template>

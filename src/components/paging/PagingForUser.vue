@@ -57,7 +57,7 @@ const selectedUser = ref();
 <template #md-xxl>
   <div>
     <DataTable v-model:selectionKeys="selectedKey" :value="props.listData" paginator :rows="10"
-      tableStyle="min-width: 50rem"
+      tableStyle="min-width: 50rem;"
       paginatorTemplate='FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink JumpToPageDropdown '
       currentPageReportTemplate="{first} to {last} of {totalRecords}">
       <Column field="name" header="Name" sortable style="width: 25%"></Column>

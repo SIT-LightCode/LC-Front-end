@@ -144,7 +144,7 @@ const clickEvent = (i) => {
         </p>
       </template>
       <template #md-xxl>
-        <p class="grid grid-cols-3 ">
+        <p class="flex flex-wrap">
         <div :onmouseenter="() => { hoverDetail(index) }" :onmouseleave="() => { hoverDetail(index) }"
           v-for="(i, index) in paginatedData"
           :class="`hover:cursor-pointer rounded-lg text-black w-72 m-5 p-5 relative hover:scale-110 transition-all ` + (index === indexShow ? `bg-gray-200 z-[200000]` : ` bg-white h-[200px]`)">

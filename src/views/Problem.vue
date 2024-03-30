@@ -150,7 +150,7 @@ onBeforeMount(async () => {
         <div class="flex flex-row fixed max-h-[90%] overflow-auto" v-else>
 
             <MqResponsive group>
-                <template #lg-xxl>
+                <template #xs-xxl>
                     <div class=" p-10  flex  flex-row  overflow-auto lg:visible">
                         <filterBar :datas="mylearningCon" @filterValue="(e1) => { filterFunc(e1); }"></filterBar>
                     </div>

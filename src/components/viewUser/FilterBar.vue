@@ -18,7 +18,7 @@ const resetFilter = () => {
 <template >
         <div style="overflow-y: auto; max-height: 100vh" class="border-2 rounded-lg p-5 m-5 ">
                 
-                <input type="text"  v-model="filterValue.keyword" />
+                <input type="text" class="w-full" v-model="filterValue.keyword" />
                 
                 <label for="underline_select" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Authorities
