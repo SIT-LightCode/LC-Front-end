@@ -147,7 +147,7 @@ onBeforeMount(async () => {
         </div>
 
         
-        <div class="flex flex-row fixed max-h-[90%] overflow-auto" v-else>
+        <div class="grid grid-cols-[20%_minmax(50%,_1fr)] gap-4 fixed max-h-[90%] w-[100%] overflow-y-scroll " v-else>
 
             <MqResponsive group>
                 <template #xs-xxl>
