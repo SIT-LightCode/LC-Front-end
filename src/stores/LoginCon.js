@@ -98,7 +98,11 @@ export const loginCon = defineStore('loginCon', () => {
       }
     } catch (err) {
       console.log(err)
-      toast.success('Error')
+      // toast.success('Error')
+      Cookies.remove('refreshToken', { path: '/' })
+      Cookies.remove('TokenLightcode', { path: '/' })
+      myRouter.push({ name: 'home' })
+      toast.success('Logout Completed')
     }
   }
 
