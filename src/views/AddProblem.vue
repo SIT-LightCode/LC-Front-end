@@ -1,5 +1,5 @@
 <script setup>
-import { ref , onBeforeMount} from "vue";
+import { ref, onBeforeMount } from "vue";
 import { useRouter } from 'vue-router'
 import { Toaster, toast } from 'vue-sonner'
 import { learningCon } from "../stores/LearningCon.js"
@@ -35,13 +35,17 @@ const upSetProblem = () => {
     inputProblemData.value.example.forEach(function (value, i) {
         let object = {};
         value.forEach((val, v) => {
-            object[v + 1] = val;
-            text = text + val
+            try {
+                const parsedVal = JSON.parse(val);
+                object[v + 1] = parsedVal;
+            } catch (error) {
+                object[v + 1] = val;
+                text = text + val;
+
+            }
         });
         exampleParameter.push(object);
     });
-
-    console.log(text)
     myproblemCon.AddProblem(
         inputProblemData.value.arrayTagId,
         inputProblemData.value.name.trim(),
@@ -75,15 +79,15 @@ onBeforeMount(async () => {
 })
 </script>
 
-<template >
-    <Toaster richColors position="top-right"/>
+<template>
+    <Toaster richColors position="top-right" />
     <buttonvue class="m-5" @buttonClick="myRouter.push({ name: 'problem' })" :name="'Back'"></buttonvue>
-    
+
     <statusInput class="p-1" :pageAdd="page" />
 
     <div class="p-5">
-        <information v-if="page == 1" :type="'add'" :name="inputProblemData.name.trim()" :description="inputProblemData.description"
-            @returnval="(e1) => { setValueFunc(e1); changePage(1); }" />
+        <information v-if="page == 1" :type="'add'" :name="inputProblemData.name.trim()"
+            :description="inputProblemData.description" @returnval="(e1) => { setValueFunc(e1); changePage(1); }" />
 
         <solution v-else-if="page == 2" :solution="inputProblemData.solution" @page="(e1) => { changePage(e1) }"
             @returnval="(e1) => { setValueFunc(e1); }" />
@@ -96,5 +100,5 @@ onBeforeMount(async () => {
             @returnval="(e1) => { setValueFunc(e1) }" @page="(e1) => { changePage(e1) }" />
     </div>
 </template>
- 
+
 <style></style>
