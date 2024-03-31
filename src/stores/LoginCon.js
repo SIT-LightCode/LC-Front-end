@@ -59,10 +59,10 @@ export const loginCon = defineStore('loginCon', () => {
           // myAccount.user.name = setCookie("name", jsonFromToken.name, 7)
           // myAccount.setCookie("role", jsonFromToken.role, 7)
 
-          myAccount.GetUserByEmail().then(() => {
-            toast.success('Login Completed')
-            myRouter.push({ name: 'lightcode' })
-          })
+        await myAccount.GetUserByEmail()
+        toast.success('Login Completed')
+        myRouter.push({ name: 'lightcode' })
+        
         } else if (res.status == 400) {
           const objectJson = await res.json()
           toast.error(objectJson.errors[0].message)
