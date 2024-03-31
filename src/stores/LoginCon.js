@@ -87,6 +87,7 @@ export const loginCon = defineStore('loginCon', () => {
       // if (res.status === 200) {
         Cookies.remove('refreshToken', { path: '/' })
         Cookies.remove('TokenLightcode', { path: '/' })
+        localStorage.removeItem("user");
         myRouter.push({ name: 'home' })
         toast.success('Logout Completed')
       // }

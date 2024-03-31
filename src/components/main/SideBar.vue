@@ -7,7 +7,7 @@ import { account } from "../../stores/Account.js"
 const myAccount = account()
 const emit = defineEmits(["openCloseSidebarEmit","OpenModal","LogOut"])
 const sidebarIsShow = ref(false)
-const user = ref({ id: null, name: '', email: '', authorities: [], score: 0, scoreUnOfficial: 0 }) 
+const user = ref({ id: null, name: '', email: '', authorities: ['USER'], score: 0, scoreUnOfficial: 0 }) 
 const openCloseSideBar = () => {
 	sidebarIsShow.value = !sidebarIsShow.value
 	emit("openCloseSidebarEmit", sidebarIsShow.value)
