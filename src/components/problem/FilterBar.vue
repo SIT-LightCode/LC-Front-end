@@ -6,7 +6,13 @@ const prop = defineProps({
         datas: Object,
 })
 const filterValue = ref({ tag: "", level: 0, isOfficial: "" })
+const resetFilter = () => {
+        emit('filterValue', { tag: "", level: 0, isOfficial: "" });
+        filterValue.value.tag = "";
+        filterValue.value.level = 0;
+        filterValue.value.isOfficial = "";
 
+}
 </script>
 
 <template>
@@ -40,7 +46,8 @@ const filterValue = ref({ tag: "", level: 0, isOfficial: "" })
                         <option value="">No select</option>
                         <option v-for="(topic, key) in datas.tagList" :value="topic.id">{{ topic.topic }}</option>
                 </select>
-                <buttonVue class="my-5" @buttonClick="$emit('filterValue', filterValue);" :name="'filter'"></buttonVue>
+                <buttonVue class="my-5" @buttonClick="$emit('filterValue', filterValue);"  :status="false" :name="'filter'"></buttonVue>
+                <buttonVue @buttonClick=" resetFilter() " :name="'Reset'"></buttonVue>
 
         </div>
 </template>

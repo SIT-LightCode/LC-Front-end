@@ -5,7 +5,7 @@ const prop = defineProps({
     pages: Number,
     type:String
 })
-const buttoncss = "bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold m-3 py-3 px-5 rounded-l "
+const buttoncss = "text-sm/[10px] bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold p-4 m-1 rounded-full"
 
 </script>
  

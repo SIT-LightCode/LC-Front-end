@@ -3,23 +3,24 @@ import { ref } from 'vue'
 import ButtonPage from '../button/Button.vue';
 import { Toaster, toast } from 'vue-sonner'
 import Password from 'primevue/password';
+import InputText from 'primevue/inputtext';
 
-const emit = defineEmits(['login','status'])
+const emit = defineEmits(['login', 'status'])
 
 const dataForLogin = ref({
     email: '', password: ''
 })
 
 
-const checkLogin = () =>{
+const checkLogin = () => {
     let errortext = ""
-    for (const data in dataForLogin.value){
-        if(dataForLogin.value[data]==''){
+    for (const data in dataForLogin.value) {
+        if (dataForLogin.value[data] == '') {
             // alert('error')
             errortext = errortext + data + ' is null value ,'
         }
     }
-    if(errortext == ""){
+    if (errortext == "") {
         emit('login', dataForLogin.value)
     } else {
         toast.error(errortext)
@@ -34,19 +35,19 @@ const lowCase = () => {
 <template>
     <div class="absolute w-full h-full z-[5]">
         <div class="absolute top-0 w-full h-full bg-center bg-cover"
-          style='background-image: url("https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1267&amp;q=80");'>
-          <span id="blackOverlay" class="w-full h-full absolute opacity-75 bg-black"></span>
+            style='background-image: url("https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1267&amp;q=80");'>
+            <span id="blackOverlay" class="w-full h-full absolute opacity-75 bg-black"></span>
         </div>
         <div class="container mx-auto h-full">
             <div class="flex content-center items-center justify-center h-full">
-                
+
                 <div class="w-full lg:w-4/12 px-4">
                     <div
                         class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-100 border-0">
                         <div class="rounded-t mb-0 px-6 py-6">
                             <div class="text-center mb-3">
                                 <h6 class="text-gray-600 text-sm font-bold">
-                                    Sign in 
+                                    Sign in
                                 </h6>
                             </div>
                             <div class="btn-wrapper text-center">
@@ -70,10 +71,9 @@ const lowCase = () => {
                                     <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
                                         for="grid-password">Email
                                     </label>
-                                    <input type="email"
-                                        class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                                        placeholder="Email" style="transition: all 0.15s ease 0s;" id="email" @change="lowCase()"
-                                        v-model="dataForLogin.email" />
+                                    <InputText type="email" @change="lowCase()" v-model="dataForLogin.email" />
+
+
                                 </div>
                                 <div class="relative w-full mb-3">
                                     <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
@@ -84,7 +84,8 @@ const lowCase = () => {
 
                                 </div>
                             </form>
-                            <button @click="$emit('status',true)" class="hover:text-blue-500 transition-all">Create Account</button>
+                            <button @click="$emit('status', true)" class="hover:text-blue-500 transition-all">Create
+                                Account</button>
                             <div class="text-center mt-6">
                                 <ButtonPage @buttonClick="checkLogin()" :status="false" :name="'Log In'"></ButtonPage>
                             </div>
@@ -95,5 +96,5 @@ const lowCase = () => {
         </div>
     </div>
 </template>
-  
+
 <style scoped></style>

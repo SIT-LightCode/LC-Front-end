@@ -66,8 +66,7 @@ onBeforeMount(async () => {
  
 <template>
     <!-- contents  -->
-    <div class="space-y-5">
-        <hr />
+    <div class="space-y-5 px-5 fixed max-h-[80%] w-[100%] overflow-y-scroll ">
         <buttonvue class="" @buttonClick="$emit('addstatus', '')" :name="'Back'"></buttonvue>
 
         <div class="text-gray-900 text-sm">

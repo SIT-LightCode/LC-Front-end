@@ -69,7 +69,17 @@ const changePage = (e1) => {
     }
     else --page.value
 }
-
+const items = ref([
+    {
+        label: 'Personal Info'
+    },
+    {
+        label: 'Reservation'
+    },
+    {
+        label: 'Review'
+    }
+]);
 onBeforeMount(async () => {
     await mylearningCon.getAllTag()
 })
@@ -78,9 +88,8 @@ onBeforeMount(async () => {
 <template >
     <Toaster richColors position="top-right"/>
     <buttonvue class="m-5" @buttonClick="myRouter.push({ name: 'problem' })" :name="'Back'"></buttonvue>
-    
+  
     <statusInput class="p-1" :pageAdd="page" />
-
     <div class="p-5">
         <information v-if="page == 1" :type="'add'" :name="inputProblemData.name.trim()" :description="inputProblemData.description"
             @returnval="(e1) => { setValueFunc(e1); changePage(1); }" />

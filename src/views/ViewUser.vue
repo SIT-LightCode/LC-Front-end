@@ -21,7 +21,6 @@ const filterFunc = (filter) => {
     if (filter != 'reset') {
         keyword = filter.keyword
         type = filter.type
-
     }
     if (keyword === "" && type === "") {
         isFilter.value = false;

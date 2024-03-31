@@ -145,7 +145,7 @@ onBeforeMount(async () => {
             </ResultPage>
         </Dialog>
 
-        <div class="" v-if="page == 'isEdit'">
+        <div class="grid grid-cols-1 gap-4 fixed max-h-[90%] w-[100%] overflow-y-scroll" v-if="page == 'isEdit'">
             <editPro @addstatus="(e1) => { page = e1 }" :learning="mylearningCon" :data=dataCurrent
                 @isEditProblem="(e1) => { editProblem(e1) }"></editPro>
         </div>
