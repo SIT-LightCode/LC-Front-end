@@ -90,12 +90,12 @@ export const loginCon = defineStore('loginCon', () => {
           refreshToken: Cookies.get('refreshToken'),
         }),
       })
-      if (res.status === 200) {
+      // if (res.status === 200) {
         Cookies.remove('refreshToken', { path: '/' })
         Cookies.remove('TokenLightcode', { path: '/' })
         myRouter.push({ name: 'home' })
         toast.success('Logout Completed')
-      }
+      // }
     } catch (err) {
       console.log(err)
       // toast.success('Error')
