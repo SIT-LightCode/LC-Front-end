@@ -16,7 +16,17 @@ export const account = defineStore('account', () => {
   const myRouter = useRouter()
   const myVaildate = validateInput()
 
-  const user = ref({ id: null, name: '', email: '', authorities: [], score: 0, scoreUnOfficial: 0 })
+  const user = ref({
+    id: null,
+    name: '',
+    email: '',
+    authorities: [],
+    score: 0,
+    scoreUnOfficial: 0,
+    skills: [],
+  })
+  // {"id":852,"name":"testadmin","email":"admin@mail.com","authorities":["USER","ADMIN"],"score":300,"scoreUnOfficial":300,
+  // "skills":[{"id":1,"level":4,"tag":{"id":2,"topic":"Variables"}},{"id":2,"level":1,"tag":{"id":5,"topic":"Data Structure"}}]}
   const userList = ref({})
 
   const AddAccount = async (nameAccount, emailAccount, passwordAccount) => {
@@ -106,7 +116,15 @@ export const account = defineStore('account', () => {
         variables: {
           email: { value: jsonFromToken.sub },
         },
-        fields: ['id', 'name', 'email', 'authorities', 'score', 'scoreUnOfficial'],
+        fields: [
+          'id',
+          'name',
+          'email',
+          'authorities',
+          'score',
+          'scoreUnOfficial',
+          { skills: ['id', 'level', { tag: ['id', 'topic'] }] },
+        ],
       },
       undefined,
       {
@@ -116,9 +134,8 @@ export const account = defineStore('account', () => {
 
     myconnectBackend.connectBack(query).then(async (data) => {
       if (data != '') {
-         localStorage.setItem('user', JSON.stringify(data.data.getUserByEmail))
-         myRouter.push({ name: 'lightcode' })
-        
+        localStorage.setItem('user', JSON.stringify(data.data.getUserByEmail))
+        myRouter.push({ name: 'lightcode' })
       }
     })
   }
