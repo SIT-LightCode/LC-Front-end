@@ -53,8 +53,11 @@ const colorTags = [
               parameters {{ key }} : {{ i }} </span>
           </div>
           <div>
+             
             <span class="p-5">Output:</span>
-            <span >{{ example.output }}</span>
+            {{ example.output }}
+            
+        
           </div>
 
         </div>

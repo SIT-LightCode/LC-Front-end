@@ -2,19 +2,24 @@
 import { ref } from "vue"
 import buttonVue from '../button/Button.vue';
 import { account } from '../../stores/Account';
+import FloatLabel from 'primevue/floatlabel';
+import InputText from 'primevue/inputtext';
+
 const emit = defineEmits(["CloseModal", "EditUserByUser"])
 const myAccount = account()
 const editMode = ref(true)
+const user = ref('')
+user.value = JSON.parse(localStorage.getItem('user'))
 const EditUser = ref({
-    id: myAccount.user.id,
-    name: myAccount.user.name,
-    email: myAccount.user.email,
-    authorities: myAccount.user.authorities,
-    score: myAccount.user.score
+    id: user.value.id,
+    name: user.value.name,
+    email: user.value.email,
+    authorities: user.value.authorities,
+    score: user.value.score
 
 })
 const EditByUser = () => {
-    myAccount.EditAccount(EditUser.value,myAccount.user).then(() => {
+    myAccount.EditAccount(EditUser.value, myAccount.user).then(() => {
         emit('CloseModal', false);
     })
 }
@@ -22,7 +27,7 @@ const lowCase = () => {
     EditUser.value.email = EditUser.value.email.toLowerCase()
 }
 </script>
- 
+
 <template>
     <div
         class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
@@ -50,9 +55,9 @@ const lowCase = () => {
 
                         <div v-if="editMode">
                             Account
-                            <div class="p-5"> name : {{ myAccount.user.name }}
+                            <div class="p-5"> name : {{ user.name }}
                             </div>
-                            <div class="p-5"> email : {{ myAccount.user.email }}
+                            <div class="p-5"> email : {{ user.email }}
                             </div>
                             <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 mx-2 rounded"
                                 @click="editMode = false">Edit</button>
@@ -60,28 +65,38 @@ const lowCase = () => {
                         <div v-if="!editMode">
                             <div class="p-5">
                                 Edit Account
-                                <div class="p-5"> name : <input :maxlength="30" type="text" placeholder=""
-                                        v-model="EditUser.name">
+                                <div class="card flex justify-content-center m-5">
+                                    <FloatLabel>
+                                        <InputText class="mx-5 p-3" id="username" v-model="EditUser.name" />
+                                        <label for="username">Username</label>
+                                    </FloatLabel>
                                 </div>
-                                <div class="p-5"> email : <input :maxlength="30" type="text" placeholder="" @change="lowCase()"
-                                        v-model="EditUser.email"></div>
+
+                                <div class="card flex justify-content-center m-5">
+                                    <FloatLabel>
+                                        <InputText class="mx-5 p-3" id="email" @change="lowCase()"
+                                            v-model="EditUser.email" />
+                                        <label for="email">Email</label>
+                                    </FloatLabel>
+                                </div>
                             </div>
-                            <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 mx-2 rounded"
-                                @click="editMode = true">Close</button>
-                            <buttonVue :name="'Edit'" @buttonClick="EditByUser()">Edit
+                            <buttonVue
+                                @buttonClick="editMode = true" :name="'Close Edit'" :status="false"></buttonVue>
+                            <buttonVue :name="'Edit'" @buttonClick="EditByUser()">
                             </buttonVue>
                         </div>
                     </div>
                 </div>
                 <!--footer-->
                 <div class="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-                    <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 mx-2 rounded"
-                        @click="editMode = true; $emit('CloseModal', false);"> Close</button>
-         
+                    <buttonVue :name="'Close'" @buttonClick="editMode = true; $emit('CloseModal', false);" :status="false">
+                    </buttonVue>
+                    
+
                 </div>
             </div>
         </div>
     </div>
 </template>
- 
+
 <style></style>

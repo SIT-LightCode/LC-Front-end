@@ -43,9 +43,7 @@ const highlighter = (code) => {
         <div class="grid grid-cols-5 gap-4 fixed h-[90%] w-[90%]  ">
 
 
-            <div class="grid grid-cols-subgrid gap-4 col-span-1 overflow-y-scroll p-5">
-
-
+            <div class="grid grid-cols-subgrid gap-4 col-span-2 overflow-y-scroll p-5">
                 <MqResponsive group>
                     <template #xs-lg>
                         <div
@@ -53,9 +51,6 @@ const highlighter = (code) => {
                             <button class="  font-bold   rounded" @click="isModal = true">
                                 <IconHamberger />
                             </button>
-
-                            <!-- <buttonvue @buttonClick="() => isModal = true" :name="'description'">
-                            </buttonvue> -->
                         </div>
 
                         <Dialog v-model:visible="isModal" modal header="Description" :style="{ width: '50rem' }"
@@ -71,7 +66,7 @@ const highlighter = (code) => {
 
 
             <!-- Filter-->
-            <div class="grid grid-cols-subgrid gap-4 col-span-4 ">
+            <div class="grid grid-cols-subgrid gap-4 col-span-3 ">
                 <CodingInput :result="prop.result" @addstatus="$emit('addstatus', '')"
                     @Submit="(e) => $emit('Submit', prop.data.id, e)"></CodingInput>
             </div>

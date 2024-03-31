@@ -43,7 +43,7 @@ user.value = JSON.parse(localStorage.getItem('user'))
 					/>
 					<div class="mt-2">
 						<ul v-for="(user,key) in user">
-							<li>{{key}} : {{ user }}</li>
+							<li v-if="key !== 'skills'">{{key}} : {{ user }}</li>
 						</ul>
 					</div>
 					<buttonVue @buttonClick="()=>{ sidebarIsShow = false; $emit('OpenModal',true) }" :name="'Setting'" :status="false"/>

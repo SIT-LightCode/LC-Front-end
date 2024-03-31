@@ -64,10 +64,12 @@ const clickEvent = (i) => {
 
 
   Swal.fire({
-    title: "Do you want to?",
     showDenyButton: isDen,
     showCancelButton: isCan,
     confirmButtonText: "Do",
+    confirmButtonColor: "#23A203",
+    cancelButtonColor: "#A21F03",
+    denyButtonColor: '#0357A2',
     denyButtonText: `Delete`,
     cancelButtonText: `Edit`
   }).then((result) => {
@@ -118,7 +120,7 @@ const clickEvent = (i) => {
       </template>
 
       <template #md-lg>
-        <p class="grid grid-cols-2  ">
+        <p class="grid grid-cols-2 ">
         <div :onmouseenter="() => { hoverDetail(index) }" :onmouseleave="() => { hoverDetail(index) }"
           v-for="(i, index) in paginatedData"
           :class="`hover:cursor-pointer rounded-lg text-black w-72 m-5 p-5 relative hover:scale-110 transition-all ` + (index === indexShow ? `bg-gray-200 z-[200000]` : ` bg-white h-[200px]`)">
@@ -146,30 +148,33 @@ const clickEvent = (i) => {
         <div :onmouseenter="() => { hoverDetail(index) }" :onmouseleave="() => { hoverDetail(index) }"
           v-for="(i, index) in paginatedData"
           :class="`hover:cursor-pointer rounded-lg text-black w-72 m-5 p-5 relative hover:scale-110 transition-all ` + (index === indexShow ? `bg-gray-200 z-[200000]` : ` bg-white h-[200px]`)">
-          <p class="text-2xl">{{ i.name }}</p>
-          <p>Score: {{ i.totalScore }}</p>
-          <p>Official: {{ i.totalScore }}</p>
-          <p v-if="i.level > 0 && i.level < 6" :class="levelArray[i.level - 1]">difficulty: {{ returnLevel(i.level) }}
-          </p>
-          <p class=" ">create by: {{ i.user.name }}</p>
-          <div class="line-clamp-4" v-if="index === indexShow">
-            <p>
-              Tag :
-              <span v-for="t in i.tagProblem"
-                class="inline-flex items-center px-3 rounded-full text-xs font-medium leading-4 text-gray-800"
-                :class="colorTags[(t.tag.id - 1) % 8]">{{ t.tag.topic }}
-              </span>
+          <div @click="$emit('doProblem', i)">
+            <p class="text-2xl">{{ i.name }}</p>
+            <p>Score: {{ i.totalScore }}</p>
+            <p>Official: {{ i.totalScore }}</p>
+            <p v-if="i.level > 0 && i.level < 6" :class="levelArray[i.level - 1]">difficulty: {{ returnLevel(i.level) }}
             </p>
+            <p class=" ">create by: {{ i.user.name }}</p>
+            <div class="line-clamp-4" v-if="index === indexShow">
+              <p>
+                Tag :
+                <span v-for="t in i.tagProblem"
+                  class="inline-flex items-center px-3 rounded-full text-xs font-medium leading-4 text-gray-800"
+                  :class="colorTags[(t.tag.id - 1) % 8]">{{ t.tag.topic }}
+                </span>
+              </p>
 
+            </div>
           </div>
+
           <div class="flex gap-3 mt-1">
-            <buttonVue @buttonClick="() => $emit('doProblem', i)" :name="'do'">
+            <buttonVue @buttonClick="() => $emit('doProblem', i)" :status="false" :name="'do'">
             </buttonVue>
             <buttonVue v-if="user.authorities.includes('ADMIN') || user.id == i.user.id"
               @buttonClick="() => $emit('deleteProblem', i.id)" :name="'delete'">
             </buttonVue>
             <buttonVue v-if="user.authorities.includes('ADMIN') || user.id == i.user.id"
-              @buttonClick="() => $emit('editProblem', i)" :name="'edit'">
+              @buttonClick="() => $emit('editProblem', i)" :status="false" :name="'edit'">
             </buttonVue>
           </div>
         </div>
