@@ -20,17 +20,46 @@ const user = JSON.parse(localStorage.getItem('user'))
 	<div class="">
 		<div
 			:class="
-				(sidebarIsShow ? `w-1/6` : `w-44 h-10`) +
+				(sidebarIsShow ? `w-full` : `w-44 h-10`) +
 				` z-[10000] max-w-fit bg-gray-800 transition-all text-white fixed  rounded-r-lg  top-1/2 left-0 transform -translate-y-1/2`
 			"
 		>
+			<!-- <div v-show="sidebarIsShow" class="flex ">
+				<div class="flex flex-col items-center p-4 ">
+					<div class="relative w-full pb-3">
+						<div class="flex justify-center">
+							<div>{{ user.name }}</div>
+						</div>
+					</div>
+					<img
+						src="../../assets/picture/user_icon_01.jpg"
+						class="rounded-lg"
+						alt="user_icon"
+						width="200"
+						height="200"
+					/>
+					<div class="mt-2">
+						<ul v-for="(user,key) in user">
+							<li>{{key}} : {{ user }}</li>
+						</ul>
+					</div>
+					<buttonVue @buttonClick="()=>{ sidebarIsShow = false; $emit('OpenModal',true) }" :name="'Setting'" :status="false"/>
+					<buttonVue @buttonClick="()=>{ $emit('LogOut',true) }" :name="'Log Out'"  />
+				</div>
+				<div
+					@click="openCloseSideBar"
+					class=" flex items-center rounded-r-lg   hover:cursor-pointer transition hover:bg-blue-500 "
+				>
+					<IconArrowSmallLeft  />
+                    
+				</div>
+			</div> -->
 			<div v-show="sidebarIsShow" class="flex ">
 				<div class="flex flex-col items-center p-4 ">
 					<div class="relative w-full pb-3">
 						<div class="flex justify-center">
 							<div>{{ user.name }}</div>
 						</div>
-						<!-- <IconArrowSmallLeft @click="openCloseSideBar" class="absolute top-0 right-0 border-b-2 hover:cursor-pointer border-gray-800  hover:border-blue-500 hover:text-blue-500"/> -->
 					</div>
 					<img
 						src="../../assets/picture/user_icon_01.jpg"

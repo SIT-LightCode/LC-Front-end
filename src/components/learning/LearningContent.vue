@@ -32,7 +32,7 @@ const buttonDeleteFunc = () => {
 
 <template>
   <!-- contents  -->
-  <div>
+  <div class="pl-12 pr-12">
     <div
       v-if="contents !== undefined && contents.id != null"
       class="border-2 rounded-lg p-5 min-h-max"
