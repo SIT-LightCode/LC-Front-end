@@ -12,7 +12,6 @@ import Feature from "../components/landingpage/Feature.vue"
     <WhatIsLightCode></WhatIsLightCode>
     <Goal></Goal>
     <Member></Member>
-    <Feature></Feature>
 
   </div>
 </template>
