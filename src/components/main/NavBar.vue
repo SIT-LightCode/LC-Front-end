@@ -14,12 +14,14 @@ const links = ref([
   { message: 'View User', path: '/view-user' },
 ])
 
-onBeforeMount(async () => {
-  if (myCookie.getCookie('TokenLightcode') != '') {
-    await myAccount.GetUserByEmail()
-  }
-})
-const user = JSON.parse(localStorage.getItem('user'))
+const user = ref({ id: null, name: '', email: '', authorities: ['USER'], score: 0, scoreUnOfficial: 0 }) 
+
+
+user.value = JSON.parse(localStorage.getItem('user'))
+
+
+
+
 
 </script>
 

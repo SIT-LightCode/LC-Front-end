@@ -116,7 +116,9 @@ export const account = defineStore('account', () => {
 
     myconnectBackend.connectBack(query).then(async (data) => {
       if (data != '') {
-        localStorage.setItem('user', JSON.stringify(data.data.getUserByEmail))
+         localStorage.setItem('user', JSON.stringify(data.data.getUserByEmail))
+         myRouter.push({ name: 'lightcode' })
+        
       }
     })
   }

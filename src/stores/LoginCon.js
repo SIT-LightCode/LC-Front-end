@@ -52,17 +52,11 @@ export const loginCon = defineStore('loginCon', () => {
         if (res.status === 200) {
           const objectJson = await res.json()
           Cookies.set('refreshToken', objectJson.refreshToken, { httpOnly: false, expires: 1 })
-          ////
           Cookies.set('TokenLightcode', objectJson.token, { httpOnly: false, expires: inhours })
-
-          // let jsonFromToken = parseJwt(myCookie.getCookie("token"))
-          // myAccount.user.name = setCookie("name", jsonFromToken.name, 7)
-          // myAccount.setCookie("role", jsonFromToken.role, 7)
-
-        await myAccount.GetUserByEmail()
-        toast.success('Login Completed')
-        myRouter.push({ name: 'lightcode' })
-        
+  
+          // Execute tasks in sequence
+          await myAccount.GetUserByEmail()
+          toast.success('Login Completed')
         } else if (res.status == 400) {
           const objectJson = await res.json()
           toast.error(objectJson.errors[0].message)
@@ -75,9 +69,9 @@ export const loginCon = defineStore('loginCon', () => {
         console.log(err)
         toast.error(err)
       }
-      //}
     }
   }
+
   const logout = async () => {
     try {
       const res = await fetch(`${import.meta.env.VITE_BASE_URL}/v1/auth/logout`, {

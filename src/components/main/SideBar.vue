@@ -7,13 +7,16 @@ import { account } from "../../stores/Account.js"
 const myAccount = account()
 const emit = defineEmits(["openCloseSidebarEmit","OpenModal","LogOut"])
 const sidebarIsShow = ref(false)
-
+const user = ref({ id: null, name: '', email: '', authorities: [], score: 0, scoreUnOfficial: 0 }) 
 const openCloseSideBar = () => {
 	sidebarIsShow.value = !sidebarIsShow.value
 	emit("openCloseSidebarEmit", sidebarIsShow.value)
 }
 
-const user = JSON.parse(localStorage.getItem('user'))
+
+user.value = JSON.parse(localStorage.getItem('user'))
+
+
 </script>
 
 <template>
@@ -24,36 +27,6 @@ const user = JSON.parse(localStorage.getItem('user'))
 				` z-[10000] max-w-fit bg-gray-800 transition-all text-white fixed  rounded-r-lg  top-1/2 left-0 transform -translate-y-1/2`
 			"
 		>
-			<!-- <div v-show="sidebarIsShow" class="flex ">
-				<div class="flex flex-col items-center p-4 ">
-					<div class="relative w-full pb-3">
-						<div class="flex justify-center">
-							<div>{{ user.name }}</div>
-						</div>
-					</div>
-					<img
-						src="../../assets/picture/user_icon_01.jpg"
-						class="rounded-lg"
-						alt="user_icon"
-						width="200"
-						height="200"
-					/>
-					<div class="mt-2">
-						<ul v-for="(user,key) in user">
-							<li>{{key}} : {{ user }}</li>
-						</ul>
-					</div>
-					<buttonVue @buttonClick="()=>{ sidebarIsShow = false; $emit('OpenModal',true) }" :name="'Setting'" :status="false"/>
-					<buttonVue @buttonClick="()=>{ $emit('LogOut',true) }" :name="'Log Out'"  />
-				</div>
-				<div
-					@click="openCloseSideBar"
-					class=" flex items-center rounded-r-lg   hover:cursor-pointer transition hover:bg-blue-500 "
-				>
-					<IconArrowSmallLeft  />
-                    
-				</div>
-			</div> -->
 			<div v-show="sidebarIsShow" class="flex ">
 				<div class="flex flex-col items-center p-4 ">
 					<div class="relative w-full pb-3">
