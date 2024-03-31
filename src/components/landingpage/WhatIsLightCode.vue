@@ -10,7 +10,7 @@ function hoverButton () {
 </script>
 
 <template>
-      <div class="relative pt-16 pb-32 flex content-center items-center justify-center" style="min-height: 75vh;">
+      <div class="relative w-screen pt-16 pb-32 flex content-center items-center justify-center" style="min-height: 75vh;">
         <div class="absolute top-0 w-full h-full bg-center bg-cover">
           <span id="blackOverlay" class="w-full h-full absolute opacity-75 bg-black"></span>
         </div>
@@ -24,7 +24,7 @@ function hoverButton () {
                 <p data-aos="fade-up" data-aos-duration="1000" class="mt-4 text-lg text-gray-300">
                   Empower yourself with JavaScript expertise. Elevate your coding abilities through our dynamic platform offering hands-on learning and practice opportunities.
                 </p>
-                <div data-aos="fade-up" data-aos-duration="1000"  @click="router.push('/lightcode')" :onmouseenter="()=>{hoverButton()}" :onmouseleave="()=>{hoverButton()}" class="flex mt-7 pr-8 relative bg-white w-32 p-2 content-center justify-center rounded-lg hover:bg-slate-200 hover:cursor-pointer transition-all">
+                <div data-aos="fade-up" data-aos-duration="1000"  @click="router.push('/lightcode')" :onmouseenter="()=>{hoverButton()}" :onmouseleave="()=>{hoverButton()}" class="flex mt-7 pr-8 relative bg-white w-36 p-2 content-center justify-center rounded-lg hover:bg-slate-200 hover:cursor-pointer transition-all">
                   Get Started
                   <IconArrowSmallRight :class="`absolute transition-all `+(isButtonHover ? `ml-2 right-1` : `ml-1 right-2`)"/>
                 </div>

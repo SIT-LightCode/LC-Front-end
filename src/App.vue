@@ -38,7 +38,7 @@ const LogOut = () => {
   <div class="text-black text-base min-h-screen bg-white relative  ">
     <Toaster richColors position="top-right" />
 
-    <Navbar class=""/>
+    <Navbar v-if="$route.path !== '/login'"  class="z-10"/>
     <Sidebar v-if="$route.path !== '/' && $route.path !== '/login'&& $route.name !== 'NotFound'" @openCloseSidebarEmit="openCloseSidebar"  @OpenModal="() => {
       showModal = true; 
     }" @LogOut="() => { LogOut() }"/>

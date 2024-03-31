@@ -36,7 +36,7 @@ user.value = JSON.parse(localStorage.getItem('user'))
         </div></RouterLink>
         <div v-if="$route.path == '/'" class="flex justify-end space-x-10  text-black p-1 w-full ">
             <RouterLink :to="'/login'"
-                :class="`max-w-[800px] border-2 rounded-full border-blue-500 text-white bg-blue-500 hover:border-gray-300 hover:text-blue-500 hover:bg-white transitionflex flex-col items-center p-3 `">
+                :class="`max-w-[800px] border-2 rounded-full border-blue-500 text-white bg-blue-500 hover:border-gray-300 hover:text-blue-500 hover:bg-white transitionflex flex-col items-center p-3 transition-all`">
                 <a> login </a>
             </RouterLink>
         </div>
