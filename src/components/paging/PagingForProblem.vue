@@ -91,7 +91,7 @@ const clickEvent = (i) => {
 
     <MqResponsive group>
 
-      <template #xs>
+      <template #xs-sm>
         <p class="grid grid-cols-1  ">
         <div :onmouseenter="() => { hoverDetail(index) }" :onmouseleave="() => { hoverDetail(index) }"
           v-for="(i, index) in paginatedData"
@@ -102,7 +102,6 @@ const clickEvent = (i) => {
             <p>Official: {{ i.totalScore }}</p>
             <p v-if="i.level > 0 && i.level < 6" :class="levelArray[i.level - 1]">difficulty: {{ returnLevel(i.level) }}
             </p>
-            <p class=" invisible lg:visible">create by: {{ i.user.name }}</p>
             <div class="line-clamp-4" v-if="index === indexShow">
               <p>
                 Tag :
@@ -118,7 +117,7 @@ const clickEvent = (i) => {
 
       </template>
 
-      <template #sm>
+      <template #md-lg>
         <p class="grid grid-cols-2  ">
         <div :onmouseenter="() => { hoverDetail(index) }" :onmouseleave="() => { hoverDetail(index) }"
           v-for="(i, index) in paginatedData"
@@ -126,10 +125,9 @@ const clickEvent = (i) => {
           <div @click="clickEvent(i)">
             <p class="text-3xl">{{ i.name }}</p>
             <p>Score: {{ i.totalScore }}</p>
-            <p>Official: {{ i.totalScore }}</p>
+            <p>Official: {{ i.isOfficial }}</p>
             <p v-if="i.level > 0 && i.level < 6" :class="levelArray[i.level - 1]">difficulty: {{ returnLevel(i.level) }}
             </p>
-            <p class=" invisible lg:visible">create by: {{ i.user.name }}</p>
             <div class="line-clamp-4" v-if="index === indexShow">
               <p>
                 Tag :
@@ -143,7 +141,7 @@ const clickEvent = (i) => {
         </div>
         </p>
       </template>
-      <template #md-xxl>
+      <template #xl-xxl>
         <p class="flex flex-wrap">
         <div :onmouseenter="() => { hoverDetail(index) }" :onmouseleave="() => { hoverDetail(index) }"
           v-for="(i, index) in paginatedData"
@@ -153,7 +151,7 @@ const clickEvent = (i) => {
           <p>Official: {{ i.totalScore }}</p>
           <p v-if="i.level > 0 && i.level < 6" :class="levelArray[i.level - 1]">difficulty: {{ returnLevel(i.level) }}
           </p>
-          <p class=" invisible lg:visible">create by: {{ i.user.name }}</p>
+          <p class=" ">create by: {{ i.user.name }}</p>
           <div class="line-clamp-4" v-if="index === indexShow">
             <p>
               Tag :

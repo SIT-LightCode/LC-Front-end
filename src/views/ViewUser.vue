@@ -77,18 +77,18 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-    <div class="px-10 relative">
+    <div class="relative">
         <div class="">
             <div v-if="isEdit">
                 <EditUser @close="(e1) => { isEdit = e1 }"
                     @editUser="(dataEdit, olddata) => { editUser(dataEdit, olddata) }" :datas="selectUser">
                 </EditUser>
             </div>
-            <div class="grid grid-cols-[20%_minmax(50%,_1fr)_100px] gap-4 fixed max-h-[90%] w-[100%] overflow-y-scroll " v-else>
+            <div class="grid grid-cols-[20%_minmax(50%,_1fr)_100px] gap-4 fixed max-h-[90%] w-[100%] overflow-scroll " v-else>
 
                 <MqResponsive group>
                     <template #lg-xxl>
-                        <div class="lg:visible" >
+                        <div class="" >
                             <filterBar @filterValue="(e1) => { filterFunc(e1); }"></filterBar>
                         </div>
                     </template>
@@ -96,7 +96,7 @@ onBeforeMount(async () => {
 
 
                 <!-- Filter-->
-                <div class="col-span-1">
+                <div class="">
                     <ListUser @deleteUser="(id) => { deleteUser(id) }"
                         @editUser="(select) => { isEdit = true; selectUser = select; }" :datas="dataFilter">
                     </ListUser>

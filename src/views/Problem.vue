@@ -6,11 +6,13 @@ import listProblem from '../components/problem/ListProblem.vue';
 import editPro from '../components/addproblem/EditProblem.vue';
 import inputAnswer from '../components/answerproblem/InputAnswer.vue';
 import { MqResponsive } from "vue3-mq";
-
 import { learningCon } from '../stores/LearningCon.js'
 import { problemCon } from '../stores/ProblemCon';
 import { computed, ref, onBeforeMount } from 'vue';
 import { account } from '../stores/Account'
+import ResultPage from '../components/answerproblem/ResultPage.vue';
+import Dialog from 'primevue/dialog';
+
 const myAccount = account()
 const myproblemCon = problemCon()
 const mylearningCon = learningCon()
@@ -111,6 +113,8 @@ const countFailedTestCases = (data) => {
     else return null
 }
 
+const isModal = ref(false)
+
 const doSubmit = async (id, answer) => {
     try {
         const data = await myproblemCon.checkAnswer(id, answer)
@@ -118,12 +122,11 @@ const doSubmit = async (id, answer) => {
         result.value = data;
         if (result.value == 0) {
         }
-        else if (countFailedTestCases(result.value) == 0) {
-            alert("ALL Correct")
+        else  {
+            isModal.value = true
         }
     } catch (error) {
         console.error(error);
-        // Handle the error appropriately
     }
 };
 
@@ -132,11 +135,16 @@ onBeforeMount(async () => {
     await mylearningCon.getAllTag()
 })
 
-
 </script>
 <template>
-    <div class="px-10 relative  ">
+    <div class="relative  ">
    
+        <Dialog v-model:visible="isModal" modal header="Answer" :style="{ width: '50rem' }"
+                :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+                <ResultPage :data="result">
+            </ResultPage>
+        </Dialog>
+
         <div class="" v-if="page == 'isEdit'">
             <editPro @addstatus="(e1) => { page = e1 }" :learning="mylearningCon" :data=dataCurrent
                 @isEditProblem="(e1) => { editProblem(e1) }"></editPro>
@@ -150,8 +158,8 @@ onBeforeMount(async () => {
         <div class="grid grid-cols-[20%_minmax(50%,_1fr)] gap-4 fixed max-h-[90%] w-[100%] overflow-y-scroll " v-else>
 
             <MqResponsive group>
-                <template #xs-xxl>
-                    <div class=" p-10  flex  flex-row  overflow-auto lg:visible">
+                <template #lg-xxl>
+                    <div class="">
                         <filterBar :datas="mylearningCon" @filterValue="(e1) => { filterFunc(e1); }"></filterBar>
                     </div>
                 </template>
@@ -159,7 +167,7 @@ onBeforeMount(async () => {
 
         
             <!-- Filter-->
-            <div class="flex flex-row overflow-auto hover:overflow-scroll">
+            <div class="overflow-auto hover:overflow-scroll">
                 <listProblem class="" @deleteProblem="(e1) => { myproblemCon.deleteProblem(e1) }"
                     @editProblem="(e1) => { page = 'isEdit'; dataCurrent = e1 }"
                     @doProblem="(e1) => { page = 'isDo'; dataCurrent = e1 }" :datas="test"></listProblem>

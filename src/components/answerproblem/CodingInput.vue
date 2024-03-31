@@ -43,8 +43,8 @@ const countFailedTestCases = computed(() => {
         <buttonvue v-if="countFailedTestCases != 0" class="" @buttonClick="$emit('Submit', input)" :name="'Submit'">
         </buttonvue>
 
-        <div>
-            <prism-editor class="my-editor" v-model="input" :highlight="highlighter" line-numbers
+        <div class="max-w-[100%]"> 
+            <prism-editor class="my-editor " v-model="input" :highlight="highlighter" line-numbers
                 :tabSize="5"></prism-editor>
         </div>
     </div>
