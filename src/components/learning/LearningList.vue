@@ -11,6 +11,8 @@ const myAccount = account()
 const props = defineProps({
   contents: Object,
 })
+const user = ref({ id: null, name: '', email: '', authorities: ['USER'], score: 0, scoreUnOfficial: 0 })
+
 
 const selectedLesson = ref(1)
 
@@ -35,11 +37,13 @@ const showModalToAddContent = async () => {
     }
   })
 }
+user.value = JSON.parse(localStorage.getItem('user'))
+
 </script>
 
 <template>
   <div v-if="contents.length > 0" class="flex">
-    <IconAdd @click="showModalToAddContent" v-if="myAccount.user.authorities.includes('ADMIN')"
+    <IconAdd @click="showModalToAddContent" v-if="user.authorities.includes('ADMIN')"
       class="fixed transition right-6 bottom-6 w-20 h-20 hover:text-blue-500 hover:cursor-pointer" />
     <div class="flex flex-col space-y-5 pr-6">
       <div v-for="topic in contents" class="flex flex-col content-center text-black bg-white">
@@ -55,7 +59,7 @@ const showModalToAddContent = async () => {
               {{ lesson.name }}
             </div>
             <div v-show="topic.lesson == null"><b style="color: red"> No lesson </b></div>
-            <div v-if="myAccount.user.authorities.includes('ADMIN')"> <buttonVue  @buttonClick="$emit('deleteTag', topic.id)" :name="'Delete Tag'"></buttonVue>
+            <div v-if="user.authorities.includes('ADMIN')"> <buttonVue  @buttonClick="$emit('deleteTag', topic.id)" :name="'Delete Tag'"></buttonVue>
             </div>
           </div>
         </div>

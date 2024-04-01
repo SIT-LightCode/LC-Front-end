@@ -11,6 +11,8 @@ const myAccount = account()
 const emit = defineEmits(["openCloseSidebarEmit", "OpenModal", "LogOut"])
 const sidebarIsShow = ref(false)
 const user = ref({ id: null, name: '', email: '', authorities: ['USER'], score: 0, scoreUnOfficial: 0 })
+
+
 const openCloseSideBar = () => {
 	sidebarIsShow.value = !sidebarIsShow.value
 	emit("openCloseSidebarEmit", sidebarIsShow.value)
@@ -27,21 +29,6 @@ const setRole = () => {
 }
 setRole()
 
-// const items = [{
-
-// 	label: 'Profile',
-// 	items: [
-// 		{
-// 			label: 'Settings',
-// 			icon: 'pi pi-cog'
-// 		},
-// 		{
-// 			label: 'Logout',
-// 			icon: 'pi pi-sign-out'
-// 		}
-// 	]
-// }
-// ]
 const items =  ref([
 
 	{
@@ -56,7 +43,7 @@ const items =  ref([
 		label: 'Logout',
 		icon: 'pi pi-sign-out',
 		command: () => {
-			
+
 
 			sidebarIsShow.value = false; 
 			emit('LogOut', true)
@@ -88,44 +75,6 @@ const items =  ref([
 					<div class="flex justify-content-center py-2">
 						<Menu :model="items" />
 					</div>
-
-					<!-- <buttonVue @buttonClick="() => { sidebarIsShow = false; $emit('OpenModal', true) }"
-						:name="'Setting'" :status="false" />
-					<span>
-						<button class="pi pi-sign-out" style="font-size: 1rem">Log Out</button>
-						<buttonVue @buttonClick="() => { $emit('LogOut', true) }" :name="'Log Out'"></buttonVue>
-					</span> -->
-					<!-- <Menu :model="items" class="w-full md:w-15rem">
-						<template #start>
-							<span class="inline-flex align-items-center gap-1 px-2 py-2">
-								<div class="mt-2">
-									<ul v-for="(user, key) in user">
-										<li v-if="key !== 'skills' && key !== 'id' && key !== 'name'">{{ key }} : {{
-			user }}</li>
-									</ul>
-								</div>
-							</span>
-						</template>
-
-						<template #item="{ item, props }">
-							<a v-ripple class="flex align-items-center" v-bind="props.action">
-								<span :class="item.icon" />
-								<span class="ml-2">{{ item.label }}</span>
-								<Badge v-if="item.badge" class="ml-auto" :value="item.badge" />
-								<span v-if="item.shortcut"
-									class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{{
-			item.shortcut }}</span>
-							</a>
-						</template>
-						<template #end>
-							<button v-ripple
-								class="relative overflow-hidden w-full p-link flex align-items-center p-2 pl-3 text-color hover:surface-200 border-noround">
-								<span class="inline-flex flex-column">
-									<span class="font-bold">{{ user.name }}</span>
-								</span>
-							</button>
-						</template>
-					</Menu> -->
 				</div>
 
 				<div @click="openCloseSideBar"

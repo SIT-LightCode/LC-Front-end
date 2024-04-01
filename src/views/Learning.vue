@@ -56,9 +56,9 @@ const conBackend = async (type, query, name) => {
     currentlesson.value = {
       lesson:
         mylearningCon.tagList[tagListIdx].lesson[
-          mylearningCon.tagList[tagListIdx].lesson.findIndex(
-            (o) => o.id == selectedLesson.value.lesson.id,
-          )
+        mylearningCon.tagList[tagListIdx].lesson.findIndex(
+          (o) => o.id == selectedLesson.value.lesson.id,
+        )
         ],
       id: mylearningCon.tagList[tagListIdx].id,
     }
@@ -88,66 +88,42 @@ const currentSet = computed(() => {
   <div class=" px-1">
 
     <div v-if="status == 'addTag'">
-      <InputTag 
-        :List="mylearningCon.tagList"
-        :type="'Add'"
-        @addstatus="(e) => (status = e)"
-        @addfunc="(e, query, name) => conBackend(e, query, name)"
-      ></InputTag>
+      <InputTag :List="mylearningCon.tagList" :type="'Add'" @addstatus="(e) => (status = e)"
+        @addfunc="(e, query, name) => conBackend(e, query, name)"></InputTag>
     </div>
     <div v-if="status == 'addLesson'">
-      <InputContent
-        :List="mylearningCon.tagList"
-        :type="'Add'"
-        @addstatus="(e) => (status = e)"
-        @addfunc="(e, query) => conBackend(e, query)"
-      ></InputContent>
+      <InputContent :List="mylearningCon.tagList" :type="'Add'" @addstatus="(e) => (status = e)"
+        @addfunc="(e, query) => conBackend(e, query)"></InputContent>
     </div>
-    <div v-if="status == 'edit'" >
-      <InputContent
-        :datas="currentlesson"
-        :type="'Edit'"
-        @addstatus="(e) => (status = e)"
-        @addfunc="(e, query) => conBackend(e, query)"
-      ></InputContent>
+    <div v-if="status == 'edit'">
+      <InputContent :datas="currentlesson" :type="'Edit'" @addstatus="(e) => (status = e)"
+        @addfunc="(e, query) => conBackend(e, query)"></InputContent>
     </div>
     <div class="flex lg:space-x-0 space-x-0 md:space-x-16" v-show="status == 'list'">
       <!-- Sidebar/menu with its own scroll bar -->
       <!-- hanberger on off -->
-      <div  class="fixed hover:cursor-pointer border-2 border-solid h-[43px]  px-2 flex items-center justify-center rounded-lg lg:invisible transition-all hover:text-blue-400 hover:border-blue-400">
-        <Hamberger/>
+      <div
+        class="fixed hover:cursor-pointer border-2 border-solid h-[43px]  px-2 flex items-center justify-center rounded-lg lg:invisible transition-all hover:text-blue-400 hover:border-blue-400">
+        <Hamberger :contents="mylearningCon.tagList"  @selected="selectLesson"
+          @addstatus="(e) => (status = e)" @deleteTag="(e1) => { mylearningCon.deleteTag(e1)}" />
       </div>
       <!-- lg -->
-      <div  class="pl-10 learning-list-container fixed max-h-[90%] overflow-auto invisible lg:visible">
-        <LearningList
-          class="bg-white"
-          :contents="mylearningCon.tagList"
-          @selected="selectLesson"
-          @addstatus="(e) => (status = e)"
-          @deleteTag="(e1)=>{ mylearningCon.deleteTag(e1)}"
-        >
+      <div class="pl-10 learning-list-container fixed max-h-[90%] overflow-auto invisible lg:visible">
+        <LearningList class="bg-white" :contents="mylearningCon.tagList" @selected="selectLesson"
+          @addstatus="(e) => (status = e)" @deleteTag="(e1) => { mylearningCon.deleteTag(e1) }">
         </LearningList>
       </div>
       <!-- small -->
       <div v-show="sidebarIsShow" class="pl-10 learning-list-container fixed max-h-[90%] overflow-auto lg:visible">
-        <LearningList
-          class="bg-white"
-          :contents="mylearningCon.tagList"
-          @selected="selectLesson"
-          @addstatus="(e) => (status = e)"
-          @deleteTag="(e1)=>{ mylearningCon.deleteTag(e1)}"
-        >
+        <LearningList class="bg-white" :contents="mylearningCon.tagList" @selected="selectLesson"
+          @addstatus="(e) => (status = e)" @deleteTag="(e1) => { mylearningCon.deleteTag(e1) }">
         </LearningList>
       </div>
       <!-- Content area with its own scroll bar -->
-      
-      <div class="ml-72" >
-        <LearningContent
-          class="lg:ml-80"
-          :contents="currentSet"
-          @buttonemit="(e, e1) => conBackend(e, e1)"
-          @addstatus="(e) => (status = e)"
-        ></LearningContent>
+
+      <div class="ml-72">
+        <LearningContent class="lg:ml-80" :contents="currentSet" @buttonemit="(e, e1) => conBackend(e, e1)"
+          @addstatus="(e) => (status = e)"></LearningContent>
       </div>
     </div>
   </div>
