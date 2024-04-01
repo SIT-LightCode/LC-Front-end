@@ -13,11 +13,8 @@ export const validateInput = defineStore('validateInput', () => {
     if (password != undefined && password != null) {
       let errorNote = ''
       password = password.replace(' ', '')
-      if (password.length < 6) {
+      if (password.length < 8) {
         errorNote = errorNote + 'Password is too short\n'
-      }
-      if (password.length > 20) {
-        errorNote = errorNote + 'Password is too long\n'
       }
       return errorNote
     } else return 'Password is null'
