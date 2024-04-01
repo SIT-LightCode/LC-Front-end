@@ -85,7 +85,7 @@ const lowCase = () => {
                                                 <li>At least one lowercase</li>
                                                 <li>At least one uppercase</li>
                                                 <li>At least one numeric</li>
-                                                <li>Minimum 8 characters</li>
+                                                <li>Minimum 6 characters</li>
                                             </ul>
                                         </template>
                                     </Password>
