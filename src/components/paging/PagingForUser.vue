@@ -3,11 +3,10 @@ import { ref, computed } from "vue"
 import buttonVue from '../button/Button.vue';
 import Paginator from 'primevue/paginator';
 import { MqResponsive } from "vue3-mq";
-
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
-import ColumnGroup from 'primevue/columngroup';   // optional
-import Row from 'primevue/row';                   // optional
+
 
 const emit = defineEmits(['deleteUser', 'editUser'])
 const props = defineProps({
@@ -37,61 +36,50 @@ const paginatedData = computed(() => {
   return 0
 
 })
+const clickEvent = (data) => {
 
-const selectedUser = ref();
+
+  Swal.fire({
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: "Edit",
+    confirmButtonColor: "#23A203",
+    cancelButtonColor: "#A21F03",
+    denyButtonColor: '#0357A2',
+    denyButtonText: `Delete`,
+    cancelButtonText: `Cancel`
+  }).then((result) => {
+    if (result.isConfirmed) {
+      emit('editUser', data)
+    } else if (result.isDenied) {
+      emit('deleteUser', data.id)
+    }
+  });
+};
 
 
 </script>
 
 <template>
-<MqResponsive group>
+      <div class="">
+        <DataTable v-model:selectionKeys="selectedKey" :value="props.listData" paginator :rows="10"
+          tableStyle="min-width: 50rem;"
+          paginatorTemplate='FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink JumpToPageDropdown '
+          currentPageReportTemplate="{first} to {last} of {totalRecords}">
+          <Column field="name" header="Name" sortable style="width: 25%"></Column>
+          <Column field="email" header="Email" sortable style="width: 25%"></Column>
+          <Column field="authorities" header="Authorities" sortable style="width: 25%"></Column>
+          <Column field="score" header="Score" sortable style="width: 25%"></Column>
+          <Column headerStyle="width: 5rem; text-align: center" bodyStyle="text-align: center;">
+            <template #body={data}>
+              <button class="" @click="clickEvent(data)">
+                <i class="pi pi-bars"></i>
+              </button>
+            </template>
+          </Column>
+        </DataTable>
+      </div>
 
-<template #xs>
- 
-
-</template>
-
-<template #sm>
- 
-</template>
-<template #md-xxl>
-  <div>
-    <DataTable v-model:selectionKeys="selectedKey" :value="props.listData" paginator :rows="10"
-      tableStyle="min-width: 50rem;"
-      paginatorTemplate='FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink JumpToPageDropdown '
-      currentPageReportTemplate="{first} to {last} of {totalRecords}">
-      <Column field="name" header="Name" sortable style="width: 25%"></Column>
-      <Column field="email" header="Email" sortable style="width: 25%"></Column>
-      <Column field="authorities" header="Authorities" sortable style="width: 25%"></Column>
-      <Column field="score" header="Score" sortable style="width: 25%"></Column>
-      <Column headerStyle="width: 5rem; text-align: center" bodyStyle="text-align: center;">
-        <template #body={data}>
-          <buttonVue @buttonClick="() => $emit('deleteUser', data.id)" :name="'delete'">
-          </buttonVue>
-        </template>
-      </Column>
-      <Column headerStyle="width: 5rem; text-align: center" bodyStyle="text-align: center; ">
-        <template #body={data}>
-          <buttonVue @buttonClick="() =>  $emit('editUser', data)" :name="'edit'">
-          </buttonVue>
-        </template>
-      </Column>
-    </DataTable>
-
-  </div>
-
-
-</template>
-</MqResponsive>
-
-
-
-
-
-
-
-
-  
 </template>
 
 <style scoped></style>

@@ -122,7 +122,7 @@ const doSubmit = async (id, answer) => {
         result.value = data;
         if (result.value == 0) {
         }
-        else  {
+        else {
             isModal.value = true
         }
     } catch (error) {
@@ -138,12 +138,20 @@ onBeforeMount(async () => {
 </script>
 <template>
     <div class="relative  ">
-   
-        <Dialog v-model:visible="isModal" modal header="Answer" :style="{ width: '50rem' }"
-                :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
-                <ResultPage :data="result">
+        <div class="card flex justify-content-center">
+
+        <Dialog v-model:visible="isModal"  
+        modal 
+        :pt="{
+            root: 'border-none',
+            mask: {
+                style: 'backdrop-filter: blur(2px)'
+            }
+        }" header="Answer" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+            <ResultPage :data="result">
             </ResultPage>
         </Dialog>
+</div>
 
         <div class="grid grid-cols-1 gap-4 fixed max-h-[90%] w-[100%] overflow-y-scroll" v-if="page == 'isEdit'">
             <editPro @addstatus="(e1) => { page = e1 }" :learning="mylearningCon" :data=dataCurrent
@@ -154,20 +162,20 @@ onBeforeMount(async () => {
                 @Submit="(e1, e2) => { doSubmit(e1, e2) }"></inputAnswer>
         </div>
 
-        
+
         <div class="grid grid-cols-[20%_minmax(50%,_1fr)] gap-4 fixed max-h-[90%] w-[100%] overflow-y-scroll " v-else>
 
             <MqResponsive group>
                 <template #lg-xxl>
-                    <div class="">
+                    <div >
                         <filterBar :datas="mylearningCon" @filterValue="(e1) => { filterFunc(e1); }"></filterBar>
                     </div>
                 </template>
             </MqResponsive>
 
-        
+
             <!-- Filter-->
-            <div class="overflow-auto hover:overflow-scroll">
+            <div class="overflow-auto ">
                 <listProblem class="" @deleteProblem="(e1) => { myproblemCon.deleteProblem(e1) }"
                     @editProblem="(e1) => { page = 'isEdit'; dataCurrent = e1 }"
                     @doProblem="(e1) => { page = 'isDo'; dataCurrent = e1 }" :datas="test"></listProblem>

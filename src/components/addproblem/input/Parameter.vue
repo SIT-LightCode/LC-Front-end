@@ -71,7 +71,7 @@ const addDeleteExample = (type, id) => {
       example.value.example.val.push(newExample);
     }
   }
-  
+
   if (type == "delete") {
     if (id == 'para') {
       for (let exa in example.value.example.val) {
@@ -98,7 +98,7 @@ const text =
       <v-md-preview :text="text"></v-md-preview>
     </div>
 
-    <div class="flex flex-row">
+    <!-- <div class="flex flex-row">
       <button :disabled="example.example.val[0].length > 3 "
                class="text-gray-900 dark:text-white font-bold m-2 py-2 px-4 rounded-full" :class="[
                example.example.val[0].length > 3  ? 'bg-gray-300 ': 'bg-blue-400 hover:bg-blue-500',]"
@@ -111,8 +111,9 @@ const text =
         @click="addDeleteExample('delete', 'para')">
         Delete parameter
       </button>
-    </div>
+    </div> -->
 
+    Add parameter
 
     <div v-for="(i, key1) of example.example.val" class="py-5">
       <h3>Example [{{ key1 + 1 }}]</h3>
@@ -120,11 +121,24 @@ const text =
         <div v-for="(j, key2) of i" class="flex flex-row py-3">
           <h3 class="place-self-center px-5">Parameters [{{ key2 + 1 }}]</h3>
           <input rows="4" v-bind:class="csstextarea" v-model="example.example.val[key1][key2]" />
-        </div>
 
+        </div>
+        <div class="flex flex-row">
+          <button v-show="!(example.example.val[0].length > 3)"
+            class=" text-gray-900 dark:text-white font-bold m-2 py-2 px-4 rounded-full" 
+            @click="addDeleteExample('add', 'para')"><i class="pi pi-plus-circle" style="font-size: 1rem"></i>
+
+          </button>
+
+          <button v-show="!(example.example.val[0].length <= 1)"
+            class="text-gray-900 dark:text-white font-bold m-2 py-2 px-4 rounded-full" 
+            @click="addDeleteExample('delete', 'para')">
+            <i class="pi pi-minus-circle
+" style="font-size: 1rem"> </i> </button>
+        </div>
       </div>
     </div>
-    <button :disabled="example.example.val.length > 3"
+    <button v-show="!(example.example.val.length  > 3)"
       class="text-gray-900 dark:text-white font-bold m-2 py-2 px-4 rounded-full" :class="[
         example.example.val.length > 3
           ? 'bg-gray-300 '
@@ -132,7 +146,7 @@ const text =
       ]" @click="addDeleteExample('add')">
       Add Example parameter
     </button>
-    <button :disabled="example.example.val.length <= 1"
+    <button v-show="!(example.example.val.length <= 1)"
       class="text-gray-900 dark:text-white font-bold m-2 py-2 px-4 rounded-full" :class="[
         example.example.val.length <= 1
           ? 'bg-gray-300 '
@@ -142,9 +156,9 @@ const text =
     </button>
   </div>
   <buttonPage :pages="3" @page="(e1) => {
-    inputExam(e1);
-  }
-    "></buttonPage>
+        inputExam(e1);
+      }
+        "></buttonPage>
 </template>
 
 <style></style>

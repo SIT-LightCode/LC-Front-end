@@ -5,6 +5,8 @@ import { account } from '../../stores/Account';
 import Paginator from 'primevue/paginator';
 import { MqResponsive } from "vue3-mq";
 import Swal from 'sweetalert2/dist/sweetalert2.js'
+import Image from 'primevue/image';
+
 const emit = defineEmits(['doProblem', 'deleteProblem', 'editProblem'])
 const props = defineProps({
   listData: {
@@ -127,7 +129,8 @@ const clickEvent = (i) => {
           <div @click="clickEvent(i)">
             <p class="text-3xl">{{ i.name }}</p>
             <p>Score: {{ i.totalScore }}</p>
-            <p>Official: {{ i.isOfficial }}</p>
+            <p>Official: {{ i.isOfficial }}
+            </p>
             <p v-if="i.level > 0 && i.level < 6" :class="levelArray[i.level - 1]">difficulty: {{ returnLevel(i.level) }}
             </p>
             <div class="line-clamp-4" v-if="index === indexShow">
@@ -149,9 +152,10 @@ const clickEvent = (i) => {
           v-for="(i, index) in paginatedData"
           :class="`hover:cursor-pointer rounded-lg text-black w-72 m-5 p-5 relative hover:scale-110 transition-all ` + (index === indexShow ? `bg-gray-200 z-[200000]` : ` bg-white h-[200px]`)">
           <div @click="$emit('doProblem', i)">
-            <p class="text-2xl">{{ i.name }}</p>
+            <p class="text-2xl truncate ">{{ i.name }}</p>
             <p>Score: {{ i.totalScore }}</p>
-            <p>Official: {{ i.totalScore }}</p>
+            <p>Official: {{ i.isOfficial }}
+            </p>
             <p v-if="i.level > 0 && i.level < 6" :class="levelArray[i.level - 1]">difficulty: {{ returnLevel(i.level) }}
             </p>
             <p class=" ">create by: {{ i.user.name }}</p>

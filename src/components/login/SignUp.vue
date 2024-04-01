@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import ButtonPage from '../button/Button.vue';
 import { Toaster, toast } from 'vue-sonner'
 import Password from 'primevue/password';
+import InputText from 'primevue/inputtext';
 
 const emit = defineEmits(['create', 'status'])
 
@@ -60,20 +61,16 @@ const lowCase = () => {
                                     <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
                                         for="grid-password">Name
                                     </label>
-                                    <input type="text"
-                                        class="border-0 px-3 py-3 mb-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                                        placeholder="Name" style="transition: all 0.15s ease 0s;"
-                                        v-model="dataForCreate.name" />
+                                    <InputText type="email" @change="lowCase()" v-model="dataForCreate.name" />
+
+                                    
 
                                     <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
                                         for="grid-password">Email
                                     </label>
-                                    <input type="email"
-                                        class="border-0 px-3 py-3 mb-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                                        placeholder="Email" style="transition: all 0.15s ease 0s;" @change="lowCase()"
-                                        v-model="dataForCreate.email" />
+                                    <InputText type="email" @change="lowCase()" v-model="dataForCreate.email" />
 
-
+                                   
                                     <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
                                         for="grid-password">Password
                                     </label>

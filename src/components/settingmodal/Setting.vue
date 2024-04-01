@@ -34,24 +34,16 @@ const lowCase = () => {
         <div class="relative w-auto my-6 mx-auto max-w-6xl">
             <!--content-->
             <div
-                class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                class="border-0  rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 <!--header-->
-                <div class="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
+                <div class="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t bg-gray-100">
                     <h3 class="text-3xl font-semibold">
                         Setting
-                    </h3>
-                    <button
-                        class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                        v-on:click="toggleModal()">
-                        <span
-                            class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                            ×
-                        </span>
-                    </button>
+                    </h3>         
                 </div>
                 <!--body-->
-                <div class="relative p-6 flex ">
-                    <div style="width: 50vh; height: 50vh" class="border-2 rounded-lg p-5 m-5 ">
+                <div class="relative p-6 flex bg-blue-300">
+                    <div style="width: 50vh; height: 50vh" class="border-2 rounded-lg p-5 m-5 bg-gray-100">
 
                         <div v-if="editMode">
                             Account
@@ -88,7 +80,7 @@ const lowCase = () => {
                     </div>
                 </div>
                 <!--footer-->
-                <div class="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+                <div class="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b bg-gray-100">
                     <buttonVue :name="'Close'" @buttonClick="editMode = true; $emit('CloseModal', false);" :status="false">
                     </buttonVue>
                     

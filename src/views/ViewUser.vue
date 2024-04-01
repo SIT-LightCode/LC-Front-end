@@ -86,16 +86,14 @@ onBeforeMount(async () => {
             <div class="grid grid-cols-[20%_minmax(50%,_1fr)_100px] gap-4 fixed max-h-[90%] w-[100%] overflow-scroll " v-else>
 
                 <MqResponsive group>
-                    <template #lg-xxl>
-                        <div class="" >
-                            <filterBar @filterValue="(e1) => { filterFunc(e1); }"></filterBar>
-                        </div>
+                    <template #xl-xxl>
+                            <filterBar class="invisible lg:visible" @filterValue="(e1) => { filterFunc(e1); }"></filterBar>
                     </template>
                 </MqResponsive>
 
 
                 <!-- Filter-->
-                <div class="">
+                <div class="overflow-auto">
                     <ListUser @deleteUser="(id) => { deleteUser(id) }"
                         @editUser="(select) => { isEdit = true; selectUser = select; }" :datas="dataFilter">
                     </ListUser>

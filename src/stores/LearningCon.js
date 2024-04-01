@@ -34,8 +34,7 @@ export const learningCon = defineStore('learningCon', () => {
   const addTag = async (querys, type) => {
 
 
-    console.log('here')
-    console.log(type)
+
     await myconnectBackend.connectBack(querys).then((res) => {
       if (res != '') {
         getAllTag()

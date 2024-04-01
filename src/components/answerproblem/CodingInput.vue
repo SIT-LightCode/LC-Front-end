@@ -37,10 +37,10 @@ const countFailedTestCases = computed(() => {
 <template>
     <div>
         <buttonvue class="" @buttonClick="$emit('addstatus', '')" :name="'Back'"></buttonvue>
-        <buttonvue class="" v-if="countFailedTestCases != 0 "
+        <buttonvue class="" 
             @buttonClick="input = 'const answer = (input) => {\n \n \n 	//Code Here \n return input;   \n \n \n \n  }'"
             :name="'Reset'"></buttonvue>
-        <buttonvue v-if="countFailedTestCases != 0" class="" @buttonClick="$emit('Submit', input)" :name="'Submit'">
+        <buttonvue class="" @buttonClick="$emit('Submit', input)" :name="'Submit'">
         </buttonvue>
 
         <div class="max-w-[100%]"> 
