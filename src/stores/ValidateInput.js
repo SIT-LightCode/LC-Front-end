@@ -9,14 +9,27 @@ import Cookies from 'js-cookie'
 
 export const validateInput = defineStore('validateInput', () => {
   
-  const validatePassword = (password) => {
+  const validatePassword = (password,status) => {
     if (password != undefined && password != null) {
       let errorNote = ''
       password = password.replace(' ', '')
       if (password.length < 6) {
         errorNote = errorNote + 'Password is too short\n'
       }
-
+    if(status){
+      const regexUpperCase = /[A-Z]/;
+      const regexLowerCase = /[a-z]/;
+      const regexNumber = /\d/;
+      if (!(regexUpperCase.test(password))) {
+        errorNote = errorNote + 'Password dont has UpperCase\n'
+      }
+      if (!(regexLowerCase.test(password))) {
+        errorNote = errorNote + 'Password dont has LowerCase\n'
+      }
+      if (!(regexNumber.test(password))) {
+        errorNote = errorNote + 'Password dont has Number\n'
+      }
+    }
       return errorNote
     } else return 'Password is null'
   }

@@ -62,7 +62,7 @@ user.value = JSON.parse(localStorage.getItem('user'))
     <IconHamberger/>
   </button>
     </div>
-    <Dialog v-model:visible="visible" header="Edit Profile" :style="{ width: '25rem' }" :position="position" :modal="true" :draggable="false">
+    <Dialog v-model:visible="visible" header="" :style="{ width: '25rem' }" :position="position" :modal="true" :draggable="false">
       <div v-if="contents.length > 0" class="flex">
         <IconAdd @click="showModalToAddContent" v-if="user.authorities.includes('ADMIN')"
       class="fixed transition right-6 bottom-6 w-20 h-20 hover:text-blue-500 hover:cursor-pointer" />

@@ -33,7 +33,7 @@ export const account = defineStore('account', () => {
     let errorValidate =
       myVaildate.validateNameNull(nameAccount, 'name') +
       myVaildate.validateEmail(emailAccount) +
-      myVaildate.validatePassword(passwordAccount)
+      myVaildate.validatePassword(passwordAccount,true)
     if (errorValidate != '') {
       toast.error(errorValidate)
       return 'error'
@@ -67,6 +67,7 @@ export const account = defineStore('account', () => {
     }
   }
   const EditAccount = async (editUser, olddata) => {
+
     let errorValidate =
       myVaildate.validateNameNull(editUser.name, 'name') +
       myVaildate.validateEmail(editUser.email) +

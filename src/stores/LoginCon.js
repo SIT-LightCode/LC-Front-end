@@ -34,7 +34,7 @@ export const loginCon = defineStore('loginCon', () => {
   }
 
   const SignIn = async (email, password) => {
-    let errorValidate = myVaildate.validateEmail(email) + myVaildate.validatePassword(password)
+    let errorValidate = myVaildate.validateEmail(email) + myVaildate.validatePassword(password,false)
     if (errorValidate != '') {
       toast.error(errorValidate)
     } else {

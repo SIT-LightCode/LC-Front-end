@@ -34,6 +34,15 @@ const lowCase = () => {
     dataForCreate.value.email = dataForCreate.value.email.toLowerCase()
 }
 
+// .trim(" ")
+const maxPassword = () =>{    
+    dataForCreate.value.password = dataForCreate.value.password.substring(0, 20).trim(" ")
+
+}
+const maxConPassword = () =>{    
+    dataForCreate.value.passwordConfirm = dataForCreate.value.passwordConfirm.substring(0, 20).trim(" ")
+
+}
 </script>
 
 <template>
@@ -74,7 +83,7 @@ const lowCase = () => {
                                     <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
                                         for="grid-password">Password
                                     </label>
-                                    <Password v-model="dataForCreate.password" toggleMask >
+                                    <Password v-model="dataForCreate.password" toggleMask  @change="maxPassword">
                                         <template #header>
                                             <h6>Pick a password</h6>
                                         </template>
@@ -86,6 +95,7 @@ const lowCase = () => {
                                                 <li>At least one uppercase</li>
                                                 <li>At least one numeric</li>
                                                 <li>Minimum 6 characters</li>
+                                                <li>Maximum 20 characters</li>
                                             </ul>
                                         </template>
                                     </Password>
@@ -94,7 +104,7 @@ const lowCase = () => {
                                     <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
                                         for="grid-password">Confirm Password
                                     </label>
-                                    <Password v-model="value" :feedback="false" toggleMask />
+                                    <Password v-model="dataForCreate.passwordConfirm" :feedback="false" toggleMask @change="maxConPassword"/>
 
                                 </div>
 
