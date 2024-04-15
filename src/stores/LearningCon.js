@@ -7,9 +7,10 @@ import { validateInput } from './ValidateInput.js'
 import * as gql from 'gql-query-builder'
 
 // const mymodal = modalSwal()
-const myconnectBackend = connectBackend()
 
 export const learningCon = defineStore('learningCon', () => {
+  const myconnectBackend = connectBackend()
+
   let tagList = ref({})
   const myValidate = validateInput()
   const getAllTag = async () => {
@@ -32,9 +33,6 @@ export const learningCon = defineStore('learningCon', () => {
   }
 
   const addTag = async (querys, type) => {
-
-
-
     await myconnectBackend.connectBack(querys).then((res) => {
       if (res != '') {
         getAllTag()
@@ -70,18 +68,17 @@ export const learningCon = defineStore('learningCon', () => {
     })
   }
   const deleteTag = async (id) => {
-  //   { variables: {
+    //   { variables: {
     // id: { type: "Int", value: null },
-  //     "query": "mutation RemoveTag{\n  removeTag(tagId: 1)\n}",
-  //     "operationName": "RemoveTag"
-  // }
-  console.log(id)
+    //     "query": "mutation RemoveTag{\n  removeTag(tagId: 1)\n}",
+    //     "operationName": "RemoveTag"
+    // }
+    console.log(id)
     let query = gql.mutation(
       {
         operation: 'removeTag',
-        variables: { 
-          tagId:{type:'Int!',value: id},
-          
+        variables: {
+          tagId: { type: 'Int!', value: id },
         },
       },
       undefined,
@@ -98,5 +95,5 @@ export const learningCon = defineStore('learningCon', () => {
     })
   }
 
-  return { tagList, getAllTag, addContent, deleteContent, addTag ,deleteTag}
+  return { tagList, getAllTag, addContent, deleteContent, addTag, deleteTag }
 })
