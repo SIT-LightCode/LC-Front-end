@@ -25,49 +25,28 @@ const LogOut = () => {
 
   showModal.value = false
 }
-
-// const openmodal = () =>{
-//   console.log(sidebarIsShow.value)
-//   sidebarIsShow.value = false ;
-//   console.log(sidebarIsShow.value)
-
-// }
 </script>
 
 <template>
-  <div class="text-black text-base min-h-screen bg-white relative  ">
+  <div class="text-black text-base  bg-white ">
     <Toaster richColors position="top-right" />
+    <div>
+      <Navbar v-if="$route.path == '/'" class="" />
+    </div>
+    <div class="flex fixed ">
+      <div class="flex-none "> 
+        <Sidebar v-if="$route.path !== '/' && $route.path !== '/login/signin'&& $route.path !== '/login/signup'" @LogOut="()=>{LogOut()}"></Sidebar>
+      </div>
+      <div class="grow">
+        <RouterView class="p-10"/>
 
-    <Navbar v-if="$route.path !== '/login'"  class="z-10"/>
-    <Sidebar v-if="$route.path !== '/' && $route.path !== '/login'&& $route.name !== 'NotFound'" @openCloseSidebarEmit="openCloseSidebar"  @OpenModal="() => {
-      showModal = true; 
-    }" @LogOut="() => { LogOut() }"/>
-    <!-- mainn -->
-    <RouterView class="pt-24 inline-block  " />
+      </div>
 
+    </div>
   </div>
   <div v-if="showModal">
-    <setting @CloseModal="(e1) => { showModal = e1 }"  ></setting>
+    <setting @CloseModal="(e1) => { showModal = e1 }"></setting>
   </div>
 </template>
 
-<style scoped>
-ul li {
-  list-style: none;
-}
-
-.line {
-  width: 100%;
-  border-top: 2px black solid;
-}
-
-.footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: red;
-  color: white;
-  text-align: center;
-}
-</style>
+<style scoped></style>

@@ -1,4 +1,6 @@
 <script setup>
+import { RouterLink, RouterView, useRouter } from 'vue-router'
+import { cookieData } from '../../stores/CookieData'
 import IconArrowSmallLeft from "../icons/IconArrowSmallLeft.vue"
 import IconArrowSmallRight from "../icons/IconArrowSmallRight.vue"
 import { ref, onBeforeMount } from "vue"
@@ -7,6 +9,7 @@ import { account } from "../../stores/Account.js"
 import Menu from 'primevue/menu';
 import { PrimeIcons } from 'primevue/api';
 
+const router = useRouter()
 const myAccount = account()
 const emit = defineEmits(["openCloseSidebarEmit", "OpenModal", "LogOut"])
 const sidebarIsShow = ref(false)
@@ -29,66 +32,112 @@ const setRole = () => {
 }
 setRole()
 
-const items =  ref([
+// const items = ref([
+// 	{
+// 		label: 'Settings',
+// 		icon: 'pi pi-cog',
+// 		command: () => {
+// 			sidebarIsShow.value = false;
+// 			emit('OpenModal', true)
+// 		}
+// 	},
+// 	{
+// 		label: 'Logout',
+// 		icon: 'pi pi-sign-out',
+// 		command: () => {
+// 			sidebarIsShow.value = false;
+// 			emit('LogOut', true)
+// 		}
+// 	}
+// ])
 
+const items = ref([
 	{
-		label: 'Settings',
-		icon: 'pi pi-cog',
-		command: () => {
-			sidebarIsShow.value = false; 
-			emit('OpenModal', true)
-		}
+		label: 'Main Menu',
+		items: [
+			{
+				label: 'Home',
+				icon: 'pi pi-home',
+				command: () => {
+					router.push("/lightcode")
+				}
+			},
+			{
+				label: 'Learning',
+				icon: 'pi pi-book',
+				command: () => {
+					router.push("/learning/list/0/0")
+				}
+			},
+			{
+				label: 'Problem',
+				icon: 'pi pi-credit-card',
+				command: () => {
+					router.push("/problem")
+				}
+			},
+			// {
+			// 	label: 'My Problem',
+			// 	icon: 'pi pi-search',
+			// 	command: () => {
+			// 		router.push("")
+			// 	}
+			// },
+			{
+				label: 'View User',
+				icon: 'pi pi-users',
+				command: () => {
+					router.push("/view-user")
+				}
+			}
+		]
 	},
 	{
-		label: 'Logout',
-		icon: 'pi pi-sign-out',
-		command: () => {
+		label: 'Profile',
+		items: [
+			{
+				label: 'Settings',
+				icon: 'pi pi-cog',
+				command: () => {
+					sidebarIsShow.value = false;
+					emit('OpenModal', true)
+				}
+			},
+			{
+				label: 'Logout',
+				icon: 'pi pi-sign-out',
+				command: () => {
+					emit('LogOut', true)
+				}
 
-
-			sidebarIsShow.value = false; 
-			emit('LogOut', true)
-		}
+			}
+		]
 	}
-])
-
-
+]);
 </script>
 
 <template>
-	<div class="">
-		<div :class="(sidebarIsShow ? `w-full` : `w-44 h-10`) +
-			` z-[10000] max-w-fit bg-gray-800 transition-all text-white fixed  rounded-r-lg  top-1/2 left-0 transform -translate-y-1/2`
-			">
-			<div v-show="sidebarIsShow" class="flex ">
-				<div class="flex flex-col items-center p-4 ">
-					<div class="relative w-full pb-3">
-						<div class="flex justify-center font-bold">
-							<div >{{ user.name }}</div>
-						</div>
-					</div>
-					
-					<div class="">
-						<ul v-for="(user, key) in user">
-							<li v-if="key !== 'skills' && key !== 'id'">{{ key }} : {{ user }}</li>
-						</ul>
-					</div>
-					<div class="flex justify-content-center py-2">
-						<Menu :model="items" />
-					</div>
-				</div>
-
-				<div @click="openCloseSideBar"
-					class=" flex items-center rounded-r-lg   hover:cursor-pointer transition hover:bg-blue-500 ">
-					<IconArrowSmallLeft />
-
-				</div>
+	<div class="p-5 ">
+		<RouterLink :to="'/lightcode'">
+			<div class="flex items-center  pl-11 pt-3 gap-4 ">
+				<img class="h-12 invisible sm:visible" src='../../assets/picture/lclogo.png' alt="logo_my_froup">
+				<h1 class=" font-roboto font-bold invisible md:visible text-[#007AFF]">Lightcode </h1>
 			</div>
-			<div @click="openCloseSideBar" v-show="sidebarIsShow == false"
-				class="h-10 w-10 hover:cursor-pointer transition hover:bg-blue-500 rounded-r-lg flex justify-center items-center">
-				<IconArrowSmallRight />
-			</div>
+		</RouterLink>
+		<div class="card flex justify-content-center">
+			<Menu :model="items" />
 		</div>
 	</div>
 </template>
 
-<style scoped></style>
+<style scoped>
+#text {
+	color: rgba(0, 0, 0, 0.25);
+	font-family: Roboto;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 20px;
+	/* 125% */
+}
+</style>

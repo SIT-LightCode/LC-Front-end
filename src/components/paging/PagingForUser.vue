@@ -79,7 +79,7 @@ const clickEvent = (data) => {
           </Column>
         </DataTable>
       </div>
-
+  
 </template>
 
 <style scoped></style>

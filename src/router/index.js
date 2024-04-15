@@ -20,7 +20,7 @@ function getCookie(cname) {
 
 function checkLogin(to, from) {
   if (getCookie('refreshToken') == '') {
-    return { path: '/login' }
+    return { path: '/login/signin' }
   }
 }
 
@@ -51,16 +51,29 @@ const router = createRouter({
           return { path: '/lightcode' }
         }
       },
-      component: () => import('../views/Login.vue'),
+      children: [
+        { path: 'signup', component: () => import('../views/Login.vue') },
+        { path: 'signin', component: () => import('../views/Login.vue') },
+      ],
     },
     {
       path: '/problem',
       name: 'problem',
       beforeEnter: checkLogin,
       component: () => import('../views/Problem.vue'),
+      children: [
+        {
+          path: 'edit-problem/:id',
+          component: () => import('../views/Problem.vue'),
+        },
+        {
+          path: 'do-problem /:id',
+          component: () => import('../views/Problem.vue'),
+        },
+      ],
     },
     {
-      path: '/learning',
+      path: '/learning/:status/:tagid/:lessonid',
       name: 'learning',
       beforeEnter: checkLogin,
       component: () => import('../views/Learning.vue'),
@@ -76,7 +89,7 @@ const router = createRouter({
       name: 'viewuser',
       beforeEnter: (to, from) => {
         if (getCookie('refreshToken') == '') {
-          return { path: '/login' }
+          return { path: '/login/signin' }
         }
         if (localStorage.getItem('user') !== '') {
           const user = JSON.parse(localStorage.getItem('user'))
@@ -84,7 +97,7 @@ const router = createRouter({
           if (!user.authorities.includes('ADMIN')) {
             return { name: 'NotFound' }
           }
-        } else return { path: '/login' }
+        } else return { path: '/login/signin' }
       },
       component: () => import('../views/ViewUser.vue'),
     },

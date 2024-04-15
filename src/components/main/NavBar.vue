@@ -1,46 +1,48 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView ,useRouter } from 'vue-router'
 import { account } from '../../stores/Account'
 import { cookieData } from '../../stores/CookieData'
 
 import { ref, onBeforeMount } from 'vue'
 const myAccount = account()
 const myCookie = cookieData()
-
+const router = useRouter()
 const links = ref([
-  { message: 'Home', path: '/lightcode' },
-  { message: 'Problem', path: '/problem' },
-  { message: 'Learning', path: '/learning' },
-  { message: 'View User', path: '/view-user' },
+    { message: 'Home', path: '/lightcode' },
+    { message: 'Problem', path: '/problem' },
+    { message: 'Learning', path: '/learning' },
+    { message: 'View User', path: '/view-user' },
 ])
 
-const user = ref({ id: null, name: '', email: '', authorities: ['USER'], score: 0, scoreUnOfficial: 0 }) 
+const user = ref({ id: null, name: '', email: '', authorities: ['USER'], score: 0, scoreUnOfficial: 0 })
 
 
 user.value = JSON.parse(localStorage.getItem('user'))
 
-
-
-
-
 </script>
 
 <template>
-    <div class="flex pb-4 pt-2 border-b-2 fixed w-full bg-white">
+    <div class="flex pb-4 pt-2  fixed w-full bg-white " v-if="$route.path != '/login/signin'&& $route.path != '/login/signup'">
         <RouterLink :to="'/lightcode'">
-        <div class="flex items-center absolute pl-11 pt-3 gap-4 ">
-            
-            <img class="h-12 invisible sm:visible" src='../../assets/picture/lclogo.png' alt="logo_my_froup" >
-            <h1 class=" font-roboto font-bold invisible md:visible">Lightcode </h1>
-            
-        </div></RouterLink>
-        <div v-if="$route.path == '/'" class="flex justify-end space-x-10  text-black p-1 w-full ">
-            <RouterLink :to="'/login'"
-                :class="`max-w-[800px] border-2 rounded-full border-blue-500 text-white bg-blue-500 hover:border-gray-300 hover:text-blue-500 hover:bg-white transitionflex flex-col items-center p-3 transition-all`">
-                <a> login </a>
+            <div class="flex items-center absolute pl-11 pt-3 gap-4 ">
+                <img class="h-12 invisible sm:visible" src='../../assets/picture/lclogo.png' alt="logo_my_froup">
+                <h1 class=" font-roboto font-bold invisible md:visible text-[#007AFF]">Lightcode </h1>
+            </div>
+        </RouterLink>
+        <div v-if="$route.path == '/'" class="flex justify-end space-x-10 px-5 py-2 w-full ">
+           
+            <RouterLink id="joinButton" :to="'/login/signin'" :class="`border-2 items-center p-3 `">
+                <a> log in </a>
             </RouterLink>
+        
+            <RouterLink id="joinButton" :to="'/login/signup'" :class="` text-[#007AFF] border-[#007AFF] border-2 items-center p-3 `">
+                <a> join </a>
+            </RouterLink>
+
         </div>
-        <div v-else-if="$route.path !== '/login'" class="flex justify-center space-x-2 sm:space-x-10 text-black p-1 w-full ">
+       
+       
+        <!-- <div v-else-if="$route.path !== '/login'" class="flex justify-center space-x-2 sm:space-x-10 text-black p-1 w-full ">
             <RouterLink :to="'/lightcode'"
                 :class="($route.path === '/lightcode' ? `border-blue-500` : ``) + ` max-w-[800px] border-b-4  hover:border-blue-500 hover:text-blue-500 transition flex flex-col items-center p-3 `">
                 <a> Home </a>
@@ -58,7 +60,7 @@ user.value = JSON.parse(localStorage.getItem('user'))
                 :class="($route.path === '/view-user' ? `border-blue-500` : ``) + ` max-w-[800px] border-b-4  hover:border-blue-500 hover:text-blue-500 transition flex flex-col items-center p-3 `">
                 <a> View User </a>
             </RouterLink>
-        </div>
+        </div> -->
     </div>
 </template>
 

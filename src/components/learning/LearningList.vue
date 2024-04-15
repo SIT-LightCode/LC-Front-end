@@ -4,9 +4,11 @@ import IconAdd from '../icons/IconAdd.vue'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import buttonVue from '../button/Button.vue';
 import { account } from '../../stores/Account.js'
+import { useRouter } from 'vue-router'
 
+const myRouter = useRouter()
 // Capture the emit function
-const emit = defineEmits(['selected', 'addstatus','deleteTag'])
+const emit = defineEmits(['selected', 'addstatus', 'deleteTag'])
 const myAccount = account()
 const props = defineProps({
   contents: Object,
@@ -18,33 +20,19 @@ const selectedLesson = ref(1)
 
 const handleLessonClick = (lesson, topicId) => {
   selectedLesson.value = lesson.id
-  emit('selected', lesson, topicId) // Use the emit function directly
+  myRouter.push({ name: 'learning', params: { status:"list",tagid: topicId,lessonid: lesson.id } })
+  emit('selected', lesson,topicId) // Use the emit function directly
 }
 
-const showModalToAddContent = async () => {
 
-  await Swal.fire({
-    title: 'What do you want to add?',
-    showCancelButton: true,
-    confirmButtonText: 'Add Lesson',
-    cancelButtonText: 'Add Tag',
-    reverseButtons: true,
-  }).then((result) => {
-    if (result.isConfirmed) {
-      emit('addstatus', 'addLesson')
-    } else if (result.dismiss === 'cancel') {
-      emit('addstatus', 'addTag')
-    }
-  })
-}
+
 user.value = JSON.parse(localStorage.getItem('user'))
 
 </script>
 
 <template>
   <div v-if="contents.length > 0" class="flex">
-    <IconAdd @click="showModalToAddContent" v-if="user.authorities.includes('ADMIN')"
-      class="fixed transition right-6 bottom-6 w-20 h-20 hover:text-blue-500 hover:cursor-pointer" />
+   
     <div class="flex flex-col space-y-5 pr-6">
       <div v-for="topic in contents" class="flex flex-col content-center text-black bg-white">
         <div>
@@ -53,13 +41,17 @@ user.value = JSON.parse(localStorage.getItem('user'))
 
 
             <div v-for="lesson in topic.lesson" @click="handleLessonClick(lesson, topic.id)" :class="lesson.id === selectedLesson
-              ? 'transition border-blue-500 border-b-2 text-blue-600 cursor-pointer'
-              : 'text-black transition border-b-2 hover:text-blue-400 hover:cursor-pointer'
-              ">
+    ? 'transition border-blue-500 border-b-2 text-blue-600 cursor-pointer'
+    : 'text-black transition border-b-2 hover:text-blue-400 hover:cursor-pointer'
+    ">
               {{ lesson.name }}
             </div>
             <div v-show="topic.lesson == null"><b style="color: red"> No lesson </b></div>
-            <div v-if="user.authorities.includes('ADMIN')"> <buttonVue  @buttonClick="$emit('deleteTag', topic.id)" :name="'Delete Tag'"></buttonVue>
+            <div v-if="user.authorities.includes('ADMIN')">
+              <buttonVue @buttonClick="$emit('deleteTag', topic.id)" :name="'Delete Tag'"
+                class="bg-red-300 hover:bg-red-400"></buttonVue>
+              <buttonVue @buttonClick="$emit('addstatus', 'addTag')" :name="'Edit Tag'"
+                class="bg-sky-300 hover:bg-sky-400"></buttonVue>
             </div>
           </div>
         </div>

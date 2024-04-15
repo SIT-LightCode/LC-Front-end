@@ -33,68 +33,69 @@ const lowCase = () => {
 </script>
 
 <template>
-    <div class="absolute w-full h-full z-[5]">
-        <div class="absolute top-0 w-full h-full bg-center bg-cover"
-            style='background-image: url("https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1267&amp;q=80");'>
-            <span id="blackOverlay" class="w-full h-full absolute opacity-75 bg-black"></span>
+<div class="flex flex-col gap-12 pt-20 md:flex-row items-center justify-center ">
+        <div class="w-50"> 
+            <img class="invisible sm:visible content-center" width="250" src="../../assets/picture/lclogo.png"
+                alt="logo_my_froup" />
         </div>
-        <div class="container mx-auto h-full">
-            <div class="flex content-center items-center justify-center h-full">
+        <div class="relative min-w-0 break-words w-50 mb-6 shadow-lg rounded-lg p-5">
+            <div class="mb-0 px-6 py-6 ">
+                <div class="text-center mb-3 ">
+                    <h6 class="" id="topic">
+                        Welcome Back!
+                    </h6>
+                </div>
+                <hr class="mt-6 border-b-1 border-gray-400" />
+            </div>
 
-                <div class="w-full lg:w-4/12 px-4">
-                    <div
-                        class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-100 border-0">
-                        <div class="rounded-t mb-0 px-6 py-6">
-                            <div class="text-center mb-3">
-                                <h6 class="text-gray-600 text-sm font-bold">
-                                    Sign in
-                                </h6>
-                            </div>
-                            <div class="btn-wrapper text-center">
-                                <!-- <button
-                                    class="bg-white active:bg-gray-100 text-gray-800 px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
-                                    type="button" style="transition: all 0.15s ease 0s;">
-                                    <img alt="..." class="w-5 mr-1" src="../../assets/picture/github.svg" />Github</button><button
-                                    class="bg-white active:bg-gray-100 text-gray-800 px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
-                                    type="button" style="transition: all 0.15s ease 0s;">
-                                    <img alt="..." class="w-5 mr-1" src="../../assets/picture/google.svg" />Google
-                                </button> -->
-                            </div>
-                            <hr class="mt-6 border-b-1 border-gray-400" />
-                        </div>
-                        <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
-                            <div class="text-gray-500 text-center mb-3 font-bold">
-                                <!-- <small>Or sign in with credentials</small> -->
-                            </div>
-                            <form>
-                                <div class="relative w-full mb-3">
-                                    <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
-                                        for="grid-password">Email
-                                    </label>
-                                    <InputText type="email" @change="lowCase()" v-model="dataForLogin.email" />
+            <span>Don’t have an account? <span class="hover:text-blue-500 transition-all"
+                    @click="$emit('status', true)">Sign up</span></span>
 
-
-                                </div>
-                                <div class="relative w-full mb-3">
-                                    <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
-                                        for="grid-password">Password
-                                    </label>
-                                    <Password v-model="dataForLogin.password" :feedback="false" toggleMask />
-
-
-                                </div>
-                            </form>
-                            <button @click="$emit('status', true)" class="hover:text-blue-500 transition-all">Create
-                                Account</button>
-                            <div class="text-center mt-6">
-                                <ButtonPage @buttonClick="checkLogin()" :status="false" :name="'Log In'"></ButtonPage>
-                            </div>
-                        </div>
+            <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+                <div class="text-gray-500 text-center mb-3 font-bold">
+                </div>
+                <form>
+                    <div class="relative w-full mb-3">
+                        <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="grid-password">Email
+                        </label>
+                        <InputText type="email" @change="lowCase()" v-model="dataForLogin.email" />
                     </div>
+                    <div class="relative w-full mb-3">
+                        <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="grid-password">Password
+                        </label>
+                        <Password v-model="dataForLogin.password" :feedback="false" toggleMask />
+                    </div>
+                </form>
+                <div class="text-center mt-6">
+                    <ButtonPage @buttonClick="checkLogin()" :status="false" :name="'Log In'"></ButtonPage>
                 </div>
             </div>
         </div>
     </div>
+
+
+
 </template>
 
-<style scoped></style>
+<style scoped>
+#topic {
+    color: #007AFF;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: "Rampart One";
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 36px;
+}
+.flex-container {
+  display: flex;
+  justify-content: center; /* จัด div ให้อยู่ตรงกลางตามแนวนอน */
+  align-items: center; /* จัด div ให้อยู่ตรงกลางตามแนวดิ่ง */
+}
+
+/* หรือใช้ Grid Layout */
+.grid-container {
+  display: grid;
+  place-items: center; /* จัด div ให้อยู่ตรงกลางทั้งแนวนอนและแนวดิ่ง */
+}
+</style>

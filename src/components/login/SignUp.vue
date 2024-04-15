@@ -35,91 +35,83 @@ const lowCase = () => {
 }
 
 // .trim(" ")
-const maxPassword = () =>{    
+const maxPassword = () => {
     dataForCreate.value.password = dataForCreate.value.password.substring(0, 20).trim(" ")
 
 }
-const maxConPassword = () =>{    
+const maxConPassword = () => {
     dataForCreate.value.passwordConfirm = dataForCreate.value.passwordConfirm.substring(0, 20).trim(" ")
 
 }
 </script>
 
 <template>
-    <div class="absolute w-full h-full z-[5]">
-        <div class="absolute top-0 w-full h-full bg-center bg-cover"
-            style='background-image: url("https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1267&amp;q=80");'>
-            <span id="blackOverlay" class="w-full h-full absolute opacity-75 bg-black"></span>
-        </div>
-        <div class="container mx-auto h-full">
-            <div class="flex content-center items-center justify-center h-full">
-
-                <div class="w-full lg:w-4/12 px-4">
-                    <div
-                        class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-100 border-0">
-                        <div class="rounded-t mb-0 px-6 py-6">
-                            <div class="text-center mb-3">
-                                <h6 class="text-gray-600 text-sm font-bold">
-                                    Create a new account
-                                </h6>
-                            </div>
-                        </div>
-                        <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
-                            <form>
-                                <div class="relative w-full mb-3">
-                                    <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
-                                        for="grid-password">Name
-                                    </label>
-                                    <InputText type="email" @change="lowCase()" v-model="dataForCreate.name" />
-
-                                    
-
-                                    <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
-                                        for="grid-password">Email
-                                    </label>
-                                    <InputText type="email" @change="lowCase()" v-model="dataForCreate.email" />
-
-                                   
-                                    <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
-                                        for="grid-password">Password
-                                    </label>
-                                    <Password v-model="dataForCreate.password" toggleMask  @change="maxPassword">
-                                        <template #header>
-                                            <h6>Pick a password</h6>
-                                        </template>
-                                        <template #footer>
-                                            <Divider />
-                                            <p class="mt-2">Suggestions</p>
-                                            <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
-                                                <li>At least one lowercase</li>
-                                                <li>At least one uppercase</li>
-                                                <li>At least one numeric</li>
-                                                <li>Minimum 6 characters</li>
-                                                <li>Maximum 20 characters</li>
-                                            </ul>
-                                        </template>
-                                    </Password>
-
-
-                                    <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
-                                        for="grid-password">Confirm Password
-                                    </label>
-                                    <Password v-model="dataForCreate.passwordConfirm" :feedback="false" toggleMask @change="maxConPassword"/>
-
-                                </div>
-
-                            </form>
-                            <div class="text-center mt-6">
-                                <ButtonPage @buttonClick="$emit('status', true)" :name="'Back'" :status="false">
-                                </ButtonPage>
-                                <ButtonPage @buttonClick="checkCreate()" :name="'Create Account'"></ButtonPage>
-                            </div>
-                        </div>
-                    </div>
+<div class="flex flex-col gap-12 pt-20 md:flex-row items-center justify-center ">
+    <div class="relative min-w-0 break-words w-50 mb-6 shadow-lg rounded-lg p-5">
+            <div class="mb-0 px-6 py-6 ">
+                <div class="text-center mb-3 ">
+                    <h6 class="" id="topic">
+                        Get Started!
+                    </h6>
                 </div>
+                <hr class="mt-6 border-b-1 border-gray-400" />
+            </div>
+            <span>Already have an account? <span class="hover:text-blue-500 transition-all"
+                    @click="$emit('status', true)">Sign in</span></span>
+            <form>
+                <div class="relative w-full mb-3">
+                    <label class="block uppercase text-gray-700 text-xs font-bold mb-2 p-2" for="grid-password">Name
+                    </label>
+                    <InputText type="email" @change="lowCase()" v-model="dataForCreate.name" />
+                    <label class="block uppercase text-gray-700 text-xs font-bold mb-2 p-2" for="grid-password">Email
+                    </label>
+                    <InputText type="email" @change="lowCase()" v-model="dataForCreate.email" />
+                    <label class="block uppercase text-gray-700 text-xs font-bold mb-2 p-2" for="grid-password">Password
+                    </label>
+                    <Password v-model="dataForCreate.password" toggleMask @change="maxPassword">
+                        <template #header>
+                            <h6>Pick a password</h6>
+                        </template>
+                        <template #footer>
+                            <Divider />
+                            <p class="mt-2">Suggestions</p>
+                            <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                                <li>At least one lowercase</li>
+                                <li>At least one uppercase</li>
+                                <li>At least one numeric</li>
+                                <li>Minimum 6 characters</li>
+                                <li>Maximum 20 characters</li>
+                            </ul>
+                        </template>
+                    </Password>
+                    <label class="block uppercase text-gray-700 text-xs font-bold mb-2 p-2" for="grid-password">Confirm
+                        Password
+                    </label>
+                    <Password v-model="dataForCreate.passwordConfirm" :feedback="false" toggleMask
+                        @change="maxConPassword" />
+
+                </div>
+            </form>
+            <div class="text-center mt-6">
+                <ButtonPage @buttonClick="checkCreate()" :name="'Create Account'"></ButtonPage>
             </div>
         </div>
+        <div class="w-50"> 
+            <img class="invisible sm:visible content-center" width="250" src="../../assets/picture/lclogo.png"
+                alt="logo_my_froup" />
+        </div>
+
     </div>
 </template>
 
-<style></style>
+<style>
+#topic {
+    color: #007AFF;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: "Rampart One";
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 36px;
+}
+</style>
