@@ -6,7 +6,7 @@ import listProblem from '../components/problem/ListProblem.vue';
 import editPro from '../components/addproblem/EditProblem.vue';
 import inputAnswer from '../components/answerproblem/InputAnswer.vue';
 import { MqResponsive } from "vue3-mq";
-import { learningCon } from '../stores/LearningCon.js'
+import { learningCon } from '../stores/learningCon'
 import { problemCon } from '../stores/ProblemCon';
 import { computed, ref, onBeforeMount } from 'vue';
 import { account } from '../stores/Account'
@@ -140,18 +140,16 @@ onBeforeMount(async () => {
     <div class="relative  ">
         <div class="card flex justify-content-center">
 
-        <Dialog v-model:visible="isModal"  
-        modal 
-        :pt="{
-            root: 'border-none',
-            mask: {
-                style: 'backdrop-filter: blur(2px)'
-            }
-        }" header="Answer" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
-            <ResultPage :data="result">
-            </ResultPage>
-        </Dialog>
-</div>
+            <Dialog v-model:visible="isModal" modal :pt="{
+                root: 'border-none',
+                mask: {
+                    style: 'backdrop-filter: blur(2px)'
+                }
+            }" header="Answer" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+                <ResultPage :data="result">
+                </ResultPage>
+            </Dialog>
+        </div>
 
         <div class="grid grid-cols-1 gap-4 fixed max-h-[90%] w-[100%] overflow-y-scroll" v-if="page == 'isEdit'">
             <editPro @addstatus="(e1) => { page = e1 }" :learning="mylearningCon" :data=dataCurrent
@@ -167,7 +165,7 @@ onBeforeMount(async () => {
 
             <MqResponsive group>
                 <template #lg-xxl>
-                    <div >
+                    <div>
                         <filterBar :datas="mylearningCon" @filterValue="(e1) => { filterFunc(e1); }"></filterBar>
                     </div>
                 </template>
