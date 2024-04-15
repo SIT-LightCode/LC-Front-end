@@ -21,7 +21,7 @@ const openCloseSidebar = (isShow) => {
 }
 
 const isNotPretest = computed(() => {
-  return myRouter.currentRoute.value.path !== '/pretest'
+  return myRouter.currentRoute.value.path !== '/pretest' && myRouter.currentRoute.value.path !== '/dopretest'
 })
 
 const LogOut = () => {
