@@ -6,7 +6,7 @@ import listProblem from '../components/problem/ListProblem.vue';
 import editPro from '../components/addproblem/EditProblem.vue';
 import inputAnswer from '../components/answerproblem/InputAnswer.vue';
 import { MqResponsive } from "vue3-mq";
-import { learningCon } from '../stores/learningCon'
+import { learningCon } from '../stores/LearningCon'
 import { problemCon } from '../stores/ProblemCon';
 import { computed, ref, onBeforeMount } from 'vue';
 import { account } from '../stores/Account'

@@ -2,7 +2,7 @@
 import { computed, ref, onBeforeMount } from 'vue';
 import { account } from '../stores/Account'
 import { problemCon } from '../stores/ProblemCon'
-import { learningCon } from '../stores/learningCon'
+import { learningCon } from '../stores/LearningCon'
 import IconCheck from '../components/icons/IconCheck.vue'
 const myAccount = account()
 const myProblem = problemCon()
