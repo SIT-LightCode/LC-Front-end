@@ -9,9 +9,28 @@ module.exports = {
     fontFamily: {
       'kanit': ['Kanit', 'sans-serif'],
       'montserrat': ['Montserrat', 'sans-serif'],
-      'roboto': ['Roboto', 'sans-serif']
+      'roboto': ['Roboto', 'sans-serif'],
+      'rampart': ['Rampart One', 'sans-serif']
     },
-    extend: {},
+    colors: {
+      'st-grey': '#F2F2F2',
+      'st-blue': '#007AFF'
+    },
+    extend: {
+      keyframes: {
+        wiggle: {
+            '0%, 100%': {
+                transform: 'rotate(-3deg)'
+            },
+            '50%': {
+                transform: 'rotate(3deg)'
+            },
+          }
+        },
+        animation: {
+          wiggle: 'wiggle 1s ease-in-out infinite',
+        }
+    },
     screens: {
       'sm': '640px',
       // => @media (min-width: 640px) { ... }

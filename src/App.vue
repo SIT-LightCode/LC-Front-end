@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink, RouterView, useRouter } from 'vue-router'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import Navbar from './components/main/NavBar.vue'
 import Sidebar from './components/main/SideBar.vue'
 import setting from './components/settingmodal/Setting.vue'
@@ -20,6 +20,10 @@ const openCloseSidebar = (isShow) => {
 
 }
 
+const isNotPretest = computed(() => {
+  return myRouter.currentRoute.value.path !== '/pretest'
+})
+
 const LogOut = () => {
   myLogin.logout()
 
@@ -38,12 +42,12 @@ const LogOut = () => {
   <div class="text-black text-base min-h-screen bg-white relative  ">
     <Toaster richColors position="top-right" />
 
-    <Navbar v-if="$route.path !== '/login'"  class="z-10"/>
-    <Sidebar v-if="$route.path !== '/' && $route.path !== '/login'&& $route.name !== 'NotFound'" @openCloseSidebarEmit="openCloseSidebar"  @OpenModal="() => {
+    <Navbar v-if="$route.path !== '/login'&&$route.path !== '/pretest'&&$route.path !== '/dopretest'"  class="z-10"/>
+    <Sidebar v-if="$route.path !== '/' && $route.path !== '/login'&& $route.name !== 'NotFound'&&$route.path !== '/pretest'&&$route.path !== '/dopretest'" @openCloseSidebarEmit="openCloseSidebar"  @OpenModal="() => {
       showModal = true; 
     }" @LogOut="() => { LogOut() }"/>
     <!-- mainn -->
-    <RouterView class="pt-24 inline-block  " />
+    <RouterView class="inline-block" :class="isNotPretest? 'pt-24':'' " />
 
   </div>
   <div v-if="showModal">

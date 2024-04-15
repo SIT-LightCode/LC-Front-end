@@ -27,6 +27,7 @@ const loginAccount = (e1) => {
  
 <template>
         <Toaster richColors position="top-right" />
+        <button @click="myRouter.push({ name: 'pretest' })">dawdWAd</button>
         <signin v-if="page == 'signin'" @status="page = 'signup'" @login="(e1)=>{loginAccount(e1)}"></signin>
         <signup v-else-if="page == 'signup'" @status="page = 'signin'" @create="(e1) => { createAccount(e1) }"></signup>
 </template>
