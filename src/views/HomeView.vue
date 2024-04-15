@@ -35,6 +35,7 @@ function mapTagIdsToNames(tagIds) {
 function mapProblemToFormat(problem) {
   const tags = mapTagIdsToNames(problem.arrayTagId);
   return {
+    id: problem.id,
     name: problem.name,
     score: problem.totalScore,
     difficulty: mapLevelToDifficulty(problem.level),
@@ -49,8 +50,6 @@ function calculateRelevance(userSkills, problemTags) {
   let relevance = 0;
   problemTags.forEach(problemTag => {
     userSkills.forEach(userSkill => {
-      console.log(userSkill);
-      console.log(problemTag);
       if (userSkill.tag.id === problemTag) {
         relevance += userSkill.level;
       }
