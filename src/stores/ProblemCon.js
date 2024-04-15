@@ -6,12 +6,12 @@ import { Toaster, toast } from 'vue-sonner'
 import { account } from './Account.js'
 import * as gql from 'gql-query-builder'
 
-const mymodal = modalSwal()
-const myconnectBackend = connectBackend()
-
 export const problemCon = defineStore('problemCon', () => {
   let problemList = ref({})
   const myAccount = account()
+
+  const mymodal = modalSwal()
+  const myconnectBackend = connectBackend()
 
   const getAllproblem = async () => {
     let querys = gql.query(
@@ -213,8 +213,9 @@ export const problemCon = defineStore('problemCon', () => {
       const data = await myconnectBackend.connectBack(query)
       if (data['data'] !== undefined) {
         let res = data['data']['checkAnswer']
+        myAccount.GetUserByEmail()
         return res
-      } else return 0 
+      } else return 0
     } catch (error) {
       console.error(error)
       // Handle the error appropriately
