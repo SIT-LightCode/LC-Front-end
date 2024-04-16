@@ -3,7 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/*Start Animations*/
 @-webkit-keyframes animatetop {
 	from {
 		top: -300px;
@@ -44,10 +43,7 @@
 		opacity: 1;
 	}
 }
-/*End Animations*/
-/*
--- Start BackGround Animation 
-*/
+
 .area {
 	background: #4e54c8;
 	background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
@@ -165,6 +161,3 @@
 		border-radius: 50%;
 	}
 }
-/*
--- End BackGround Animation 
-*/
