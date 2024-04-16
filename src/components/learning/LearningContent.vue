@@ -1,12 +1,19 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onBeforeMount ,computed } from 'vue'
 import ButtonVue from '../button/Button.vue'
 import * as gql from 'gql-query-builder'
 import { account } from '../../stores/Account.js'
+import { useRoute, useRouter } from 'vue-router'
+import { learningCon } from '../../stores/LearningCon'
+
+const mylearningCon = learningCon()
+const route = useRoute()
 const emit = defineEmits(['buttonemit', 'type', 'addstatus'])
 const myAccount = account()
 const prop = defineProps({
-  contents: Object,
+  contents: {
+    type: Object,
+  },
 })
 const isEdit = ref(false)
 
@@ -32,12 +39,23 @@ const buttonDeleteFunc = () => {
 const user = ref({ id: null, name: '', email: '', authorities: ['USER'], score: 0, scoreUnOfficial: 0 })
 
 user.value = JSON.parse(localStorage.getItem('user'))
+
+const currentLesson= computed(() => {
+    if (mylearningCon.tagList[0] !== undefined) {
+      const tagCurrent = mylearningCon.tagList.filter(tag => tag.id == route.params.tagid);
+      if (tagCurrent.length > 0) {
+        const lessonCurrent = tagCurrent[0].lesson.filter(lesson => lesson.id == route.params.lessonid);
+        return lessonCurrent[0].content
+         
+      }
+    }
+})
 </script>
 
 <template>
   <!-- contents  -->
   <div class="pl-12 pr-12 ">
-    <div v-if="contents !== undefined && contents.id != null" class="border-2 rounded-lg p-5 min-h-max">
+    <div v-if="$route.name == 'list' " class="border-2 rounded-lg p-5 min-h-max">
       <div>
         <div class="" v-if="!isEdit">
           <div class="flex justify-end mt-5 mr-5">
@@ -45,10 +63,9 @@ user.value = JSON.parse(localStorage.getItem('user'))
               @buttonClick="buttonDeleteFunc()" :name="'Delete'">
             </ButtonVue>
             <ButtonVue v-if="user.authorities.includes('ADMIN')" class="bg-sky-300 hover:bg-sky-400"
-              @buttonClick="$emit('addstatus', 'edit')" :name="'Edit'"></ButtonVue>
+              @buttonClick="$emit('addstatus', 'editLesson')" :name="'Edit'"></ButtonVue>
           </div>
-          <v-md-preview :text="contents.lesson.content"></v-md-preview>
-
+          <v-md-preview :text="currentLesson"></v-md-preview>
         </div>
       </div>
     </div>

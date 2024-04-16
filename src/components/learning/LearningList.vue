@@ -20,8 +20,8 @@ const selectedLesson = ref(1)
 
 const handleLessonClick = (lesson, topicId) => {
   selectedLesson.value = lesson.id
-  myRouter.push({ name: 'learning', params: { status:"list",tagid: topicId,lessonid: lesson.id } })
-  emit('selected', lesson,topicId) // Use the emit function directly
+  myRouter.push({ name: 'list', params: { tagid: topicId, lessonid: lesson.id } })
+  emit('selected', lesson, topicId) // Use the emit function directly
 }
 
 
@@ -31,9 +31,17 @@ user.value = JSON.parse(localStorage.getItem('user'))
 </script>
 
 <template>
-  <div v-if="contents.length > 0" class="flex">
-   
+  <div v-if="user.authorities.includes('ADMIN')">
+    <buttonVue @buttonClick="$emit('addstatus', 'addTag')" :name="'Add Tag'" >
+    </buttonVue>
+    <buttonVue @buttonClick="$emit('addstatus', 'addLesson')" :name="'Add Lesson'" >
+    </buttonVue>
+    
+  </div>
+  <div v-if="contents.length > 0" class="flex py-5">
+
     <div class="flex flex-col space-y-5 pr-6">
+
       <div v-for="topic in contents" class="flex flex-col content-center text-black bg-white">
         <div>
           <div class="border-2 rounded-lg p-5 flex flex-col w-64 space-y-5 text-ellipsis overflow-hidden">
@@ -50,7 +58,7 @@ user.value = JSON.parse(localStorage.getItem('user'))
             <div v-if="user.authorities.includes('ADMIN')">
               <buttonVue @buttonClick="$emit('deleteTag', topic.id)" :name="'Delete Tag'"
                 class="bg-red-300 hover:bg-red-400"></buttonVue>
-              <buttonVue @buttonClick="$emit('addstatus', 'addTag')" :name="'Edit Tag'"
+              <buttonVue @buttonClick="$emit('addstatus', 'editTag')" :name="'Edit Tag'"
                 class="bg-sky-300 hover:bg-sky-400"></buttonVue>
             </div>
           </div>

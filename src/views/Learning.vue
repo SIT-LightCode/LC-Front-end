@@ -30,7 +30,7 @@ onBeforeMount(async () => {
   if (mylearningCon.tagList.length > 0) {
     const tagCurrent = mylearningCon.tagList.filter(tag => tag.id == route.params.tagid);
 
-    if(tagCurrent.length > 0){
+    if (tagCurrent.length > 0) {
       const lessonCurrent = tagCurrent[0].lesson.filter(lesson => lesson.id == route.params.lessonid);
       selectLesson(lessonCurrent[0], route.params.tagid)
     }
@@ -52,7 +52,7 @@ const setDefaultLesson = () => {
 const conBackend = async (type, query, name) => {
   if (type == 'Delete') {
     mylearningCon.deleteContent(query)
-    status.value = 'list'
+    myRouter.push({ name: 'list', params: { tagid: 0, lessonid: 0 } })
     currentlesson.value = ''
   }
   if (type == 'Add' || type == 'Edit') {
@@ -61,7 +61,7 @@ const conBackend = async (type, query, name) => {
     } else {
       await mylearningCon.addContent(query)
     }
-    status.value = 'list'
+    myRouter.push({ name: 'list', params: { tagid: 0, lessonid: 0 } })
     await mylearningCon.getAllTag()
 
     const tagListIdx = mylearningCon.tagList.findIndex((o) => o.id == selectedLesson.value.id)
@@ -85,49 +85,36 @@ const selectLesson = (lesson, id) => {
 const currentSet = computed(() => {
   if (route.params.tagid == 0 && route.params.lessonid == 0) {
     myRouter.push({
-      name: 'learning',
+      name: 'list',
       params: {
         tagid: mylearningCon.tagList[0].id,
         lessonid: mylearningCon.tagList[0].lesson[0].id
       }
     });
-
+    return {
+          lesson:  mylearningCon.tagList[0].lesson[0],
+          id: mylearningCon.tagList[0].id,
+        }
   }
 
   if (Object.keys(currentlesson.value).length === 0) {
     if (mylearningCon.tagList[0] !== undefined) {
       const tagCurrent = mylearningCon.tagList.filter(tag => tag.id == route.params.tagid);
-      if(tagCurrent.length > 0){
-      const lessonCurrent = tagCurrent[0].lesson.filter(lesson => lesson.id == route.params.lessonid);
-      return {
-        lesson: lessonCurrent[0],
-        id: route.params.tagid,
+      if (tagCurrent.length > 0) {
+        const lessonCurrent = tagCurrent[0].lesson.filter(lesson => lesson.id == route.params.lessonid);
+        return {
+          lesson: lessonCurrent[0],
+          id: route.params.tagid,
+        }
       }
-    }
-
-   
     }
   } else {
     return currentlesson.value
   }
 })
 
-const showModalToAddContent = async () => {
 
-await Swal.fire({
-  title: 'What do you want to add?',
-  showCancelButton: true,
-  confirmButtonText: 'Add Lesson',
-  cancelButtonText: 'Add Tag',
-  reverseButtons: true,
-}).then((result) => {
-  if (result.isConfirmed) {
-    emit('addstatus', 'addLesson')
-  } else if (result.dismiss === 'cancel') {
-    emit('addstatus', 'addTag')
-  }
-})
-}
+
 
 const user = ref({ id: null, name: '', email: '', authorities: ['USER'], score: 0, scoreUnOfficial: 0 })
 
@@ -136,45 +123,58 @@ user.value = JSON.parse(localStorage.getItem('user'))
 
 <template>
   <div class=" px-1">
-    <IconAdd @click="showModalToAddContent" v-if="user.authorities.includes('ADMIN')"
-      class="fixed transition right-6 bottom-6 w-20 h-20 hover:text-blue-500 hover:cursor-pointer" />
-    <div v-if="$route.params.status == 'addTag'">
-      <InputTag :List="mylearningCon.tagList" :type="'Add'" @addstatus="(e) => ( myRouter.push({ name: 'learning', params: { status: e} }) )"
+
+    <div v-if="$route.name == 'addTag'">
+      <InputTag :List="mylearningCon.tagList" :type="'Add'"
+        @addstatus="(e) => (myRouter.push({ name: e, params: { tagid: 0, lessonid: 0 } }))"
         @addfunc="(e, query, name) => conBackend(e, query, name)"></InputTag>
     </div>
-    <div v-if="$route.params.status  == 'addLesson'">
-      <InputContent :List="mylearningCon.tagList" :type="'Add'" @addstatus="(e) => ( myRouter.push({ name: 'learning', params: { status: e} }) )"
+    <div v-if="$route.name == 'editTag'">
+      <InputTag :List="mylearningCon.tagList" :type="'Edit'" 
+        @addstatus="(e) => (myRouter.push({ name: e, params: { tagid: 0, lessonid: 0 } }))"
+        @addfunc="(e, query, name) => conBackend(e, query, name)"></InputTag>
+    </div>
+    <div v-if="$route.name == 'addLesson'">
+      <InputContent :List="mylearningCon.tagList" :type="'Add'"
+        @addstatus="(e) => (myRouter.push({ name: e, params: { tagid: 0, lessonid: 0 } }))"
         @addfunc="(e, query) => conBackend(e, query)"></InputContent>
     </div>
-    <div v-if="$route.params.status  == 'edit'">
-      <InputContent :datas="currentlesson" :type="'Edit'" @addstatus="(e) => ( myRouter.push({ name: 'learning', params: { status: e} }) )"
+    <div v-if="$route.name == 'editLesson'">
+      <InputContent :datas="currentlesson" :type="'Edit'"
+        @addstatus="(e) => (myRouter.push({ name: e, params: { tagid: 0, lessonid: 0 } }))"
         @addfunc="(e, query) => conBackend(e, query)"></InputContent>
     </div>
-    <div class="flex lg:space-x-0 space-x-0 md:space-x-16" v-show="$route.params.status  == 'list'">
+    <div class="flex lg:space-x-0 space-x-0 md:space-x-16" v-show="$route.name == 'list'">
       <!-- Sidebar/menu with its own scroll bar -->
       <!-- hanberger on off -->
       <div
         class="fixed hover:cursor-pointer border-2 border-solid h-[43px]  px-2 flex items-center justify-center rounded-lg lg:invisible transition-all hover:text-blue-400 hover:border-blue-400">
-        <Hamberger :contents="mylearningCon.tagList" @selected="selectLesson" @addstatus="(e) => ( myRouter.push({ name: 'learning', params: { status: e} }) )"
+        <Hamberger :contents="mylearningCon.tagList" @selected="selectLesson"
+          @addstatus="(e) => (myRouter.push({ name: e, params: { status: e } }))"
           @deleteTag="(e1) => { mylearningCon.deleteTag(e1) }" />
       </div>
       <!-- lg -->
       <div class="pl-10 learning-list-container fixed max-h-[90%] overflow-auto invisible lg:visible">
+
         <LearningList class="bg-white" :contents="mylearningCon.tagList" @selected="selectLesson"
-        @addstatus="(e) => ( myRouter.push({ name: 'learning', params: { status: e} }) )" @deleteTag="(e1) => { mylearningCon.deleteTag(e1) }">
+          @addstatus="(e) => (myRouter.push({ name: e, params: { status: e } }))"
+          @deleteTag="(e1) => { mylearningCon.deleteTag(e1) }">
         </LearningList>
       </div>
       <!-- small -->
       <div v-show="sidebarIsShow" class="pl-10 learning-list-container fixed max-h-[90%] overflow-auto lg:visible">
+
         <LearningList class="bg-white" :contents="mylearningCon.tagList" @selected="selectLesson"
-        @addstatus="(e) => ( myRouter.push({ name: 'learning', params: { status: e} }) )" @deleteTag="(e1) => { mylearningCon.deleteTag(e1) }">
+          @addstatus="(e) => (myRouter.push({ name: e, params: { status: e } }))"
+          @deleteTag="(e1) => { mylearningCon.deleteTag(e1) }">
         </LearningList>
       </div>
       <!-- Content area with its own scroll bar -->
-
       <div class="ml-72">
-        <LearningContent class="lg:ml-80 fixed max-h-[90%] overflow-auto " :contents="currentSet" @buttonemit="(e, e1) => conBackend(e, e1)"
-          @addstatus="(e) => ( myRouter.push({ name: 'learning', params: { status: e} }) )"></LearningContent>
+        <LearningContent class="lg:ml-80 fixed max-h-[90%] overflow-auto " :contents="currentSet"
+          @buttonemit="(e, e1) => conBackend(e, e1)"
+          @addstatus="(e) => (myRouter.push({ name: e, params: { lessonid: currentlesson.lesson.id } }))">
+        </LearningContent>
       </div>
     </div>
   </div>

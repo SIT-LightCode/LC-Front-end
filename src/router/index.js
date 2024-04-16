@@ -64,19 +64,48 @@ const router = createRouter({
       children: [
         {
           path: 'edit-problem/:id',
+          name: 'isEdit',
           component: () => import('../views/Problem.vue'),
         },
         {
-          path: 'do-problem /:id',
+          path: 'do-problem/:id',
+          name: 'isDo',
           component: () => import('../views/Problem.vue'),
         },
       ],
     },
     {
-      path: '/learning/:status/:tagid/:lessonid',
+      path: '/learning',
       name: 'learning',
       beforeEnter: checkLogin,
       component: () => import('../views/Learning.vue'),
+      children: [
+        {
+          path: 'list/:tagid/:lessonid',
+          name: 'list',
+          component: () => import('../views/Learning.vue'),
+        },
+        {
+          path: 'addTag',
+          name: 'addTag',
+          component: () => import('../views/Learning.vue'),
+        },
+        {
+          path: 'addLesson',
+          name: 'addLesson',
+          component: () => import('../views/Learning.vue'),
+        },
+        {
+          path: 'editTag/:tagid',
+          name: 'editTag',
+          component: () => import('../views/Learning.vue'),
+        },
+        {
+          path: 'editLesson/:lessonid',
+          name: 'editLesson',
+          component: () => import('../views/Learning.vue'),
+        },
+      ],
     },
     {
       path: '/add-problem',

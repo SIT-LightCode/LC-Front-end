@@ -1,5 +1,4 @@
 <script setup>
-import { useRouter } from 'vue-router'
 
 import filterBar from '../components/problem/FilterBar.vue';
 import listProblem from '../components/problem/ListProblem.vue';
@@ -12,11 +11,14 @@ import { computed, ref, onBeforeMount } from 'vue';
 import { account } from '../stores/Account'
 import ResultPage from '../components/answerproblem/ResultPage.vue';
 import Dialog from 'primevue/dialog';
+import { useRoute, useRouter } from 'vue-router'
+
+const route = useRoute()
+const myRouter = useRouter()
 
 const myAccount = account()
 const myproblemCon = problemCon()
 const mylearningCon = learningCon()
-const myRouter = useRouter()
 
 const filter = ref({ tag: [], level: 0, ScroceMax: 0, ScroceMin: 0 })
 const data = ref([])
@@ -152,12 +154,12 @@ onBeforeMount(async () => {
             </Dialog>
         </div>
 
-        <div class="grid grid-cols-1 gap-4 fixed max-h-[90%] w-[100%] overflow-y-scroll" v-if="page == 'isEdit'">
-            <editPro @addstatus="(e1) => { page = e1 }" :learning="mylearningCon" :data=dataCurrent
+        <div class="grid grid-cols-1 gap-4 fixed max-h-[90%] w-[100%] overflow-y-scroll" v-if="$route.name == 'isEdit'">
+            <editPro @addstatus="(e1) => { myRouter.push({ name: 'problem' }); }" :learning="mylearningCon" :data=dataCurrent
                 @isEditProblem="(e1) => { editProblem(e1) }"></editPro>
         </div>
-        <div class="" v-else-if="page == 'isDo'">
-            <inputAnswer :result="result" :data=dataCurrent @addstatus="(e1) => { page = e1; result = '' }"
+        <div class="" v-else-if="$route.name == 'isDo'">
+            <inputAnswer :result="result" :data=dataCurrent @addstatus="(e1) => { myRouter.push({ name: 'problem' }); result = '' }"
                 @Submit="(e1, e2) => { doSubmit(e1, e2) }"></inputAnswer>
         </div>
 
@@ -176,8 +178,8 @@ onBeforeMount(async () => {
             <!-- Filter-->
             <div class="overflow-auto ">
                 <listProblem class="" @deleteProblem="(e1) => { myproblemCon.deleteProblem(e1) }"
-                    @editProblem="(e1) => { page = 'isEdit'; dataCurrent = e1 ;  }"
-                    @doProblem="(e1) => { page = 'isDo'; dataCurrent = e1 }" :datas="test"></listProblem>
+                    @editProblem="(e1) => { myRouter.push({ name: 'isEdit', params: { id: e1.id} }); dataCurrent = e1 ;  }"
+                    @doProblem="(e1) => { myRouter.push({ name: 'isDo', params: { id: e1.id} }); dataCurrent = e1 }" :datas="test"></listProblem>
             </div>
 
         </div>

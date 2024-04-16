@@ -28,12 +28,13 @@ const LogOut = () => {
 </script>
 
 <template>
+
   <div class="text-black text-base  bg-white ">
     <Toaster richColors position="top-right" />
     <div>
       <Navbar v-if="$route.path == '/'" class="" />
     </div>
-    <div class="flex fixed ">
+    <div class="flex  ">
       <div class="flex-none "> 
         <Sidebar v-if="$route.path !== '/' && $route.path !== '/login/signin'&& $route.path !== '/login/signup'" @LogOut="()=>{LogOut()}"></Sidebar>
       </div>
