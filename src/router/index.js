@@ -114,6 +114,16 @@ const router = createRouter({
       component: () => import('../views/AddProblem.vue'),
     },
     {
+      path: '/pretest',
+      name: 'pretest',
+      component: () => import('../views/Pretest.vue'),
+    },
+    {
+      path: '/dopretest',
+      name: 'dopretest',
+      component: () => import('../views/DoPretest.vue'),
+    },
+    {
       path: '/view-user',
       name: 'viewuser',
       beforeEnter: (to, from) => {

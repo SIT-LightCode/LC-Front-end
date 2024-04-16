@@ -28,8 +28,14 @@ const loginAccount = (e1) => {
 <template>
     
         <Toaster richColors position="top-right" />
+<<<<<<< HEAD
         <signin v-if="$route.path == '/login/signin' " @status="myRouter.push('/login/signup')" @login="(e1)=>{loginAccount(e1)}"></signin>
         <signup v-else-if="$route.path == '/login/signup'" @status="myRouter.push('/login/signin')" @create="(e1) => { createAccount(e1) }"></signup>
+=======
+        <button @click="myRouter.push({ name: 'pretest' })">dawdWAd</button>
+        <signin v-if="page == 'signin'" @status="page = 'signup'" @login="(e1)=>{loginAccount(e1)}"></signin>
+        <signup v-else-if="page == 'signup'" @status="page = 'signin'" @create="(e1) => { createAccount(e1) }"></signup>
+>>>>>>> origin/main
 </template>
  
 <style></style>
