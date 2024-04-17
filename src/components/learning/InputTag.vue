@@ -80,13 +80,16 @@ const changeId = (e1) => {
 }
 onBeforeMount(async () => {
   if (route.name == 'editTag') {
-    await mylearningCon.getAllTag()
-    if (mylearningCon.tagList.length > 0) {
+    if (Object.keys(mylearningCon.tagList).length === 0) {
+      await mylearningCon.getAllTag()
+    } if (mylearningCon.tagList.length > 0) {
       const tagCurrent = mylearningCon.tagList.filter(tag => tag.id == route.params.tagid);
       if (tagCurrent.length > 0) {
+
         topic.value = tagCurrent[0].topic
         description.value = tagCurrent[0].description
         tagId.value = tagCurrent[0].id
+
       }
     }
   }

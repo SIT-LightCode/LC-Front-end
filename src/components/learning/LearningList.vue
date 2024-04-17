@@ -32,9 +32,9 @@ user.value = JSON.parse(localStorage.getItem('user'))
 
 <template>
   <div v-if="user.authorities.includes('ADMIN')">
-    <buttonVue @buttonClick="$emit('addstatus', 'addTag')" :name="'Add Tag'" >
+    <buttonVue @buttonClick="$emit('addstatus', 'addTag')" :name="'Add Tag'" class="bg-gray-300 hover:bg-gray-400">
     </buttonVue>
-    <buttonVue @buttonClick="$emit('addstatus', 'addLesson')" :name="'Add Lesson'" >
+    <buttonVue @buttonClick="$emit('addstatus', 'addLesson')" :name="'Add Lesson'" class="bg-gray-300 hover:bg-gray-400" >
     </buttonVue>
     
   </div>
@@ -59,7 +59,7 @@ user.value = JSON.parse(localStorage.getItem('user'))
               <buttonVue @buttonClick="$emit('deleteTag', topic.id)" :name="'Delete Tag'"
                 class="bg-red-300 hover:bg-red-400"></buttonVue>
               <buttonVue @buttonClick="$emit('addstatus', 'editTag')" :name="'Edit Tag'"
-                class="bg-sky-300 hover:bg-sky-400"></buttonVue>
+                class="bg-blue-300 hover:bg-blue-400"></buttonVue>
             </div>
           </div>
         </div>

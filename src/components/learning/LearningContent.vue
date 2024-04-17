@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onBeforeMount ,computed } from 'vue'
+import { ref, onBeforeMount, computed } from 'vue'
 import ButtonVue from '../button/Button.vue'
 import * as gql from 'gql-query-builder'
 import { account } from '../../stores/Account.js'
@@ -40,29 +40,30 @@ const user = ref({ id: null, name: '', email: '', authorities: ['USER'], score: 
 
 user.value = JSON.parse(localStorage.getItem('user'))
 
-const currentLesson= computed(() => {
-    if (mylearningCon.tagList[0] !== undefined) {
-      const tagCurrent = mylearningCon.tagList.filter(tag => tag.id == route.params.tagid);
-      if (tagCurrent.length > 0) {
-        const lessonCurrent = tagCurrent[0].lesson.filter(lesson => lesson.id == route.params.lessonid);
+const currentLesson = computed(() => {
+  if (mylearningCon.tagList[0] !== undefined) {
+    const tagCurrent = mylearningCon.tagList.filter(tag => tag.id == route.params.tagid);
+    if (tagCurrent.length > 0) {
+      const lessonCurrent = tagCurrent[0].lesson.filter(lesson => lesson.id == route.params.lessonid);
+      if (lessonCurrent.length > 0) {
         return lessonCurrent[0].content
-         
       }
     }
+  }
 })
 </script>
 
 <template>
   <!-- contents  -->
   <div class="pl-12 pr-12 ">
-    <div v-if="$route.name == 'list' " class="border-2 rounded-lg p-5 min-h-max">
+    <div v-if="currentLesson !== undefined" class="border-2 rounded-lg p-5 min-h-max">
       <div>
         <div class="" v-if="!isEdit">
           <div class="flex justify-end mt-5 mr-5">
             <ButtonVue v-if="user.authorities.includes('ADMIN')" class="bg-red-300 hover:bg-red-400"
               @buttonClick="buttonDeleteFunc()" :name="'Delete'">
             </ButtonVue>
-            <ButtonVue v-if="user.authorities.includes('ADMIN')" class="bg-sky-300 hover:bg-sky-400"
+            <ButtonVue v-if="user.authorities.includes('ADMIN')" class="bg-blue-300 hover:bg-blue-400"
               @buttonClick="$emit('addstatus', 'editLesson')" :name="'Edit'"></ButtonVue>
           </div>
           <v-md-preview :text="currentLesson"></v-md-preview>

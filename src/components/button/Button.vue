@@ -31,7 +31,7 @@ const clickFunc = async () => {
 
 <template>
   <button class=" text-gray-800  p-4 m-1 
-    inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md  bg-gray-300 hover:bg-gray-400
+    inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md  
     " @click="clickFunc()">
     {{ name }}
   </button>

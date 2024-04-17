@@ -52,8 +52,8 @@ const router = createRouter({
         }
       },
       children: [
-        { path: 'signup', component: () => import('../views/Login.vue') },
-        { path: 'signin', component: () => import('../views/Login.vue') },
+        { path: 'signup', component: () => import('../views/logins/SignUp.vue') },
+        { path: 'signin', component: () => import('../views/logins/SignIn.vue') },
       ],
     },
     {
@@ -78,32 +78,31 @@ const router = createRouter({
       path: '/learning',
       name: 'learning',
       beforeEnter: checkLogin,
-      component: () => import('../views/Learning.vue'),
       children: [
         {
           path: 'list/:tagid/:lessonid',
           name: 'list',
-          component: () => import('../views/Learning.vue'),
+          component: () => import('../views/Learning/ListLearning.vue'),
         },
         {
           path: 'addTag',
           name: 'addTag',
-          component: () => import('../views/Learning.vue'),
+          component: () => import('../views/Learning/AddEditTag.vue'),
         },
         {
           path: 'addLesson',
           name: 'addLesson',
-          component: () => import('../views/Learning.vue'),
+          component: () => import('../views/Learning/AddEditLesson.vue'),
         },
         {
           path: 'editTag/:tagid',
           name: 'editTag',
-          component: () => import('../views/Learning.vue'),
+          component: () => import('../views/Learning/AddEditTag.vue'),
         },
         {
-          path: 'editLesson/:lessonid',
+          path: 'editLesson/:tagid/:lessonid',
           name: 'editLesson',
-          component: () => import('../views/Learning.vue'),
+          component: () => import('../views/Learning/AddEditLesson.vue'),
         },
       ],
     },

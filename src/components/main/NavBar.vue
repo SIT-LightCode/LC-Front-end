@@ -1,5 +1,5 @@
 <script setup>
-import { RouterLink, RouterView ,useRouter } from 'vue-router'
+import { RouterLink, RouterView, useRouter } from 'vue-router'
 import { account } from '../../stores/Account'
 import { cookieData } from '../../stores/CookieData'
 
@@ -22,7 +22,8 @@ user.value = JSON.parse(localStorage.getItem('user'))
 </script>
 
 <template>
-    <div class="flex pb-4 pt-2  fixed w-full bg-white " v-if="$route.path != '/login/signin'&& $route.path != '/login/signup'">
+    <div class="flex pb-4 pt-2  fixed w-full bg-white "
+        v-if="$route.path != '/login/signin' && $route.path != '/login/signup'">
         <RouterLink :to="'/lightcode'">
             <div class="flex items-center absolute pl-11 pt-3 gap-4 ">
                 <img class="h-12 invisible sm:visible" src='../../assets/picture/lclogo.png' alt="logo_my_froup">
@@ -30,18 +31,20 @@ user.value = JSON.parse(localStorage.getItem('user'))
             </div>
         </RouterLink>
         <div v-if="$route.path == '/'" class="flex justify-end space-x-10 px-5 py-2 w-full ">
-           
-            <RouterLink id="joinButton" :to="'/login/signin'" :class="`border-2 items-center p-3 `">
+
+            <RouterLink id="joinButton" :to="'/login/signin'" :class="`text-gray-800  p-4 m-1 
+    inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md  bg-gray-300 hover:bg-gray-400`">
                 <a> log in </a>
             </RouterLink>
-        
-            <RouterLink id="joinButton" :to="'/login/signup'" :class="` text-[#007AFF] border-[#007AFF] border-2 items-center p-3 `">
+
+            <RouterLink id="joinButton" :to="'/login/signup'" :class="` text-gray-800  p-4 m-1 
+    inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md bg-blue-300 hover:bg-blue-400 `">
                 <a> join </a>
             </RouterLink>
 
         </div>
-       
-       
+
+
         <!-- <div v-else-if="$route.path !== '/login'" class="flex justify-center space-x-2 sm:space-x-10 text-black p-1 w-full ">
             <RouterLink :to="'/lightcode'"
                 :class="($route.path === '/lightcode' ? `border-blue-500` : ``) + ` max-w-[800px] border-b-4  hover:border-blue-500 hover:text-blue-500 transition flex flex-col items-center p-3 `">

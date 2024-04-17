@@ -11,14 +11,22 @@ import 'prismjs/themes/prism-tomorrow.css'; // import syntax highlighting styles
 
 import buttomSubmit from "../button/ButtonPage.vue"
 import { ref, onBeforeMount } from "vue";
+import { learningCon } from '../stores/LearningCon'
+import { problemCon } from '../stores/ProblemCon';
+
 const emit = defineEmits(['code'])
 
 const code = ref('const answer = (input) => {\n \n \n 	//Code Here \n console.log(input)   \n \n \n \n  }')
-
+const myproblemCon = problemCon()
+const mylearningCon = learningCon()
 const highlighter = (code) => {
   return highlight(code, languages.js); // languages.<insert language> to return html with markup
 }
 
+onBeforeMount(async () => {
+    await myproblemCon.getAllproblem()
+    await mylearningCon.getAllTag()
+})
 </script>
 
 <template>
