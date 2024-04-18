@@ -3,6 +3,7 @@ import { RouterLink, RouterView, useRouter } from 'vue-router'
 import { ref, computed } from 'vue'
 import Navbar from './components/main/NavBar.vue'
 import Sidebar from './components/main/SideBar.vue'
+import TopNav from './components/main/TopNav.vue'
 import setting from './components/settingmodal/Setting.vue'
 import { Toaster, toast } from 'vue-sonner'
 import { cookieData } from './stores/CookieData'
@@ -35,18 +36,19 @@ const LogOut = () => {
 
   <div class="text-black text-base  bg-white ">
     <Toaster richColors position="top-right" />
+
     <div>
-      <Navbar v-if="$route.path == '/'" class="" />
+      <Navbar v-if="$route.path == '/'" class=" bg-black " />
     </div>
+    <TopNav class="fixed border-b-2 "/>
     <div class="flex  ">
-      <div class="flex-none "> 
+      
+      <div class="flex-none mt-20"> 
         <Sidebar v-if="$route.path !== '/' && $route.path !== '/login/signin'&& $route.path !== '/login/signup'" @LogOut="()=>{LogOut()}"></Sidebar>
       </div>
       <div class="grow">
-        <RouterView class="p-10"/>
-
+        <RouterView class="p-10 mt-16"/>
       </div>
-
     </div>
   </div>
   <div v-if="showModal">

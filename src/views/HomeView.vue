@@ -220,7 +220,7 @@ function hoverDetail(index) {
           </select>
         </div>
       </div>
-      <div class="px-10 py-10 bg-white mt-10 rounded-3xl flex flex-col gap-4 text-lg drop-shadow-2xl">
+      <div class="p-10 bg-white mt-10 rounded-3xl flex flex-col gap-4 text-lg drop-shadow-2xl">
         <div class="grid grid-cols-4 border-b-2 pb-2">
           <p class="text-st-blue">Name</p>
           <p class="text-st-blue">Official Problem</p>

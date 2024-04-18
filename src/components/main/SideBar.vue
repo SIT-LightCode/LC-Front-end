@@ -118,12 +118,7 @@ const items = ref([
 
 <template>
 	<div class="p-5 ">
-		<RouterLink :to="'/lightcode'">
-			<div class="flex items-center  pl-11 pt-3 gap-4 ">
-				<img class="h-12 invisible sm:visible" src='../../assets/picture/lclogo.png' alt="logo_my_froup">
-				<h1 class=" font-roboto font-bold invisible md:visible text-[#007AFF]">Lightcode </h1>
-			</div>
-		</RouterLink>
+
 		<div class="card flex justify-content-center">
 			<Menu :model="items" />
 		</div>
