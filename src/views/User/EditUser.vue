@@ -1,12 +1,16 @@
 <script setup>
-import { account } from '../stores/Account';
-import filterBar from '../components/viewUser/FilterBar.vue'
-import ListUser from '../components/viewUser/ListUser.vue'
-import EditUser from '../components/viewUser/EditUser.vue';
+import { account } from '../../stores/Account';
+import filterBar from '../../components/viewUser/FilterBar.vue'
+import ListUser from '../../components/viewUser/ListUser.vue'
+import EditUser from '../../components/viewUser/EditUser.vue';
 import { MqResponsive } from "vue3-mq";
+import Dialog from 'primevue/dialog';
 
 import { computed, ref, onBeforeMount } from 'vue';
+import { useRoute, useRouter } from 'vue-router'
 
+const route = useRoute()
+const myRouter = useRouter()
 const myAccount = account()
 const filter = ref({ tag: [], level: 0, ScroceMax: 0, ScroceMin: 0 })
 const data = ref([])
@@ -69,42 +73,50 @@ const editUser = (dataEdit, olddata) => {
 
 }
 onBeforeMount(async () => {
-    await myAccount.GetUser()
+    if (Object.keys(myAccount.userList).length === 0) {
+        await myAccount.GetUser()
+        alert(myAccount.userList.length)
+        if (myAccount.userList.length > 0) {
+        const userCurrent = myAccount.userList.filter(user => user.id == route.params.id);
+        // dataCurrent.value = problemCurrent[0]
+        if (userCurrent.length > 0) {
+            alert(userCurrent)
+            selectUser.value = userCurrent[0]
+        } else {
+            selectUser.value = {}
+        }
+    }
+    }
+
+    if (myAccount.userList.length > 0) {
+        const userCurrent = myAccount.userList.filter(user => user.id == route.params.id);
+        // dataCurrent.value = problemCurrent[0]
+        if (userCurrent.length > 0) {
+            alert(userCurrent)
+            selectUser.value = userCurrent[0]
+        } else {
+            selectUser.value = {}
+        }
+    }
 })
 
 
 </script>
 
 <template>
-    <div class="relative">
+    {{selectUser }}
+
+    {{selectUser }}
+    <div class="grid grid-cols-1 gap-4 place-content-center">
         <div class="">
-            <div v-if="isEdit">
-                <EditUser @close="(e1) => { isEdit = e1 }"
+            <div>
+                <EditUser @close="(e1) => { myRouter.push({name:'listUser'}) }"
                     @editUser="(dataEdit, olddata) => { editUser(dataEdit, olddata) }" :datas="selectUser">
                 </EditUser>
             </div>
-            <div class="grid grid-cols-[20%_minmax(50%,_1fr)_100px] gap-4 fixed max-h-[90%] w-[100%] overflow-scroll " v-else>
-
-                <!-- <MqResponsive group>
-                    <template #xl-xxl>
-                            <filterBar class="invisible lg:visible" @filterValue="(e1) => { filterFunc(e1); }"></filterBar>
-                    </template>
-                </MqResponsive> -->
-
-
-                <!-- Filter-->
-                <div class="overflow-auto">
-                    <ListUser @deleteUser="(id) => { deleteUser(id) }"
-                        @editUser="(select) => { isEdit = true; selectUser = select; }" :datas="dataFilter">
-                    </ListUser>
-                </div>
-
-            </div>
-
-
         </div>
-
     </div>
+
 </template>
 
 <style></style>

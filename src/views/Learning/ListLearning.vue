@@ -45,18 +45,21 @@ const selectLesson = (lesson, id) => {
 
 const currentSet = computed(() => {
     if (route.params.tagid == 0 && route.params.lessonid == 0) {
-        myRouter.push({
-            name: 'list',
-            params: {
-                tagid: mylearningCon.tagList[0].id,
-                lessonid: mylearningCon.tagList[0].lesson[0].id
+        if (Object.keys(mylearningCon.tagList[0]).length > 0) {
+            myRouter.push({
+                name: 'list',
+                params: {
+                    tagid: mylearningCon.tagList[0].id,
+                    lessonid: mylearningCon.tagList[0].lesson[0].id
+                }
+            });
+            selectLesson(mylearningCon.tagList[0].lesson[0], mylearningCon.tagList[0].id)
+            return {
+                lesson: mylearningCon.tagList[0].lesson[0],
+                id: mylearningCon.tagList[0].id,
             }
-        });
-        selectLesson(mylearningCon.tagList[0].lesson[0], mylearningCon.tagList[0].id)
-        return {
-            lesson: mylearningCon.tagList[0].lesson[0],
-            id: mylearningCon.tagList[0].id,
         }
+
     }
 
     if (Object.keys(currentlesson.value).length === 0) {

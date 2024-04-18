@@ -22,7 +22,9 @@ const props = defineProps({
 const topic = ref('')
 const description = ref('')
 const tagId = ref(null)
-const tag = ref(undefined)
+const oldtopic = ref('')
+const olddescription = ref('')
+const oldtagId = ref(null)
 const Istype = ref('Add')
 
 const submitTag = () => {
@@ -85,7 +87,9 @@ onBeforeMount(async () => {
     } if (mylearningCon.tagList.length > 0) {
       const tagCurrent = mylearningCon.tagList.filter(tag => tag.id == route.params.tagid);
       if (tagCurrent.length > 0) {
-
+        oldtopic.value = tagCurrent[0].topic
+        olddescription.value = tagCurrent[0].description
+        oldtagId.value = tagCurrent[0].id
         topic.value = tagCurrent[0].topic
         description.value = tagCurrent[0].description
         tagId.value = tagCurrent[0].id
@@ -95,17 +99,28 @@ onBeforeMount(async () => {
   }
 })
 
+const clearInput = () => {
+  if(route.name == 'editTag'){
+    topic.value = oldtopic.value
+    description.value = olddescription.value
+    tagId.value = oldtagId.value
+
+  } else if(route.name == 'addTag'){
+    topic.value = ''
+    description.value = ''
+  }
+}
+
 </script>
 
 <template>
   <div class="space-y-5">
     <hr />
-    <buttonvue class="" @buttonClick="$emit('addstatus', 'list')" :name="'Back'"></buttonvue>
 
     <div class="space-y-5">
       <div class="mb-4">
-        <label for="topic" class="block text-sm font-medium text-gray-700">Topic:</label>
-        <input id="topic" v-model="topic" type="text" placeholder="Enter topic"
+        <label for="topicTag" class="block text-sm font-medium text-gray-700">Topic:</label>
+        <input id="topicTag" v-model="topic" type="text" placeholder="Enter topic"
           class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
       </div>
       <div class="mb-4">
@@ -113,10 +128,10 @@ onBeforeMount(async () => {
         <textarea id="description" v-model="description" placeholder="Enter description"
           class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
       </div>
-      <button @click="submitTag"
-        class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-        {{ $route.name === 'editTag' ? 'Update' : 'Add' }} Tag
-      </button>
+      <buttonvue class="bg-gray-300 hover:bg-gray-400" @buttonClick="$emit('addstatus', 'list')" :name="'Back'"></buttonvue>
+      <buttonvue class="bg-red-300 hover:bg-red-400"  @buttonClick="clearInput" :name="'Clear'" />
+      <buttonvue class="bg-blue-300 hover:bg-blue-400"  @buttonClick="submitTag" :name="$route.name == 'addTag' ? 'Add Tag' : 'Update Tag'" />
+
     </div>
   </div>
 </template>

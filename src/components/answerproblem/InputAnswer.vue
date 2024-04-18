@@ -39,12 +39,9 @@ const highlighter = (code) => {
 
     <div class=" relative  ">
 
-
-        <div class="grid grid-cols-5 gap-4 fixed h-[90%] w-[90%]  ">
-
-
-            <div class="grid grid-cols-subgrid gap-4 col-span-2 overflow-y-scroll p-5">
-                <MqResponsive group>
+        <div class="grid grid-cols-3 gap-4 fixed h-[90%] w-[90%] " v-if="Object.keys(data).length > 0">
+            <div class="grid grid-cols-subgrid gap-4 col-span-1 overflow-y-scroll p-5">
+                <!-- <MqResponsive group>
                     <template #xs-lg>
                         <div
                             class="fixed hover:cursor-pointer border-2 border-solid h-[43px] px-2 flex items-center justify-center rounded-lg lg:invisible transition-all hover:text-blue-400 hover:border-blue-400">
@@ -61,18 +58,25 @@ const highlighter = (code) => {
                     <template #lg-xxl>
                         <description :result="prop.result" :data="prop.data"></description>
                     </template>
-                </MqResponsive>
+                </MqResponsive> -->
+                <description :result="prop.result" :data="prop.data"></description>
             </div>
 
 
             <!-- Filter-->
-            <div class="grid grid-cols-subgrid gap-4 col-span-3 ">
+            <div class="grid grid-cols-subgrid gap-4 col-span-2 p-5">
                 <CodingInput :result="prop.result" @addstatus="$emit('addstatus', '')"
-                    @Submit="(e) => $emit('Submit', prop.data.id, e)"></CodingInput>
+                    @Submit="(e) => { $emit('Submit', prop.data.id, e); }"></CodingInput>
             </div>
 
         </div>
-
+        <div class="grid grid-cols-5 gap-4 fixed h-[90%] w-[90%] " v-else>
+            <!-- Filter-->
+            <div class="">
+                <buttonvue class="bg-gray-300" @buttonClick="$emit('addstatus', '')" :name="'Back'"></buttonvue>
+                <div class="p-10"><b style="color: red"> No problem </b></div>
+            </div>
+        </div>
 
     </div>
 

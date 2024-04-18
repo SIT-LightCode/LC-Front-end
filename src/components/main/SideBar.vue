@@ -73,7 +73,7 @@ const items = ref([
 				label: 'Problem',
 				icon: 'pi pi-credit-card',
 				command: () => {
-					router.push("/problem")
+					router.push("/problem/list")
 				}
 			},
 			// {
@@ -87,7 +87,7 @@ const items = ref([
 				label: 'View User',
 				icon: 'pi pi-users',
 				command: () => {
-					router.push("/view-user")
+					router.push("/view-user/list")
 				}
 			}
 		]

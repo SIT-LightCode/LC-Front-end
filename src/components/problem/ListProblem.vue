@@ -27,8 +27,8 @@ const prop = defineProps({
                     @doProblem="(i) => { $emit('doProblem', i) }" @deleteProblem="(i) => { $emit('deleteProblem', i) }"
                     @editProblem="(i) => { $emit('editProblem', i) }" :datas="dataFilter" />
         <!-- </div> -->
-        <IconAdd @click="myRouter.push({ name: 'addProblem' })"
-            class="fixed  transition right-6 bottom-6 w-20 h-20 hover:text-blue-500 hover:cursor-pointer" />
+        <!-- <IconAdd @click="myRouter.push({ name: 'addProblem' })"
+            class="fixed  transition right-6 bottom-6 w-20 h-20 hover:text-blue-500 hover:cursor-pointer" /> -->
         <!--  -->
     </div>
 </template>

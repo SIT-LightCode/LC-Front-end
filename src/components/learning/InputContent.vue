@@ -24,7 +24,19 @@ const newtext = ref('')
 const emit = defineEmits(['addfunc'])
 
 const test = ref()
-const clearInput = async (value) => {
+const clearInput =  () => {
+
+  if(route.name == 'editLesson'){
+    newnamecontent.value = oldnamecontent.value
+    newtext.value = oldtext.value
+    selectedObjectOld.value = selectedObjectNew.value
+
+  } else if(route.name == 'addLesson'){
+    newnamecontent.value = ''
+    newtext.value = ''
+    selectedObjectOld.value = 0
+  }
+
   if (value) {
     selectedObjectNew.value = ''
     newnamecontent.value = ''
@@ -130,7 +142,6 @@ onBeforeMount(async () => {
   <!-- contents  -->
   <div class="space-y-5">
     <hr />
-    <buttonvue class="" @buttonClick="$emit('addstatus', 'list')" :name="'Back'"></buttonvue>
     <div class="text-gray-900 text-sm">
       <label for="objectSelect"> Tag for content </label>
       <select id="objectSelect" v-model="selectedObjectNew">
@@ -148,10 +159,12 @@ onBeforeMount(async () => {
     <div class="space-y-5">
       <VmdEditor v-model="newtext"></VmdEditor>
       <hr />
-      <buttonvue @buttonClick="(value) => clearInput(value)" :name="'Clear'" />
-      <buttonvue @buttonClick="(value) => clickAddEdit(value)" :name="$route.name == 'addLesson' ? 'Add' : 'Update'" />
+      <buttonvue class="bg-gray-300 hover:bg-gray-400" @buttonClick="$emit('addstatus', 'list')" :name="'Back'"></buttonvue>
+      <buttonvue class="bg-red-300 hover:bg-red-400"  @buttonClick="clearInput" :name="'Clear'" />
+      <buttonvue class="bg-blue-300 hover:bg-blue-400"  @buttonClick="(value) => clickAddEdit(value)" :name="$route.name == 'addLesson' ? 'Add' : 'Update'" />
       <hr />
     </div>
+    
   </div>
 </template>
 

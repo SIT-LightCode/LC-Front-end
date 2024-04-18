@@ -22,6 +22,13 @@ const colorTags = [
   'bg-[#9d94ff]',
   'bg-[#c780e8]',
 ]
+const levelArray = [['Easier', 'text-[#2dc937]'], ['Beginner', 'text-[#99c140]'], ['Medium', 'text-[#e7b416]'], ['Hard', 'text-[#db7b2b]'], ['Expert', 'text-[#cc3232]'],]
+
+const returnLevel = (id) => {
+  if (levelArray[id - 1] != undefined) {
+    return levelArray[id - 1][0]
+  }
+}
 </script>
 
 <template>
@@ -29,9 +36,11 @@ const colorTags = [
     <template #header>
     </template>
     <template #title>{{ prop.data.name }}</template>
-    <template #subtitle> <span v-for="level in prop.data.level">
-        <StarOutlined />
-      </span></template>
+    <template #subtitle> 
+      <p v-if="prop.data.level > 0 && prop.data.level < 6"
+              :class="levelArray[prop.data.level - 1]">{{ returnLevel(prop.data.level) }}
+      </p>
+    </template>
     <template #content>
       <p> <span v-for="t in data.tagProblem"
           class="inline-flex items-center px-3 rounded-full text-xs font-medium leading-4 text-gray-800"
@@ -39,18 +48,18 @@ const colorTags = [
         </span></p>
 
       <p class="m-0">
-        <v-md-preview :text="prop.data.description"></v-md-preview>
+        <v-md-preview :text="prop.data.description" ></v-md-preview>
       </p>
     </template>
     <template #footer>
-      <div class="grid grid-row">
-        <div v-for="(example, index) in  prop.data.example " class="border-2 rounded-lg py-5 items-center mx-1 ">
+      <div class="grid grid-row ">
+        <div v-for="(example, index) in  prop.data.example " class="border-2 rounded-lg py-5 items-center mx-1 text-xs		">
           <div>
-            <span class="m-5">Example {{ index + 1 }} : </span>
+            <div class="p-2"><b>Example {{ index + 1 }} : </b></div>
           </div>
           <div>
-            <span v-for="i, key in JSON.parse(example.input)  " class="p-5">
-              parameters {{ key }} : {{ i }} </span>
+            <div v-for="i, key in JSON.parse(example.input)  " class="p-2">
+              parameters {{ key }} : {{ i }} </div>
           </div>
           <div>
              

@@ -6,6 +6,9 @@ import Paginator from 'primevue/paginator';
 import { MqResponsive } from "vue3-mq";
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import Image from 'primevue/image';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
+
 
 const emit = defineEmits(['doProblem', 'deleteProblem', 'editProblem'])
 const props = defineProps({
@@ -86,6 +89,9 @@ const clickEvent = (i) => {
   });
 };
 
+const selectedData = ref();
+const metaKey = ref(true);
+
 </script>
 
 <template>
@@ -93,7 +99,7 @@ const clickEvent = (i) => {
 
   <div>
 
-    <MqResponsive group>
+    <!-- <MqResponsive group>
 
       <template #xs-sm>
         <p class="grid grid-cols-1  ">
@@ -121,7 +127,7 @@ const clickEvent = (i) => {
 
       </template>
 
-      <template #md-lg>
+<template #md-lg>
         <p class="grid grid-cols-2 ">
         <div :onmouseenter="() => { hoverDetail(index) }" :onmouseleave="() => { hoverDetail(index) }"
           v-for="(i, index) in paginatedData"
@@ -146,7 +152,7 @@ const clickEvent = (i) => {
         </div>
         </p>
       </template>
-      <template #xl-xxl>
+<template #xl-xxl>
         <p class="flex flex-wrap">
         <div :onmouseenter="() => { hoverDetail(index) }" :onmouseleave="() => { hoverDetail(index) }"
           v-for="(i, index) in paginatedData"
@@ -186,23 +192,40 @@ const clickEvent = (i) => {
 
 
       </template>
-    </MqResponsive>
+</MqResponsive> -->
+    <div class="card">
 
-  </div>
+      <DataTable v-model:selection="selectedData" @row-dblclick="$emit('doProblem', selectedData)"
+        :value="paginatedData" selectionMode="single" paginator :rows="10" tableStyle="min-width: 50rem;"
+        paginatorTemplate='FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink JumpToPageDropdown '
+        currentPageReportTemplate="{first} to {last} of {totalRecords}" :metaKeySelection="metaKey" dataKey="id">
+        <Column field="name" header="Name"></Column>
+        <Column field="isOfficial" header="Offcial Problem"></Column>
+        <Column field="totalScore" header="Score"></Column>
+        <Column field="level" header="Difficulty">
+          <template #body="slotProps">
+            <p v-if="slotProps.data.level > 0 && slotProps.data.level < 6"
+              :class="levelArray[slotProps.data.level - 1]">{{ returnLevel(slotProps.data.level) }}
+            </p>
+          </template>
+        </Column>
+      </DataTable>
+    </div>
 
 
-  <div class="p-5">
-
-
-    <Paginator v-model:first="pageNumber" rows="1" :totalRecords="pageCount" v-if="pageCount !== 0" :template="{
-            '640px': 'PrevPageLink CurrentPageReport NextPageLink',
-            '960px': 'FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink',
-            '1300px': 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',
-            default: 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink JumpToPageDropdown '
-          }">
-    </Paginator>
   </div>
 
 </template>
 
-<style scoped></style>
+<style scoped>
+#logo {
+  color: #007AFF;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: "Rampart One";
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 36px;
+  /* 28.125% */
+}
+</style>

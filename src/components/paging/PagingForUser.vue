@@ -61,25 +61,31 @@ const clickEvent = (data) => {
 </script>
 
 <template>
-      <div class="">
-        <DataTable v-model:selectionKeys="selectedKey" :value="props.listData" paginator :rows="10"
-          tableStyle="min-width: 50rem;"
-          paginatorTemplate='FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink JumpToPageDropdown '
-          currentPageReportTemplate="{first} to {last} of {totalRecords}">
-          <Column field="name" header="Name" sortable style="width: 25%"></Column>
-          <Column field="email" header="Email" sortable style="width: 25%"></Column>
-          <Column field="authorities" header="Authorities" sortable style="width: 25%"></Column>
-          <Column field="score" header="Score" sortable style="width: 25%"></Column>
-          <Column headerStyle="width: 5rem; text-align: center" bodyStyle="text-align: center;">
-            <template #body={data}>
-              <button class="" @click="clickEvent(data)">
-                <i class="pi pi-bars"></i>
-              </button>
-            </template>
-          </Column>
-        </DataTable>
-      </div>
-  
+  <div class="">
+    <DataTable v-model:selectionKeys="selectedKey" :value="props.listData" paginator :rows="10"
+      tableStyle="min-width: 50rem;"
+      paginatorTemplate='FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink JumpToPageDropdown '
+      currentPageReportTemplate="{first} to {last} of {totalRecords}">
+      <Column field="name" header="Name" ></Column>
+      <Column field="email" header="Email" ></Column>
+      <Column field="authorities" header="Authorities" ></Column>
+      <Column field="score" header="Score" ></Column>
+      <Column >
+        <template #body={data}>
+          <buttonVue class="bg-red-300 hover:bg-red-400" @buttonClick="$emit('deleteUser', data.id)" :name="'Delete'">
+          </buttonVue>
+        </template>
+      </Column>
+      <Column>
+        <template #body={data}>
+          <buttonVue class="bg-blue-300 hover:bg-blue-400" @buttonClick="$emit('editUser', data);"
+            :status="false" :name="'Edit'">
+          </buttonVue>
+        </template>
+      </Column>
+    </DataTable>
+  </div>
+
 </template>
 
 <style scoped></style>

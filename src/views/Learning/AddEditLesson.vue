@@ -38,7 +38,13 @@ user.value = JSON.parse(localStorage.getItem('user'))
 </script>
 
 <template>
-  <div class=" px-1">
+  <div class=" px-1 max-w-[90%]">
+    <div class="flex justify-content-center align-items-center mb-4 gap-2">
+            <div  v-if="$route.name == 'addLesson'" id="logo">ADD LESSON</div>
+            <div v-else-if="$route.name == 'editLesson'" id="logo">Edit LESSON</div>
+
+    </div>
+
     <div v-if="$route.name == 'addLesson'">
       <InputContent :List="mylearningCon.tagList" :type="'Add'"
         @addstatus="(e) => (myRouter.push({ name: e, params: { tagid: 0, lessonid: 0 } }))"
@@ -52,4 +58,15 @@ user.value = JSON.parse(localStorage.getItem('user'))
   </div>
 </template>
 
-<style></style>
+<style>
+#logo {
+    color: #007AFF;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: "Rampart One";
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 36px;
+    /* 28.125% */
+}
+</style>

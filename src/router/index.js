@@ -60,17 +60,21 @@ const router = createRouter({
       path: '/problem',
       name: 'problem',
       beforeEnter: checkLogin,
-      component: () => import('../views/Problem.vue'),
       children: [
+        {
+          path: 'list',
+          name: 'listProblem',
+          component: () => import('../views/Problem/ListProblem.vue'),
+        },
         {
           path: 'edit-problem/:id',
           name: 'isEdit',
-          component: () => import('../views/Problem.vue'),
+          component: () => import('../views/Problem/DoProblem.vue'),
         },
         {
           path: 'do-problem/:id',
           name: 'isDo',
-          component: () => import('../views/Problem.vue'),
+          component: () => import('../views/Problem/DoProblem.vue'),
         },
       ],
     },
@@ -137,7 +141,18 @@ const router = createRouter({
           }
         } else return { path: '/login/signin' }
       },
-      component: () => import('../views/ViewUser.vue'),
+      children: [
+        {
+          path: 'list',
+          name: 'listUser',
+          component: () => import('../views/User/ListUser.vue'),
+        },
+        {
+          path: 'edit/:id',
+          name: 'editUser',
+          component: () => import('../views/User/EditUser.vue'),
+        },
+      ],
     },
     {
       path: '/:pathMatch(.*)*',

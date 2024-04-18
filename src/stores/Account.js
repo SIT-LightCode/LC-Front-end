@@ -4,7 +4,7 @@ import { modalSwal } from './Modal.js'
 import { connectBackend } from './ConnectBackend.js'
 import { Toaster, toast } from 'vue-sonner'
 import * as gql from 'gql-query-builder'
-import { useRouter } from 'vue-router'
+import { useRouter ,useRoute } from 'vue-router'
 import { cookieData } from '../stores/CookieData.js'
 import { jwtDecode } from 'jwt-decode'
 import { validateInput } from './ValidateInput.js'
@@ -13,7 +13,9 @@ export const account = defineStore('account', () => {
   const mymodal = modalSwal()
   const myCookie = cookieData()
   const myconnectBackend = connectBackend()
-  const myRouter = useRouter()
+  const myRouter = useRouter()  
+  const route = useRoute()
+
   const myVaildate = validateInput()
 
   const user = ref({
@@ -136,7 +138,10 @@ export const account = defineStore('account', () => {
     myconnectBackend.connectBack(query).then(async (data) => {
       if (data != '') {
         localStorage.setItem('user', JSON.stringify(data.data.getUserByEmail))
+      if(route.name !== 'isDo'){
         myRouter.push({ name: 'lightcode' })
+      } 
+      
       }
     })
   }

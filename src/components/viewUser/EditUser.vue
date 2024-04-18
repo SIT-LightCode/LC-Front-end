@@ -19,19 +19,54 @@ const options = ['USER', 'ADMIN']
 </script>
 
 <template>
-    <div
+
+
+
+
+
+
+
+
+
+
+
+    <div class="space-y-5">
+        <hr />
+        <div class="text-gray-900 text-sm">
+            <FloatLabel>
+                <InputText class="mx-5 p-3" id="username" v-model="editUser.name" />
+                <label for="username">Username</label>
+            </FloatLabel>
+        </div>
+        <div class="text-gray-900 text-sm">
+            <FloatLabel>
+                <InputText class="mx-5 p-3" id="email" @change="lowCase()" v-model="editUser.email" />
+                <label for="username">Email</label>
+            </FloatLabel>
+        </div>
+        <div class="space-y-5">
+            <SelectButton v-model="editUser.authorities" :options="options" aria-labelledby="basic" />
+            <hr />
+            <buttonVue class="bg-gray-300 hover:bg-gray-400" :name="'Close'" @buttonClick="() => { $emit('close', false); }">
+            </buttonVue>
+            <buttonVue class="bg-blue-300 hover:bg-blue-400" :name="'Edit'" @buttonClick="() => { $emit('editUser', editUser, oldUser); }">
+            </buttonVue> 
+            <hr />
+        </div>
+
+    </div>
+
+
+    <!-- <div
         class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
         <div class="relative w-auto my-6 mx-auto max-w-6xl">
-            <!--content-->
             <div
                 class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                <!--header-->
                 <div class="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
                     <h3 class="text-3xl font-semibold">
                         Edit User :
                     </h3>
                 </div>
-                <!--body-->
                 <div class="relative p-6 flex ">
                     <div class="border-2 rounded-lg p-5 m-5 ">
                         <div class="card flex justify-content-center m-5">
@@ -54,7 +89,6 @@ const options = ['USER', 'ADMIN']
                     </div>
                 </div>
             </div>
-            <!--footer-->
             <div
                 class="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b bg-sky-300">
                 <buttonVue :name="'Close'" @buttonClick="() => { $emit('close', false); }">
@@ -63,7 +97,7 @@ const options = ['USER', 'ADMIN']
                 </buttonVue>
             </div>
         </div>
-    </div>
+    </div> -->
 </template>
 
 <style></style>
