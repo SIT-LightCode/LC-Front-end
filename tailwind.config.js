@@ -14,7 +14,10 @@ module.exports = {
     },
     colors: {
       'st-grey': '#F2F2F2',
-      'st-blue': '#007AFF'
+      'st-blue': '#007AFF',
+      'st-green': '#6CE9A6',
+      'st-red': '#FDA29B',
+      'st-yellow': '#FEC84B'
     },
     extend: {
       keyframes: {
