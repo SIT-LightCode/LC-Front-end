@@ -9,6 +9,7 @@ const myAccount = account()
 const myProblem = problemCon()
 const myTag = learningCon()
 const difficulties = ref(['Expert', 'Hard', 'Medium', 'Beginner', 'Easier'])
+const levelArray = [['Easier', 'text-st-green'], ['Beginner', 'text-[#99c140]'], ['Medium', 'text-[#e7b416]'], ['Hard', 'text-[#db7b2b]'], ['Expert', 'text-st-red'],]
 const selectedDiff = ref('No select')
 
 const computedRecomended = computed(() => {
@@ -108,30 +109,11 @@ function hoverDetail(index) {
 </script>
 
 <template>
-  <!--<div class="flex flex-col items-center px-10 ">
-
-    <h1 class="text-3xl mt-16">Recommended Problems</h1><br>
-    <p class="flex justify-center gap-5">
-    <div :onmouseenter="() => { hoverDetail(index) }" :onmouseleave="() => { hoverDetail(index) }"
-      v-for="(item, index) in recommendedProblems.slice(0, 3)" :key="index"
-      :class="`hover:cursor-pointer rounded-lg text-white w-72  p-5 relative hover:scale-110 transition-all ` + (index === indexShow ? `bg-gray-800 z-[200000]` : ` bg-gray-700 h-[200px]`)">
-      <IconCheck class="absolute right-5 text-lime-500 top-6" />
-      <p class="text-3xl">{{ item.name }}</p>
-      <p>score: {{ item.score }}</p>
-      <p>difficulty: {{ item.difficulty }}</p>
-      <p>by: {{ item.createdBy }}</p>
-      tags: <p v-for="tag in item.tags"
-        class="inline-flex items-center px-3 rounded-full text-xs font-medium leading-4 bg-slate-100 text-gray-800 space-">
-        {{ tag }}</p>
-      <div class="line-clamp-4" v-if="index === indexShow">{{ item.description }}</div>
-    </div>
-    </p>
-  </div >-->
   <div class="bg-st-grey font-roboto">
     <div class="grid grid-cols-8 gap-5">
       <div class="col-span-6 bg-white flex flex-col gap-5 p-16 drop-shadow-2xl rounded-3xl">
         <svg
-          class="w-8 h-8 text-gray-300 absolute right-6 top-5"
+          class="w-8 h-8 text-gray-300 absolute right-6 top-5 cursor-pointer hover:text-st-blue transition-all"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
@@ -231,7 +213,7 @@ function hoverDetail(index) {
           <p class="">{{ problem.name }}</p>
           <p class="">{{ problem.isOfficial }}</p>
           <p class="">{{ problem.totalScore }}</p>
-          <p class="">{{  mapLevelToDifficulty(problem.level )}}</p>
+          <p class="" :class="levelArray[problem.level - 1]">{{ mapLevelToDifficulty(problem.level)}}</p>
         </div>
       </div>
     </div>
