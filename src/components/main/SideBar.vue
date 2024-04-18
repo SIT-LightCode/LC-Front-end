@@ -119,7 +119,7 @@ const items = ref([
 <template>
 	<div class="p-5 ">
 
-		<div class="card flex justify-content-center">
+		<div class="card flex justify-content-center w-0">
 			<Menu :model="items" />
 		</div>
 	</div>
