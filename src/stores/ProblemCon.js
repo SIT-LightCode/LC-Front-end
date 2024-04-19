@@ -8,6 +8,7 @@ import * as gql from 'gql-query-builder'
 
 export const problemCon = defineStore('problemCon', () => {
   let problemList = ref({})
+  let problemResolved = ref([])
   const myAccount = account()
 
   const mymodal = modalSwal()
@@ -223,5 +224,35 @@ export const problemCon = defineStore('problemCon', () => {
     }
   }
 
-  return { problemList, AddProblem, getAllproblem, deleteProblem, EditProblem, checkAnswer }
+  const getSubmissionByUserId = async (userId) => {
+    let querys = gql.query(
+      {
+        operation: 'getSubmissionByUserId',
+        variables: {
+          userId: { type: 'ID!', value: userId },
+        },
+        fields: [{ problem: ['id'] }],
+      },
+      undefined,
+      {
+        operationName: 'getSubmissionByUserId',
+      },
+    )
+    myconnectBackend.connectBack(querys).then(async (data) => {
+      if (data != '') {
+        problemResolved.value = data['data']['getSubmissionByUserId']
+      }
+    })
+  }
+
+  return {
+    problemList,
+    AddProblem,
+    getAllproblem,
+    deleteProblem,
+    EditProblem,
+    checkAnswer,
+    problemResolved,
+    getSubmissionByUserId,
+  }
 })
