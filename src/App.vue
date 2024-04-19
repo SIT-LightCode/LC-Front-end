@@ -46,7 +46,7 @@ const LogOut = () => {
       <div class="flex-none mt-16 fixed z-[100] bg-white h-full"> 
         <Sidebar v-if="$route.path !== '/' && $route.path !== '/login/signin'&& $route.path !== '/login/signup'" @LogOut="()=>{LogOut()}"></Sidebar>
       </div>
-      <div class="grow">
+      <div class="grow   ">
         <RouterView class="p-10 mt-16 ml-56"/>
       </div>
     </div>

@@ -40,7 +40,7 @@ const highlighter = (code) => {
     <div class=" relative  ">
 
         <div class="grid grid-cols-3 gap-4 fixed h-[90%] w-[90%] " v-if="Object.keys(data).length > 0">
-            <div class="grid grid-cols-subgrid gap-4 col-span-1 overflow-y-scroll p-5">
+            <div class="grid grid-cols-subgrid gap-4 col-span-1 overflow-y-scroll p-1 w-[90%]">
                 <!-- <MqResponsive group>
                     <template #xs-lg>
                         <div
@@ -64,7 +64,7 @@ const highlighter = (code) => {
 
 
             <!-- Filter-->
-            <div class="grid grid-cols-subgrid gap-4 col-span-2 p-5">
+            <div class="grid grid-cols-subgrid gap-4 col-span-2">
                 <CodingInput :result="prop.result" @addstatus="$emit('addstatus', '')"
                     @Submit="(e) => { $emit('Submit', prop.data.id, e); }"></CodingInput>
             </div>
@@ -73,8 +73,8 @@ const highlighter = (code) => {
         <div class="grid grid-cols-5 gap-4 fixed h-[90%] w-[90%] " v-else>
             <!-- Filter-->
             <div class="">
-                <buttonvue class="bg-gray-300" @buttonClick="$emit('addstatus', '')" :name="'Back'"></buttonvue>
-                <div class="p-10"><b style="color: red"> No problem </b></div>
+                <buttonvue class="bg-gray-300" @buttonClick="$emit('addstatus', '')" :status="false" :name="'Back'"></buttonvue>
+                <div class="p-10"><b style="color: red"> No this problem </b></div>
             </div>
         </div>
 

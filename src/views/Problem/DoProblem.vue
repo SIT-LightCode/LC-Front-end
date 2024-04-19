@@ -154,6 +154,13 @@ onBeforeMount(async () => {
 
 </script>
 <template>
+
+
+
+
+
+
+    
     <div class="relative ">
         <div class="card flex justify-content-center">
             <Dialog v-model:visible="isModal" modal :pt="{

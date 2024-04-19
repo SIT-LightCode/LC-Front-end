@@ -85,31 +85,33 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-    <Dialog v-model:visible="visible" header="Edit Profile" :style="{ width: '25rem' }" :position="position"
-        :modal="true" :draggable="false">
-      <EditUser @close="(e1) => { myRouter.push({name:'listUser'}) }" @editUser="(dataEdit, olddata) => { editUser(dataEdit, olddata) }" :datas="selectUser">></EditUser>
-    </Dialog>
 
-    <div class="relative  ">
-        <div class="flex justify-content-center align-items-center mb-4 gap-2">
-            <div id="logo">USER</div>
-        </div>
 
-        <div class=" overflow-y-scroll ">
-            <div>
+    <!--  -->
+    <div class="bg-st-grey font-roboto">
+
+        <div>
+            <p id="logo" class="text-xl opacity-50  ">USER</p>
+            <Dialog v-model:visible="visible" header="Edit Profile" :style="{ width: '25rem' }" :position="position"
+                :modal="true">
+                <EditUser @close="(e1) => { visible = false }"
+                    @editUser="(dataEdit, olddata) => { editUser(dataEdit, olddata); visible = false }"
+                    :datas="selectUser">></EditUser>
+            </Dialog>
+            <div class=" flex">
                 <filterBar class="invisible lg:visible" @filterValue="(e1) => { filterFunc(e1); }"></filterBar>
             </div>
-
-            <div class="overflow-auto ">
-                <!-- <ListUser @deleteUser="(id) => { deleteUser(id) }"
-                    @editUser="(select) => { myRouter.push({name:'editUser',params:{id:select.id}})  }" :datas="dataFilter">
-                </ListUser> -->
-                <ListUser @deleteUser="(id) => { deleteUser(id) }" @editUser="(select) => { selectUser == select;visible == 'false' }"
-                    :datas="dataFilter">
+            <div class="p-10 bg-white mt-10 rounded-3xl flex flex-col gap-4 text-lg drop-shadow-2xl">
+                <ListUser @deleteUser="(id) => { deleteUser(id) }"
+                    @editUser="(select) => { selectUser = select; visible = true }" :datas="dataFilter">
                 </ListUser>
             </div>
         </div>
     </div>
+
+
+
+
 </template>
 
 <style>

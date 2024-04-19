@@ -19,17 +19,6 @@ const options = ['USER', 'ADMIN']
 </script>
 
 <template>
-
-
-
-
-
-
-
-
-
-
-
     <div class="space-y-5">
         <hr />
         <div class="text-gray-900 text-sm">
@@ -47,9 +36,9 @@ const options = ['USER', 'ADMIN']
         <div class="space-y-5">
             <SelectButton v-model="editUser.authorities" :options="options" aria-labelledby="basic" />
             <hr />
-            <buttonVue class="bg-gray-300 hover:bg-gray-400" :name="'Close'" @buttonClick="() => { $emit('close', false); }">
+            <buttonVue class="bg-gray-300 hover:bg-gray-400" :status="false" :name="'Close'"  @buttonClick="() => { $emit('close', false); }">
             </buttonVue>
-            <buttonVue class="bg-blue-300 hover:bg-blue-400" :name="'Edit'" @buttonClick="() => { $emit('editUser', editUser, oldUser); }">
+            <buttonVue class="bg-blue-300 hover:bg-blue-400" :status="false" :name="'Edit'" @buttonClick="() => { $emit('editUser', editUser, oldUser); }">
             </buttonVue> 
             <hr />
         </div>

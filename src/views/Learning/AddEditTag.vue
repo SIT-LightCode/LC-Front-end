@@ -36,7 +36,7 @@ const conBackend = async (type, query, name) => {
 </script>
  
 <template>
-<div class=" px-1 max-w-[90%]">
+<div class=" px-1 max-w-[90%] ">
   <div class="flex justify-content-center align-items-center mb-4 gap-2">
             <div  v-if="$route.name == 'addTag'" id="logo">ADD TAG</div>
             <div v-else-if="$route.name == 'editTag'" id="logo">Edit TAG</div>

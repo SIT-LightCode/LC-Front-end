@@ -5,9 +5,10 @@ const emit = defineEmits(["filterValue"])
 const prop = defineProps({
         datas: Object,
 })
-const filterValue = ref({ tag: "", level: 0, isOfficial: "" })
+const filterValue = ref({ keyword:"" , tag: "", level: 0, isOfficial: "" })
 const resetFilter = () => {
-        emit('filterValue', { tag: "", level: 0, isOfficial: "" });
+        emit('filterValue', { keyword:"" ,tag: "", level: 0, isOfficial: "" });
+        filterValue.value.keyword = "";
         filterValue.value.tag = "";
         filterValue.value.level = 0;
         filterValue.value.isOfficial = "";
@@ -16,13 +17,21 @@ const resetFilter = () => {
 </script>
 
 <template>
-        <div class="grid grid-cols-4 gap-4 border-2 rounded-lg p-5 m-5 ">
-                <div>
-                        <label for="underline_select" class="block text-sm font-medium text-gray-900 dark:text-white">
-                                Difficulty level?</label>
-                        <select id="underline_select"
-                                class="block w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                v-model="filterValue.level">
+        <div class="mt-10 flex">
+                <div class="relative flex w-72">
+                        <input @change="$emit('filterValue', filterValue);" v-model="filterValue.keyword" placeholder="Problem Search" class="rounded-3xl px-4 py-1 w-full text-lg" />
+                        <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
+                                        class="w-[24px] h-[24px] absolute right-3 top-1 opacity-50 text-lg">
+                                        <path fill-rule="evenodd"
+                                                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                                                clip-rule="evenodd" />
+                                </svg>
+                        </span>
+                </div>
+                <div class="flex items-center gap-2 ml-5">
+                        <p class="text-lg text-st-blue">Difficulty Level:</p>
+                        <select @change="$emit('filterValue', filterValue);" v-model="filterValue.level" class="border-none rounded-3xl px-4 py-1 w-36 text-lg">
                                 <option value="0">No select</option>
                                 <option value="5">Expert</option>
                                 <option value="4">Hard</option>
@@ -31,36 +40,28 @@ const resetFilter = () => {
                                 <option value="1">Easier</option>
                         </select>
                 </div>
-
-                <div>
-                        <label for="underline_select" class="block  text-sm font-medium text-gray-900 dark:text-white">
-                                Official Problem?</label>
-                        <select id="underline_select"
-                                class="block  w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                v-model="filterValue.isOfficial">
+                <div class="flex items-center gap-2 ml-5">
+                        <p class="text-lg text-st-blue">Official Problem:</p>
+                        <select @change="$emit('filterValue', filterValue);" v-model="filterValue.isOfficial" class="border-none rounded-3xl px-4 py-1 w-36 text-lg">
                                 <option value="">No select</option>
                                 <option value="true">True</option>
                                 <option value="false">False</option>
-
                         </select>
                 </div>
-                <div>
-                        <label for="underline_select" class="block  text-sm font-medium text-gray-900 dark:text-white">
-                                Select tag ?</label>
-                        <select v-model="filterValue.tag"
-                                class="block  w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                <div class="flex items-center gap-2 ml-5">
+                        <p class="text-lg text-st-blue">Select tag:</p>
+                        <select @change="$emit('filterValue', filterValue);" v-model="filterValue.tag" class="border-none rounded-3xl px-4 py-1 w-36 text-lg">
                                 <option value="">No select</option>
                                 <option v-for="(topic, key) in datas.tagList" :value="topic.id">{{ topic.topic }}
                                 </option>
                         </select>
                 </div>
-                <div>
-                        <buttonVue @buttonClick=" resetFilter()" :name="'Reset'" class="bg-red-300 hover:bg-red-400"></buttonVue>
-                        <buttonVue @buttonClick="$emit('filterValue', filterValue);" :status="false" :name="'filter'" class="bg-blue-300 hover:bg-blue-400">
-                        </buttonVue>
-                </div>
+                <buttonVue class="ml-5 bg-red-300 hover:bg-red-400" :status="false"  @buttonClick="resetFilter" :name="'Reset'">
+                </buttonVue>
 
         </div>
+
+
 </template>
 
 <style></style>

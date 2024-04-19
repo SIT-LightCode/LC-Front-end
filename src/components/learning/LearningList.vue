@@ -31,7 +31,8 @@ user.value = JSON.parse(localStorage.getItem('user'))
 </script>
 
 <template>
-  <div v-if="user.authorities.includes('ADMIN')">
+  <div class="bg-st-grey font-roboto p-5">
+    <div v-if="user.authorities.includes('ADMIN')">
     <buttonVue @buttonClick="$emit('addstatus', 'addTag')" :name="'Add Tag'" class="bg-gray-300 hover:bg-gray-400">
     </buttonVue>
     <buttonVue @buttonClick="$emit('addstatus', 'addLesson')" :name="'Add Lesson'" class="bg-gray-300 hover:bg-gray-400" >
@@ -40,7 +41,7 @@ user.value = JSON.parse(localStorage.getItem('user'))
   </div>
   <div v-if="contents.length > 0" class="flex py-5">
 
-    <div class="flex flex-col space-y-5 pr-6">
+    <div class="flex flex-col space-y-5  ">
 
       <div v-for="topic in contents" class="flex flex-col content-center text-black bg-white">
         <div>
@@ -69,6 +70,8 @@ user.value = JSON.parse(localStorage.getItem('user'))
   <div v-else>
     <div><b style="color: red"> No Content </b></div>
   </div>
+  </div>
+  
 
   <!-- </div> -->
 </template>

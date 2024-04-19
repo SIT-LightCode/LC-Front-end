@@ -62,28 +62,41 @@ const clickEvent = (data) => {
 
 <template>
   <div class="">
-    <DataTable v-model:selectionKeys="selectedKey" :value="props.listData" paginator :rows="10"
-      tableStyle="min-width: 50rem;"
-      paginatorTemplate='FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink JumpToPageDropdown '
-      currentPageReportTemplate="{first} to {last} of {totalRecords}">
-      <Column field="name" header="Name" ></Column>
-      <Column field="email" header="Email" ></Column>
-      <Column field="authorities" header="Authorities" ></Column>
-      <Column field="score" header="Score" ></Column>
-      <Column >
-        <template #body={data}>
-          <buttonVue class="bg-red-300 hover:bg-red-400" @buttonClick="$emit('deleteUser', data.id)" :name="'Delete'">
+  
+    <div class="p-5 bg-white rounded-3xl flex flex-col gap-4 text-lg drop-shadow-2xl">
+      <div class="grid grid-cols-6 border-b-2 pb-2">
+        <p class="text-st-blue">Name</p>
+        <p class="text-st-blue">Email</p>
+        <p class="text-st-blue">Authorities</p>
+        <p class="text-st-blue">Score</p>
+        <p class="text-st-blue"></p>
+        <p class="text-st-blue"></p>
+      </div>
+      <div v-for="user in paginatedData" class="grid grid-cols-6 pl-1" @click="$emit('doProblem', user)">
+        <p class="truncate ">{{ user.name }}</p>
+        <p class="truncate ">{{ user.email }}</p>
+        <p class="truncate ">{{ user.authorities }}</p>
+        <p class="truncate ">{{ user.score }}</p>
+        <p>
+          <buttonVue class="bg-red-300 hover:bg-red-400" @buttonClick="$emit('deleteUser', user.id)" :name="'Delete'">
           </buttonVue>
-        </template>
-      </Column>
-      <Column>
-        <template #body={data}>
-          <buttonVue class="bg-blue-300 hover:bg-blue-400" @buttonClick="$emit('editUser', data);"
-            :status="false" :name="'Edit'">
+        </p>
+        <p>
+          <buttonVue class="bg-blue-300 hover:bg-blue-400" @buttonClick="$emit('editUser', user);" :status="false"
+            :name="'Edit'">
           </buttonVue>
-        </template>
-      </Column>
-    </DataTable>
+        </p>
+      </div>
+
+      <Paginator v-model:first="pageNumber" rows="1" :totalRecords="pageCount" v-if="pageCount !== 0" :template="{
+      '640px': 'PrevPageLink CurrentPageReport NextPageLink',
+      '960px': 'FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink',
+      '1300px': 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',
+      default: 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink JumpToPageDropdown '
+    }">
+      </Paginator>
+    </div>
+
   </div>
 
 </template>

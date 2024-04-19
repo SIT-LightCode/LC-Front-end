@@ -193,7 +193,30 @@ const metaKey = ref(true);
 
       </template>
 </MqResponsive> -->
-    <div class="card">
+    <div class="p-5 bg-white rounded-3xl flex flex-col gap-4 text-lg drop-shadow-2xl">
+      <div class="grid grid-cols-4 border-b-2 pb-2">
+        <p class="text-st-blue">Name</p>
+        <p class="text-st-blue">Official Problem</p>
+        <p class="text-st-blue">Score</p>
+        <p class="text-st-blue">Difficulty</p>
+      </div>
+      <button v-for="problem in paginatedData" class="grid grid-cols-4 text-left pl-1	hover:bg-st-grey" @click="$emit('doProblem', problem)">
+        <p class="truncate ">{{ problem.name }}</p>
+        <p class="truncate ">{{ problem.isOfficial }}</p>
+        <p class="truncate ">{{ problem.totalScore }}</p>
+        <p class="truncate " :class="levelArray[problem.level - 1]">{{ returnLevel(problem.level) }}</p>
+      </button>
+
+      <Paginator v-model:first="pageNumber" rows="1" :totalRecords="pageCount" v-if="pageCount !== 0" :template="{
+            '640px': 'PrevPageLink CurrentPageReport NextPageLink',
+            '960px': 'FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink',
+            '1300px': 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',
+            default: 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink JumpToPageDropdown '
+          }">
+    </Paginator>
+    </div>
+
+    <!-- <div class="card">
 
       <DataTable v-model:selection="selectedData" @row-dblclick="$emit('doProblem', selectedData)"
         :value="paginatedData" selectionMode="single" paginator :rows="10" tableStyle="min-width: 50rem;"
@@ -210,7 +233,7 @@ const metaKey = ref(true);
           </template>
         </Column>
       </DataTable>
-    </div>
+    </div> -->
 
 
   </div>

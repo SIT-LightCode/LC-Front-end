@@ -30,13 +30,20 @@ const isFilter = ref(false)
 const filterFunc = (dataFilter) => {
 
     // Check if both tag and level filters are empty
-    if (dataFilter.tag.length == 0 && dataFilter.level == 0 && dataFilter.isOfficial == "") {
+    if (dataFilter.tag.keyword == "" && dataFilter.tag.length == 0 && dataFilter.level == 0 && dataFilter.isOfficial == "") {
         isFilter.value = false;
         return;
     }
-
+    let filteredProblem = myproblemCon.problemList
+    if (dataFilter.keyword !== "") {
+        filteredProblem = filteredProblem.filter(problem => {
+            if (problem.name.includes(dataFilter.keyword)) {
+                return problem
+            }
+        });
+    }
     isFilter.value = true;
-    const uniqueProblems = myproblemCon.problemList.reduce((acc, problem) => {
+    const uniqueProblems = filteredProblem.reduce((acc, problem) => {
         let tagsInProblem = []
         let hasCommonTag = false
         let hasMatchingLevel = false
@@ -65,6 +72,7 @@ const filterFunc = (dataFilter) => {
             }
 
         } else { hasMatchingOffice = true }
+
 
 
         if (hasCommonTag && hasMatchingLevel && hasMatchingOffice) {
@@ -97,30 +105,26 @@ onBeforeMount(async () => {
 
 </script>
 <template>
-    <div class="relative  ">
-        <div class="flex justify-content-center align-items-center mb-4 gap-2">
-            <div  id="logo">Problem</div>
-        </div>
+    <div class="bg-st-grey font-roboto ">
 
-        <div class=" overflow-y-scroll ">
-            <div>
+        <div>
+            <p id="logo" class="text-xl opacity-50  ">Problem</p>
+            <div class=" flex ">
                 <filterBar :datas="mylearningCon" @filterValue="(e1) => { filterFunc(e1); }"></filterBar>
             </div>
-
-            <div class="overflow-auto ">
+            <div class="p-10 bg-white mt-10 rounded-3xl flex flex-col gap-4 text-lg drop-shadow-2xl">
                 <listProblem class="" @deleteProblem="(e1) => { myproblemCon.deleteProblem(e1) }"
                     @editProblem="(e1) => { myRouter.push({ name: 'isEdit', params: { id: e1.id } }); dataCurrent = e1; }"
                     @doProblem="(e1) => { myRouter.push({ name: 'isDo', params: { id: e1.id } }); dataCurrent = e1 }"
                     :datas="test"></listProblem>
             </div>
-
         </div>
-
-
     </div>
+
 </template>
 <style scoped>
 #logo {
+
     color: #007AFF;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     font-family: "Rampart One";

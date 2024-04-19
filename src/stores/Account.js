@@ -104,7 +104,6 @@ export const account = defineStore('account', () => {
       myconnectBackend.connectBack(query).then(async (data) => {
         if (data != '') {
           toast.success('edit user completed')
-          GetUserByEmail()
           GetUser()
         }
       })

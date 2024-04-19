@@ -19,7 +19,7 @@ const prop = defineProps({
 <template>
     <div class="">
         <!-- First Photo Grid-->
-        <PagingForUser :listData="datas" @deleteUser="(i) => { $emit('deleteUser', i) }"
+        <PagingForUser :listData="datas" @deleteUser="(i) => { $emit('deleteUser', i) }" 
             @editUser="(i) => { $emit('editUser', i) }" :datas="dataFilter">
         </PagingForUser>
 
