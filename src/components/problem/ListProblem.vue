@@ -23,7 +23,7 @@ const prop = defineProps({
     <div>
 
 
-        <PagingForProblem class="" style="" :listData="datas" :size="21"
+        <PagingForProblem :listData="datas" :size="21"
                     @doProblem="(i) => { $emit('doProblem', i) }" @deleteProblem="(i) => { $emit('deleteProblem', i) }"
                     @editProblem="(i) => { $emit('editProblem', i) }" :datas="dataFilter" />
         <!-- </div> -->

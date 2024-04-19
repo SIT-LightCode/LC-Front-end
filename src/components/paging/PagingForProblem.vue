@@ -54,7 +54,7 @@ function hoverDetail(index) {
 const user = JSON.parse(localStorage.getItem('user'))
 
 const colorTags = ['bg-[#ff6961]', 'bg-[#ffb480]', 'bg-[#f8f38d]', 'bg-[#42d6a4]', 'bg-[#08cad1]', 'bg-[#59adf6]', 'bg-[#9d94ff]', 'bg-[#c780e8]']
-const levelArray = [['Easier', 'text-[#2dc937]'], ['Beginner', 'text-[#99c140]'], ['Medium', 'text-[#e7b416]'], ['Hard', 'text-[#db7b2b]'], ['Expert', 'text-[#cc3232]'],]
+const levelArray = [['Easier', 'text-st-green'], ['Beginner', 'text-st-green'], ['Medium', 'text-[#FEC84B]'], ['Hard', 'text-st-red'], ['Expert', 'text-st-red'],]
 
 const returnLevel = (id) => {
   if (levelArray[id - 1] != undefined) {

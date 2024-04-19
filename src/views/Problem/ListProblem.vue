@@ -112,12 +112,11 @@ onBeforeMount(async () => {
             <div class=" flex ">
                 <filterBar :datas="mylearningCon" @filterValue="(e1) => { filterFunc(e1); }"></filterBar>
             </div>
-            <div class="p-10 bg-white mt-10 rounded-3xl flex flex-col gap-4 text-lg drop-shadow-2xl">
-                <listProblem class="" @deleteProblem="(e1) => { myproblemCon.deleteProblem(e1) }"
-                    @editProblem="(e1) => { myRouter.push({ name: 'isEdit', params: { id: e1.id } }); dataCurrent = e1; }"
-                    @doProblem="(e1) => { myRouter.push({ name: 'isDo', params: { id: e1.id } }); dataCurrent = e1 }"
-                    :datas="test"></listProblem>
-            </div>
+            <listProblem class="mt-10" @deleteProblem="(e1) => { myproblemCon.deleteProblem(e1) }"
+                @editProblem="(e1) => { myRouter.push({ name: 'isEdit', params: { id: e1.id } }); dataCurrent = e1; }"
+                @doProblem="(e1) => { myRouter.push({ name: 'isDo', params: { id: e1.id } }); dataCurrent = e1 }"
+                :datas="test">
+            </listProblem>
         </div>
     </div>
 

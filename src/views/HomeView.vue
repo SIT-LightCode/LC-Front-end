@@ -18,7 +18,7 @@ const difficulties = ref(['Expert', 'Hard', 'Medium', 'Beginner', 'Easier'])
 const levelArray = [
   ['Easier', 'text-st-green'],
   ['Beginner', 'text-[#99c140]'],
-  ['Medium', 'text-[#e7b416]'],
+  ['Medium', 'text-[#FEC84B]'],
   ['Hard', 'text-[#db7b2b]'],
   ['Expert', 'text-st-red'],
 ]
@@ -40,6 +40,23 @@ function mapLevelToDifficulty(level) {
       return 'Beginner'
     case 1:
       return 'Easier'
+    default:
+      return 'Unknown' // Handle unknown levels if necessary
+  }
+}
+
+function mapDifficultyToLevel(level) {
+  switch (level) {
+    case 'Expert':
+      return 5
+    case 'Hard':
+      return 4
+    case 'Medium':
+      return 3
+    case 'Beginner':
+      return 2
+    case 'Easier':
+      return 1
     default:
       return 'Unknown' // Handle unknown levels if necessary
   }
@@ -226,7 +243,7 @@ const test = computed(() => {
         class="drop-shadow-2xl bg-white group hover:cursor-pointer hover:bg-st-blue transition-all rounded-3xl px-4 pt-7 pb-20 flex flex-col gap-10 relative"
       >
         <p class="text-2xl text-st-blue group-hover:text-white">{{ item.name }}</p>
-        <p class="text-lg text-st-green">{{ item.difficulty }}</p>
+        <p class="text-lg " :class="levelArray[mapDifficultyToLevel(item.difficulty)-1]">{{ item.difficulty }}</p>
         <p class="text-sm text-st-blue group-hover:text-white">{{ item.description }}</p>
         <div>
           <span
@@ -253,29 +270,27 @@ const test = computed(() => {
           "
         ></filterBar>
       </div>
-      <div class="p-10 bg-white mt-10 rounded-3xl flex flex-col gap-4 text-lg drop-shadow-2xl">
-        <listProblem
-          class=""
-          @deleteProblem="
-            (e1) => {
-              myProblem.deleteProblem(e1)
-            }
-          "
-          @editProblem="
-            (e1) => {
-              myRouter.push({ name: 'isEdit', params: { id: e1.id } })
-              dataCurrent = e1
-            }
-          "
-          @doProblem="
-            (e1) => {
-              myRouter.push({ name: 'isDo', params: { id: e1.id } })
-              dataCurrent = e1
-            }
-          "
-          :datas="test"
-        ></listProblem>
-      </div>
+      <listProblem
+        class="mt-10"
+        @deleteProblem="
+          (e1) => {
+            myProblem.deleteProblem(e1)
+          }
+        "
+        @editProblem="
+          (e1) => {
+            myRouter.push({ name: 'isEdit', params: { id: e1.id } })
+            dataCurrent = e1
+          }
+        "
+        @doProblem="
+          (e1) => {
+            myRouter.push({ name: 'isDo', params: { id: e1.id } })
+            dataCurrent = e1
+          }
+        "
+        :datas="test"
+      ></listProblem>
       <!-- <div class="mt-10 flex">
         <div class="relative flex w-72">
           <input placeholder="Problem Search" class="rounded-3xl px-4 py-1 w-full text-lg" />
