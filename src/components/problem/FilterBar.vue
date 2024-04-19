@@ -56,7 +56,7 @@ const resetFilter = () => {
                                 </option>
                         </select>
                 </div>
-                <buttonVue class="ml-5 bg-red-300 hover:bg-red-400" :status="false"  @buttonClick="resetFilter" :name="'Reset'">
+                <buttonVue class="ml-5 bg-gray-300 hover:bg-gray-400" :status="false"  @buttonClick="resetFilter" :name="'Reset'">
                 </buttonVue>
 
         </div>

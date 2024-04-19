@@ -76,13 +76,13 @@ const items = ref([
 					router.push("/problem/list")
 				}
 			},
-			// {
-			// 	label: 'My Problem',
-			// 	icon: 'pi pi-search',
-			// 	command: () => {
-			// 		router.push("")
-			// 	}
-			// },
+			{
+				label: 'My Problem',
+				icon: 'pi pi-search',
+				command: () => {
+					router.push("/myproblem/list")
+				}
+			},
 			{
 				label: 'View User',
 				icon: 'pi pi-users',

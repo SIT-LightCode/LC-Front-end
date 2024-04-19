@@ -168,7 +168,7 @@ onBeforeMount(async () => {
                 mask: {
                     style: 'backdrop-filter: blur(2px)'
                 }
-            }" header="Answer" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+            }" header="Answer" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }" :draggable="false">
                 <ResultPage :data="result">
                 </ResultPage>
             </Dialog>

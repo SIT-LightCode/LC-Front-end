@@ -79,6 +79,28 @@ const router = createRouter({
       ],
     },
     {
+      path: '/myproblem',
+      name: 'myproblem',
+      beforeEnter: checkLogin,
+      children: [
+        {
+          path: 'list',
+          name: 'listproblem',
+          component: () => import('../views/Problem/MyProblem.vue'),
+        },
+        {
+          path: 'add',
+          name: 'addproblem',
+          component: () => import('../views/Problem/AddProblem.vue'),
+        },
+        {
+          path: 'edit-problem/:id',
+          name: 'editproblem',
+          component: () => import('../views/Problem/EditProblem.vue'),
+        }
+      ],
+    },
+    {
       path: '/learning',
       name: 'learning',
       beforeEnter: checkLogin,
