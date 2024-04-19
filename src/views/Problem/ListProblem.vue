@@ -143,6 +143,7 @@ const items = ref([
                     //     // alert("Refresh")
                     // }
                     myproblemCon.deleteProblem(dataCurrent.value.id)
+                    visible.value = false
                 }
             }
         ]
@@ -210,10 +211,7 @@ onBeforeMount(async () => {
 
             </div>
             <div class="p-10 bg-white mt-10 rounded-3xl flex flex-col gap-4 text-lg drop-shadow-2xl">
-                <!-- <listProblem class="" @deleteProblem="(e1) => { myproblemCon.deleteProblem(e1) }"
-                    @editProblem="(e1) => { myRouter.push({ name: 'isEdit', params: { id: e1.id } }); dataCurrent = e1; }"
-                    @doProblem="(e1) => { myRouter.push({ name: 'isDo', params: { id: e1.id } }); dataCurrent = e1 }"
-                    :datas="test"></listProblem> -->
+             
 
                 <listProblem class="" @deleteProblem="(e1) => { myproblemCon.deleteProblem(e1) }"
                     @editProblem="(e1) => { myRouter.push({ name: 'isEdit', params: { id: e1.id } }); dataCurrent = e1; }"
