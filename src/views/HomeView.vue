@@ -5,8 +5,8 @@ import { problemCon } from '../stores/ProblemCon'
 import { learningCon } from '../stores/LearningCon'
 import IconCheck from '../components/icons/IconCheck.vue'
 import IconTooling from '../components/icons/IconTooling.vue'
-import filterBar from '../components/problem/FilterBar.vue';
-import listProblem from '../components/problem/ListProblem.vue';
+import filterBar from '../components/problem/FilterBar.vue'
+import listProblem from '../components/problem/ListProblem.vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
@@ -15,7 +15,13 @@ const myAccount = account()
 const myProblem = problemCon()
 const myTag = learningCon()
 const difficulties = ref(['Expert', 'Hard', 'Medium', 'Beginner', 'Easier'])
-const levelArray = [['Easier', 'text-st-green'], ['Beginner', 'text-[#99c140]'], ['Medium', 'text-[#e7b416]'], ['Hard', 'text-[#db7b2b]'], ['Expert', 'text-st-red'],]
+const levelArray = [
+  ['Easier', 'text-st-green'],
+  ['Beginner', 'text-[#99c140]'],
+  ['Medium', 'text-[#e7b416]'],
+  ['Hard', 'text-[#db7b2b]'],
+  ['Expert', 'text-st-red'],
+]
 const selectedDiff = ref('No select')
 
 const computedRecomended = computed(() => {
@@ -85,25 +91,23 @@ function sortProblemsByRelevance(userSkills, problems) {
 
 const recommendedProblems = ref([])
 
+const sortedProblemsComputed = computed(() => {
+  const userSkills = myAccount.user.skills
+  // Assuming `problemList` updates reactively, filter will re-run when it changes.
+  const problems = myProblem.problemList.filter((problem) => problem.isOfficial === true)
+
+  const sortedProblems = sortProblemsByRelevance(userSkills, problems)
+
+  // mapProblemToFormat can be adjusted according to your needs
+  return sortedProblems.map(mapProblemToFormat)
+})
+
 onBeforeMount(async () => {
   const user = JSON.parse(localStorage.getItem('user'))
   myAccount.user = user
   await myProblem.getAllproblem()
   await myTag.getAllTag()
-
-  const userSkills = myAccount.user.skills
-  const problems = myProblem.problemList.filter((problem) => problem.isOfficial === true)
-  console.log(problems)
-  // const solvedProblems = myAccount.user.solvedProblems;
-
-  const sortedProblems = sortProblemsByRelevance(userSkills, problems)
-
-  // Filter out solved or in-progress problems
-  // no need since if finished then skil will leveled up
-
-  recommendedProblems.value = sortedProblems.map(mapProblemToFormat)
-
-  console.log(recommendedProblems.value)
+  recommendedProblems.value = sortedProblemsComputed.value
 })
 
 const indexShow = ref(null)
@@ -118,70 +122,71 @@ const dataCurrent = ref([])
 
 const isFilter = ref(false)
 
-
 const filterFunc = (dataFilter) => {
-
-    // Check if both tag and level filters are empty
-    if (dataFilter.tag.keyword == "" && dataFilter.tag.length == 0 && dataFilter.level == 0 && dataFilter.isOfficial == "") {
-        isFilter.value = false;
-        return;
+  // Check if both tag and level filters are empty
+  if (
+    dataFilter.tag.keyword == '' &&
+    dataFilter.tag.length == 0 &&
+    dataFilter.level == 0 &&
+    dataFilter.isOfficial == ''
+  ) {
+    isFilter.value = false
+    return
+  }
+  let filteredProblem = myProblem.problemList
+  if (dataFilter.keyword !== '') {
+    filteredProblem = filteredProblem.filter((problem) => {
+      if (problem.name.includes(dataFilter.keyword)) {
+        return problem
+      }
+    })
+  }
+  isFilter.value = true
+  const uniqueProblems = filteredProblem.reduce((acc, problem) => {
+    let tagsInProblem = []
+    let hasCommonTag = false
+    let hasMatchingLevel = false
+    let hasMatchingOffice = false
+    if (dataFilter.tag != '') {
+      tagsInProblem = problem.tagProblem.map((tagObj) => tagObj.tag.id)
+      for (let i in tagsInProblem) {
+        if (tagsInProblem[i].toString() == dataFilter.tag.toString()) {
+          hasCommonTag = true
+        }
+      }
+    } else {
+      hasCommonTag = true
     }
-    let filteredProblem = myProblem.problemList
-    if (dataFilter.keyword !== "") {
-        filteredProblem = filteredProblem.filter(problem => {
-            if (problem.name.includes(dataFilter.keyword)) {
-                return problem
-            }
-        });
+    // Check if the level filter matches
+    if (dataFilter.level != 0) {
+      hasMatchingLevel = problem.level == dataFilter.level
+    } else {
+      hasMatchingLevel = true
     }
-    isFilter.value = true;
-    const uniqueProblems = filteredProblem.reduce((acc, problem) => {
-        let tagsInProblem = []
-        let hasCommonTag = false
-        let hasMatchingLevel = false
-        let hasMatchingOffice = false
-        if (dataFilter.tag != "") {
-            tagsInProblem = problem.tagProblem.map(tagObj => tagObj.tag.id);
-            for (let i in tagsInProblem) {
-                if (tagsInProblem[i].toString() == dataFilter.tag.toString()) {
-                    hasCommonTag = true;
-                }
-            }
+
+    if (dataFilter.isOfficial != '') {
+      if (problem.isOfficial != null) {
+        if (dataFilter.isOfficial == problem.isOfficial.toString()) {
+          hasMatchingOffice = true
         }
-        else {
-            hasCommonTag = true
-        }
-        // Check if the level filter matches
-        if (dataFilter.level != 0) {
-            hasMatchingLevel = problem.level == dataFilter.level;
-        } else { hasMatchingLevel = true }
+      }
+    } else {
+      hasMatchingOffice = true
+    }
 
-        if (dataFilter.isOfficial != "") {
-            if (problem.isOfficial != null) {
-                if (dataFilter.isOfficial == problem.isOfficial.toString()) {
-                    hasMatchingOffice = true
-                }
-            }
+    if (hasCommonTag && hasMatchingLevel && hasMatchingOffice) {
+      acc.push(problem)
+    }
+    return acc
+  }, [])
 
-        } else { hasMatchingOffice = true }
-
-
-
-        if (hasCommonTag && hasMatchingLevel && hasMatchingOffice) {
-            acc.push(problem);
-        }
-        return acc;
-    }, []);
-
-    data.value = Array.from(new Set(uniqueProblems));
-};
+  data.value = Array.from(new Set(uniqueProblems))
+}
 const test = computed(() => {
-    if (isFilter.value) {
-        return data.value
-    }
-    else return myProblem.problemList
+  if (isFilter.value) {
+    return data.value
+  } else return myProblem.problemList
 })
-
 </script>
 
 <template>
@@ -238,15 +243,39 @@ const test = computed(() => {
     </div>
     <div>
       <p class="text-xl opacity-50 mt-20">All Problems</p>
-      <div class=" flex ">
-                <filterBar :datas="myTag" @filterValue="(e1) => { filterFunc(e1); }"></filterBar>
-            </div>
-            <div class="p-10 bg-white mt-10 rounded-3xl flex flex-col gap-4 text-lg drop-shadow-2xl">
-                <listProblem class="" @deleteProblem="(e1) => { myProblem.deleteProblem(e1) }"
-                    @editProblem="(e1) => { myRouter.push({ name: 'isEdit', params: { id: e1.id } }); dataCurrent = e1; }"
-                    @doProblem="(e1) => { myRouter.push({ name: 'isDo', params: { id: e1.id } }); dataCurrent = e1 }"
-                    :datas="test"></listProblem>
-            </div>
+      <div class="flex">
+        <filterBar
+          :datas="myTag"
+          @filterValue="
+            (e1) => {
+              filterFunc(e1)
+            }
+          "
+        ></filterBar>
+      </div>
+      <div class="p-10 bg-white mt-10 rounded-3xl flex flex-col gap-4 text-lg drop-shadow-2xl">
+        <listProblem
+          class=""
+          @deleteProblem="
+            (e1) => {
+              myProblem.deleteProblem(e1)
+            }
+          "
+          @editProblem="
+            (e1) => {
+              myRouter.push({ name: 'isEdit', params: { id: e1.id } })
+              dataCurrent = e1
+            }
+          "
+          @doProblem="
+            (e1) => {
+              myRouter.push({ name: 'isDo', params: { id: e1.id } })
+              dataCurrent = e1
+            }
+          "
+          :datas="test"
+        ></listProblem>
+      </div>
       <!-- <div class="mt-10 flex">
         <div class="relative flex w-72">
           <input placeholder="Problem Search" class="rounded-3xl px-4 py-1 w-full text-lg" />
