@@ -16,8 +16,8 @@ const prop = defineProps({
 })
 const oldArray = ref([])
 const inputProblemData = ref({
-    name: prop.data.name, description: prop.data.description
-    , totalScore: prop.data.totalScore, level: prop.data.level, arrayTagId: []
+    name: '', description: ''
+    , totalScore: '', level: 0, arrayTagId: []
 })
 
 const setValueFunc = (input) => {
@@ -38,7 +38,6 @@ const changePage = (e1) => {
     else --page.value
 }
 const upSetProblem = () => {
-
     if (prop.data.name == inputProblemData.value.name
         && prop.data.description == inputProblemData.value.description
         && prop.data.totalScore == inputProblemData.value.totalScore
@@ -55,10 +54,17 @@ const upSetProblem = () => {
 
 
 onBeforeMount(async () => {
-    prop.data.tagProblem.forEach((e1) => {
+
+    if(Object.keys(prop.data).length > 0){
+        console.log(prop.data)
+        inputProblemData.value = prop.data
+        prop.data.tagProblem.forEach((e1) => {
         oldArray.value.push(e1.tag.id)
         inputProblemData.value.arrayTagId.push(e1.tag.id)
     })
+    }
+  
+ 
 })
 
 

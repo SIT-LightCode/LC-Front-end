@@ -19,7 +19,7 @@ function getCookie(cname) {
 }
 
 function checkLogin(to, from) {
-  if (getCookie('refreshToken') == '') {
+  if (getCookie('refreshToken') == '' ) {
     return { path: '/login/signin' }
   }
 }
@@ -58,7 +58,6 @@ const router = createRouter({
     },
     {
       path: '/problem',
-      name: 'problem',
       beforeEnter: checkLogin,
       children: [
         {
@@ -132,12 +131,7 @@ const router = createRouter({
         },
       ],
     },
-    {
-      path: '/add-problem',
-      name: 'addProblem',
-      beforeEnter: checkLogin,
-      component: () => import('../views/AddProblem.vue'),
-    },
+
     {
       path: '/pretest',
       name: 'pretest',
@@ -169,11 +163,7 @@ const router = createRouter({
           name: 'listUser',
           component: () => import('../views/User/ListUser.vue'),
         },
-        {
-          path: 'edit/:id',
-          name: 'editUser',
-          component: () => import('../views/User/EditUser.vue'),
-        },
+       
       ],
     },
     {

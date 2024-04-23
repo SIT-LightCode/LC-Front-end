@@ -25,7 +25,7 @@ const checkLogin = () => {
         }
     }
     if (errortext == "") {
-        myLogin.SignIn(dataForLogin.value.email, dataForLogin.value.password)
+        myLogin.SignIn(dataForLogin.value.email, dataForLogin.value.password,false)
     } else {
         toast.error(errortext)
     }
@@ -37,7 +37,7 @@ const lowCase = () => {
 </script>
 
 <template>
-<div class="flex flex-col gap-12 pt-20 md:flex-row items-center justify-center ">
+<div class="flex flex-col gap-12 pt-20 md:flex-row items-center justify-center max-w-[100%]">
         <div class="w-50"> 
             <img class="invisible sm:visible content-center" width="250" src="../../assets/picture/lclogo.png"
                 alt="logo_my_froup" />

@@ -132,6 +132,7 @@ export const problemCon = defineStore('problemCon', () => {
     totalScoreProblem,
     levelProblem,
   ) => {
+    console.log(tagId)
     const query = gql.mutation(
       {
         operation: 'upsertProblem',
@@ -214,7 +215,7 @@ export const problemCon = defineStore('problemCon', () => {
       const data = await myconnectBackend.connectBack(query)
       if (data['data'] !== undefined) {
         let res = data['data']['checkAnswer']
-        myAccount.GetUserByEmail()
+        myAccount.GetUserByEmail(true)
         return res
       } else return 0
     } catch (error) {

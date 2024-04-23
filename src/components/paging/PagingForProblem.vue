@@ -8,6 +8,9 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 import Image from 'primevue/image';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
+import { problemCon } from '../../stores/ProblemCon';
+import 'primeicons/primeicons.css'
+import { useRoute, useRouter } from 'vue-router'
 
 
 const emit = defineEmits(['doProblem', 'deleteProblem', 'editProblem'])
@@ -24,7 +27,8 @@ const props = defineProps({
   }
 })
 const myAccount = account()
-
+const myProblem = problemCon()
+const route = useRoute
 const pageNumber = ref(0)
 const pageCount = computed(() => {
   let l = props.listData.length,
@@ -62,6 +66,14 @@ const returnLevel = (id) => {
   }
 }
 
+const checkproblem = (id) => {
+  for (let i in myProblem.problemResolved) {
+    if (myProblem.problemResolved[i].problem.id == id) {
+      return true
+    }
+  }
+
+}
 
 const clickEvent = (i) => {
   let isDen = user.authorities.includes('ADMIN') || user.id == i.user.id
@@ -97,7 +109,7 @@ const metaKey = ref(true);
 <template>
 
 
-  <div>
+  <div class="">
 
     <!-- <MqResponsive group>
 
@@ -193,27 +205,30 @@ const metaKey = ref(true);
 
       </template>
 </MqResponsive> -->
-    <div class="p-5 bg-white rounded-3xl flex flex-col gap-4 text-lg drop-shadow-2xl">
-      <div class="grid grid-cols-4 border-b-2 pb-2">
+    <div class="p-5  rounded-3xl flex flex-col gap-4 text-base	">
+      <div class="grid grid-cols-5 border-b-2 pb-2 text-center">
         <p class="text-st-blue">Name</p>
         <p class="text-st-blue">Official Problem</p>
         <p class="text-st-blue">Score</p>
         <p class="text-st-blue">Difficulty</p>
+        <p  class="text-st-blue">Submitted</p>
       </div>
-      <button v-for="problem in paginatedData" class="grid grid-cols-4 text-left pl-1	hover:bg-st-grey" @click="$emit('doProblem', problem)">
+      <button v-for="problem in paginatedData" class="grid grid-cols-5 p-1  rounded-lg	hover:bg-gray-300 text-base	text-center"
+        @click="$emit('doProblem', problem)">
         <p class="truncate ">{{ problem.name }}</p>
         <p class="truncate ">{{ problem.isOfficial }}</p>
         <p class="truncate ">{{ problem.totalScore }}</p>
         <p class="truncate " :class="levelArray[problem.level - 1]">{{ returnLevel(problem.level) }}</p>
+        <p class="truncate pi pi-check 	 " v-if="checkproblem(problem.id)"> </p>
       </button>
 
       <Paginator v-model:first="pageNumber" rows="1" :totalRecords="pageCount" v-if="pageCount !== 0" :template="{
-            '640px': 'PrevPageLink CurrentPageReport NextPageLink',
-            '960px': 'FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink',
-            '1300px': 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',
-            default: 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink JumpToPageDropdown '
-          }">
-    </Paginator>
+        '640px': 'PrevPageLink CurrentPageReport NextPageLink',
+        '960px': 'FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink',
+        '1300px': 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',
+        default: 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink JumpToPageDropdown '
+      }">
+      </Paginator>
     </div>
 
     <!-- <div class="card">

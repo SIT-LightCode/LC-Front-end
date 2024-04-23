@@ -32,15 +32,16 @@ import Member from "../components/landingpage/Member.vue"
   </div>
 </template>
 
-<style>
+<style scoped>
 #logo {
-  color: #007AFF;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  font-family: "Rampart One";
-  font-size: 128px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 36px;
-  /* 28.125% */
+
+    color: #007AFF;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: "Rampart One";
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 36px;
+    /* 28.125% */
 }
 </style>

@@ -31,27 +31,19 @@ const setRole = () => {
 	}
 }
 setRole()
-
-// const items = ref([
-// 	{
-// 		label: 'Settings',
-// 		icon: 'pi pi-cog',
-// 		command: () => {
-// 			sidebarIsShow.value = false;
-// 			emit('OpenModal', true)
-// 		}
-// 	},
-// 	{
-// 		label: 'Logout',
-// 		icon: 'pi pi-sign-out',
-// 		command: () => {
-// 			sidebarIsShow.value = false;
-// 			emit('LogOut', true)
-// 		}
-// 	}
-// ])
-
-const items = ref([
+const itemsforadmin = ref([
+	{
+		label: 'Admin Menu',
+		items: [
+			{
+				label: 'View User',
+				icon: 'pi pi-users',
+				command: () => {
+					router.push("/view-user/list")
+				}
+			}
+		]
+	},
 	{
 		label: 'Main Menu',
 		items: [
@@ -83,11 +75,62 @@ const items = ref([
 					router.push("/myproblem/list")
 				}
 			},
+
+		]
+	},
+	{
+		label: 'Profile',
+		items: [
 			{
-				label: 'View User',
-				icon: 'pi pi-users',
+				label: 'Settings',
+				icon: 'pi pi-cog',
 				command: () => {
-					router.push("/view-user/list")
+					sidebarIsShow.value = false;
+					emit('OpenModal', true)
+				}
+			},
+			{
+				label: 'Logout',
+				icon: 'pi pi-sign-out',
+				command: () => {
+					emit('LogOut', true)
+				}
+
+			}
+		]
+	}
+]);
+
+const itemsforuser = ref([
+	{
+		label: 'Main Menu',
+		items: [
+			{
+				label: 'Home',
+				icon: 'pi pi-home',
+				command: () => {
+					router.push("/lightcode")
+				}
+			},
+			{
+				label: 'Learning',
+				icon: 'pi pi-book',
+				command: () => {
+					router.push("/learning/list/0/0")
+				}
+			},
+			{
+				label: 'Problem',
+				icon: 'pi pi-credit-card',
+				command: () => {
+					router.push("/problem/list")
+				}
+			},
+			{
+				label: 'My Problem',
+				icon: 'pi pi-search',
+				command: () => {
+					router.push("/myproblem/list")
 				}
 			}
 		]
@@ -114,13 +157,17 @@ const items = ref([
 		]
 	}
 ]);
+
+
 </script>
 
 <template>
 	<div class="p-5 ">
 
 		<div class="card flex justify-content-center w-0">
-			<Menu :model="items" />
+			<Menu v-if="user.authorities == 'ADMIN'" :model="itemsforadmin" />
+			<Menu v-else="user.authorities == 'USER'" :model="itemsforuser" />
+
 		</div>
 	</div>
 </template>

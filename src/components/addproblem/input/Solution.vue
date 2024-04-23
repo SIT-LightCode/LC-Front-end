@@ -52,7 +52,7 @@ const highlighter = (code) => {
 </script>
 
 <template>
-        <h3 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Solution for the problem * </h3>
+        <h3 class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Solution for the problem  </h3>
         <prism-editor class="my-editor" v-model="input.solution.val" :highlight="highlighter" line-numbers
             :tabSize="5"></prism-editor>
         <buttomSubmit :pages="2" @page="(e1) => { valuetoaddpage(e1) }"></buttomSubmit>

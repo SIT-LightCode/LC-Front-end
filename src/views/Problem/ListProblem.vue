@@ -7,7 +7,7 @@ import inputAnswer from '../../components/answerproblem/InputAnswer.vue';
 import { MqResponsive } from "vue3-mq";
 import { learningCon } from '../../stores/LearningCon'
 import { problemCon } from '../../stores/ProblemCon';
-
+import { Toaster, toast } from 'vue-sonner'
 import { computed, ref, onBeforeMount } from 'vue';
 import { account } from '../../stores/Account'
 import ResultPage from '../../components/answerproblem/ResultPage.vue';
@@ -131,7 +131,9 @@ const items = ref([
             {
                 label: 'Edit',
                 icon: 'pi pi-pencil',
-                command: () => { alert("Refresh") }
+                command: () => { 
+                myRouter.push({ name: 'editproblem', params: { id: dataCurrent.value.id } }) 
+            }
 
             },
             {
@@ -144,6 +146,7 @@ const items = ref([
                     // }
                     myproblemCon.deleteProblem(dataCurrent.value.id)
                     visible.value = false
+                    myproblemCon.getAllproblem()
                 }
             }
         ]
@@ -159,17 +162,21 @@ onBeforeMount(async () => {
     if (Object.keys(mylearningCon.tagList).length === 0) {
         await mylearningCon.getAllTag()
     }
+    if (localStorage.getItem('user') !== '') {
+        const user = JSON.parse(localStorage.getItem('user'))
+        myAccount.user = user
+        await myproblemCon.getSubmissionByUserId(myAccount.user.id)
+    }
 })
 
 </script>
 <template>
-    <div class="bg-st-grey font-roboto ">
+    <div class="bg-st-grey h-max">
 
         <div>
-            <p id="logo" class="text-xl opacity-50  ">Problem</p>
+            <span style=" color: #007AFF; text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); font-family: Rampart One; font-size: 64px; font-style: normal; line-height: 36px;" class="text-xl opacity-50  ">Problem</span>
             <Dialog v-model:visible="visible" class="" header="Problem" :style="{ width: '50rem', height: '25rem' }"
                 :position="'center'" :modal="true" :draggable="false">
-                <!-- {{ dataCurrent }} -->
 
                 <div class="grid grid-cols-4">
                     <p class="text-2xl text-st-blue  col-span-2">{{ dataCurrent.name }}</p>
@@ -182,14 +189,14 @@ onBeforeMount(async () => {
                         </p>
                     </div>
                     <div>
-                        <button class="pi pi-bars" @click="toggle" />
+                        <button class="pi pi-bars" @click="toggle" v-if="dataCurrent.user.id == myAccount.user.id" />
                         <Menu ref="menu" :model="items" :popup="true" />
                     </div>
                 </div>
                 <div class=" ">
                     <div class=" ">
                         <span v-for="(tag, index) in dataCurrent.tagProblem"
-                            class="inline-flex items-center px-1 rounded-full text-xs font-medium leading-4 bg-slate-100 text-white bg-blue-500 truncate ">
+                            class="inline-flex items-center px-1 mx-1 rounded-full text-xs font-medium leading-4 bg-slate-100 text-white bg-blue-500 truncate ">
                             {{ tag.tag.topic }}
                         </span>
                     </div>
@@ -210,8 +217,8 @@ onBeforeMount(async () => {
                 <filterBar :datas="mylearningCon" @filterValue="(e1) => { filterFunc(e1); }"></filterBar>
 
             </div>
-            <div class="p-10 bg-white mt-10 rounded-3xl flex flex-col gap-4 text-lg drop-shadow-2xl">
-             
+            <div class="p-5 bg-white mt-10 rounded-3xl drop-shadow-2xl h-max">
+
 
                 <listProblem class="" @deleteProblem="(e1) => { myproblemCon.deleteProblem(e1) }"
                     @editProblem="(e1) => { myRouter.push({ name: 'isEdit', params: { id: e1.id } }); dataCurrent = e1; }"

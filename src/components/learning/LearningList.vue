@@ -31,7 +31,7 @@ user.value = JSON.parse(localStorage.getItem('user'))
 </script>
 
 <template>
-  <div class="bg-st-grey font-roboto p-5">
+  <div class="bg-st-grey p-5">
     <div v-if="user.authorities.includes('ADMIN')">
     <buttonVue @buttonClick="$emit('addstatus', 'addTag')" :name="'Add Tag'" class="bg-gray-300 hover:bg-gray-400">
     </buttonVue>
@@ -46,7 +46,7 @@ user.value = JSON.parse(localStorage.getItem('user'))
       <div v-for="topic in contents" class="flex flex-col content-center text-black bg-white">
         <div>
           <div class="border-2 rounded-lg p-5 flex flex-col w-64 space-y-5 text-ellipsis overflow-hidden">
-            <div id="topic-name" class="font-bold text-xl">{{ topic['topic'] }}</div>
+            <div id="topic-name" class="font-bold text-base	">{{ topic['topic'] }}</div>
 
 
             <div v-for="lesson in topic.lesson" @click="handleLessonClick(lesson, topic.id)" :class="lesson.id === selectedLesson

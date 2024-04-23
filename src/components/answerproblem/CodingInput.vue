@@ -37,7 +37,7 @@ const countFailedTestCases = computed(() => {
 <template>
     <div>
         <div class="flex justify-content-center align-items-center gap-2">
-            <div id="logo">CODING...</div>
+            <span style=" color: #007AFF; text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); font-family: Rampart One; font-size: 64px; font-style: normal; line-height: 36px;" class="text-xl opacity-50  ">Coding..</span>
             <div class="ml-5">
                 <buttonvue class="bg-gray-300 hover:bg-gray-400" @buttonClick="$emit('addstatus', '')" :name="'Back'">
                 </buttonvue>

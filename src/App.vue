@@ -41,19 +41,34 @@ const LogOut = () => {
       <Navbar v-if="$route.path == '/'" class=" bg-black " />
     </div>
     <TopNav class="fixed border-b-2 "/>
-    <div class="flex ">
+    <div class="flex " v-if="$route.path !== '/pretest'">
       
-      <div class="flex-none mt-16 fixed z-[100] bg-white h-full"> 
-        <Sidebar v-if="$route.path !== '/' && $route.path !== '/login/signin'&& $route.path !== '/login/signup'" @LogOut="()=>{LogOut()}"></Sidebar>
+      <div class="flex-none mt-16 fixed z-[100] bg-white h-full" > 
+        <Sidebar v-if="$route.path !== '/' && $route.path !== '/login/signin'&& $route.path !== '/login/signup' " @LogOut="()=>{LogOut()}"></Sidebar>
       </div>
       <div class="grow   ">
         <RouterView class="p-10 mt-16 ml-56"/>
       </div>
     </div>
+    <div class="flex " v-else>
+        <RouterView class=""/>
+    </div>
   </div>
+
   <div v-if="showModal">
     <setting @CloseModal="(e1) => { showModal = e1 }"></setting>
   </div>
 </template>
 
-<style scoped></style>
+<style >
+#logo {
+    color: #007AFF;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: "Rampart One";
+    font-size: 128px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 36px;
+    /* 28.125% */
+}
+</style>

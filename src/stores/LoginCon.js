@@ -33,7 +33,7 @@ export const loginCon = defineStore('loginCon', () => {
     return JSON.parse(jsonPayload)
   }
 
-  const SignIn = async (email, password) => {
+  const SignIn = async (email, password ,status) => {
     let errorValidate = myVaildate.validateEmail(email) + myVaildate.validatePassword(password,false)
     if (errorValidate != '') {
       toast.error(errorValidate)
@@ -55,8 +55,14 @@ export const loginCon = defineStore('loginCon', () => {
           Cookies.set('TokenLightcode', objectJson.token, { httpOnly: false, expires: inhours })
   
           // Execute tasks in sequence
-          await myAccount.GetUserByEmail()
-          toast.success('Login Completed')
+          if(status){
+            await myAccount.GetUserByEmail(true)
+          }
+          else {
+            toast.success('Login Completed')
+            await myAccount.GetUserByEmail()
+            await myRouter.push('/lightcode')
+          }
         } else if (res.status == 400) {
           const objectJson = await res.json()
           toast.error(objectJson.errors[0].message)

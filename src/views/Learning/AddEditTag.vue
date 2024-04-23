@@ -34,38 +34,44 @@ const conBackend = async (type, query, name) => {
 }
 
 </script>
- 
+
 <template>
-<div class=" px-1 max-w-[90%] ">
-  <div class="flex justify-content-center align-items-center mb-4 gap-2">
-            <div  v-if="$route.name == 'addTag'" id="logo">ADD TAG</div>
-            <div v-else-if="$route.name == 'editTag'" id="logo">Edit TAG</div>
+  <div class=" px-1 max-w-[90%] bg-st-grey">
+    <div class=" px-1 max-w-[90%] ">
+      <div class="flex justify-content-center align-items-center mb-4 gap-2">
+        <span v-if="$route.name == 'addTag'"
+          style=" color: #007AFF; text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); font-family: Rampart One; font-size: 64px; font-style: normal; line-height: 36px;"
+          class="text-xl opacity-50  ">Add Tag</span>
+        <span v-else-if="$route.name == 'editTag'"
+          style=" color: #007AFF; text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); font-family: Rampart One; font-size: 64px; font-style: normal; line-height: 36px;"
+          class="text-xl opacity-50  ">Add Tag</span>
+      </div>
+      <div v-if="$route.name == 'addTag'">
+        <InputTag :List="mylearningCon.tagList" :type="'Add'"
+          @addstatus="(e) => (myRouter.push({ name: e, params: { tagid: 0, lessonid: 0 } }))"
+          @addfunc="(e, query, name) => conBackend(e, query, name)"></InputTag>
+      </div>
+      <div v-if="$route.name == 'editTag'">
+        <InputTag :List="mylearningCon.tagList" :type="'Edit'"
+          @addstatus="(e) => (myRouter.push({ name: e, params: { tagid: 0, lessonid: 0 } }))"
+          @addfunc="(e, query, name) => conBackend(e, query, name)"></InputTag>
+      </div>
 
     </div>
-<div v-if="$route.name == 'addTag'">
-  <InputTag :List="mylearningCon.tagList" :type="'Add'"
-    @addstatus="(e) => (myRouter.push({ name: e, params: { tagid: 0, lessonid: 0 } }))"
-    @addfunc="(e, query, name) => conBackend(e, query, name)"></InputTag>
-</div>
-<div v-if="$route.name == 'editTag'">
-  <InputTag :List="mylearningCon.tagList" :type="'Edit'" 
-    @addstatus="(e) => (myRouter.push({ name: e, params: { tagid: 0, lessonid: 0 } }))"
-    @addfunc="(e, query, name) => conBackend(e, query, name)"></InputTag>
-</div>
+  </div>
 
-</div>
 
 </template>
- 
+
 <style>
 #logo {
-    color: #007AFF;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    font-family: "Rampart One";
-    font-size: 50px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 36px;
-    /* 28.125% */
+  color: #007AFF;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: "Rampart One";
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 36px;
+  /* 28.125% */
 }
 </style>
