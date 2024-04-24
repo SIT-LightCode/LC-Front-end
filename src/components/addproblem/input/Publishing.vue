@@ -34,19 +34,19 @@ const mymodal = modalSwal()
 const checkValue = () => {
   let errorText = ''
   if (input.value.totalScore.val > 100) {
-    errorText = errorText + '\n Error totalScore: value is more over 100'
+    errorText = errorText + '\n  totalScore: value is more over 100'
   }
   if (input.value.totalScore.val < 1) {
-    errorText = errorText + '\n Error totalScore: value is lower than 1'
+    errorText = errorText + '\n  totalScore: value is lower than 1'
   }
   if (input.value.level.val == '') {
-    errorText = errorText + '\n Error level: you do not input value for level '
+    errorText = errorText + '\n  level: you do not input value for level '
   }
   if (input.value.arrayTagId.val.length == 0) {
-    errorText = errorText + '\n Error tag: you do not select tag'
+    errorText = errorText + '\n  tag: you do not select tag'
   }
   if (errorText != '') {
-    toast.error(errorText)
+    toast.error('Error : '+ errorText)
     // mymodal.modalNormal('Error', errorText, 'error')
     return false
   } else return true

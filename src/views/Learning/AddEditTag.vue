@@ -36,7 +36,7 @@ const conBackend = async (type, query, name) => {
 </script>
 
 <template>
-  <div class=" px-1 max-w-[90%] bg-st-grey">
+  <div class=" ml-56 max-w-[90%] bg-st-grey">
     <div class=" px-1 max-w-[90%] ">
       <div class="flex justify-content-center align-items-center mb-4 gap-2">
         <span v-if="$route.name == 'addTag'"

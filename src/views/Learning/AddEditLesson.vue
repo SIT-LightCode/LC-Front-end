@@ -38,7 +38,7 @@ user.value = JSON.parse(localStorage.getItem('user'))
 </script>
 
 <template>
-  <div class=" px-1 max-w-[90%] bg-st-grey ">
+  <div class=" ml-56 max-w-[90%] bg-st-grey ">
     <div class="flex justify-content-center align-items-center mb-4 gap-2">
       <span v-if="$route.name == 'addLesson'" style=" color: #007AFF; text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); font-family: Rampart One; font-size: 64px; font-style: normal; line-height: 36px;" class="text-xl opacity-50  ">Add Lesson</span>
       <span v-else-if="$route.name == 'editLesson'"  style=" color: #007AFF; text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); font-family: Rampart One; font-size: 64px; font-style: normal; line-height: 36px;" class="text-xl opacity-50  ">Add Lesson</span>

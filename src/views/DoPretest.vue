@@ -95,8 +95,8 @@ onBeforeMount(async () => {
 const doPretest = () => {
   if (Object.keys(myProblem.problemList).length > 0) {
     let randonId = Math.ceil(Math.random() * Object.keys(myProblem.problemList).length)
-    
 
+    myRouter.push('/problem/do-problem/'+myProblem.problemList[randonId].id)
   }
 }
 
@@ -131,10 +131,9 @@ const doPretest = () => {
         <div class="flex justify-around mt-14">
           <button @click="myRouter.push({ name: 'home' })"
             class="font-roboto font-normal text-[24px] hover:text-[100px] duration-1000 transition-all hover:animate-wiggle hover:text-red-600">No</button>
-          <button @click="myRouter.push({ name: 'dopretest' })"
+          <button @click="doPretest()"
             class="font-roboto font-normal text-[24px] hover:text-[100px] duration-1000 transition-all hover:animate-wiggle hover:text-green-500">Yes</button>
         </div>
-
       </div>
       <div></div>
     </div>

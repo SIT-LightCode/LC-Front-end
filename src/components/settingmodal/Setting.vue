@@ -58,7 +58,7 @@ const lowCase = () => {
                 </div>
             </div>
             <buttonVue @buttonClick="editMode = true" :name="'Close Edit'" :status="false" class="bg-gray-300 hover:bg-gray-400"></buttonVue>
-            <buttonVue :name="'Edit'" class="bg-blue-300 hover:bg-blue-400" @buttonClick="EditByUser()">
+            <buttonVue :name="'Edit'" :status="false" class="bg-blue-300 hover:bg-blue-400" @buttonClick="EditByUser()">
             </buttonVue>
         </div>
 

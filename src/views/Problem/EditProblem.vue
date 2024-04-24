@@ -31,6 +31,7 @@ const problemOldEdit = ref({name:'',description:'',totalScore:0,arrayTagId:[],le
 
 
 const editProblem = (val) => {
+    
     if (val != '') {
         myproblemCon.EditProblem(
             parseInt(route.params.id),
