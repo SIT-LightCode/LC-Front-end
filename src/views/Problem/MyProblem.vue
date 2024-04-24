@@ -88,10 +88,9 @@ const toggle = (event) => {
 
 const findProblem = () => {
     const myprob = myproblemCon.problemList.filter(problem => problem.user.id == myAccount.user.id);
-    if (Object.keys(myprob[0]).length > 0) {
+    if (myprob[0] != null) {
         listProb.value = myprob
-    }
-    else listProb.value = {}
+    } else listProb.value = {}
 }
 
 onBeforeMount(async () => {

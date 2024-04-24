@@ -1,5 +1,5 @@
 <script setup>
-import { RouterLink, RouterView ,useRouter} from 'vue-router'
+import { RouterLink, RouterView, useRouter } from 'vue-router'
 import { loginCon } from '../../stores/LoginCon.js'
 import { ref } from 'vue'
 import ButtonPage from '../../components/button/Button.vue'
@@ -25,7 +25,7 @@ const checkLogin = () => {
         }
     }
     if (errortext == "") {
-        myLogin.SignIn(dataForLogin.value.email, dataForLogin.value.password,false)
+        myLogin.SignIn(dataForLogin.value.email, dataForLogin.value.password, false)
     } else {
         toast.error(errortext)
     }
@@ -37,8 +37,9 @@ const lowCase = () => {
 </script>
 
 <template>
-<div class="flex flex-col gap-12 pt-20 md:flex-row items-center justify-center max-w-[100%]">
-        <div class="w-50"> 
+    
+    <div class="flex flex-col gap-12 pt-20 md:flex-row items-center justify-center max-w-[100%] p-10 mt-16 ml-56">
+        <div class="w-50">
             <img class="invisible sm:visible content-center" width="250" src="../../assets/picture/lclogo.png"
                 alt="logo_my_froup" />
         </div>
@@ -71,7 +72,8 @@ const lowCase = () => {
                     </div>
                 </form>
                 <div class="text-center mt-6">
-                    <ButtonPage class="bg-gray-300" @buttonClick="checkLogin()" :status="false" :name="'Log In'"></ButtonPage>
+                    <ButtonPage class="bg-gray-300 hover:bg-gray-400" @buttonClick="checkLogin()" :status="false"
+                        :name="'Log In'"></ButtonPage>
                 </div>
             </div>
         </div>
@@ -91,15 +93,19 @@ const lowCase = () => {
     font-weight: 400;
     line-height: 36px;
 }
+
 .flex-container {
-  display: flex;
-  justify-content: center; /* จัด div ให้อยู่ตรงกลางตามแนวนอน */
-  align-items: center; /* จัด div ให้อยู่ตรงกลางตามแนวดิ่ง */
+    display: flex;
+    justify-content: center;
+    /* จัด div ให้อยู่ตรงกลางตามแนวนอน */
+    align-items: center;
+    /* จัด div ให้อยู่ตรงกลางตามแนวดิ่ง */
 }
 
 /* หรือใช้ Grid Layout */
 .grid-container {
-  display: grid;
-  place-items: center; /* จัด div ให้อยู่ตรงกลางทั้งแนวนอนและแนวดิ่ง */
+    display: grid;
+    place-items: center;
+    /* จัด div ให้อยู่ตรงกลางทั้งแนวนอนและแนวดิ่ง */
 }
 </style>

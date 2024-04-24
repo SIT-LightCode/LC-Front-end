@@ -8,12 +8,16 @@ import buttonVue from '../button/Button.vue';
 import { account } from "../../stores/Account.js"
 import Menu from 'primevue/menu';
 import { PrimeIcons } from 'primevue/api';
+import Setting from '../settingmodal/Setting.vue'
+import Dialog from 'primevue/dialog';
 
 const router = useRouter()
 const myAccount = account()
 const emit = defineEmits(["openCloseSidebarEmit", "OpenModal", "LogOut"])
 const sidebarIsShow = ref(false)
 const user = ref({ id: null, name: '', email: '', authorities: ['USER'], score: 0, scoreUnOfficial: 0 })
+const visible = ref(false)
+const position = ref('center');
 
 
 const openCloseSideBar = () => {
@@ -22,15 +26,13 @@ const openCloseSideBar = () => {
 }
 
 
-user.value = JSON.parse(localStorage.getItem('user'))
-const setRole = () => {
+const setRole = async () => {
 	if (user.value.authorities.includes('ADMIN')) {
 		user.value.authorities = 'ADMIN'
 	} else if (user.value.authorities.includes('USER')) {
 		user.value.authorities = 'USER'
 	}
 }
-setRole()
 const itemsforadmin = ref([
 	{
 		label: 'Admin Menu',
@@ -81,12 +83,11 @@ const itemsforadmin = ref([
 	{
 		label: 'Profile',
 		items: [
-			{
+		{
 				label: 'Settings',
 				icon: 'pi pi-cog',
 				command: () => {
-					sidebarIsShow.value = false;
-					emit('OpenModal', true)
+					visible.value = true
 				}
 			},
 			{
@@ -142,8 +143,7 @@ const itemsforuser = ref([
 				label: 'Settings',
 				icon: 'pi pi-cog',
 				command: () => {
-					sidebarIsShow.value = false;
-					emit('OpenModal', true)
+					visible.value = true
 				}
 			},
 			{
@@ -158,6 +158,16 @@ const itemsforuser = ref([
 	}
 ]);
 
+onBeforeMount(async () => {
+	if (localStorage.getItem('user') !== null) {
+		myAccount.user = JSON.parse(localStorage.getItem('user'))
+		user.value = JSON.parse(localStorage.getItem('user'))
+		await setRole()
+
+	}
+
+
+})
 
 </script>
 
@@ -165,9 +175,14 @@ const itemsforuser = ref([
 	<div class="p-5 ">
 
 		<div class="card flex justify-content-center w-0">
+
+			<Dialog v-model:visible="visible" header="Setting" :style="{ width: '25rem' }" :position="position"
+				:modal="true">
+				<Setting @CloseModal="visible = false"></Setting>
+			</Dialog>
+			<!-- <Menu :model="itemsforuser" /> -->
 			<Menu v-if="user.authorities == 'ADMIN'" :model="itemsforadmin" />
 			<Menu v-else="user.authorities == 'USER'" :model="itemsforuser" />
-
 		</div>
 	</div>
 </template>

@@ -61,7 +61,6 @@ export const loginCon = defineStore('loginCon', () => {
           else {
             toast.success('Login Completed')
             await myAccount.GetUserByEmail()
-            await myRouter.push('/lightcode')
           }
         } else if (res.status == 400) {
           const objectJson = await res.json()
@@ -103,6 +102,7 @@ export const loginCon = defineStore('loginCon', () => {
       Cookies.remove('refreshToken', { path: '/' })
       Cookies.remove('TokenLightcode', { path: '/' })
       myRouter.push({ name: 'home' })
+      localStorage.removeItem("user");
       toast.success('Logout Completed')
     }
   }

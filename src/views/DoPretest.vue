@@ -109,7 +109,7 @@ const doPretest = () => {
 			<div class="">{{ recommendedProblems[myAccount.user.id%5] }}</div>
 		</div>
 	</div> -->
-  <div class="bg-st-grey w-screen h-screen fixed flex items-center justify-center">
+  <div class="bg-st-grey w-screen h-screen fixed flex items-center justify-center ">
     <div class="area">
       <ul class="circles">
         <li></li>

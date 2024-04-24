@@ -4,13 +4,15 @@ import { modalSwal } from './Modal.js'
 import { connectBackend } from './ConnectBackend.js'
 import { Toaster, toast } from 'vue-sonner'
 import { account } from './Account.js'
+import { useRoute, useRouter } from 'vue-router'
+
 import * as gql from 'gql-query-builder'
 
 export const problemCon = defineStore('problemCon', () => {
   let problemList = ref({})
   let problemResolved = ref([])
   const myAccount = account()
-
+const myRouter =useRouter()
   const mymodal = modalSwal()
   const myconnectBackend = connectBackend()
 
@@ -160,6 +162,8 @@ export const problemCon = defineStore('problemCon', () => {
         //   "success"
         // );
         getAllproblem()
+            myRouter.push('/problem/list')
+
       }
     })
   }

@@ -88,7 +88,7 @@ onBeforeMount(async () => {
 
 
     <!--  -->
-    <div class="bg-st-grey max-w-[100%]">
+    <div class="bg-st-grey max-w-[100%] ">
 
         <div>
             <span style=" color: #007AFF; text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); font-family: Rampart One; font-size: 64px; font-style: normal; line-height: 36px;" class="text-xl opacity-50  ">All User</span>
@@ -96,7 +96,7 @@ onBeforeMount(async () => {
                 :modal="true">
                 <EditUser @close="(e1) => { visible = false }"
                     @editUser="(dataEdit, olddata) => { editUser(dataEdit, olddata); visible = false }"
-                    :datas="selectUser">></EditUser>
+                    :datas="selectUser"></EditUser>
             </Dialog>
             <div class=" flex">
                 <filterBar class="invisible lg:visible" @filterValue="(e1) => { filterFunc(e1); }"></filterBar>

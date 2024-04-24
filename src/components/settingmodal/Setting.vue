@@ -29,66 +29,43 @@ const lowCase = () => {
 </script>
 
 <template>
-    <div
-        class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
-        <div class="relative w-auto my-6 mx-auto max-w-6xl">
-            <!--content-->
-            <div
-                class="border-0  rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                <!--header-->
-                <div class="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t bg-gray-100">
-                    <h3 class="text-3xl font-semibold">
-                        Setting
-                    </h3>         
+    <div class="space-y-5">
+        <hr />
+        <div v-if="editMode">
+            Account
+            <div class="p-5"> name : {{ user.name }}
+            </div>
+            <div class="p-5"> email : {{ user.email }}
+            </div>
+            <buttonVue :name="'Edit'" class="bg-blue-300 hover:bg-blue-400"
+                @click="editMode = false" :status="false" ></buttonVue>
+        </div>
+        <div v-if="!editMode">
+            <div class="">
+                Edit Account
+                <div class="card flex justify-content-center m-5">
+                    <FloatLabel>
+                        <InputText class="mx-5 p-3" id="username" v-model="EditUser.name" />
+                        <label for="username">Username</label>
+                    </FloatLabel>
                 </div>
-                <!--body-->
-                <div class="relative p-6 flex bg-blue-300">
-                    <div style="width: 50vh; height: 50vh" class="border-2 rounded-lg p-5 m-5 bg-gray-100">
 
-                        <div v-if="editMode">
-                            Account
-                            <div class="p-5"> name : {{ user.name }}
-                            </div>
-                            <div class="p-5"> email : {{ user.email }}
-                            </div>
-                            <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 mx-2 rounded"
-                                @click="editMode = false">Edit</button>
-                        </div>
-                        <div v-if="!editMode">
-                            <div class="p-5">
-                                Edit Account
-                                <div class="card flex justify-content-center m-5">
-                                    <FloatLabel>
-                                        <InputText class="mx-5 p-3" id="username" v-model="EditUser.name" />
-                                        <label for="username">Username</label>
-                                    </FloatLabel>
-                                </div>
-
-                                <div class="card flex justify-content-center m-5">
-                                    <FloatLabel>
-                                        <InputText class="mx-5 p-3" id="email" @change="lowCase()"
-                                            v-model="EditUser.email" />
-                                        <label for="email">Email</label>
-                                    </FloatLabel>
-                                </div>
-                            </div>
-                            <buttonVue
-                                @buttonClick="editMode = true" :name="'Close Edit'" :status="false"></buttonVue>
-                            <buttonVue :name="'Edit'" @buttonClick="EditByUser()">
-                            </buttonVue>
-                        </div>
-                    </div>
-                </div>
-                <!--footer-->
-                <div class="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b bg-gray-100">
-                    <buttonVue :name="'Close'" @buttonClick="editMode = true; $emit('CloseModal', false);" :status="false">
-                    </buttonVue>
-                    
-
+                <div class="card flex justify-content-center m-5">
+                    <FloatLabel>
+                        <InputText class="mx-5 p-3" id="email" @change="lowCase()" v-model="EditUser.email" />
+                        <label for="email">Email</label>
+                    </FloatLabel>
                 </div>
             </div>
+            <buttonVue @buttonClick="editMode = true" :name="'Close Edit'" :status="false" class="bg-gray-300 hover:bg-gray-400"></buttonVue>
+            <buttonVue :name="'Edit'" class="bg-blue-300 hover:bg-blue-400" @buttonClick="EditByUser()">
+            </buttonVue>
         </div>
+
+ 
+
     </div>
+
 </template>
 
 <style></style>

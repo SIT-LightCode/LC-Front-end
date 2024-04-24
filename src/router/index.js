@@ -102,7 +102,6 @@ const router = createRouter({
     {
       path: '/learning',
       name: 'learning',
-      beforeEnter: checkLogin,
       children: [
         {
           path: 'list/:tagid/:lessonid',
@@ -113,21 +112,69 @@ const router = createRouter({
           path: 'addTag',
           name: 'addTag',
           component: () => import('../views/Learning/AddEditTag.vue'),
+          beforeEnter: (to, from) => {
+            if (getCookie('refreshToken') == '') {
+              return { path: '/login/signin' }
+            }
+            if (localStorage.getItem('user') !== '') {
+              const user = JSON.parse(localStorage.getItem('user'))
+              console.log(user)
+              if (!user.authorities.includes('ADMIN')) {
+                return { name: 'NotFound' }
+              }
+            } else return { path: '/login/signin' }
+          },
         },
         {
           path: 'addLesson',
           name: 'addLesson',
           component: () => import('../views/Learning/AddEditLesson.vue'),
+          beforeEnter: (to, from) => {
+            if (getCookie('refreshToken') == '') {
+              return { path: '/login/signin' }
+            }
+            if (localStorage.getItem('user') !== '') {
+              const user = JSON.parse(localStorage.getItem('user'))
+              console.log(user)
+              if (!user.authorities.includes('ADMIN')) {
+                return { name: 'NotFound' }
+              }
+            } else return { path: '/login/signin' }
+          },
         },
         {
           path: 'editTag/:tagid',
           name: 'editTag',
           component: () => import('../views/Learning/AddEditTag.vue'),
+          beforeEnter: (to, from) => {
+            if (getCookie('refreshToken') == '') {
+              return { path: '/login/signin' }
+            }
+            if (localStorage.getItem('user') !== '') {
+              const user = JSON.parse(localStorage.getItem('user'))
+              console.log(user)
+              if (!user.authorities.includes('ADMIN')) {
+                return { name: 'NotFound' }
+              }
+            } else return { path: '/login/signin' }
+          },
         },
         {
           path: 'editLesson/:tagid/:lessonid',
           name: 'editLesson',
           component: () => import('../views/Learning/AddEditLesson.vue'),
+          beforeEnter: (to, from) => {
+            if (getCookie('refreshToken') == '') {
+              return { path: '/login/signin' }
+            }
+            if (localStorage.getItem('user') !== '') {
+              const user = JSON.parse(localStorage.getItem('user'))
+              console.log(user)
+              if (!user.authorities.includes('ADMIN')) {
+                return { name: 'NotFound' }
+              }
+            } else return { path: '/login/signin' }
+          },
         },
       ],
     },

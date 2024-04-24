@@ -140,7 +140,10 @@ export const account = defineStore('account', () => {
     myconnectBackend.connectBack(query).then(async (data) => {
       if (data != '') {
         localStorage.setItem('user', JSON.stringify(data.data.getUserByEmail))
-      if(route.name !== 'isDo' && route.name !== '/login'){
+        if (status ) {
+          myRouter.push({ name: 'pretest' })
+        }
+       else if(route.name !== 'isDo' ){
         myRouter.push({ name: 'lightcode' })
       } 
       
@@ -206,7 +209,7 @@ export const account = defineStore('account', () => {
 
     myconnectBackend.connectBack(query).then(async (data) => {
       if (data != '') {
-        console.log(data)
+        scoreboard.value = data['data']['getLeaderboard']
         // for (let i in data['data']['getUser']) {
         //   if (data['data']['getUser'][i].authorities.includes('ADMIN')) {
         //     data['data']['getUser'][i].authorities = 'ADMIN'
@@ -217,5 +220,5 @@ export const account = defineStore('account', () => {
     })
   }
 
-  return { user, EditAccount, AddAccount, GetUserByEmail, GetUser, userList, DeteleUser ,GetBoard }
+  return { user, EditAccount, AddAccount, GetUserByEmail, GetUser, userList, DeteleUser ,GetBoard ,scoreboard}
 })
