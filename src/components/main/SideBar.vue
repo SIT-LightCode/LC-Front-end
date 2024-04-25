@@ -8,12 +8,16 @@ import buttonVue from '../button/Button.vue';
 import { account } from "../../stores/Account.js"
 import Menu from 'primevue/menu';
 import { PrimeIcons } from 'primevue/api';
+import Setting from '../settingmodal/Setting.vue'
+import Dialog from 'primevue/dialog';
 
 const router = useRouter()
 const myAccount = account()
 const emit = defineEmits(["openCloseSidebarEmit", "OpenModal", "LogOut"])
 const sidebarIsShow = ref(false)
 const user = ref({ id: null, name: '', email: '', authorities: ['USER'], score: 0, scoreUnOfficial: 0 })
+const visible = ref(false)
+const position = ref('center');
 
 
 const openCloseSideBar = () => {
@@ -22,36 +26,26 @@ const openCloseSideBar = () => {
 }
 
 
-user.value = JSON.parse(localStorage.getItem('user'))
-const setRole = () => {
+const setRole = async () => {
 	if (user.value.authorities.includes('ADMIN')) {
 		user.value.authorities = 'ADMIN'
 	} else if (user.value.authorities.includes('USER')) {
 		user.value.authorities = 'USER'
 	}
 }
-setRole()
-
-// const items = ref([
-// 	{
-// 		label: 'Settings',
-// 		icon: 'pi pi-cog',
-// 		command: () => {
-// 			sidebarIsShow.value = false;
-// 			emit('OpenModal', true)
-// 		}
-// 	},
-// 	{
-// 		label: 'Logout',
-// 		icon: 'pi pi-sign-out',
-// 		command: () => {
-// 			sidebarIsShow.value = false;
-// 			emit('LogOut', true)
-// 		}
-// 	}
-// ])
-
-const items = ref([
+const itemsforadmin = ref([
+	{
+		label: 'Admin Menu',
+		items: [
+			{
+				label: 'View User',
+				icon: 'pi pi-users',
+				command: () => {
+					router.push("/view-user/list")
+				}
+			}
+		]
+	},
 	{
 		label: 'Main Menu',
 		items: [
@@ -83,24 +77,17 @@ const items = ref([
 					router.push("/myproblem/list")
 				}
 			},
-			{
-				label: 'View User',
-				icon: 'pi pi-users',
-				command: () => {
-					router.push("/view-user/list")
-				}
-			}
+
 		]
 	},
 	{
 		label: 'Profile',
 		items: [
-			{
+		{
 				label: 'Settings',
 				icon: 'pi pi-cog',
 				command: () => {
-					sidebarIsShow.value = false;
-					emit('OpenModal', true)
+					visible.value = true
 				}
 			},
 			{
@@ -114,13 +101,88 @@ const items = ref([
 		]
 	}
 ]);
+
+const itemsforuser = ref([
+	{
+		label: 'Main Menu',
+		items: [
+			{
+				label: 'Home',
+				icon: 'pi pi-home',
+				command: () => {
+					router.push("/lightcode")
+				}
+			},
+			{
+				label: 'Learning',
+				icon: 'pi pi-book',
+				command: () => {
+					router.push("/learning/list/0/0")
+				}
+			},
+			{
+				label: 'Problem',
+				icon: 'pi pi-credit-card',
+				command: () => {
+					router.push("/problem/list")
+				}
+			},
+			{
+				label: 'My Problem',
+				icon: 'pi pi-search',
+				command: () => {
+					router.push("/myproblem/list")
+				}
+			}
+		]
+	},
+	{
+		label: 'Profile',
+		items: [
+			{
+				label: 'Settings',
+				icon: 'pi pi-cog',
+				command: () => {
+					visible.value = true
+				}
+			},
+			{
+				label: 'Logout',
+				icon: 'pi pi-sign-out',
+				command: () => {
+					emit('LogOut', true)
+				}
+
+			}
+		]
+	}
+]);
+
+onBeforeMount(async () => {
+	if (localStorage.getItem('user') !== null) {
+		myAccount.user = JSON.parse(localStorage.getItem('user'))
+		user.value = JSON.parse(localStorage.getItem('user'))
+		await setRole()
+
+	}
+
+
+})
+
 </script>
 
 <template>
 	<div class="p-5 ">
 
 		<div class="card flex justify-content-center w-0">
-			<Menu :model="items" />
+
+			<Dialog v-model:visible="visible" header="Setting" :style="{ width: '25rem' }" :position="position"
+				:modal="true">
+				<Setting @CloseModal="visible = false"></Setting>
+			</Dialog>
+			<!-- <Menu :model="itemsforuser" /> -->
+			<Menu v-if="user.authorities == 'ADMIN'" :model="itemsforadmin" />
+			<Menu v-else="user.authorities == 'USER'" :model="itemsforuser" />
 		</div>
 	</div>
 </template>

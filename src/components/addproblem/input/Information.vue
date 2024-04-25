@@ -17,7 +17,7 @@ const prop = defineProps({
         type: String,
         default: ""
     },
-    type:{
+    type: {
         type: String,
     }
 })
@@ -26,17 +26,17 @@ const input = ref({ name: { type: 'name', val: prop.name }, description: { type:
 )
 const checkValue = () => {
     let errorText = ""
-    if (input.value.name.val > 30) {
-        errorText = errorText + "\n Error name: name is more than 30 characters"
+    if (input.value.name.val.length > 30) {
+        errorText = errorText + "\n name is more than 30 characters"
     }
-    if (input.value.name.val.trim() == "" ) {
-        errorText = errorText + "\n Error name: you do not insert name"
+    if (input.value.name.val.trim() == "") {
+        errorText = errorText + "\n you do not insert name"
     }
     if (input.value.description.val.trim() == "") {
-        errorText = errorText + "\n Error description: you do not insert value for description "
+        errorText = errorText + "\n you do not insert value for description "
     }
     if (errorText != "") {
-        toast.error(errorText)
+        toast.error('Error : '+ errorText)
         // mymodal.modalNormal("Error", errorText, "error")
         return false
     } else {
@@ -46,7 +46,7 @@ const checkValue = () => {
 
 
 const valuetoaddpage = async () => {
-    
+
     if (checkValue()) {
         emit('returnval', input.value);
     }
@@ -57,20 +57,22 @@ const classObject = computed(() => {
 })
 
 </script>
- 
+
 <template>
     <div class="mb-6">
-        <label for="success" class="block mb-2  text-sm font-medium text-gray-900 dark:text-white">Name of problem want
-            to {{ prop.type }} <span class="text-red">*</span></label>
+        <span class="block mb-2  text-sm font-medium text-gray-900 dark:text-white">Name of problem want to add <span
+                class="text-red-500">*</span>
+            <input :maxlength="30" type="text" v-bind:class="classObject" placeholder=""
+                v-model="input.name.val"></span>
 
-        <input :maxlength="30" type="text" v-bind:class="classObject" placeholder="" v-model="input.name.val">
+
 
     </div>
     <label for="success" class="block  mb-2 text-sm font-medium text-gray-900 dark:text-white">Description for the
-        problem <span class="text-red">*</span></label>
+        problem <span class="text-red-500">*</span></label>
     <vmdeditor v-model="input.description.val" />
 
-    <buttonPage :pages="1" @page="(e1) => { valuetoaddpage(e1) }"></buttonPage>
+    <buttonPage class="" :pages="1" @page="(e1) => { valuetoaddpage(e1) }"></buttonPage>
 </template>
- 
+
 <style></style>

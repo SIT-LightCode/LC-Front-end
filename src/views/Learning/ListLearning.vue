@@ -84,7 +84,7 @@ user.value = JSON.parse(localStorage.getItem('user'))
 </script>
 
 <template>
-    <div class=" px-1">
+    <div class=" px-1 max-w-[100%]">
         <div class="flex lg:space-x-0 space-x-0 md:space-x-16">
             <!-- Sidebar/menu with its own scroll bar -->
             <!-- hanberger on off -->

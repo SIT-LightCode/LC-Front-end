@@ -8,6 +8,7 @@ import { useRouter ,useRoute } from 'vue-router'
 import { cookieData } from '../stores/CookieData.js'
 import { jwtDecode } from 'jwt-decode'
 import { validateInput } from './ValidateInput.js'
+import { loginCon } from '../stores/loginCon.js'
 
 export const account = defineStore('account', () => {
   const mymodal = modalSwal()
@@ -15,7 +16,7 @@ export const account = defineStore('account', () => {
   const myconnectBackend = connectBackend()
   const myRouter = useRouter()  
   const route = useRoute()
-
+  const myLogin = loginCon()
   const myVaildate = validateInput()
 
   const user = ref({
@@ -30,6 +31,7 @@ export const account = defineStore('account', () => {
   // {"id":852,"name":"testadmin","email":"admin@mail.com","authorities":["USER","ADMIN"],"score":300,"scoreUnOfficial":300,
   // "skills":[{"id":1,"level":4,"tag":{"id":2,"topic":"Variables"}},{"id":2,"level":1,"tag":{"id":5,"topic":"Data Structure"}}]}
   const userList = ref({})
+  const scoreboard = ref({})
 
   const AddAccount = async (nameAccount, emailAccount, passwordAccount) => {
     let errorValidate =
@@ -57,6 +59,7 @@ export const account = defineStore('account', () => {
 
           if (objectJson.data != '') {
             toast.success('Create user completed')
+            await myLogin.SignIn(emailAccount, passwordAccount , true)
           }
         } else if (res.status == 400) {
           const objectJson = await res.json()
@@ -110,7 +113,7 @@ export const account = defineStore('account', () => {
     }
   }
 
-  const GetUserByEmail = async () => {
+  const GetUserByEmail = async (status) => {
     let jsonFromToken = jwtDecode(myCookie.getCookie('TokenLightcode'))
     const query = gql.query(
       {
@@ -137,7 +140,10 @@ export const account = defineStore('account', () => {
     myconnectBackend.connectBack(query).then(async (data) => {
       if (data != '') {
         localStorage.setItem('user', JSON.stringify(data.data.getUserByEmail))
-      if(route.name !== 'isDo'){
+        if (status ) {
+          myRouter.push({ name: 'pretest' })
+        }
+       else if(route.name !== 'isDo' ){
         myRouter.push({ name: 'lightcode' })
       } 
       
@@ -189,5 +195,30 @@ export const account = defineStore('account', () => {
       }
     })
   }
-  return { user, EditAccount, AddAccount, GetUserByEmail, GetUser, userList, DeteleUser }
+  const GetBoard = async () => {
+    const query = gql.query(
+      {
+        operation: 'getLeaderboard ',
+        fields: ['id', 'name', 'email', 'score'],
+      },
+      undefined,
+      {
+        operationName: 'getLeaderboard ',
+      },
+    )
+
+    myconnectBackend.connectBack(query).then(async (data) => {
+      if (data != '') {
+        scoreboard.value = data['data']['getLeaderboard']
+        // for (let i in data['data']['getUser']) {
+        //   if (data['data']['getUser'][i].authorities.includes('ADMIN')) {
+        //     data['data']['getUser'][i].authorities = 'ADMIN'
+        //   } else data['data']['getUser'][i].authorities = 'USER'
+        // }
+        // userList.value = data['data']['getUser']
+      }
+    })
+  }
+
+  return { user, EditAccount, AddAccount, GetUserByEmail, GetUser, userList, DeteleUser ,GetBoard ,scoreboard}
 })

@@ -7,13 +7,16 @@ import Member from "../components/landingpage/Member.vue"
 </script>
 <template>
   <div>
+<<<<<<< HEAD
     <div class=" pt-16 pb-32 flex items-center justify-center h-screen"
+=======
+    <div class=" flex items-center justify-center"
+>>>>>>> bf796d4c21bba47322eda7e70bdf22a1b61a7053
       style="min-height: 75vh;">
       <div class="container relative mx-auto">
         <div class="items-center flex ">
           <div class="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
             <div class="flex flex-col items-center">
-
               <div class="top-auto bottom-0 left-0 right-0 w-full absolute" style="height: 70px;">
                 <div id="logo">
                   LIGHTCODE
@@ -32,15 +35,16 @@ import Member from "../components/landingpage/Member.vue"
   </div>
 </template>
 
-<style>
+<style scoped>
 #logo {
-  color: #007AFF;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  font-family: "Rampart One";
-  font-size: 128px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 36px;
-  /* 28.125% */
+
+    color: #007AFF;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: "Rampart One";
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 36px;
+    /* 28.125% */
 }
 </style>

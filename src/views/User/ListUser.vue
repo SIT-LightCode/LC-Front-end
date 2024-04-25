@@ -88,20 +88,20 @@ onBeforeMount(async () => {
 
 
     <!--  -->
-    <div class="bg-st-grey font-roboto">
+    <div class="bg-st-grey max-w-[100%] ">
 
         <div>
-            <p id="logo" class="text-xl opacity-50  ">USER</p>
+            <span style=" color: #007AFF; text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); font-family: Rampart One; font-size: 64px; font-style: normal; line-height: 36px;" class="text-xl opacity-50  ">All User</span>
             <Dialog v-model:visible="visible" header="Edit Profile" :style="{ width: '25rem' }" :position="position"
                 :modal="true">
                 <EditUser @close="(e1) => { visible = false }"
                     @editUser="(dataEdit, olddata) => { editUser(dataEdit, olddata); visible = false }"
-                    :datas="selectUser">></EditUser>
+                    :datas="selectUser"></EditUser>
             </Dialog>
             <div class=" flex">
                 <filterBar class="invisible lg:visible" @filterValue="(e1) => { filterFunc(e1); }"></filterBar>
             </div>
-            <div class="p-10 bg-white mt-10 rounded-3xl flex flex-col gap-4 text-lg drop-shadow-2xl">
+            <div class="p-5 bg-white mt-10 rounded-3xl flex flex-col gap-4 text-lg ">
                 <ListUser @deleteUser="(id) => { deleteUser(id) }"
                     @editUser="(select) => { selectUser = select; visible = true }" :datas="dataFilter">
                 </ListUser>

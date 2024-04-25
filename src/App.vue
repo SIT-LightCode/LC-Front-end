@@ -1,5 +1,5 @@
 <script setup>
-import { RouterLink, RouterView, useRouter } from 'vue-router'
+import { RouterLink, RouterView, useRouter, useRoute } from 'vue-router'
 import { ref, computed } from 'vue'
 import Navbar from './components/main/NavBar.vue'
 import Sidebar from './components/main/SideBar.vue'
@@ -11,7 +11,7 @@ import { loginCon } from './stores/LoginCon'
 
 const myRouter = useRouter()
 const myLogin = loginCon()
-
+const router = useRoute()
 const myCookie = cookieData()
 const sidebarIsShow = ref(false)
 const showModal = ref(false)
@@ -37,23 +37,41 @@ const LogOut = () => {
   <div class="text-black text-base  bg-white ">
     <Toaster richColors position="top-right" />
 
-    <div>
+    <!-- <div>
       <Navbar v-if="$route.path == '/'" class=" bg-black " />
-    </div>
-    <TopNav class="fixed border-b-2 "/>
-    <div class="flex ">
-      
-      <div class="flex-none mt-16 fixed z-[100] bg-white h-full"> 
-        <Sidebar v-if="$route.path !== '/' && $route.path !== '/login/signin'&& $route.path !== '/login/signup'" @LogOut="()=>{LogOut()}"></Sidebar>
+    </div> -->
+    <TopNav class="fixed border-b-2 " />
+    <div class="flex " v-if="$route.path !== '/pretest' && $route.path !== '/' && $route.path !== '/login/signin' && $route.path !== '/login/signup'">
+      <div class="flex-none mt-16 fixed z-[100] bg-white h-full" >
+        <Sidebar  
+          @LogOut="() => { LogOut() }"></Sidebar>
       </div>
+<<<<<<< HEAD
       <div class="grow   ">
         <RouterView class="p-10" :class="[$route.path !== '/'&&$route.path !== '/login/signin'&& $route.path !== '/login/signup' ? ' mt-16 ml-56':'']"/>
+=======
+      <div class="grow  ">
+        <RouterView class="p-10 mt-16 ml-56" />
+>>>>>>> bf796d4c21bba47322eda7e70bdf22a1b61a7053
       </div>
     </div>
+    <div class="flex " v-else>
+      <RouterView class="" />
+    </div>
   </div>
-  <div v-if="showModal">
-    <setting @CloseModal="(e1) => { showModal = e1 }"></setting>
-  </div>
+
+
 </template>
 
-<style scoped></style>
+<style>
+#logo {
+  color: #007AFF;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: "Rampart One";
+  font-size: 128px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 36px;
+  /* 28.125% */
+}
+</style>

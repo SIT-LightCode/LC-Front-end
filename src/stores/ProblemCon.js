@@ -4,13 +4,15 @@ import { modalSwal } from './Modal.js'
 import { connectBackend } from './ConnectBackend.js'
 import { Toaster, toast } from 'vue-sonner'
 import { account } from './Account.js'
+import { useRoute, useRouter } from 'vue-router'
+
 import * as gql from 'gql-query-builder'
 
 export const problemCon = defineStore('problemCon', () => {
   let problemList = ref({})
   let problemResolved = ref([])
   const myAccount = account()
-
+const myRouter =useRouter()
   const mymodal = modalSwal()
   const myconnectBackend = connectBackend()
 
@@ -132,6 +134,7 @@ export const problemCon = defineStore('problemCon', () => {
     totalScoreProblem,
     levelProblem,
   ) => {
+    console.log(tagId)
     const query = gql.mutation(
       {
         operation: 'upsertProblem',
@@ -159,6 +162,8 @@ export const problemCon = defineStore('problemCon', () => {
         //   "success"
         // );
         getAllproblem()
+            myRouter.push('/problem/list')
+
       }
     })
   }
@@ -214,7 +219,7 @@ export const problemCon = defineStore('problemCon', () => {
       const data = await myconnectBackend.connectBack(query)
       if (data['data'] !== undefined) {
         let res = data['data']['checkAnswer']
-        myAccount.GetUserByEmail()
+        myAccount.GetUserByEmail(true)
         return res
       } else return 0
     } catch (error) {

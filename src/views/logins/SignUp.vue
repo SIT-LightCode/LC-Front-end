@@ -35,9 +35,6 @@ const checkCreate = () => {
 
 const createAccount = () => {
     myAccount.AddAccount(dataForCreate.value.name, dataForCreate.value.email, dataForCreate.value.password).then((status)=>{
-        if(status != "error"){
-            myRouter.push('/login/signin')
-        }
     })
 }
 
@@ -57,7 +54,7 @@ const maxConPassword = () => {
 </script>
 
 <template>
-<div class="flex flex-col gap-12 pt-20 md:flex-row items-center justify-center ">
+<div class="flex flex-col gap-12 pt-20 md:flex-row items-center justify-center max-w-[100%] p-10 ml-56">
     <div class="relative min-w-0 break-words w-50 mb-6 shadow-lg rounded-lg p-5">
             <div class="mb-0 px-6 py-6 ">
                 <div class="text-center mb-3 ">
@@ -104,7 +101,7 @@ const maxConPassword = () => {
                 </div>
             </form>
             <div class="text-center mt-6">
-                <ButtonPage class="bg-gray-300" @buttonClick="checkCreate()" :name="'Create Account'"></ButtonPage>
+                <ButtonPage class="bg-gray-300 hover:bg-gray-400" @buttonClick="checkCreate()" :name="'Create Account'"></ButtonPage>
             </div>
         </div>
         <div class="w-50"> 

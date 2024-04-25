@@ -31,89 +31,12 @@ const page = ref('')
 const result = ref('')
 const isResult = ref(false)
 
-const filterFunc = (dataFilter) => {
-
-    // Check if both tag and level filters are empty
-    if (dataFilter.tag.length == 0 && dataFilter.level == 0 && dataFilter.isOfficial == "") {
-        isFilter.value = false;
-        return;
-    }
-
-    isFilter.value = true;
-    const uniqueProblems = myproblemCon.problemList.reduce((acc, problem) => {
-        let tagsInProblem = []
-        let hasCommonTag = false
-        let hasMatchingLevel = false
-        let hasMatchingOffice = false
-        if (dataFilter.tag != "") {
-            tagsInProblem = problem.tagProblem.map(tagObj => tagObj.tag.id);
-            for (let i in tagsInProblem) {
-                if (tagsInProblem[i].toString() == dataFilter.tag.toString()) {
-                    hasCommonTag = true;
-                }
-            }
-        }
-        else {
-            hasCommonTag = true
-        }
-        // Check if the level filter matches
-        if (dataFilter.level != 0) {
-            hasMatchingLevel = problem.level == dataFilter.level;
-        } else { hasMatchingLevel = true }
-
-        if (dataFilter.isOfficial != "") {
-            if (problem.isOfficial != null) {
-                if (dataFilter.isOfficial == problem.isOfficial.toString()) {
-                    hasMatchingOffice = true
-                }
-            }
-
-        } else { hasMatchingOffice = true }
 
 
-        if (hasCommonTag && hasMatchingLevel && hasMatchingOffice) {
-            acc.push(problem);
-        }
-        return acc;
-    }, []);
-
-    data.value = Array.from(new Set(uniqueProblems));
-};
-const test = computed(() => {
-    if (isFilter.value) {
-        return data.value
-    }
-    else return myproblemCon.problemList
-})
 
 
-// const inputProblemData = ref({
-//     name: prop.data.name, description: prop.data.description
-//     , totalScore: prop.data.totalScore, level: prop.data.level, arrayTagId: []
-// })
-
-const editProblem = (val) => {
-    if (val != '') {
-        myproblemCon.EditProblem(
-            dataCurrent.value.id,
-            val.arrayTagId,
-            val.name,
-            val.description,
-            val.totalScore,
-            val.level,)
-    }
-    page.value = ''
-}
 
 
-const countFailedTestCases = (data) => {
-    if (data.testcaseResults) {
-        return data.testcaseResults.reduce((count, testCase) => {
-            return count + (testCase.status === 'failed' ? 1 : 0);
-        }, 0);
-    }
-    else return null
-}
 
 const isModal = ref(false)
 
@@ -147,6 +70,7 @@ onBeforeMount(async () => {
         if (problemCurrent.length > 0) {
             dataCurrent.value = problemCurrent[0]
         } else {
+
             dataCurrent.value = {}
         }
     }
@@ -161,7 +85,7 @@ onBeforeMount(async () => {
 
 
     
-    <div class="relative ">
+    <div class="relative max-w-[100%] ">
         <div class="card flex justify-content-center">
             <Dialog v-model:visible="isModal" modal :pt="{
                 root: 'border-none',
