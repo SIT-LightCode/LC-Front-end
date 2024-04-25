@@ -45,7 +45,7 @@ const isQuestion = ref(false)
 <template>
 
   <div class="bg-st-grey w-screen h-screen fixed flex items-center justify-center">
-    <div class="area">
+    <div class="area ">
       <ul class="circles">
         <li></li>
         <li></li>
