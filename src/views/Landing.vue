@@ -7,11 +7,7 @@ import Member from "../components/landingpage/Member.vue"
 </script>
 <template>
   <div>
-<<<<<<< HEAD
     <div class=" pt-16 pb-32 flex items-center justify-center h-screen"
-=======
-    <div class=" flex items-center justify-center"
->>>>>>> bf796d4c21bba47322eda7e70bdf22a1b61a7053
       style="min-height: 75vh;">
       <div class="container relative mx-auto">
         <div class="items-center flex ">
