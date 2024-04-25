@@ -7,21 +7,8 @@ import Member from "../components/landingpage/Member.vue"
 </script>
 <template>
   <div>
-    <div class=" pt-16 pb-32 flex items-center justify-center h-screen"
-      style="min-height: 75vh;">
-      <div class="container relative mx-auto">
-        <div class="items-center flex ">
-          <div class="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
-            <div class="flex flex-col items-center">
-              <div class="top-auto bottom-0 left-0 right-0 w-full absolute" style="height: 70px;">
-                <div id="logo">
-                  LIGHTCODE
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="h-screen flex items-center justify-center">
+      <h1 class="font-rampart text-8xl text-st-blue drop-shadow-lg">LIGHTCODE</h1>
     </div>
     <WhatIsLightCode></WhatIsLightCode>
     <Goal></Goal>
