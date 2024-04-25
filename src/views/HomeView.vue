@@ -322,11 +322,11 @@ const position = ref('center');
       <div v-for="(item, index) in computedRecomended"
         class="drop-shadow-2xl bg-white group hover:cursor-pointer hover:bg-st-blue transition-all rounded-3xl px-4 pt-7 pb-20 flex flex-col gap-10 relative"
         @click="myRouter.push('/problem/do-problem/' + item.id)">
-        <p class="text-2xl text-st-blue group-hover:text-white">{{ item.name }}</p>
+        <p class="text-2xl text-st-blue group-hover:text-white truncate">{{ item.name }}</p>
         <p class="text-lg" :class="levelArray[mapDifficultyToLevel(item.difficulty) - 1]">
           {{ item.difficulty }}
         </p>
-        <p class="text-sm text-st-blue group-hover:text-white">{{ item.description }}</p>
+        <p class="text-sm text-st-blue group-hover:text-white truncate">{{ item.description }}</p>
         <div>
           <span v-for="(tag, index) in item.tags"
             class="bg-st-blue p-1 px-5 text-sm text-white rounded-full group-hover:text-st-blue group-hover:bg-white">

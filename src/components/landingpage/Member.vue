@@ -28,7 +28,7 @@ const member = {
 <template>
   <section class="pt-20 pb-48">
     <div class="container mx-auto px-4">
-      <div class="flex flex-wrap justify-center text-center mb-24">
+      <div class="flex flex-wrap justify-center text-center mb-24 ">
         <div class="w-full lg:w-6/12 px-4">
           <h2 data-aos="zoom-in" data-aos-duration="1000" class="text-4xl font-semibold text-[#007AFF]">Member for LightCode Team</h2>
           <p data-aos="zoom-in" data-aos-duration="1000" class="text-lg leading-relaxed m-4 text-gray-600">

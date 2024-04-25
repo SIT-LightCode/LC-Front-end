@@ -6,9 +6,9 @@ import Member from "../components/landingpage/Member.vue"
 
 </script>
 <template>
-  <div>
-    <div class="h-screen flex items-center justify-center">
-      <h1 class="font-rampart text-8xl text-st-blue drop-shadow-lg">LIGHTCODE</h1>
+  <div class="w-screen">
+    <div class="h-screen flex items-center justify-center  ">
+      <h1 class="font-rampart text-8xl text-st-blue drop-shadow-lg ">LIGHTCODE</h1>
     </div>
     <WhatIsLightCode></WhatIsLightCode>
     <Goal></Goal>

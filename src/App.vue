@@ -50,7 +50,7 @@ const LogOut = () => {
         <RouterView class="p-10" :class="[$route.path !== '/'&&$route.path !== '/login/signin'&& $route.path !== '/login/signup' ? ' mt-16 ml-56':'']"/>
       </div>
     </div>
-    <div class="flex " v-else>
+    <div class="flex items-center justify-center" v-else>
       <RouterView class="" />
     </div>
   </div>

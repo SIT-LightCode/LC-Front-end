@@ -10,7 +10,7 @@ function hoverButton() {
 </script>
 
 <template>
-  <div class="relative w-screen pt-16 pb-32 flex content-center items-center justify-center" style="min-height: 75vh;">
+  <div class="relative pt-16 pb-32 flex content-center items-center justify-center" style="min-height: 75vh;">
     <div class="container relative mx-auto">
       <div class="items-center flex flex-wrap">
         <div class="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">

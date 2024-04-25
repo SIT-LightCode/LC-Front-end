@@ -3,7 +3,7 @@ const targetGoal = [ "Learn" , "Practice" ,"Track Your Progress", "Enjoy the Jou
 </script>
  
 <template>
-    <section class="relative py-20">
+    <section class="relative ">
         
         <div class="container mx-auto px-4">
             <div class="items-center flex flex-wrap">
