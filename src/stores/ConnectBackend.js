@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
 import { modalSwal } from './Modal.js'
 import { Toaster, toast } from 'vue-sonner'
-import { cookieData } from '../stores/CookieData.js'
+import { cookieData } from './CookieData.js'
 import { jwtDecode } from 'jwt-decode'
-import { account } from '../stores/Account.js'
+import { account } from './Account.js'
 
 import { useRouter } from 'vue-router'
 import Cookies from 'js-cookie'

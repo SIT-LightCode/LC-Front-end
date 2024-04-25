@@ -5,10 +5,10 @@ import { connectBackend } from './ConnectBackend.js'
 import { Toaster, toast } from 'vue-sonner'
 import * as gql from 'gql-query-builder'
 import { useRouter ,useRoute } from 'vue-router'
-import { cookieData } from '../stores/CookieData.js'
+import { cookieData } from './CookieData.js'
 import { jwtDecode } from 'jwt-decode'
 import { validateInput } from './ValidateInput.js'
-import { loginCon } from '../stores/loginCon.js'
+import { loginCon } from './LoginCon.js'
 
 export const account = defineStore('account', () => {
   const mymodal = modalSwal()
