@@ -7,7 +7,7 @@ import Member from "../components/landingpage/Member.vue"
 </script>
 <template>
   <div class="w-screen">
-    <div class="h-screen flex items-center justify-center  ">
+    <div class="h-screen flex items-center justify-center bg-white ">
       <h1 class="font-rampart text-8xl text-st-blue drop-shadow-lg ">LIGHTCODE</h1>
     </div>
     <WhatIsLightCode></WhatIsLightCode>

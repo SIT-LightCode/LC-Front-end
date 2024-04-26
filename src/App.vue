@@ -34,7 +34,7 @@ const LogOut = () => {
 
 <template>
 
-  <div class="text-black text-base  bg-white ">
+  <div class="text-black text-base  bg-st-grey ">
     <Toaster richColors position="top-right" />
 
     <!-- <div>
@@ -42,12 +42,12 @@ const LogOut = () => {
     </div> -->
     <TopNav class="fixed border-b-2 top-0" />
     <div class="flex " v-if="$route.path !== '/pretest' && $route.path !== '/' && $route.path !== '/login/signin' && $route.path !== '/login/signup'">
-      <div class="flex-none mt-16 fixed z-[100] bg-white h-full" >
+      <div class="flex-none mt-12 fixed z-[100] bg-white h-full" >
         <Sidebar  
           @LogOut="() => { LogOut() }"></Sidebar>
       </div>
       <div class="grow   ">
-        <RouterView class="p-10" :class="[$route.path !== '/'&&$route.path !== '/login/signin'&& $route.path !== '/login/signup' ? ' mt-16 ml-56':'']"/>
+        <RouterView class="p-10"  :class="[$route.path !== '/'&&$route.path !== '/login/signin'&& $route.path !== '/login/signup' ? ' mt-16 ml-56':'']"/>
       </div>
     </div>
     <div class="" v-else>

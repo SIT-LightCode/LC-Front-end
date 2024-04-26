@@ -8,9 +8,7 @@ const targetGoal = [ "Learn" , "Practice" ,"Track Your Progress", "Enjoy the Jou
         <div class="container mx-auto px-4">
             <div class="items-center flex flex-wrap">
                 <div class="w-full md:w-4/12 ml-auto mr-auto px-4">
-                    <div class="flex">
-                            <img data-aos="fade-up" data-aos-duration="1000" class="invisible sm:visible content-center" src="../../assets/picture/lclogo.png" alt="logo_my_froup"/>
-                    </div>
+                    <img data-aos="fade-up" data-aos-duration="1000" class="invisible sm:visible content-center" src="../../assets/picture/lclogo.png" alt="logo_my_froup"/>
                 </div>
                 <div class="w-full md:w-5/12 ml-auto mr-auto px-4">
                     <div data-aos="fade-up" data-aos-duration="1000" class="md:pr-12" >
