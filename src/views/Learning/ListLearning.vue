@@ -84,7 +84,7 @@ user.value = JSON.parse(localStorage.getItem('user'))
 </script>
 
 <template>
-    <div class=" px-1 max-w-[100%] ">
+    <div class=" px-1 max-w-[100%] h-screen">
         <div class="flex lg:space-x-0 space-x-0 md:space-x-16">
 
             <div
@@ -95,7 +95,7 @@ user.value = JSON.parse(localStorage.getItem('user'))
             </div>
             <div class="pl-10 learning-list-container fixed max-h-[90%] overflow-auto invisible lg:visible">
 
-                <LearningList class="bg-white" :contents="mylearningCon.tagList" @selected="selectLesson"
+                <LearningList class="" :contents="mylearningCon.tagList" @selected="selectLesson"
                     @addstatus="(e) => (myRouter.push({ name: e, params: { status: e } }))"
                     @deleteTag="(e1) => { mylearningCon.deleteTag(e1) }">
                 </LearningList>
@@ -103,13 +103,13 @@ user.value = JSON.parse(localStorage.getItem('user'))
             <div v-show="sidebarIsShow"
                 class="pl-10 learning-list-container fixed max-h-[90%] overflow-auto lg:visible ">
 
-                <LearningList class="bg-white" :contents="mylearningCon.tagList" @selected="selectLesson"
+                <LearningList class="" :contents="mylearningCon.tagList" @selected="selectLesson"
                     @addstatus="(e) => (myRouter.push({ name: e, params: { status: e } }))"
                     @deleteTag="(e1) => { mylearningCon.deleteTag(e1) }">
                 </LearningList>
             </div>
             <div class="ml-72">
-                <LearningContent class="lg:ml-80 fixed max-h-[90%] overflow-auto " :contents="currentSet"
+                <LearningContent class="lg:ml-96 fixed max-h-[90%] overflow-auto " :contents="currentSet"
                     @buttonemit="(e, e1) => conBackend(e1)"
                     @addstatus="(e) => (myRouter.push({ name: e, params: { lessonid: currentlesson.lesson.id, tagid: currentlesson.id } }))">
                 </LearningContent>

@@ -34,7 +34,8 @@ const LogOut = () => {
 
 <template>
 
-  <div class="text-black text-base  " :class=" [$route.name !== 'isDo' &&  $route.name !== 'list' ? 'bg-st-grey' : 'bg-white']">
+  <div class="text-black text-base "
+  :class="[$route.path == '/' || $route.name == 'isDo'?'bg-white':'bg-st-grey']">
     <Toaster richColors position="top-right" />
 
     <!-- <div>
@@ -46,8 +47,8 @@ const LogOut = () => {
         <Sidebar  
           @LogOut="() => { LogOut() }"></Sidebar>
       </div>
-      <div class="grow p-10 ">
-        <RouterView class=""  :class="[$route.path !== '/'&&$route.path !== '/login/signin'&& $route.path !== '/login/signup' ? ' mt-16 ml-40':'']"/>
+      <div class="grow   ">
+        <RouterView class="p-10"  :class="[$route.path !== '/'&&$route.path !== '/login/signin'&& $route.path !== '/login/signup' ? ' pt-28 ml-56':'']"/>
       </div>
     </div>
     <div class="" v-else>

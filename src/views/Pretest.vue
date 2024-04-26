@@ -94,7 +94,7 @@ onBeforeMount(async () => {
 });
 
 const doPretest = () => {
-  if (Object.keys(myProblem.problemList).length > 0) {
+  if (Object.keys(myProblem.problemList).length > 0 && recommendedProblems.value.length > 0) {
     console.log(recommendedProblems.value)
     let randonId = Math.ceil(Math.random() * recommendedProblems.value.length)
     myRouter.push('/problem/do-problem/' + recommendedProblems.value[randonId].id)

@@ -76,13 +76,6 @@ onBeforeMount(async () => {
 
 </script>
 <template>
-
-
-
-
-
-
-    
     <div class="relative max-w-[100%] ">
         <div class="card flex justify-content-center">
             <Dialog v-model:visible="isModal" modal :pt="{
@@ -100,8 +93,6 @@ onBeforeMount(async () => {
                 @addstatus="(e1) => { myRouter.push({ name: 'listProblem' }); result = ''; }"
                 @Submit="(e1, e2) => { doSubmit(e1, e2) }"></inputAnswer>
         </div>
-
-
     </div>
 </template>
 

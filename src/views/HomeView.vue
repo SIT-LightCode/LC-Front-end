@@ -10,6 +10,7 @@ import listProblem from '../components/problem/ListProblem.vue'
 import { useRoute, useRouter } from 'vue-router'
 import Setting from '../components/settingmodal/Setting.vue'
 import Dialog from 'primevue/dialog';
+import buttonvue from '../components/button/Button.vue'
 
 const route = useRoute()
 const myRouter = useRouter()
@@ -243,8 +244,14 @@ const userRank = computed(() => {
 })
 
 const visible = ref(false)
+const visibleProblem = ref(false)
 const position = ref('center');
 
+const returnLevel = (id) => {
+  if (levelArray[id - 1] != undefined) {
+    return levelArray[id - 1][0]
+  }
+}
 </script>
 
 <template>
@@ -252,7 +259,46 @@ const position = ref('center');
     <Dialog v-model:visible="visible" header="Setting" :style="{ width: '25rem' }" :position="position" :modal="true">
       <Setting @CloseModal="visible = false"></Setting>
     </Dialog>
+    <Dialog v-model:visible="visibleProblem" class="" header="Problem" :style="{ width: '50rem', height: '25rem' }"
+      :position="'center'" :modal="true" :draggable="false">
 
+      <div class="grid grid-cols-4">
+        <p class="text-2xl text-st-blue  col-span-2">{{ dataCurrent.name }}</p>
+        <div>
+          <p class="  col-span-1" :class="levelArray[mapDifficultyToLevel(dataCurrent.difficulty) - 1]">
+            {{ dataCurrent.difficulty }}
+          </p>
+          <p class="text-sm text-st-blue ">
+            score : {{ dataCurrent.score }}
+          </p>
+        </div>
+        <div>
+          <!-- <button class="pi pi-bars" @click="toggle" v-if="dataCurrent.user.id == user.id" />
+                        <Menu ref="menu" :model="items" :popup="true" /> -->
+        </div>
+      </div>
+      <div class=" ">
+        <div class=" ">
+          <span v-for="(tag, index) in dataCurrent.tags"
+            class="inline-flex items-center px-1 mx-1 rounded-full text-xs font-medium leading-4 bg-slate-100 text-white bg-blue-500 truncate ">
+            {{ tag }}
+          </span>
+        </div>
+      </div>
+      <div class=" ">
+        <v-md-preview :text="dataCurrent.description"></v-md-preview>
+      </div>
+      <div class="  right-5 bottom-5 absolute">
+        <buttonvue class="bg-gray-300" @buttonClick="myRouter.push({ name: 'isDo', params: { id: dataCurrent.id } });"
+          :status="false" :name="'Start Problem'"></buttonvue>
+      </div>
+    </Dialog>
+
+
+
+
+
+    
     <div class="grid grid-cols-8 gap-5">
       <div class="bg-white flex flex-col justify-center items-center drop-shadow-2xl rounded-3xl p-5 ">
         <div class="text-st-blue  text-3xl h-4/6 flex items-center">
@@ -272,13 +318,13 @@ const position = ref('center');
       </div>
       <div class="col-span-2 bg-white flex flex-col justify-center items-center drop-shadow-2xl rounded-3xl p-5">
         <div class="text-sm opacity-50 ">Score</div>
-       <div class="text-st-blue text-3xl h-4/6 flex items-center">{{
-      myAccount.user.score  }}</div>
+        <div class="text-st-blue text-3xl h-4/6 flex items-center">{{
+      myAccount.user.score }}</div>
         <div class="text-sm opacity-50 ">System Problem Score</div>
         <div class="text-st-blue text-3xl h-4/6 flex items-center">{{
-     myAccount.user.scoreUnOfficial }}</div>
+      myAccount.user.scoreUnOfficial }}</div>
         <div class="text-sm opacity-50 ">User Problem Score
-</div>
+        </div>
       </div>
 
 
@@ -312,21 +358,18 @@ const position = ref('center');
 
 
 
-
-
     <div class="text-xl opacity-50 mt-20">Recommended Problems</div>
     <div class="grid grid-cols-4 gap-5 mt-10">
       <div v-for="(item, index) in computedRecomended"
         class="drop-shadow-2xl bg-white group hover:cursor-pointer hover:bg-gray-200 transition-all rounded-3xl px-4 pt-7 pb-20 flex flex-col gap-10 relative"
-        @click="myRouter.push('/problem/do-problem/' + item.id)">
+        @click="dataCurrent = item; visibleProblem = true">
         <p class="text-2xl text-st-blue truncate">{{ item.name }}</p>
-        <p class="text-lg " :class="levelArray[mapDifficultyToLevel(item.difficulty) - 1]" >
-        <b>{{ item.difficulty }}</b>  
+        <p class="text-lg " :class="levelArray[mapDifficultyToLevel(item.difficulty) - 1]">
+          <b>{{ item.difficulty }}</b>
         </p>
         <p class="text-sm text-st-blue  truncate">{{ item.description }}</p>
-        <div>
-          <span v-for="(tag, index) in item.tags"
-            class="bg-st-blue p-1 px-5 text-sm text-white rounded-full ">
+        <div class="truncate">
+          <span v-for="(tag, index) in item.tags" class="bg-st-blue p-1 text-sm text-white rounded-full ">
             {{ tag }}
           </span>
         </div>
@@ -335,7 +378,7 @@ const position = ref('center');
         </p>
       </div>
     </div>
-    <div>
+    <!-- <div>
       <p class="text-xl opacity-50 mt-10">All Problems</p>
       <filterBar :datas="myTag" @filterValue="(e1) => {
       filterFunc(e1)
@@ -350,14 +393,14 @@ const position = ref('center');
       dataCurrent = e1
     }
       " @doProblem="(e1) => {
-      myRouter.push({ name: 'isDo', params: { id: e1.id } })
-      dataCurrent = e1
+      // myRouter.push({ name: 'isDo', params: { id: e1.id } })
+      dataCurrent = e1; visibleProblem = true
     }
       " :datas="test"></listProblem>
       </div>
 
 
-    </div>
+    </div> -->
   </div>
 </template>
 

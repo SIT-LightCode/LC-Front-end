@@ -55,8 +55,8 @@ const currentLesson = computed(() => {
 
 <template>
   <!-- contents  -->
-  <div class="pl-12 pr-12 ">
-    <div v-if="currentLesson !== undefined" class="border-2 rounded-lg p-5 min-h-max">
+  <div class=" mr-12  w-[50%] h-full ">
+    <div v-if="currentLesson !== undefined" class="border-2 rounded-lg p-5 min-h-max bg-white h-full">
       <div>
         <div class="" v-if="!isEdit">
           <div class="flex justify-end mt-5 mr-5">
@@ -66,7 +66,7 @@ const currentLesson = computed(() => {
             <ButtonVue v-if="user.authorities.includes('ADMIN')" class="bg-blue-300 hover:bg-blue-400"
               @buttonClick="$emit('addstatus', 'editLesson')" :name="'Edit'"></ButtonVue>
           </div>
-          <v-md-preview :text="currentLesson"></v-md-preview>
+          <v-md-preview class="" :text="currentLesson"></v-md-preview>
         </div>
       </div>
     </div>

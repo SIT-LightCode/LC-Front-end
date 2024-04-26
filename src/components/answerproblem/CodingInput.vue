@@ -60,7 +60,7 @@ const countFailedTestCases = computed(() => {
             </div>
         </div>
 
-        <div class="max-w-[80%] ">
+        <div class="max-w-[80%] mt-3 ">
             <prism-editor class="my-editor " v-model="input" :highlight="highlighter" line-numbers
                 :tabSize="5"></prism-editor>
         </div>
