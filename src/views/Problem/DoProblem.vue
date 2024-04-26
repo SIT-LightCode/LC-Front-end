@@ -43,12 +43,10 @@ const isModal = ref(false)
 const doSubmit = async (id, answer) => {
     try {
         const data = await myproblemCon.checkAnswer(id, answer)
-        alert('test1111')
         result.value = data;
         if (result.value == 0) {
         }
         else {
-            alert(result.value)
             isModal.value = true
         }
     } catch (error) {
