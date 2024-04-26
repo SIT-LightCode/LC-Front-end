@@ -38,12 +38,12 @@ const lowCase = () => {
 
 <template>
     
-    <div class="flex flex-col gap-12 pt-20 md:flex-row items-center justify-center max-w-[100%] min-h-screen">
+    <div class="flex flex-col gap-12 pt-20 md:flex-row items-center justify-center max-w-[100%] min-h-screen bg-white">
         <div class="w-50">
             <img class="invisible sm:visible content-center" width="250" src="../../assets/picture/lclogo.png"
                 alt="logo_my_froup" />
         </div>
-        <div class="relative min-w-0 break-words w-50 mb-6 shadow-lg rounded-lg p-5">
+        <div class="relative min-w-0 break-words w-50 mb-6 shadow-lg rounded-lg p-5 bg-white">
             <div class="mb-0 px-6 py-6 ">
                 <div class="text-center mb-3 ">
                     <h6 class="" id="topic">

@@ -171,7 +171,7 @@ onBeforeMount(async () => {
 
 </script>
 <template>
-    <div class="bg-st-grey h-max ">
+    <div class="bg-st-grey h-screen ">
 
 
         
