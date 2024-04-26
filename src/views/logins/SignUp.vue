@@ -54,8 +54,8 @@ const maxConPassword = () => {
 </script>
 
 <template>
-<div class="flex flex-col md:flex-row items-center justify-center max-w-[100%] mt-16 ">
-    <div class="relative min-w-0 break-words w-50 mb-6 shadow-lg rounded-lg p-5">
+<div class="flex flex-col md:flex-row items-center justify-center max-w-[100%]  min-h-screen">
+    <div class="relative min-w-0 break-words w-50 mb-6 shadow-lg rounded-lg p-5 mt-16">
             <div class="mb-0 px-6 py-6 ">
                 <div class="text-center mb-3 ">
                     <h6 class="" id="topic">

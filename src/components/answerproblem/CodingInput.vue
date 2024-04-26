@@ -8,10 +8,16 @@ import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism-tomorrow.css';
 
 import buttonvue from '../button/Button.vue'
+
 import { ref, onBeforeMount, computed } from "vue";
+import { useRoute, useRouter } from 'vue-router'
+
+
 const emit = defineEmits(['addstatus', 'Submit'])
 
 const input = ref('const answer = (input) => {\n \n \n 	//Code Here \n return input;   \n \n \n \n  }')
+const route = useRoute()
+const myRouter = useRouter()
 
 const prop = defineProps({
 
@@ -37,7 +43,12 @@ const countFailedTestCases = computed(() => {
 <template>
     <div>
         <div class="flex justify-content-center align-items-center gap-2">
-            <span style=" color: #007AFF; text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); font-family: Rampart One; font-size: 64px; font-style: normal; line-height: 36px;" class="text-xl opacity-50  ">Coding..</span>
+        
+            <div class="text-xl opacity-50">
+            <button @click="myRouter.push({ name: 'listProblem' })"> Problem </button> > <span
+                class="text-st-blue">{{ route.name }}</span>
+        </div>
+            <!-- <span style=" color: #007AFF; text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); font-family: Rampart One; font-size: 64px; font-style: normal; line-height: 36px;" class="text-xl opacity-50  ">Coding..</span> -->
             <div class="ml-5">
                 <buttonvue class="bg-gray-300 hover:bg-gray-400" @buttonClick="$emit('addstatus', '')" :name="'Back'">
                 </buttonvue>

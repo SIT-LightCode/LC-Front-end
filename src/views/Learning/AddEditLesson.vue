@@ -18,17 +18,17 @@ const selectedLesson = ref({})
 const myAccount = account()
 
 onBeforeMount(async () => {
-if(Object.keys(mylearningCon.tagList ).length === 0){
-  await mylearningCon.getAllTag()
-}
+  if (Object.keys(mylearningCon.tagList).length === 0) {
+    await mylearningCon.getAllTag()
+  }
 
 })
 
 
 const conBackend = async (query) => {
-    await mylearningCon.addContent(query)
-    myRouter.push({ name: 'list', params: { tagid: 0, lessonid: 0 } })
-    await mylearningCon.getAllTag()
+  await mylearningCon.addContent(query)
+  myRouter.push({ name: 'list', params: { tagid: 0, lessonid: 0 } })
+  await mylearningCon.getAllTag()
 }
 
 
@@ -40,9 +40,11 @@ user.value = JSON.parse(localStorage.getItem('user'))
 <template>
   <div class=" ml-56 max-w-[90%] bg-st-grey ">
     <div class="flex justify-content-center align-items-center mb-4 gap-2">
-      <span v-if="$route.name == 'addLesson'" style=" color: #007AFF; text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); font-family: Rampart One; font-size: 64px; font-style: normal; line-height: 36px;" class="text-xl opacity-50  ">Add Lesson</span>
-      <span v-else-if="$route.name == 'editLesson'"  style=" color: #007AFF; text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); font-family: Rampart One; font-size: 64px; font-style: normal; line-height: 36px;" class="text-xl opacity-50  ">Add Lesson</span>
-
+      <!-- <span v-if="$route.name == 'addLesson'" style=" color: #007AFF; text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); font-family: Rampart One; font-size: 64px; font-style: normal; line-height: 36px;" class="text-xl opacity-50  ">Add Lesson</span>
+      <span v-else-if="$route.name == 'editLesson'"  style=" color: #007AFF; text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); font-family: Rampart One; font-size: 64px; font-style: normal; line-height: 36px;" class="text-xl opacity-50  ">Add Lesson</span> -->
+      <div class="text-xl opacity-50">
+        <button @click="myRouter.push({name:'list', params: { tagid: 0, lessonid: 0 }})"> Learning </button> > <span class="text-st-blue">{{ route.name }}</span>
+      </div>
     </div>
 
     <div v-if="$route.name == 'addLesson'">
@@ -60,13 +62,13 @@ user.value = JSON.parse(localStorage.getItem('user'))
 
 <style>
 #logo {
-    color: #007AFF;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    font-family: "Rampart One";
-    font-size: 50px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 36px;
-    /* 28.125% */
+  color: #007AFF;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: "Rampart One";
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 36px;
+  /* 28.125% */
 }
 </style>
