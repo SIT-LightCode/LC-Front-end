@@ -5,8 +5,8 @@ import Goal from '../components/landingpage/Goal.vue'
 import Member from '../components/landingpage/Member.vue'
 </script>
 <template>
-  <div class="w-screen">
-    <div class="flex min-h-screen items-center justify-center bg-gradient-to-tr bg-whitep-10">
+  <div class="">
+    <div class="flex min-h-screen items-center justify-center bg-gradient-to-tr  p-10">
       <div class="w-max">
         <h1
           class="animate-typing overflow-hidden whitespace-nowrap border-r-4 border-r-gray-600 pr-5 text-8xl text-st-blue font-bold"

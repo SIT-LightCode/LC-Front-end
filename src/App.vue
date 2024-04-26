@@ -34,7 +34,8 @@ const LogOut = () => {
 
 <template>
 
-  <div class="text-black text-base  bg-st-grey ">
+  <div class="text-black text-base "
+  :class="[$route.path == '/'?'bg-white':'bg-st-grey']">
     <Toaster richColors position="top-right" />
 
     <!-- <div>
