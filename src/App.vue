@@ -45,8 +45,9 @@ const LogOut = async () => {
   <div class="w-screen h-screen fixed z-[100000] bg-white top-0 right-0 opacity-50 "
             :class="[isLoading? 'visible' : 'invisible']">
             <Loading class="fixed right-[50%] top-[50%]  z-[100000]"/>
+          </div>
     <Toaster richColors position="top-right" />
-  </div>
+  
     <!-- <div>
       <Navbar v-if="$route.path == '/'" class=" bg-black " />
     </div> -->
@@ -58,7 +59,7 @@ const LogOut = async () => {
           @LogOut="() => { LogOut() }"></Sidebar>
       </div>
       <div class="grow   ">
-        <RouterView class="p-10"  :class="[$route.path !== '/'&&$route.path !== '/login/signin'&& $route.path !== '/login/signup' ? ' pt-28 ml-56':'']"/>
+        <RouterView class="p-10" :class="[$route.path !== '/'&&$route.path !== '/login/signin'&& $route.path !== '/login/signup' ? ' pt-28 ml-56':'']"/>
       </div>
     </div>
     <div class="" v-else>

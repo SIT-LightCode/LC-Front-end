@@ -23,7 +23,8 @@ const levelArray = [['Easier', 'text-green-400'], ['Beginner', 'text-st-green'],
 const selectedDiff = ref('No select')
 // const userRank = ref(0)
 const computedRecomended = computed(() => {
-  return sortedProblemsComputed.value.slice(0, 4)
+  return []
+  // return sortedProblemsComputed.value.slice(0, 4)
 })
 
 function mapLevelToDifficulty(level) {
@@ -376,7 +377,12 @@ const returnLevel = (id) => {
           {{ item.score }}
         </p>
       </div>
+  
     </div>
+    <div v-if="computedRecomended.length==[]"
+        class="drop-shadow-2xl bg-white group hover:cursor-pointer rounded-3xl   relative h-36 text-black flex items-center justify-center">
+        <p class="font-rampart text-5xl text-st-blue text-center">congrats no recommended problems for you🥳</p>
+      </div>
     <!-- <div>
       <p class="text-xl opacity-50 mt-10">All Problems</p>
       <filterBar :datas="myTag" @filterValue="(e1) => {
