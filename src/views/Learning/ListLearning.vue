@@ -94,7 +94,10 @@ user.value = JSON.parse(localStorage.getItem('user'))
                     @deleteTag="(e1) => { mylearningCon.deleteTag(e1) }" />
             </div>
             <div class="pl-10 learning-list-container fixed max-h-[90%] overflow-auto invisible lg:visible">
-
+                <div class="text-xl opacity-50">
+                    <button @click="myRouter.push({ name: 'list', params: { tagid: 0, lessonid: 0 } })"> Learning </button>
+                    > <span class="text-st-blue">{{ route.name }}</span>
+                </div>
                 <LearningList class="" :contents="mylearningCon.tagList" @selected="selectLesson"
                     @addstatus="(e) => (myRouter.push({ name: e, params: { status: e } }))"
                     @deleteTag="(e1) => { mylearningCon.deleteTag(e1) }">
