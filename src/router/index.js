@@ -63,16 +63,19 @@ const router = createRouter({
         {
           path: 'list',
           name: 'listProblem',
+          beforeEnter: checkLogin,
           component: () => import('../views/Problem/ListProblem.vue'),
         },
         {
           path: 'edit-problem/:id',
           name: 'isEdit',
+          beforeEnter: checkLogin,
           component: () => import('../views/Problem/DoProblem.vue'),
         },
         {
           path: 'do-problem/:id',
           name: 'isDo',
+          beforeEnter: checkLogin,
           component: () => import('../views/Problem/DoProblem.vue'),
         },
       ],
@@ -85,16 +88,19 @@ const router = createRouter({
         {
           path: 'list',
           name: 'listmyproblem',
+          beforeEnter: checkLogin,
           component: () => import('../views/Problem/MyProblem.vue'),
         },
         {
           path: 'add',
           name: 'addproblem',
+          beforeEnter: checkLogin,
           component: () => import('../views/Problem/AddProblem.vue'),
         },
         {
           path: 'edit-problem/:id',
           name: 'editproblem',
+          beforeEnter: checkLogin,
           component: () => import('../views/Problem/EditProblem.vue'),
         }
       ],
@@ -106,6 +112,7 @@ const router = createRouter({
         {
           path: 'list/:tagid/:lessonid',
           name: 'list',
+          beforeEnter: checkLogin,
           component: () => import('../views/Learning/ListLearning.vue'),
         },
         {
@@ -182,6 +189,7 @@ const router = createRouter({
     {
       path: '/pretest',
       name: 'pretest',
+      beforeEnter: checkLogin,
       component: () => import('../views/Pretest.vue'),
     },
     {
@@ -208,6 +216,7 @@ const router = createRouter({
         {
           path: 'list',
           name: 'listUser',
+          beforeEnter: checkLogin,
           component: () => import('../views/User/ListUser.vue'),
         },
        

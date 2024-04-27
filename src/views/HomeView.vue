@@ -109,12 +109,11 @@ const recommendedProblems = ref([])
 const sortedProblemsComputed = computed(() => {
   const userSkills = myAccount.user.skills
   // Assuming `problemList` updates reactively, filter will re-run when it changes.
-  const problems = myProblem.problemList.filter((problem) => problem.isOfficial === true)
+    const problems = myProblem.problemList.filter((problem) => problem.isOfficial === true)
+    const sortedProblems = sortProblemsByRelevance(userSkills, problems)
+    // mapProblemToFormat can be adjusted according to your needs
+    return sortedProblems.map(mapProblemToFormat)
 
-  const sortedProblems = sortProblemsByRelevance(userSkills, problems)
-
-  // mapProblemToFormat can be adjusted according to your needs
-  return sortedProblems.map(mapProblemToFormat)
 })
 
 onBeforeMount(async () => {
@@ -298,7 +297,7 @@ const returnLevel = (id) => {
 
 
 
-    
+
     <div class="grid grid-cols-8 gap-5">
       <div class="bg-white flex flex-col justify-center items-center drop-shadow-2xl rounded-3xl p-5 ">
         <div class="text-st-blue  text-3xl h-4/6 flex items-center">
