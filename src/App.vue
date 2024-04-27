@@ -40,7 +40,7 @@ const LogOut = async () => {
 
 <template>
   
-  <div class="text-black text-base"
+  <div class="text-black text-base min-h-screen"
   :class="[$route.path == '/' || $route.name == 'isDo'?'bg-white':'bg-st-grey']">
   <div class="w-screen h-screen fixed z-[100000] bg-white top-0 right-0 opacity-50 "
             :class="[isLoading? 'visible' : 'invisible']">
