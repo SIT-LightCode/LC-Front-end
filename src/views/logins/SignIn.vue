@@ -19,7 +19,7 @@ const dataForLogin = ref({
 
 const checkLogin = () => {
     let errortext = ""
-    isLoading.value = true
+    isLoading.value = false
     for (const data in dataForLogin.value) {
         if (dataForLogin.value[data] == '') {
             // alert('error')
