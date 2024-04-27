@@ -6,10 +6,11 @@ import ButtonPage from '../../components/button/Button.vue'
 import { Toaster, toast } from 'vue-sonner'
 import Password from 'primevue/password';
 import InputText from 'primevue/inputtext';
+import Loading from '../../components/main/Loading.vue'
 
 const myLogin = loginCon()
 const myRouter = useRouter()
-
+const isLoading =ref(false)
 
 const dataForLogin = ref({
     email: '', password: ''
@@ -18,6 +19,7 @@ const dataForLogin = ref({
 
 const checkLogin = () => {
     let errortext = ""
+    isLoading.value = true
     for (const data in dataForLogin.value) {
         if (dataForLogin.value[data] == '') {
             // alert('error')
@@ -29,6 +31,7 @@ const checkLogin = () => {
     } else {
         toast.error(errortext)
     }
+    isLoading.value = false
 }
 
 const lowCase = () => {
@@ -39,6 +42,11 @@ const lowCase = () => {
 <template>
     
     <div class="flex flex-col gap-12 pt-20 md:flex-row items-center justify-center max-w-[100%] min-h-screen bg-white">
+        
+        <div class="w-screen h-screen fixed z-[10000] bg-white top-0 right-0 opacity-50 "
+            :class="[isLoading? 'visible' : 'invisible']">
+            <Loading class="fixed right-[50%] top-[50%]  z-[10000]"/>
+        </div>
         <div class="w-50">
             <img class="invisible sm:visible content-center" width="250" src="../../assets/picture/lclogo.png"
                 alt="logo_my_froup" />

@@ -7,8 +7,9 @@ import InputText from 'primevue/inputtext';
 import { RouterLink, RouterView ,useRouter } from 'vue-router'
 import { loginCon } from '../../stores/LoginCon.js'
 import { account } from '../../stores/Account'
+import Loading from '../../components/main/Loading.vue'
 
-
+const isLoading =ref(false)
 const myLogin = loginCon()
 const myAccount = account()
 const myRouter = useRouter()
@@ -21,6 +22,7 @@ const dataForCreate = ref({
 })
 
 const checkCreate = () => {
+    isLoading.value=true
     let errortext = ""
     if (dataForCreate.value.password != "" && dataForCreate.value.passwordConfirm != "" && dataForCreate.value.password !== dataForCreate.value.passwordConfirm) {
         // alert('password and passwordConfirm dont same value')
@@ -31,6 +33,7 @@ const checkCreate = () => {
     } else {
         toast.error(errortext)
     }
+    isLoading.value=false
 }
 
 const createAccount = () => {
@@ -55,6 +58,10 @@ const maxConPassword = () => {
 
 <template>
 <div class="flex flex-col md:flex-row items-center justify-center max-w-[100%]  min-h-screen bg-white">
+    <div class="w-screen h-screen fixed z-[100000] bg-white top-0 right-0 opacity-50 "
+            :class="[isLoading? 'visible' : 'invisible']">
+            <Loading class="fixed right-[50%] top-[50%]  z-[100000]"/>
+    </div>
     <div class="relative min-w-0 break-words w-50 mb-6 shadow-lg rounded-lg p-5 mt-16">
             <div class="mb-0 px-6 py-6 ">
                 <div class="text-center mb-3 ">
