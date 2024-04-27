@@ -61,7 +61,7 @@ const lowCase = () => {
                 <hr class="mt-6 border-b-1 border-gray-400" />
             </div>
 
-            <span>Don’t have an account? <span class="hover:text-blue-500 transition-all"
+            <span>Don’t have an account? <span class="text-st-blue hover:text-blue-800 transition-all cursor-pointer"
                     @click="myRouter.push('/login/signup')">Sign up</span></span>
 
             <div class="flex-auto px-4 lg:px-10 py-10 pt-0">

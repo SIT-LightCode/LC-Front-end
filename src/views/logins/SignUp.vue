@@ -71,7 +71,7 @@ const maxConPassword = () => {
                 </div>
                 <hr class="mt-6 border-b-1 border-gray-400" />
             </div>
-            <span>Already have an account? <span class="hover:text-blue-500 transition-all"
+            <span>Already have an account? <span class="cursor-pointer transition-all text-st-blue hover:text-blue-800"
                     @click="myRouter.push('/login/signin')">Sign in</span></span>
             <form>
                 <div class="relative w-full mb-3">
