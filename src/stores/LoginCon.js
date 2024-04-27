@@ -95,6 +95,7 @@ export const loginCon = defineStore('loginCon', () => {
         localStorage.removeItem("user");
         myRouter.push({ name: 'home' })
         toast.success('Logout Completed')
+        return true
       // }
     } catch (err) {
       console.log(err)
@@ -104,6 +105,8 @@ export const loginCon = defineStore('loginCon', () => {
       myRouter.push({ name: 'home' })
       localStorage.removeItem("user");
       toast.success('Logout Completed')
+      return true
+
     }
   }
 

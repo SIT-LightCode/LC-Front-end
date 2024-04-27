@@ -33,7 +33,6 @@ const checkCreate = () => {
     } else {
         toast.error(errortext)
     }
-    isLoading.value=false
 }
 
 const createAccount = () => {

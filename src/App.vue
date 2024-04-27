@@ -27,10 +27,12 @@ const isNotPretest = computed(() => {
   return myRouter.currentRoute.value.path !== '/pretest' && myRouter.currentRoute.value.path !== '/dopretest'
 })
 
-const LogOut = () => {
+const LogOut = async () => {
   isLoading.value=true
-  myLogin.logout()
-  isLoading.value=false
+  let res = await myLogin.logout()
+  if(res){
+    isLoading.value=false
+  }
   showModal.value = false
   
 }
