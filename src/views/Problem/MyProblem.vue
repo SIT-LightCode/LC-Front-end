@@ -112,7 +112,7 @@ onBeforeMount(async () => {
 
 </script>
 <template>
-    <div class="bg-st-grey max-w-[100%] h-screen">
+    <div class="max-w-[100%]">
 
         <div>
             <div class="text-xl opacity-50">
