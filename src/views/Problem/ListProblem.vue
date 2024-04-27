@@ -171,12 +171,7 @@ onBeforeMount(async () => {
 
 </script>
 <template>
-    <div class="bg-st-grey h-screen ">
-
-
-        
-
-
+    <div class="">
         <div>
             <div class="text-xl opacity-50">
                 <button @click="myRouter.push({ name: 'listProblem' })"> Problem </button> > <span class="text-st-blue">{{ route.name }}</span>
