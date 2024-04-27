@@ -43,12 +43,12 @@ const resetFilter = () => {
                         </select>
                 </div>
                 <div class="flex items-center gap-1">
-                        <p class="text-sm text-st-blue">Official Problem:</p>
+                        <p class="text-sm text-st-blue">Created by:</p>
                         <select @change="$emit('filterValue', filterValue);" v-model="filterValue.isOfficial"
                                 class="border-none rounded-3xl px-4 py-1 w-36 text-sm	">
                                 <option value="">No select</option>
-                                <option value="true">True</option>
-                                <option value="false">False</option>
+                                <option value="true">System</option>
+                                <option value="false">Community</option>
                         </select>
                 </div>
                 <div class="flex items-center gap-1">
