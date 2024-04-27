@@ -9,10 +9,10 @@ import { useRoute, useRouter } from 'vue-router'
 import * as gql from 'gql-query-builder'
 
 export const problemCon = defineStore('problemCon', () => {
-  let problemList = ref({})
+  let problemList = ref([])
   let problemResolved = ref([])
   const myAccount = account()
-const myRouter =useRouter()
+  const myRouter = useRouter()
   const mymodal = modalSwal()
   const myconnectBackend = connectBackend()
 
@@ -162,8 +162,7 @@ const myRouter =useRouter()
         //   "success"
         // );
         getAllproblem()
-            myRouter.push('/problem/list')
-
+        myRouter.push('/problem/list')
       }
     })
   }

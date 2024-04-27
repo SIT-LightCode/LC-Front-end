@@ -23,7 +23,7 @@ const levelArray = [['Easier', 'text-green-400'], ['Beginner', 'text-st-green'],
 const selectedDiff = ref('No select')
 // const userRank = ref(0)
 const computedRecomended = computed(() => {
-  return recommendedProblems.value.slice(0, 4)
+  return sortedProblemsComputed.value.slice(0, 4)
 })
 
 function mapLevelToDifficulty(level) {
@@ -104,7 +104,6 @@ function sortProblemsByRelevance(userSkills, problems) {
   })
 }
 
-const recommendedProblems = ref([])
 
 const sortedProblemsComputed = computed(() => {
   const userSkills = myAccount.user.skills
@@ -298,7 +297,7 @@ const returnLevel = (id) => {
 
 
 
-    
+
     <div class="grid grid-cols-8 gap-5">
       <div class="bg-white flex flex-col justify-center items-center drop-shadow-2xl rounded-3xl p-5 ">
         <div class="text-st-blue  text-3xl h-4/6 flex items-center">
