@@ -16,7 +16,7 @@ const router = useRoute()
 const myCookie = cookieData()
 const sidebarIsShow = ref(false)
 const showModal = ref(false)
-const isLoading =ref(false)
+const isLoading = ref(false)
 const openCloseSidebar = (isShow) => {
 
   sidebarIsShow.value = isShow
@@ -28,40 +28,43 @@ const isNotPretest = computed(() => {
 })
 
 const LogOut = async () => {
-  isLoading.value=true
+  isLoading.value = true
   let res = await myLogin.logout()
-  if(res){
-    isLoading.value=false
+  if (res) {
+    isLoading.value = false
   }
   showModal.value = false
-  
+
 }
 </script>
 
 <template>
-  
-  <div class="text-black text-base min-h-screen"
-  :class="[$route.path == '/' || $route.name == 'isDo'?'bg-white':'bg-st-grey']">
-  <div class="w-screen h-screen fixed z-[100000] bg-white top-0 right-0 opacity-50 " :class="[isLoading? 'visible' : 'invisible']">
-    <Loading class="fixed right-[50%] top-[50%]  z-[100000]"/>
+  <div>
     <Toaster richColors position="top-right" />
-  </div>
-    <!-- <div>
+    <div class="text-black text-base min-h-screen"
+      :class="[$route.path == '/' || $route.name == 'isDo' ? 'bg-white' : 'bg-st-grey']">
+      <div class="w-screen h-screen fixed z-[100000] bg-white top-0 right-0 opacity-50 "
+        :class="[isLoading ? 'visible' : 'invisible']">
+        <Loading class="fixed right-[50%] top-[50%]  z-[100000]" />
+      </div>
+      <!-- <div>
       <Navbar v-if="$route.path == '/'" class=" bg-black " />
     </div> -->
-    <TopNav class="fixed border-b-2 top-0" />
-    <div class="flex " v-if="$route.path !== '/pretest' && $route.path !== '/' && $route.path !== '/login/signin' && $route.path !== '/login/signup'">
-      <div class="flex-none mt-12 fixed z-[100] bg-white h-full" >
+      <TopNav class="fixed border-b-2 top-0" />
+      <div class="flex "
+        v-if="$route.path !== '/pretest' && $route.path !== '/' && $route.path !== '/login/signin' && $route.path !== '/login/signup'">
+        <div class="flex-none mt-12 fixed z-[100] bg-white h-full">
 
-        <Sidebar  
-          @LogOut="() => { LogOut() }"></Sidebar>
+          <Sidebar @LogOut="() => { LogOut() }"></Sidebar>
+        </div>
+        <div class="grow   ">
+          <RouterView class="p-10"
+            :class="[$route.path !== '/' && $route.path !== '/login/signin' && $route.path !== '/login/signup' ? ' pt-28 ml-56' : '']" />
+        </div>
       </div>
-      <div class="grow   ">
-        <RouterView class="p-10"  :class="[$route.path !== '/'&&$route.path !== '/login/signin'&& $route.path !== '/login/signup' ? ' pt-28 ml-56':'']"/>
+      <div class="" v-else>
+        <RouterView class="" />
       </div>
-    </div>
-    <div class="" v-else>
-      <RouterView class="" />
     </div>
   </div>
 

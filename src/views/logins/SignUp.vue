@@ -22,7 +22,7 @@ const dataForCreate = ref({
 })
 
 const checkCreate = () => {
-    isLoading.value=true
+    isLoading.value=false
     let errortext = ""
     if (dataForCreate.value.password != "" && dataForCreate.value.passwordConfirm != "" && dataForCreate.value.password !== dataForCreate.value.passwordConfirm) {
         // alert('password and passwordConfirm dont same value')
