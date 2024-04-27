@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from "vue"
+import { ref, computed, onBeforeMount } from "vue"
 import buttonVue from '../button/Button.vue';
 import { account } from '../../stores/Account';
 import Paginator from 'primevue/paginator';
@@ -55,10 +55,10 @@ function hoverDetail(index) {
 
 
 
-const user = JSON.parse(localStorage.getItem('user'))
+const user = ref()
 
 const colorTags = ['bg-[#ff6961]', 'bg-[#ffb480]', 'bg-[#f8f38d]', 'bg-[#42d6a4]', 'bg-[#08cad1]', 'bg-[#59adf6]', 'bg-[#9d94ff]', 'bg-[#c780e8]']
-const levelArray = [['Easier', 'text-st-green'], ['Beginner', 'text-st-green'], ['Medium', 'text-[#FEC84B]'], ['Hard', 'text-st-red'], ['Expert', 'text-st-red'],]
+const levelArray = [['Easier', 'text-green-400'], ['Beginner', 'text-st-green'], ['Medium', 'text-[#FEC84B]'], ['Hard', 'text-st-red'], ['Expert', 'text-red-400'],]
 
 const returnLevel = (id) => {
   if (levelArray[id - 1] != undefined) {
@@ -103,6 +103,20 @@ const clickEvent = (i) => {
 
 const selectedData = ref();
 const metaKey = ref(true);
+const returnType = (Official, ownid) => {
+  if (ownid == user.value.id) {
+    return 'Myself'
+  } else {
+    if(Official) {
+      return 'System'
+    }
+    else return 'Community'
+  }
+}
+onBeforeMount(()=>{
+  user.value = JSON.parse(localStorage.getItem('user'))
+
+})
 
 </script>
 
@@ -205,29 +219,31 @@ const metaKey = ref(true);
 
       </template>
 </MqResponsive> -->
-    <div class="p-5  rounded-3xl flex flex-col gap-4 text-base	">
+
+    <div class="p-5 rounded-3xl flex flex-col gap-4 text-base	">
       <div class="grid grid-cols-5 border-b-2 pb-2 text-center">
         <p class="text-st-blue">Name</p>
-        <p class="text-st-blue">Official Problem</p>
+        <p class="text-st-blue">Created by</p>
         <p class="text-st-blue">Score</p>
         <p class="text-st-blue">Difficulty</p>
-        <p  class="text-st-blue">Submitted</p>
+        <p class="text-st-blue">Submitted</p>
       </div>
-      <button v-for="problem in paginatedData" class="grid grid-cols-5 p-1  rounded-lg	hover:bg-gray-300 text-base	text-center"
+      <button v-for="problem in paginatedData"
+        class="grid grid-cols-5 p-1  rounded-lg	hover:bg-gray-100 text-base	text-center"
         @click="$emit('doProblem', problem)">
         <p class="truncate ">{{ problem.name }}</p>
-        <p class="truncate ">{{ problem.isOfficial }}</p>
+        <p class="truncate ">{{ returnType(problem.isOfficial, problem.user.id) }}</p>
         <p class="truncate ">{{ problem.totalScore }}</p>
         <p class="truncate " :class="levelArray[problem.level - 1]">{{ returnLevel(problem.level) }}</p>
         <p class="truncate pi pi-check 	 " v-if="checkproblem(problem.id)"> </p>
       </button>
 
       <Paginator v-model:first="pageNumber" rows="1" :totalRecords="pageCount" v-if="pageCount !== 0" :template="{
-        '640px': 'PrevPageLink CurrentPageReport NextPageLink',
-        '960px': 'FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink',
-        '1300px': 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',
-        default: 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink JumpToPageDropdown '
-      }">
+      '640px': 'PrevPageLink CurrentPageReport NextPageLink',
+      '960px': 'FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink',
+      '1300px': 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',
+      default: 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink JumpToPageDropdown '
+    }">
       </Paginator>
     </div>
 

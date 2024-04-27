@@ -187,25 +187,25 @@ onBeforeMount(async () => {
 					<h1 class="opacity-50 text-sm pl-5 mt-4">Admin Menu</h1>
 					<div class="flex flex-col">
 					<RouterLink to='/view-user/list'
-					:class="[$route.path == '/view-user/list'? 'text-st-blue border-l-st-blue':'']"
-					class="opacity-75 transition-all w-full h-12 flex items-center border-l-white border-l-4 pl-5 hover:border-l-st-blue hover:text-st-blue hover:opacity-100">View User</RouterLink>
+					:class="[$route.path == '/view-user/list'? 'text-st-blue border-l-st-blue':'border-l-white']"
+					class="opacity-75 transition-all w-full h-12 flex items-center  border-l-4 pl-5 hover:border-l-st-blue hover:text-st-blue hover:opacity-100">View User</RouterLink>
 					</div>
 				</div>
 				<div class="flex flex-col w-full  border-b-2">
 					<h1 class="opacity-50 text-sm pl-5 mt-4">Main Menu</h1>
 					<div class="flex flex-col  ">
 						<RouterLink to='/lightcode'
-						:class="[$route.path == '/lightcode'? 'text-st-blue border-l-st-blue':'']"
-						class="opacity-75 transition-all w-full h-12 flex items-center border-l-white border-l-4 pl-5 hover:border-l-st-blue hover:text-st-blue hover:opacity-100">Home</RouterLink>
+						:class="[$route.path == '/lightcode'? 'text-st-blue border-l-st-blue':'border-l-white']"
+						class="opacity-75 transition-all w-full h-12 flex items-center  border-l-4 pl-5 hover:border-l-st-blue hover:text-st-blue hover:opacity-100">Home</RouterLink>
 						<RouterLink to='/learning/list/0/0' 
-						:class="[$route.path.startsWith('/learning/list') ? 'text-st-blue border-l-st-blue':'']"
-						class="opacity-75 transition-all w-full h-12 flex items-center border-l-white border-l-4 pl-5 hover:border-l-st-blue hover:text-st-blue hover:opacity-100">Learning</RouterLink>
+						:class="[$route.path.startsWith('/learning/list') ? 'text-st-blue border-l-st-blue':'border-l-white']"
+						class="opacity-75 transition-all w-full h-12 flex items-center  border-l-4 pl-5 hover:border-l-st-blue hover:text-st-blue hover:opacity-100">Learning</RouterLink>
 						<RouterLink to='/problem/list' 
-						:class="[$route.path == '/problem/list'? 'text-st-blue border-l-st-blue':'']"
-						class="opacity-75 transition-all w-full h-12 flex items-center border-l-white border-l-4 pl-5 hover:border-l-st-blue hover:text-st-blue hover:opacity-100">Problem</RouterLink>
+						:class="[$route.path == '/problem/list'? 'text-st-blue border-l-st-blue':'border-l-white']"
+						class="opacity-75 transition-all w-full h-12 flex items-center  border-l-4 pl-5 hover:border-l-st-blue hover:text-st-blue hover:opacity-100">Problem</RouterLink>
 						<RouterLink to='/myproblem/list' 
-						:class="[$route.path == '/myproblem/list'? 'text-st-blue border-l-st-blue':'']"
-						class="opacity-75 transition-all w-full h-12 flex items-center border-l-white border-l-4 pl-5 hover:border-l-st-blue hover:text-st-blue hover:opacity-100">My Problem</RouterLink>
+						:class="[$route.path == '/myproblem/list'? 'text-st-blue border-l-st-blue':'border-l-white']"
+						class="opacity-75 transition-all w-full h-12 flex items-center  border-l-4 pl-5 hover:border-l-st-blue hover:text-st-blue hover:opacity-100">My Problem</RouterLink>
 					</div>
 				</div>
 				<div class="flex flex-col w-full ">

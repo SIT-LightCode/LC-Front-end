@@ -55,7 +55,7 @@ const currentLesson = computed(() => {
 
 <template>
   <!-- contents  -->
-  <div class=" mr-12  w-[75%] h-full ">
+  <div class=" mr-12  w-[50%] h-full ">
     <div v-if="currentLesson !== undefined" class="border-2 rounded-lg p-5 min-h-max bg-white h-full">
       <div>
         <div class="" v-if="!isEdit">

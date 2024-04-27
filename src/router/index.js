@@ -84,7 +84,7 @@ const router = createRouter({
       children: [
         {
           path: 'list',
-          name: 'listproblem',
+          name: 'listmyproblem',
           component: () => import('../views/Problem/MyProblem.vue'),
         },
         {

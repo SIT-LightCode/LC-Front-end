@@ -43,12 +43,10 @@ const isModal = ref(false)
 const doSubmit = async (id, answer) => {
     try {
         const data = await myproblemCon.checkAnswer(id, answer)
-        alert('test1111')
         result.value = data;
         if (result.value == 0) {
         }
         else {
-            alert(result.value)
             isModal.value = true
         }
     } catch (error) {
@@ -78,13 +76,6 @@ onBeforeMount(async () => {
 
 </script>
 <template>
-
-
-
-
-
-
-    
     <div class="relative max-w-[100%] ">
         <div class="card flex justify-content-center">
             <Dialog v-model:visible="isModal" modal :pt="{
@@ -102,8 +93,6 @@ onBeforeMount(async () => {
                 @addstatus="(e1) => { myRouter.push({ name: 'listProblem' }); result = ''; }"
                 @Submit="(e1, e2) => { doSubmit(e1, e2) }"></inputAnswer>
         </div>
-
-
     </div>
 </template>
 

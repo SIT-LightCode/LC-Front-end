@@ -10,6 +10,7 @@ import listProblem from '../components/problem/ListProblem.vue'
 import { useRoute, useRouter } from 'vue-router'
 import Setting from '../components/settingmodal/Setting.vue'
 import Dialog from 'primevue/dialog';
+import buttonvue from '../components/button/Button.vue'
 
 const route = useRoute()
 const myRouter = useRouter()
@@ -17,13 +18,8 @@ const myAccount = account()
 const myProblem = problemCon()
 const myTag = learningCon()
 const difficulties = ref(['Expert', 'Hard', 'Medium', 'Beginner', 'Easier'])
-const levelArray = [
-  ['Easier', 'text-st-green'],
-  ['Beginner', 'text-[#99c140]'],
-  ['Medium', 'text-[#FEC84B]'],
-  ['Hard', 'text-[#db7b2b]'],
-  ['Expert', 'text-st-red'],
-]
+const levelArray = [['Easier', 'text-green-400'], ['Beginner', 'text-st-green'], ['Medium', 'text-[#FEC84B]'], ['Hard', 'text-st-red'], ['Expert', 'text-red-400'],]
+
 const selectedDiff = ref('No select')
 // const userRank = ref(0)
 const computedRecomended = computed(() => {
@@ -248,8 +244,14 @@ const userRank = computed(() => {
 })
 
 const visible = ref(false)
+const visibleProblem = ref(false)
 const position = ref('center');
 
+const returnLevel = (id) => {
+  if (levelArray[id - 1] != undefined) {
+    return levelArray[id - 1][0]
+  }
+}
 </script>
 
 <template>
@@ -257,34 +259,75 @@ const position = ref('center');
     <Dialog v-model:visible="visible" header="Setting" :style="{ width: '25rem' }" :position="position" :modal="true">
       <Setting @CloseModal="visible = false"></Setting>
     </Dialog>
+    <Dialog v-model:visible="visibleProblem" class="" header="Problem" :style="{ width: '50rem', height: '25rem' }"
+      :position="'center'" :modal="true" :draggable="false">
 
-    <div class="grid grid-cols-9 gap-5">
-      <div class="col-span-6 bg-white flex flex-col gap-5 p-16 drop-shadow-2xl rounded-3xl">
+      <div class="grid grid-cols-4">
+        <p class="text-2xl text-st-blue  col-span-2">{{ dataCurrent.name }}</p>
+        <div>
+          <p class="  col-span-1" :class="levelArray[mapDifficultyToLevel(dataCurrent.difficulty) - 1]">
+            {{ dataCurrent.difficulty }}
+          </p>
+          <p class="text-sm text-st-blue ">
+            score : {{ dataCurrent.score }}
+          </p>
+        </div>
+        <div>
+          <!-- <button class="pi pi-bars" @click="toggle" v-if="dataCurrent.user.id == user.id" />
+                        <Menu ref="menu" :model="items" :popup="true" /> -->
+        </div>
+      </div>
+      <div class=" ">
+        <div class=" ">
+          <span v-for="(tag, index) in dataCurrent.tags"
+            class="inline-flex items-center px-1 mx-1 rounded-full text-xs font-medium leading-4 bg-slate-100 text-white bg-blue-500 truncate ">
+            {{ tag }}
+          </span>
+        </div>
+      </div>
+      <div class=" ">
+        <v-md-preview :text="dataCurrent.description"></v-md-preview>
+      </div>
+      <div class="  right-5 bottom-5 absolute">
+        <buttonvue class="bg-gray-300" @buttonClick="myRouter.push({ name: 'isDo', params: { id: dataCurrent.id } });"
+          :status="false" :name="'Start Problem'"></buttonvue>
+      </div>
+    </Dialog>
+
+
+
+
+
+    
+    <div class="grid grid-cols-8 gap-5">
+      <div class="bg-white flex flex-col justify-center items-center drop-shadow-2xl rounded-3xl p-5 ">
+        <div class="text-st-blue  text-3xl h-4/6 flex items-center">
+          {{ userRank }}
+        </div>
+        <div class="text-sm opacity-50 ">Rank#</div>
+      </div>
+      <div class="col-span-5 bg-white flex flex-col gap-5 p-16 drop-shadow-2xl rounded-3xl">
         <svg class="w-8 h-8 text-gray-300 absolute right-6 top-5 cursor-pointer hover:text-st-blue transition-all"
           @click="visible = true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
           <path fill-rule="evenodd"
             d="M11.828 2.25c-.916 0-1.699.663-1.85 1.567l-.091.549a.798.798 0 0 1-.517.608 7.45 7.45 0 0 0-.478.198.798.798 0 0 1-.796-.064l-.453-.324a1.875 1.875 0 0 0-2.416.2l-.243.243a1.875 1.875 0 0 0-.2 2.416l.324.453a.798.798 0 0 1 .064.796 7.448 7.448 0 0 0-.198.478.798.798 0 0 1-.608.517l-.55.092a1.875 1.875 0 0 0-1.566 1.849v.344c0 .916.663 1.699 1.567 1.85l.549.091c.281.047.508.25.608.517.06.162.127.321.198.478a.798.798 0 0 1-.064.796l-.324.453a1.875 1.875 0 0 0 .2 2.416l.243.243c.648.648 1.67.733 2.416.2l.453-.324a.798.798 0 0 1 .796-.064c.157.071.316.137.478.198.267.1.47.327.517.608l.092.55c.15.903.932 1.566 1.849 1.566h.344c.916 0 1.699-.663 1.85-1.567l.091-.549a.798.798 0 0 1 .517-.608 7.52 7.52 0 0 0 .478-.198.798.798 0 0 1 .796.064l.453.324a1.875 1.875 0 0 0 2.416-.2l.243-.243c.648-.648.733-1.67.2-2.416l-.324-.453a.798.798 0 0 1-.064-.796c.071-.157.137-.316.198-.478.1-.267.327-.47.608-.517l.55-.091a1.875 1.875 0 0 0 1.566-1.85v-.344c0-.916-.663-1.699-1.567-1.85l-.549-.091a.798.798 0 0 1-.608-.517 7.507 7.507 0 0 0-.198-.478.798.798 0 0 1 .064-.796l.324-.453a1.875 1.875 0 0 0-.2-2.416l-.243-.243a1.875 1.875 0 0 0-2.416-.2l-.453.324a.798.798 0 0 1-.796.064 7.462 7.462 0 0 0-.478-.198.798.798 0 0 1-.517-.608l-.091-.55a1.875 1.875 0 0 0-1.85-1.566h-.344ZM12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"
             clip-rule="evenodd" />
         </svg>
-        <h1 class="font-rampart text-st-blue text-6xl">Hi {{ myAccount.user.name }}</h1>
+        <h1 class="font-rampart text-st-blue text-6xl truncate">Hi {{ myAccount.user.name }}</h1>
         <div class="text-base opacity-50">Email:{{ myAccount.user.email }}</div>
       </div>
-      <div class="bg-white flex flex-col justify-center items-center drop-shadow-2xl rounded-3xl p-5">
-        <div class="text-st-blue text-3xl h-4/6 flex items-center">{{ myAccount.user.score }}</div>
-        <div class="text-base opacity-50 ">Total Score</div>
-      </div>
-      <div class="bg-white flex flex-col justify-center items-center drop-shadow-2xl rounded-3xl p-5">
-        <div class="text-st-blue text-3xl h-4/6 flex items-center">
-          {{ myAccount.user.scoreUnOfficial }}
+      <div class="col-span-2 bg-white flex flex-col justify-center items-center drop-shadow-2xl rounded-3xl p-5">
+        <div class="text-sm opacity-50 ">Score</div>
+        <div class="text-st-blue text-3xl h-4/6 flex items-center">{{
+      myAccount.user.score }}</div>
+        <div class="text-sm opacity-50 ">System Problem Score</div>
+        <div class="text-st-blue text-3xl h-4/6 flex items-center">{{
+      myAccount.user.scoreUnOfficial }}</div>
+        <div class="text-sm opacity-50 ">User Problem Score
         </div>
-        <div class="text-base opacity-50 ">UnOfficial Score</div>
       </div>
-      <div class="bg-white flex flex-col justify-center items-center drop-shadow-2xl rounded-3xl p-5 ">
-        <div class="text-st-blue  text-3xl h-4/6 flex items-center">
-          {{ userRank }}
-        </div>
-        <div class="text-base opacity-50 ">Rank#</div>
-      </div>
+
+
     </div>
     <div>
       <div class="text-xl opacity-50 mt-20"> Score Board
@@ -315,30 +358,27 @@ const position = ref('center');
 
 
 
-
-
     <div class="text-xl opacity-50 mt-20">Recommended Problems</div>
     <div class="grid grid-cols-4 gap-5 mt-10">
       <div v-for="(item, index) in computedRecomended"
-        class="drop-shadow-2xl bg-white group hover:cursor-pointer hover:bg-st-blue transition-all rounded-3xl px-4 pt-7 pb-20 flex flex-col gap-10 relative"
-        @click="myRouter.push('/problem/do-problem/' + item.id)">
-        <p class="text-2xl text-st-blue group-hover:text-white truncate">{{ item.name }}</p>
-        <p class="text-lg" :class="levelArray[mapDifficultyToLevel(item.difficulty) - 1]">
-          {{ item.difficulty }}
+        class="drop-shadow-2xl bg-white group hover:cursor-pointer hover:bg-gray-200 transition-all rounded-3xl px-4 pt-7 pb-20 flex flex-col gap-10 relative"
+        @click="dataCurrent = item; visibleProblem = true">
+        <p class="text-2xl text-st-blue truncate">{{ item.name }}</p>
+        <p class="text-lg " :class="levelArray[mapDifficultyToLevel(item.difficulty) - 1]">
+          <b>{{ item.difficulty }}</b>
         </p>
-        <p class="text-sm text-st-blue group-hover:text-white truncate">{{ item.description }}</p>
-        <div>
-          <span v-for="(tag, index) in item.tags"
-            class="bg-st-blue p-1 px-5 text-sm text-white rounded-full group-hover:text-st-blue group-hover:bg-white">
+        <p class="text-sm text-st-blue  truncate">{{ item.description }}</p>
+        <div class="truncate">
+          <span v-for="(tag, index) in item.tags" class="bg-st-blue p-1 text-sm text-white rounded-full ">
             {{ tag }}
           </span>
         </div>
-        <p class="text-sm text-st-blue right-5 bottom-5 absolute group-hover:text-white">
+        <p class="text-sm text-st-blue right-5 bottom-5 absolute ">
           {{ item.score }}
         </p>
       </div>
     </div>
-    <div>
+    <!-- <div>
       <p class="text-xl opacity-50 mt-10">All Problems</p>
       <filterBar :datas="myTag" @filterValue="(e1) => {
       filterFunc(e1)
@@ -353,14 +393,14 @@ const position = ref('center');
       dataCurrent = e1
     }
       " @doProblem="(e1) => {
-      myRouter.push({ name: 'isDo', params: { id: e1.id } })
-      dataCurrent = e1
+      // myRouter.push({ name: 'isDo', params: { id: e1.id } })
+      dataCurrent = e1; visibleProblem = true
     }
       " :datas="test"></listProblem>
       </div>
 
 
-    </div>
+    </div> -->
   </div>
 </template>
 

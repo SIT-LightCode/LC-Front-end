@@ -219,7 +219,7 @@ const myRouter =useRouter()
       const data = await myconnectBackend.connectBack(query)
       if (data['data'] !== undefined) {
         let res = data['data']['checkAnswer']
-        myAccount.GetUserByEmail(true)
+        // myAccount.GetUserByEmail(true)
         return res
       } else return 0
     } catch (error) {
