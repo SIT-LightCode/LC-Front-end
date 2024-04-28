@@ -47,8 +47,8 @@ user.value = JSON.parse(localStorage.getItem('user'))
       </div>
     </div>
 
-    <div v-if="$route.name == 'addLesson'">
-      <InputContent :List="mylearningCon.tagList" :type="'Add'"
+    <div v-if="$route.name == 'addLesson'" >
+      <InputContent :List="mylearningCon.tagList" :type="'Add'" 
         @addstatus="(e) => (myRouter.push({ name: e, params: { tagid: 0, lessonid: 0 } }))"
         @addfunc="(e, query) => conBackend(e, query)"></InputContent>
     </div>

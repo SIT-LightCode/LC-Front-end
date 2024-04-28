@@ -24,14 +24,12 @@ const newtext = ref('')
 const emit = defineEmits(['addfunc'])
 
 const test = ref()
-const clearInput =  () => {
-
-  if(route.name == 'editLesson'){
+const clearInput = () => {
+  if (route.name == 'editLesson') {
     newnamecontent.value = oldnamecontent.value
     newtext.value = oldtext.value
     selectedObjectOld.value = selectedObjectNew.value
-
-  } else if(route.name == 'addLesson'){
+  } else if (route.name == 'addLesson') {
     newnamecontent.value = ''
     newtext.value = ''
     selectedObjectOld.value = 0
@@ -59,7 +57,11 @@ const checkValue = (selectid) => {
   }
   if (route.name == 'editLesson') {
     if (
-      !(newnamecontent.value != oldnamecontent.value || newtext.value != oldtext.value|| selectedObjectNew.value != selectedObjectOld.value)
+      !(
+        newnamecontent.value != oldnamecontent.value ||
+        newtext.value != oldtext.value ||
+        selectedObjectNew.value != selectedObjectOld.value
+      )
     ) {
       errorText = errorText + '\n Error : You insert same value'
     }
@@ -113,17 +115,17 @@ const clickAddEdit = async (value) => {
   }
 }
 
-
-
 onBeforeMount(async () => {
   if (route.name == 'editLesson') {
-    if(Object.keys(mylearningCon.tagList ).length === 0){
-  await mylearningCon.getAllTag()
-}
+    if (Object.keys(mylearningCon.tagList).length === 0) {
+      await mylearningCon.getAllTag()
+    }
     if (mylearningCon.tagList.length > 0) {
-      const tagCurrent = mylearningCon.tagList.filter(tag => tag.id == route.params.tagid);
+      const tagCurrent = mylearningCon.tagList.filter((tag) => tag.id == route.params.tagid)
       if (tagCurrent.length > 0) {
-        const lessonCurrent = tagCurrent[0].lesson.filter(lesson => lesson.id == route.params.lessonid);
+        const lessonCurrent = tagCurrent[0].lesson.filter(
+          (lesson) => lesson.id == route.params.lessonid,
+        )
         newnamecontent.value = lessonCurrent[0].name
         oldnamecontent.value = lessonCurrent[0].name
         selectedObjectNew.value = tagCurrent[0].id
@@ -135,7 +137,6 @@ onBeforeMount(async () => {
     }
   }
 })
-
 </script>
 
 <template>
@@ -153,18 +154,28 @@ onBeforeMount(async () => {
     </div>
     <div class="text-gray-900 text-sm">
       Name:
-      <input :maxlength="30" v-model="newnamecontent"
-        class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+      <input
+        :maxlength="30"
+        v-model="newnamecontent"
+        class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      />
     </div>
     <div class="space-y-5">
       <VmdEditor v-model="newtext"></VmdEditor>
       <hr />
-      <buttonvue class="bg-gray-300 hover:bg-gray-400" @buttonClick="$emit('addstatus', 'list')" :name="'Back'"></buttonvue>
-      <buttonvue class="bg-red-300 hover:bg-red-400"  @buttonClick="clearInput" :name="'Clear'" />
-      <buttonvue class="bg-blue-300 hover:bg-blue-400"  @buttonClick="(value) => clickAddEdit(value)" :name="$route.name == 'addLesson' ? 'Add' : 'Update'" />
+      <buttonvue
+        class="bg-gray-300 hover:bg-gray-400"
+        @buttonClick="$emit('addstatus', 'list')"
+        :name="'Back'"
+      ></buttonvue>
+      <buttonvue class="bg-red-300 hover:bg-red-400" @buttonClick="clearInput" :name="'Clear'" />
+      <buttonvue
+        class="bg-blue-300 hover:bg-blue-400"
+        @buttonClick="(value) => clickAddEdit(value)"
+        :name="$route.name == 'addLesson' ? 'Add' : 'Update'"
+      />
       <hr />
     </div>
-    
   </div>
 </template>
 
