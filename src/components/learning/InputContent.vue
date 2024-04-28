@@ -93,7 +93,7 @@ const clickAddEdit = async (value) => {
           variables: {
             lessonInput: {
               value: {
-                id: id,
+                id: Number(id),
                 tagId: selectid,
                 name: newnamecontent.value.trim(),
                 content: newtext.value.trim(),

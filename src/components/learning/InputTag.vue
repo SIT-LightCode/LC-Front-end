@@ -40,28 +40,33 @@ const submitTag = () => {
 
   let errorValidate =
     myVaildate.validateNameNull(topic.value, 'topic')
+
   if (errorValidate != '') {
     toast.error(errorValidate)
     return "error"
   } else {
-
-    let query = gql.mutation({
-      operation: 'upsertTag',
-      variables: {
-        tagInput: {
-          value: {
-            id: Number(tagId.value),
-            topic: topic.value,
-            description: description.value,
+    if (topic.value.length > 255) {
+      toast.error("error Topic more than 255")
+      return "error"
+    } else {
+      let query = gql.mutation({
+        operation: 'upsertTag',
+        variables: {
+          tagInput: {
+            value: {
+              id: Number(tagId.value),
+              topic: topic.value,
+              description: description.value,
+            },
+            type: 'TagInput',
+            required: true,
           },
-          type: 'TagInput',
-          required: true,
         },
-      },
-      fields: ['id', 'topic', 'description'],
-    })
+        fields: ['id', 'topic', 'description'],
+      })
 
-    emit('addfunc', type, query, 'tag')
+      emit('addfunc', type, query, 'tag')
+    }
   }
 }
 
@@ -100,12 +105,12 @@ onBeforeMount(async () => {
 })
 
 const clearInput = () => {
-  if(route.name == 'editTag'){
+  if (route.name == 'editTag') {
     topic.value = oldtopic.value
     description.value = olddescription.value
     tagId.value = oldtagId.value
 
-  } else if(route.name == 'addTag'){
+  } else if (route.name == 'addTag') {
     topic.value = ''
     description.value = ''
   }
@@ -120,7 +125,7 @@ const clearInput = () => {
     <div class="space-y-5">
       <div class="mb-4">
         <label for="topicTag" class="block text-sm font-medium text-gray-700">Topic:</label>
-        <input id="topicTag" v-model="topic" type="text" placeholder="Enter topic"
+        <input id="topicTag" v-model="topic" type="text" placeholder="Enter topic" :maxlength="255"
           class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
       </div>
       <div class="mb-4">
@@ -128,9 +133,11 @@ const clearInput = () => {
         <textarea id="description" v-model="description" placeholder="Enter description"
           class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
       </div>
-      <buttonvue class="bg-gray-300 hover:bg-gray-400" @buttonClick="$emit('addstatus', 'list')" :name="'Back'"></buttonvue>
-      <buttonvue class="bg-red-300 hover:bg-red-400"  @buttonClick="clearInput" :name="'Clear'" />
-      <buttonvue class="bg-blue-300 hover:bg-blue-400"  @buttonClick="submitTag" :name="$route.name == 'addTag' ? 'Add Tag' : 'Update Tag'" />
+      <buttonvue class="bg-gray-300 hover:bg-gray-400" @buttonClick="$emit('addstatus', 'list')" :name="'Back'">
+      </buttonvue>
+      <buttonvue class="bg-red-300 hover:bg-red-400" @buttonClick="clearInput" :name="'Clear'" />
+      <buttonvue class="bg-blue-300 hover:bg-blue-400" @buttonClick="submitTag"
+        :name="$route.name == 'addTag' ? 'Add Tag' : 'Update Tag'" />
 
     </div>
   </div>

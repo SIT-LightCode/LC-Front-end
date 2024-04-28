@@ -68,22 +68,12 @@ const router = createRouter({
         },
         {
           path: 'edit-problem/:id',
-<<<<<<< HEAD
-          name: 'isEdit',
-          beforeEnter: checkLogin,
-=======
           name: 'editProblem',
->>>>>>> 1baea2805460bfafcf1ce137d398d08f8d5cfe32
           component: () => import('../views/Problem/DoProblem.vue'),
         },
         {
           path: 'do-problem/:id',
-<<<<<<< HEAD
-          name: 'isDo',
-          beforeEnter: checkLogin,
-=======
           name: 'doProblem',
->>>>>>> 1baea2805460bfafcf1ce137d398d08f8d5cfe32
           component: () => import('../views/Problem/DoProblem.vue'),
         },
       ],
