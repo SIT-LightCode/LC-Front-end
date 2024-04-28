@@ -7,6 +7,7 @@ import * as gql from 'gql-query-builder'
 import { useRouter } from 'vue-router'
 import { cookieData } from './CookieData.js'
 import { account } from './Account.js'
+import { problemCon } from './ProblemCon.js'
 import Cookies from 'js-cookie'
 import { validateInput } from './ValidateInput.js'
 export const loginCon = defineStore('loginCon', () => {
@@ -14,6 +15,8 @@ export const loginCon = defineStore('loginCon', () => {
   const myCookie = cookieData()
   const myconnectBackend = connectBackend()
   const myRouter = useRouter()
+  const myproblem = problemCon()
+
   const myAccount = account()
   const myVaildate = validateInput()
   const inhours = 1 / 24
@@ -57,10 +60,12 @@ export const loginCon = defineStore('loginCon', () => {
           // Execute tasks in sequence
           if(status){
             await myAccount.GetUserByEmail(true)
+          
           }
           else {
             toast.success('Login Completed')
             await myAccount.GetUserByEmail()
+      
           }
         } else if (res.status == 400) {
           const objectJson = await res.json()
