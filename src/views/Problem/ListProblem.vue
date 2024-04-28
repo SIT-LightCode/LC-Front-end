@@ -209,7 +209,7 @@ onBeforeMount(async () => {
                 <div class="  right-5 bottom-5 absolute">
 
                     <buttonvue class="bg-gray-300"
-                        @buttonClick="myRouter.push({ name: 'isDo', params: { id: dataCurrent.id } });" :status="false"
+                        @buttonClick="myRouter.push({ name: 'doProblem', params: { id: dataCurrent.id } });" :status="false"
                         :name="'Start Problem'"></buttonvue>
 
                 </div>

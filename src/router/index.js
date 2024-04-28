@@ -67,12 +67,12 @@ const router = createRouter({
         },
         {
           path: 'edit-problem/:id',
-          name: 'isEdit',
+          name: 'editProblem',
           component: () => import('../views/Problem/DoProblem.vue'),
         },
         {
           path: 'do-problem/:id',
-          name: 'isDo',
+          name: 'doProblem',
           component: () => import('../views/Problem/DoProblem.vue'),
         },
       ],
