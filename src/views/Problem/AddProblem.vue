@@ -57,7 +57,7 @@ const upSetProblem = () => {
         inputProblemData.value.totalScore,
         inputProblemData.value.level
     ).then(() => {
-        myRouter.push({ name: 'listproblem' })
+        myRouter.push({ name: 'listmyproblem' })
         page.value = 1
         inputProblemData.value = {
             name: "", description: "", solution: 'const answer = (input) => {\n \n \n 	//Code Here \n return input;   \n \n \n \n  }', example: [[[undefined]]]

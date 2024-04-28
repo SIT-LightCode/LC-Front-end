@@ -56,7 +56,7 @@ const currentLesson = computed(() => {
 <template>
   <!-- contents  -->
   <div class=" mr-12  w-[50%] h-full bg-white rounded-lg">
-    <div v-if="currentLesson !== undefined" class="border-2   p-5 min-h-max h-full">
+    <div v-if="currentLesson !== undefined" class="  p-5 min-h-max h-full">
       <div>
         <div class="" v-if="!isEdit">
           <div class="flex justify-end mt-5 mr-5">

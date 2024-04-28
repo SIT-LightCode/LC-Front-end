@@ -98,7 +98,8 @@ const doPretest = () => {
     console.log(recommendedProblems.value)
     let randonId = Math.ceil(Math.random() * recommendedProblems.value.length)
     myRouter.push('/problem/do-problem/' + recommendedProblems.value[randonId].id)
-  }
+  } else myRouter.push({name:"lightcode"})
+
 }
 const isQuestion = ref(false)
 </script>

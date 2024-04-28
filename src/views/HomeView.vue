@@ -23,6 +23,7 @@ const levelArray = [['Easier', 'text-green-400'], ['Beginner', 'text-st-green'],
 const selectedDiff = ref('No select')
 // const userRank = ref(0)
 const computedRecomended = computed(() => {
+  // return []
   return sortedProblemsComputed.value.slice(0, 4)
 })
 
@@ -135,11 +136,6 @@ onBeforeMount(async () => {
 
 
   }
-
-  //data in
-  //myProblem.problemResolved
-  //data structure is [problem :{id: 123}, problem :{id: 124}]
-  recommendedProblems.value = sortedProblemsComputed.value
 })
 
 const indexShow = ref(null)
@@ -224,7 +220,7 @@ const test = computed(() => {
 const scoreBoard = computed(() => {
   if (Object.keys(myAccount.scoreboard).length > 0) {
     return myAccount.scoreboard.slice(0, 5)
-  } else return [{ name: '-', email: '-', score: 0 }]
+  } 
 })
 
 const userRank = computed(() => {
@@ -234,8 +230,7 @@ const userRank = computed(() => {
     if (index >= 0) {
       return userRank.value = index + 1
     }
-    else return userRank.value = 0
-
+    else return userRank.value = '-'
   }
 
 
@@ -287,11 +282,10 @@ const returnLevel = (id) => {
         <v-md-preview :text="dataCurrent.description"></v-md-preview>
       </div>
       <div class="  right-5 bottom-5 absolute">
-        <buttonvue class="bg-gray-300" @buttonClick="myRouter.push({ name: 'isDo', params: { id: dataCurrent.id } });"
+        <buttonvue class="bg-gray-300" @buttonClick="myRouter.push({ name: 'doProblem', params: { id: dataCurrent.id } });"
           :status="false" :name="'Start Problem'"></buttonvue>
       </div>
     </Dialog>
-
 
 
 
@@ -347,17 +341,8 @@ const returnLevel = (id) => {
       </div>
     </div>
 
-
-
-
-
-
-
-
-
-
     <div class="text-xl opacity-50 mt-20">Recommended Problems</div>
-    <div class="grid grid-cols-4 gap-5 mt-10">
+    <div class="grid grid-cols-4 gap-5 mt-10" v-if="computedRecomended.length>0">
       <div v-for="(item, index) in computedRecomended"
         class="drop-shadow-2xl bg-white group hover:cursor-pointer hover:bg-gray-200 transition-all rounded-3xl px-4 pt-7 pb-20 flex flex-col gap-10 relative"
         @click="dataCurrent = item; visibleProblem = true">
@@ -366,8 +351,13 @@ const returnLevel = (id) => {
           <b>{{ item.difficulty }}</b>
         </p>
         <p class="text-sm text-st-blue  truncate">{{ item.description }}</p>
-        <div class="truncate">
-          <span v-for="(tag, index) in item.tags" class="bg-st-blue p-1 text-sm text-white rounded-full ">
+        <div class="">
+
+          <!-- <span v-for="t in data.tagProblem"
+          class="inline-flex items-center px-3 rounded-full text-xs font-medium leading-4 text-gray-800"
+          :class="colorTags[(t.tag.id - 1) % 8]">{{ t.tag.topic }}
+        </span> -->
+          <span v-for="(tag, index) in item.tags" class="bg-st-blue inline-flex items-center px-3 rounded-full text-xs font-medium leading-4 text-white">
             {{ tag }}
           </span>
         </div>
@@ -375,7 +365,12 @@ const returnLevel = (id) => {
           {{ item.score }}
         </p>
       </div>
+  
     </div>
+    <div v-else
+        class="drop-shadow-2xl bg-white group hover:cursor-pointer rounded-3xl   relative h-36 text-black flex items-center justify-center">
+        <p class="font-rampart text-5xl text-st-blue text-center">congrats no recommended problems for you🥳</p>
+      </div>
     <!-- <div>
       <p class="text-xl opacity-50 mt-10">All Problems</p>
       <filterBar :datas="myTag" @filterValue="(e1) => {

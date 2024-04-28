@@ -85,10 +85,10 @@ user.value = JSON.parse(localStorage.getItem('user'))
 
 <template>
     <div class=" px-1 max-w-[100%] h-screen">
-        <div class="flex lg:space-x-0 space-x-0 md:space-x-16">
+        <div class="flex lg:space-x-0 space-x-0 md:space-x-16 ">
 
             <div
-                class="fixed hover:cursor-pointer border-2 border-solid h-[43px]  px-2 flex items-center justify-center rounded-lg lg:invisible transition-all hover:text-blue-400 hover:border-blue-400">
+                class="fixed hover:cursor-pointer  h-[43px]  px-2 flex items-center justify-center rounded-lg lg:invisible transition-all hover:text-blue-400 hover:border-blue-400">
                 <Hamberger :contents="mylearningCon.tagList" @selected="selectLesson"
                     @addstatus="(e) => (myRouter.push({ name: e, params: { status: e } }))"
                     @deleteTag="(e1) => { mylearningCon.deleteTag(e1) }" />
