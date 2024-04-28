@@ -86,12 +86,12 @@ const toggle = (event) => {
     menu.value.toggle(event);
 };
 
-const findProblem = () => {
+const findProblem = computed(() => {
     const myprob = myproblemCon.problemList.filter(problem => problem.user.id == myAccount.user.id);
     if (myprob[0] != null) {
-        listProb.value = myprob
-    } else listProb.value = {}
-}
+        return myprob
+    } else  return {}
+})
 
 onBeforeMount(async () => {
 
@@ -164,7 +164,7 @@ onBeforeMount(async () => {
                     :status="false" :name="'Add Problem'"></buttonvue>
                 <listProblem class="" @deleteProblem="(e1) => { myproblemCon.deleteProblem(e1) }"
                     @editProblem="(e1) => { myRouter.push({ name: 'isEdit', params: { id: e1.id } }); dataCurrent = e1; }"
-                    @doProblem="(e1) => { dataCurrent = e1; visible = true }" :datas="listProb"></listProblem>
+                    @doProblem="(e1) => { dataCurrent = e1; visible = true }" :datas="findProblem"></listProblem>
             </div>
         </div>
     </div>
