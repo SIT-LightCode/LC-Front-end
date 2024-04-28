@@ -137,11 +137,6 @@ onBeforeMount(async () => {
 
 
   }
-
-  //data in
-  //myProblem.problemResolved
-  //data structure is [problem :{id: 123}, problem :{id: 124}]
-  recommendedProblems.value = sortedProblemsComputed.value
 })
 
 const indexShow = ref(null)
@@ -292,7 +287,6 @@ const returnLevel = (id) => {
           :status="false" :name="'Start Problem'"></buttonvue>
       </div>
     </Dialog>
-
 
 
 

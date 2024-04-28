@@ -4,21 +4,24 @@ import { modalSwal } from './Modal.js'
 import { connectBackend } from './ConnectBackend.js'
 import { Toaster, toast } from 'vue-sonner'
 import * as gql from 'gql-query-builder'
-import { useRouter ,useRoute } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { cookieData } from './CookieData.js'
 import { jwtDecode } from 'jwt-decode'
 import { validateInput } from './ValidateInput.js'
 import { loginCon } from './LoginCon.js'
+import { problemCon } from './ProblemCon.js'
+import { learningCon } from './LearningCon'
 
 export const account = defineStore('account', () => {
   const mymodal = modalSwal()
   const myCookie = cookieData()
   const myconnectBackend = connectBackend()
-  const myRouter = useRouter()  
+  const myRouter = useRouter()
   const route = useRoute()
   const myLogin = loginCon()
   const myVaildate = validateInput()
-
+  const myProblem = problemCon()
+  const myLearning = learningCon()
   const user = ref({
     id: null,
     name: '',
@@ -37,7 +40,7 @@ export const account = defineStore('account', () => {
     let errorValidate =
       myVaildate.validateNameNull(nameAccount, 'name') +
       myVaildate.validateEmail(emailAccount) +
-      myVaildate.validatePassword(passwordAccount,true)
+      myVaildate.validatePassword(passwordAccount, true)
     if (errorValidate != '') {
       toast.error(errorValidate)
       return 'error'
@@ -59,7 +62,7 @@ export const account = defineStore('account', () => {
 
           if (objectJson.data != '') {
             toast.success('Create user completed')
-            await myLogin.SignIn(emailAccount, passwordAccount , true)
+            await myLogin.SignIn(emailAccount, passwordAccount, true)
           }
         } else if (res.status == 400) {
           const objectJson = await res.json()
@@ -72,7 +75,6 @@ export const account = defineStore('account', () => {
     }
   }
   const EditAccount = async (editUser, olddata) => {
-
     let errorValidate =
       myVaildate.validateNameNull(editUser.name, 'name') +
       myVaildate.validateEmail(editUser.email) +
@@ -107,7 +109,8 @@ export const account = defineStore('account', () => {
       myconnectBackend.connectBack(query).then(async (data) => {
         if (data != '') {
           toast.success('edit user completed')
-          GetUser()
+          await GetUser()
+          await GetUserByEmail()
         }
       })
     }
@@ -140,13 +143,20 @@ export const account = defineStore('account', () => {
     myconnectBackend.connectBack(query).then(async (data) => {
       if (data != '') {
         localStorage.setItem('user', JSON.stringify(data.data.getUserByEmail))
-        if (status ) {
-          myRouter.push({ name: 'pretest' })
+        user.value = JSON.parse(localStorage.getItem('user') || '{}');
+
+        await myProblem.getAllproblem()
+        await myLearning.getAllTag()
+        await myProblem.getSubmissionByUserId(user.value.id)
+        if (status) {
+          if (myProblem.problemList.length > 0) {
+            myRouter.push({ name: 'pretest' })
+          } else myRouter.push({ name: 'lightcode' })
+        } else if (route.name !== 'isDo') {
+          myRouter.push({ name: 'lightcode' })
+        } else if (route.name == 'lightcode') {
+          location.reload()
         }
-       else if(route.name !== 'isDo' ){
-        myRouter.push({ name: 'lightcode' })
-      } 
-      
       }
     })
   }
@@ -220,5 +230,15 @@ export const account = defineStore('account', () => {
     })
   }
 
-  return { user, EditAccount, AddAccount, GetUserByEmail, GetUser, userList, DeteleUser ,GetBoard ,scoreboard}
+  return {
+    user,
+    EditAccount,
+    AddAccount,
+    GetUserByEmail,
+    GetUser,
+    userList,
+    DeteleUser,
+    GetBoard,
+    scoreboard,
+  }
 })
