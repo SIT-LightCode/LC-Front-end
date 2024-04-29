@@ -143,15 +143,13 @@ export const account = defineStore('account', () => {
     myconnectBackend.connectBack(query).then(async (data) => {
       if (data != '') {
         localStorage.setItem('user', JSON.stringify(data.data.getUserByEmail))
-        user.value = JSON.parse(localStorage.getItem('user') || '{}');
+        user.value = JSON.parse(localStorage.getItem('user') || '{}')
 
         await myProblem.getAllproblem()
         await myLearning.getAllTag()
         await myProblem.getSubmissionByUserId(user.value.id)
         if (status) {
-          if (myProblem.problemList.length > 0) {
-            myRouter.push({ name: 'pretest' })
-          } else myRouter.push({ name: 'lightcode' })
+          myRouter.push({ name: 'pretest' })
         } else if (route.name !== 'isDo') {
           myRouter.push({ name: 'lightcode' })
         } else if (route.name == 'lightcode') {
