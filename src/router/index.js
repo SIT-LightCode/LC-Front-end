@@ -190,11 +190,7 @@ const router = createRouter({
       beforeEnter: checkLogin,
       component: () => import('../views/Pretest.vue'),
     },
-    {
-      path: '/dopretest',
-      name: 'dopretest',
-      component: () => import('../views/DoPretest.vue'),
-    },
+  
     {
       path: '/view-user',
       name: 'viewuser',

@@ -22,23 +22,29 @@ const dataForCreate = ref({
 })
 
 const checkCreate = () => {
-    isLoading.value=false
+    isLoading.value=true
     let errortext = ""
     if (dataForCreate.value.password != "" && dataForCreate.value.passwordConfirm != "" && dataForCreate.value.password !== dataForCreate.value.passwordConfirm) {
         // alert('password and passwordConfirm dont same value')
         errortext = errortext + ' password and passwordConfirm dont same value ,'
     }
     if (errortext == "") {
-        createAccount()
+        myAccount.AddAccount(dataForCreate.value.name, dataForCreate.value.email, dataForCreate.value.password).then((status)=>{
+            if(status){
+                isLoading.value=false
+            }
+        })
     } else {
         toast.error(errortext)
+        isLoading.value=false
     }
 }
 
-const createAccount = () => {
-    myAccount.AddAccount(dataForCreate.value.name, dataForCreate.value.email, dataForCreate.value.password).then((status)=>{
-    })
-}
+// const createAccount = () => {
+//     myAccount.AddAccount(dataForCreate.value.name, dataForCreate.value.email, dataForCreate.value.password).then((status)=>{
+//         return status
+//     })
+// }
 
 const lowCase = () => {
     dataForCreate.value.email = dataForCreate.value.email.toLowerCase()

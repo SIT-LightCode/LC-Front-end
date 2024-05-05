@@ -62,15 +62,19 @@ export const account = defineStore('account', () => {
 
           if (objectJson.data != '') {
             toast.success('Create user completed')
-            await myLogin.SignIn(emailAccount, passwordAccount, true)
+            await myLogin.SignIn(emailAccount, passwordAccount, true).then(()=>{
+              return true
+            })
           }
         } else if (res.status == 400) {
           const objectJson = await res.json()
           toast.error(objectJson.errors[0].message)
+          return true
         }
       } catch (err) {
         console.log(err)
-        toast.error(err)
+        toast.error('Error from server')
+        return true
       }
     }
   }

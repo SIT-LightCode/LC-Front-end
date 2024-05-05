@@ -4,11 +4,14 @@ import { computed, ref, onBeforeMount } from 'vue';
 import { problemCon } from '../stores/ProblemCon'
 import { account } from '../stores/Account'
 import { learningCon } from '../stores/LearningCon'
+import Loading from '../components/main/Loading.vue'
+
 const myAccount = account()
 const myProblem = problemCon()
 const myRouter = useRouter()
 const myTag = learningCon()
 const recommendedProblems = ref([]);
+const isLoading = ref(false)
 
 function mapLevelToDifficulty(level) {
   switch (level) {
@@ -77,28 +80,33 @@ onBeforeMount(async () => {
   await myProblem.getAllproblem();
   await myTag.getAllTag();
 
-    const userSkills = myAccount.user.skills;
-    const problems = myProblem.problemList.filter(problem => problem.isOfficial === true)
-    console.log(problems);
-    // const solvedProblems = myAccount.user.solvedProblems;
+  const userSkills = myAccount.user.skills;
+  const problems = myProblem.problemList.filter(problem => problem.isOfficial === true)
+  console.log(problems);
+  // const solvedProblems = myAccount.user.solvedProblems;
 
-    const sortedProblems = sortProblemsByRelevance(userSkills, problems);
+  const sortedProblems = sortProblemsByRelevance(userSkills, problems);
 
-    // Filter out solved or in-progress problems
-    // no need since if finished then skil will leveled up
+  // Filter out solved or in-progress problems
+  // no need since if finished then skil will leveled up
 
-    recommendedProblems.value = sortedProblems.map(mapProblemToFormat);
+  recommendedProblems.value = sortedProblems.map(mapProblemToFormat);
 
-    console.log(recommendedProblems.value);
+  console.log(recommendedProblems.value);
 
 });
 
 const doPretest = () => {
+  isLoading.value = true
   if (Object.keys(myProblem.problemList).length > 0 && recommendedProblems.value.length > 0) {
     console.log(recommendedProblems.value)
     let randonId = Math.ceil(Math.random() * recommendedProblems.value.length)
+    isLoading.value = false
     myRouter.push('/problem/do-problem/' + recommendedProblems.value[randonId].id)
-  } else myRouter.push({name:"lightcode"})
+  } else {
+    isLoading.value = false
+    myRouter.push({ name: "lightcode" })
+  }
 
 }
 const isQuestion = ref(false)
@@ -107,6 +115,10 @@ const isQuestion = ref(false)
 <template>
 
   <div class="bg-st-grey w-screen h-screen fixed flex items-center justify-center">
+    <div class="w-screen h-screen fixed z-[100000] bg-white top-0 right-0 opacity-50 "
+      :class="[isLoading ? 'visible' : 'invisible']">
+      <Loading class="fixed right-[50%] top-[50%]  z-[100000]" />
+    </div>
     <div class="area ">
       <ul class="circles">
         <li></li>

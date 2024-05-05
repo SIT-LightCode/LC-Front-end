@@ -19,7 +19,7 @@ const dataForLogin = ref({
 
 const checkLogin = () => {
     let errortext = ""
-    isLoading.value = false
+    isLoading.value = true
     for (const data in dataForLogin.value) {
         if (dataForLogin.value[data] == '') {
             // alert('error')
@@ -27,9 +27,14 @@ const checkLogin = () => {
         }
     }
     if (errortext == "") {
-        myLogin.SignIn(dataForLogin.value.email, dataForLogin.value.password, false)
+        myLogin.SignIn(dataForLogin.value.email, dataForLogin.value.password, false).then((status)=>{
+            if(status){
+                isLoading.value=false
+            }
+        })
     } else {
         toast.error(errortext)
+        isLoading.value=false
     }
 
     

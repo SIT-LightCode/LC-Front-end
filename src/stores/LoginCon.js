@@ -36,8 +36,9 @@ export const loginCon = defineStore('loginCon', () => {
     return JSON.parse(jsonPayload)
   }
 
-  const SignIn = async (email, password ,status) => {
-    let errorValidate = myVaildate.validateEmail(email) + myVaildate.validatePassword(password,false)
+  const SignIn = async (email, password, status) => {
+    let errorValidate =
+      myVaildate.validateEmail(email) + myVaildate.validatePassword(password, false)
     if (errorValidate != '') {
       toast.error(errorValidate)
     } else {
@@ -56,28 +57,37 @@ export const loginCon = defineStore('loginCon', () => {
           const objectJson = await res.json()
           Cookies.set('refreshToken', objectJson.refreshToken, { httpOnly: false, expires: 1 })
           Cookies.set('TokenLightcode', objectJson.token, { httpOnly: false, expires: inhours })
-  
+
           // Execute tasks in sequence
-          if(status){
-            await myAccount.GetUserByEmail(true)
-          
-          }
-          else {
+          if (status) {
+            await myAccount.GetUserByEmail(true).then(() => {
+              return true
+            })
+          } else {
             toast.success('Login Completed')
-            await myAccount.GetUserByEmail()
-      
+            await myAccount.GetUserByEmail().then(() => {
+              return true
+            })
           }
         } else if (res.status == 400) {
           const objectJson = await res.json()
           toast.error(objectJson.errors[0].message)
+          return true
+
         } else if (res.status == 401) {
           toast.error('Invalid password')
+          return true
+
         } else if (res.status == 500) {
           toast.error('Internal Server Error')
+          return true
+
         }
       } catch (err) {
         console.log(err)
-        toast.error(err)
+        toast.error('Error from server')
+        return true
+
       }
     }
   }
@@ -95,12 +105,12 @@ export const loginCon = defineStore('loginCon', () => {
         }),
       })
       // if (res.status === 200) {
-        Cookies.remove('refreshToken', { path: '/' })
-        Cookies.remove('TokenLightcode', { path: '/' })
-        localStorage.removeItem("user");
-        myRouter.push({ name: 'home' })
-        toast.success('Logout Completed')
-        return true
+      Cookies.remove('refreshToken', { path: '/' })
+      Cookies.remove('TokenLightcode', { path: '/' })
+      localStorage.removeItem('user')
+      myRouter.push({ name: 'home' })
+      toast.success('Logout Completed')
+      return true
       // }
     } catch (err) {
       console.log(err)
@@ -108,10 +118,9 @@ export const loginCon = defineStore('loginCon', () => {
       Cookies.remove('refreshToken', { path: '/' })
       Cookies.remove('TokenLightcode', { path: '/' })
       myRouter.push({ name: 'home' })
-      localStorage.removeItem("user");
+      localStorage.removeItem('user')
       toast.success('Logout Completed')
       return true
-
     }
   }
 
