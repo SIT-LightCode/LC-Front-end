@@ -100,9 +100,8 @@ const doPretest = () => {
   isLoading.value = true
   if (Object.keys(myProblem.problemList).length > 0 && recommendedProblems.value.length > 0) {
     console.log(recommendedProblems.value)
-    let randonId = Math.ceil(Math.random() * recommendedProblems.value.length)
     isLoading.value = false
-    myRouter.push('/problem/do-problem/' + recommendedProblems.value[randonId].id)
+    myRouter.push('/problem/do-problem/' + recommendedProblems.value[recommendedProblems.value.length - 1].id)
   } else {
     isLoading.value = false
     myRouter.push({ name: "lightcode" })
