@@ -62,12 +62,18 @@ function mapDifficultyToLevel(level) {
 }
 
 function mapTagIdsToNames(tagIds) {
-  return tagIds
-    .map((tagId) => {
-      const tag = myTag.tagList.find((tag) => tag.id === tagId)
-      return tag ? tag.topic : null // Return tag name if found, null otherwise
-    })
-    .filter((tagName) => tagName !== null) // Filter out null values
+  if (myTag.tagList.length>0) {
+    return tagIds
+      .map((tagId) => {
+        const tag = myTag.tagList.find((tag) => tag.id === tagId)
+        return tag ? tag.topic : null // Return tag name if found, null otherwise
+      })
+      .filter((tagName) => tagName !== null) // Filter out null values
+  } else {
+    return null
+  }
+
+
 }
 
 function mapProblemToFormat(problem) {
@@ -109,10 +115,10 @@ function sortProblemsByRelevance(userSkills, problems) {
 const sortedProblemsComputed = computed(() => {
   const userSkills = myAccount.user.skills
   // Assuming `problemList` updates reactively, filter will re-run when it changes.
-    const problems = myProblem.problemList.filter((problem) => problem.isOfficial === true)
-    const sortedProblems = sortProblemsByRelevance(userSkills, problems)
-    // mapProblemToFormat can be adjusted according to your needs
-    return sortedProblems.map(mapProblemToFormat)
+  const problems = myProblem.problemList.filter((problem) => problem.isOfficial === true)
+  const sortedProblems = sortProblemsByRelevance(userSkills, problems)
+  // mapProblemToFormat can be adjusted according to your needs
+  return sortedProblems.map(mapProblemToFormat)
 
 })
 
@@ -220,7 +226,7 @@ const test = computed(() => {
 const scoreBoard = computed(() => {
   if (Object.keys(myAccount.scoreboard).length > 0) {
     return myAccount.scoreboard.slice(0, 5)
-  } 
+  }
 })
 
 const userRank = computed(() => {
@@ -282,8 +288,9 @@ const returnLevel = (id) => {
         <v-md-preview :text="dataCurrent.description"></v-md-preview>
       </div>
       <div class="  right-5 bottom-5 absolute">
-        <buttonvue class="bg-gray-300" @buttonClick="myRouter.push({ name: 'doProblem', params: { id: dataCurrent.id } });"
-          :status="false" :name="'Start Problem'"></buttonvue>
+        <buttonvue class="bg-gray-300"
+          @buttonClick="myRouter.push({ name: 'doProblem', params: { id: dataCurrent.id } });" :status="false"
+          :name="'Start Problem'"></buttonvue>
       </div>
     </Dialog>
 
@@ -342,7 +349,7 @@ const returnLevel = (id) => {
     </div>
 
     <div class="text-xl opacity-50 mt-20">Recommended Problems</div>
-    <div class="grid grid-cols-4 gap-5 mt-10" v-if="computedRecomended.length>0">
+    <div class="grid grid-cols-4 gap-5 mt-10" v-if="computedRecomended.length > 0">
       <div v-for="(item, index) in computedRecomended"
         class="drop-shadow-2xl bg-white group hover:cursor-pointer hover:bg-gray-200 transition-all rounded-3xl px-4 pt-7 pb-20 flex flex-col gap-10 relative"
         @click="dataCurrent = item; visibleProblem = true">
@@ -357,7 +364,8 @@ const returnLevel = (id) => {
           class="inline-flex items-center px-3 rounded-full text-xs font-medium leading-4 text-gray-800"
           :class="colorTags[(t.tag.id - 1) % 8]">{{ t.tag.topic }}
         </span> -->
-          <span v-for="(tag, index) in item.tags" class="bg-st-blue inline-flex items-center px-3 rounded-full text-xs font-medium leading-4 text-white">
+          <span v-for="(tag, index) in item.tags"
+            class="bg-st-blue inline-flex items-center px-3 rounded-full text-xs font-medium leading-4 text-white">
             {{ tag }}
           </span>
         </div>
@@ -365,12 +373,12 @@ const returnLevel = (id) => {
           {{ item.score }}
         </p>
       </div>
-  
+
     </div>
     <div v-else
-        class="drop-shadow-2xl bg-white group hover:cursor-pointer rounded-3xl   relative h-36 text-black flex items-center justify-center">
-        <p class="font-rampart text-5xl text-st-blue text-center">congrats no recommended problems for you🥳</p>
-      </div>
+      class="drop-shadow-2xl bg-white group hover:cursor-pointer rounded-3xl   relative h-36 text-black flex items-center justify-center">
+      <p class="font-rampart text-5xl text-st-blue text-center">congrats no recommended problems for you🥳</p>
+    </div>
     <!-- <div>
       <p class="text-xl opacity-50 mt-10">All Problems</p>
       <filterBar :datas="myTag" @filterValue="(e1) => {

@@ -158,6 +158,7 @@ export const account = defineStore('account', () => {
           myRouter.push({ name: 'lightcode' })
         } else if (route.name == 'lightcode') {
           location.reload()
+          myRouter.push({ name: 'lightcode' })
         }
       }
     })

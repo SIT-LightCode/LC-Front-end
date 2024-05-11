@@ -218,7 +218,7 @@ export const problemCon = defineStore('problemCon', () => {
       const data = await myconnectBackend.connectBack(query)
       if (data['data'] !== undefined) {
         let res = data['data']['checkAnswer']
-        // myAccount.GetUserByEmail(true)
+        myAccount.GetUserByEmail()
         return res
       } else return 0
     } catch (error) {
