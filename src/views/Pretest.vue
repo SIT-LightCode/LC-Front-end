@@ -81,7 +81,8 @@ onBeforeMount(async () => {
   await myTag.getAllTag();
 
   const userSkills = myAccount.user.skills;
-  const problems = myProblem.problemList.filter(problem => problem.isOfficial === true)
+  let problems = myProblem.problemList.filter(problem => problem.isOfficial === true)
+  problems = problems.filter(problem => problem.level === 1)
   console.log(problems);
   // const solvedProblems = myAccount.user.solvedProblems;
 

@@ -155,11 +155,11 @@ export const account = defineStore('account', () => {
         if (status) {
           myRouter.push({ name: 'pretest' })
         } else if (route.name !== 'isDo') {
-          myRouter.push({ name: 'lightcode' })
+
         } else if (route.name == 'lightcode') {
           location.reload()
           myRouter.push({ name: 'lightcode' })
-        }
+        } 
       }
     })
   }
