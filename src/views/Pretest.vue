@@ -52,26 +52,31 @@ function mapProblemToFormat(problem) {
 }
 
 function calculateRelevance(userSkills, problemTags) {
-  let relevance = 0;
-  problemTags.forEach(problemTag => {
-    userSkills.forEach(userSkill => {
+  let relevance = 0
+  problemTags.forEach((problemTag) => {
+    userSkills.forEach((userSkill) => {
       if (userSkill.tag.id === problemTag) {
-        relevance += userSkill.level;
+        relevance += userSkill.level
       }
-    });
-  });
-  return relevance;
+    })
+  })
+  return relevance
 }
 
 // Sort problems by their relevance scores
 function sortProblemsByRelevance(userSkills, problems) {
-  return problems.sort((a, b) => {
-    const relevanceA = calculateRelevance(userSkills, a.arrayTagId);
-    const relevanceB = calculateRelevance(userSkills, b.arrayTagId);
-    return relevanceA - relevanceB; // Sort in asc order
-  });
+  let result = problems.sort((a, b) => {
+    const relevanceA = calculateRelevance(userSkills, a.arrayTagId)
+    const relevanceB = calculateRelevance(userSkills, b.arrayTagId)
+    if (relevanceA === relevanceB) {
+      // When userSkills is empty or relevance scores are the same, sort by number of tags (ascending)
+      return a.arrayTagId.length - b.arrayTagId.length;
+    }
+    return relevanceA - relevanceB // Sort in asc order
+  })
+  console.log("result", result);
+  return result
 }
-
 
 
 onBeforeMount(async () => {
@@ -101,7 +106,7 @@ const doPretest = () => {
   if (Object.keys(myProblem.problemList).length > 0 && recommendedProblems.value.length > 0) {
     console.log(recommendedProblems.value)
     isLoading.value = false
-    myRouter.push('/problem/do-problem/' + recommendedProblems.value[recommendedProblems.value.length - 1].id)
+    myRouter.push('/problem/do-problem/' + recommendedProblems.value[0].id)
   } else {
     isLoading.value = false
     myRouter.push({ name: "lightcode" })
