@@ -62,7 +62,7 @@ function mapDifficultyToLevel(level) {
 }
 
 function mapTagIdsToNames(tagIds) {
-  if (myTag.tagList.length>0) {
+  if (myTag.tagList.length > 0) {
     return tagIds
       .map((tagId) => {
         const tag = myTag.tagList.find((tag) => tag.id === tagId)
@@ -104,11 +104,17 @@ function calculateRelevance(userSkills, problemTags) {
 
 // Sort problems by their relevance scores
 function sortProblemsByRelevance(userSkills, problems) {
-  return problems.sort((a, b) => {
+  let result = problems.sort((a, b) => {
     const relevanceA = calculateRelevance(userSkills, a.arrayTagId)
     const relevanceB = calculateRelevance(userSkills, b.arrayTagId)
+    if (relevanceA === relevanceB) {
+      // When userSkills is empty or relevance scores are the same, sort by number of tags (ascending)
+      return a.arrayTagId.length - b.arrayTagId.length;
+    }
     return relevanceA - relevanceB // Sort in asc order
   })
+  console.log("result", result);
+  return result
 }
 
 
