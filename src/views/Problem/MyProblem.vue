@@ -87,7 +87,6 @@ const toggle = (event) => {
 
 const findProblem = computed(() => {
     const myprob = myproblemCon.problemList.filter(problem => problem.user.id == myAccount.user.id);
-    alert(myprob[0] ==undefined)
     if (myprob[0] !==undefined) {
         return myprob
     } else  return {}
