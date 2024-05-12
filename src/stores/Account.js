@@ -154,8 +154,8 @@ export const account = defineStore('account', () => {
         await myProblem.getSubmissionByUserId(user.value.id)
         if (status) {
           myRouter.push({ name: 'pretest' })
-        } else if (route.name !== 'isDo') {
-
+        } else if (route.name !== 'doProblem') {
+          myRouter.push({ name: 'lightcode' })
         } else if (route.name == 'lightcode') {
           location.reload()
           myRouter.push({ name: 'lightcode' })

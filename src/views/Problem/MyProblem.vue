@@ -75,7 +75,6 @@ const items = ref([
                 command: () => {
                     myproblemCon.deleteProblem(dataCurrent.value.id)
                     visible.value = false
-                    findProblem()
                 }
             }
         ]
@@ -88,9 +87,11 @@ const toggle = (event) => {
 
 const findProblem = computed(() => {
     const myprob = myproblemCon.problemList.filter(problem => problem.user.id == myAccount.user.id);
-    if (myprob[0] != null) {
+    alert(myprob[0] ==undefined)
+    if (myprob[0] !==undefined) {
         return myprob
     } else  return {}
+    
 })
 
 onBeforeMount(async () => {
@@ -106,7 +107,6 @@ onBeforeMount(async () => {
         myAccount.user = user
         await myproblemCon.getSubmissionByUserId(myAccount.user.id)
     }
-    findProblem()
 
 })
 
