@@ -67,7 +67,7 @@ const itemsforadmin = ref([
 				label: 'Problem',
 				icon: 'pi pi-credit-card',
 				command: () => {
-					router.push("/problem/list")
+					router.push("/problem/list/0")
 				}
 			},
 			{
@@ -200,10 +200,10 @@ onBeforeMount(async () => {
 						<RouterLink to='/learning/list/0/0' 
 						:class="[$route.path.startsWith('/learning/list') ? 'text-st-blue border-l-st-blue':'border-l-white']"
 						class="opacity-75 transition-all w-full h-12 flex items-center  border-l-4 pl-5 hover:border-l-st-blue hover:text-st-blue hover:opacity-100">Learning</RouterLink>
-						<RouterLink to='/problem/list' 
+						<RouterLink to='/problem/list/0' 
 						:class="[$route.path == '/problem/list'? 'text-st-blue border-l-st-blue':'border-l-white']"
 						class="opacity-75 transition-all w-full h-12 flex items-center  border-l-4 pl-5 hover:border-l-st-blue hover:text-st-blue hover:opacity-100">Problem</RouterLink>
-						<RouterLink to='/myproblem/list' 
+						<RouterLink to='/myproblem/list/0' 
 						:class="[$route.path == '/myproblem/list'? 'text-st-blue border-l-st-blue':'border-l-white']"
 						class="opacity-75 transition-all w-full h-12 flex items-center  border-l-4 pl-5 hover:border-l-st-blue hover:text-st-blue hover:opacity-100">My Problem</RouterLink>
 					</div>

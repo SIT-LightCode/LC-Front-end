@@ -61,7 +61,7 @@ const router = createRouter({
       beforeEnter: checkLogin,
       children: [
         {
-          path: 'list',
+          path: 'list/:page',
           name: 'listProblem',
           beforeEnter: checkLogin,
           component: () => import('../views/Problem/ListProblem.vue'),
@@ -84,7 +84,7 @@ const router = createRouter({
       beforeEnter: checkLogin,
       children: [
         {
-          path: 'list',
+          path: 'list/:page',
           name: 'listmyproblem',
           beforeEnter: checkLogin,
           component: () => import('../views/Problem/MyProblem.vue'),
@@ -185,7 +185,6 @@ const router = createRouter({
     },
 
     {
-      path: '/pretest',
       name: 'pretest',
       beforeEnter: checkLogin,
       component: () => import('../views/Pretest.vue'),

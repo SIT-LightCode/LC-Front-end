@@ -57,14 +57,19 @@ const upSetProblem = () => {
         inputProblemData.value.totalScore,
         inputProblemData.value.level
     ).then(() => {
-        myRouter.push({ name: 'listmyproblem' })
-        page.value = 1
-        inputProblemData.value = {
-            name: "", description: "", solution: 'const answer = (input) => {\n \n \n 	//Code Here \n return input;   \n \n \n \n  }', example: [[[undefined]]]
-            , totalScore: 0, level: 0, arrayTagId: []
+        const myprob = myproblemCon.problemList.filter(problem => problem.user.id == myAccount.user.id);
+        const pageCount = () => {
+            let l = myprob.length,
+                s = 5;
+            return Math.ceil(l / s);
         }
+        if (myprob[0] !== undefined) {
+            myRouter.push({ name: 'listmyproblem', params: { page: pageCount()-1 } })
+        } else myRouter.push({ name: 'listmyproblem', params: { page: 0 } })
+
     })
 };
+
 
 const changePage = (e1) => {
     console.log(e1)

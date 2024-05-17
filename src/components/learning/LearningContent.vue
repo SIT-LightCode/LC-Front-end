@@ -8,7 +8,7 @@ import { learningCon } from '../../stores/LearningCon'
 
 const mylearningCon = learningCon()
 const route = useRoute()
-const emit = defineEmits(['buttonemit', 'type', 'addstatus'])
+const emit = defineEmits(['buttonemit', 'type', 'addstatus','changePage'])
 const myAccount = account()
 const prop = defineProps({
   contents: {
@@ -51,6 +51,8 @@ const currentLesson = computed(() => {
     }
   }
 })
+
+
 </script>
 
 <template>
@@ -59,6 +61,7 @@ const currentLesson = computed(() => {
     <div v-if="currentLesson !== undefined" class="  p-5 min-h-max h-full">
       <div>
         <div class="" v-if="!isEdit">
+          <!-- <button @click="$emit('changePage',true)">next</button> -->
           <div class="flex justify-end mt-5 mr-5">
             <ButtonVue v-if="user.authorities.includes('ADMIN')" class="bg-red-300 hover:bg-red-400"
               @buttonClick="buttonDeleteFunc()" :name="'Delete'">

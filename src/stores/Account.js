@@ -233,6 +233,46 @@ export const account = defineStore('account', () => {
     })
   }
 
+  const editPassword = async (emailAccount, oldPassword, newPassword) => {
+    let errorValidate =
+      myVaildate.validateEmail(emailAccount) +
+      myVaildate.validatePassword(passwordAccount, true)+
+      myVaildate.validatePassword(newPassword, true)
+    if (errorValidate != '') {
+      toast.error(errorValidate)
+      return 'error'
+    } else {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_BASE_URL}/v1/auth/password`, {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: emailAccount,
+            password: oldPassword,
+            newPassword: newPassword,
+          }),
+        })
+        if (res.status === 201) {
+          const objectJson = await res.json()
+          if (objectJson.data != '') {
+            toast.success("Password Changed")
+            return true
+          }
+        } else if (res.status == 400) {
+          toast.error("Cannot update password")
+          return true
+        }
+      } catch (err) {
+        console.log(err)
+        toast.error('Error from server')
+        return true
+      }
+    }
+  }
+
+
   return {
     user,
     EditAccount,
@@ -243,5 +283,6 @@ export const account = defineStore('account', () => {
     DeteleUser,
     GetBoard,
     scoreboard,
+    editPassword
   }
 })

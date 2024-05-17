@@ -49,7 +49,7 @@ const checkValue = (selectid) => {
   if (newnamecontent.value.trim() == '') {
     errorText = errorText + '\n Error Name: you dont input value '
   }
-  if (newnamecontent.value.length > 30) {
+  if (newnamecontent.value.length > 50) {
     errorText = errorText + '\n Error Name: you input name more than 30 characters'
   }
   if (selectid == 0) {
@@ -155,7 +155,7 @@ onBeforeMount(async () => {
     <div class="text-gray-900 text-sm">
       Name:
       <input
-        :maxlength="30"
+        :maxlength="50"
         v-model="newnamecontent"
         class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
       />

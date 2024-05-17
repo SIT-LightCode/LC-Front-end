@@ -143,7 +143,7 @@ const isQuestion = ref(false)
       <div class=" text-white" v-if="!isQuestion">
         <h1 class="font-roboto font-normal text-[24px]">Have you ever write javascript?</h1>
         <div class="flex justify-around mt-14">
-          <button @click="myRouter.push({ name: 'home' })"
+          <button @click="myRouter.push('/learning/list/' + 0 + '/' + 0)"
             class="font-roboto font-normal text-[24px] hover:text-[100px] duration-1000 transition-all hover:animate-wiggle hover:text-red-600">No</button>
           <button @click="isQuestion = true"
             class="font-roboto font-normal text-[24px] hover:text-[100px] duration-1000 transition-all hover:animate-wiggle hover:text-green-500">Yes</button>

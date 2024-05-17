@@ -37,7 +37,7 @@ const visible = ref(false)
 const filterFunc = (dataFilter) => {
 
     // Check if both tag and level filters are empty
-    if (dataFilter.tag.keyword == "" && dataFilter.tag.length == 0 && dataFilter.level == 0 && dataFilter.isOfficial == "") {
+    if (dataFilter.tag.keyword == "" && dataFilter.tag.length == 0 && dataFilter.level == 0 && dataFilter.isOfficial == "" && dataFilter.Submitted == "") {
         isFilter.value = false;
         return;
     }
@@ -55,6 +55,8 @@ const filterFunc = (dataFilter) => {
         let hasCommonTag = false
         let hasMatchingLevel = false
         let hasMatchingOffice = false
+        let hasMatchingSubmitted = false
+
         if (dataFilter.tag != "") {
             tagsInProblem = problem.tagProblem.map(tagObj => tagObj.tag.id);
             for (let i in tagsInProblem) {
@@ -80,9 +82,25 @@ const filterFunc = (dataFilter) => {
 
         } else { hasMatchingOffice = true }
 
+        if (dataFilter.Submitted != "") {
+            if(dataFilter.Submitted == 'true' ){
+                for (let i in myproblemCon.problemResolved) {
+                    if (myproblemCon.problemResolved[i].problem.id == problem.id) {
+                        hasMatchingSubmitted = true
+                    }
+                }
+            } else {
+                let check  = true
+                for (let i in myproblemCon.problemResolved) {
+                    if (myproblemCon.problemResolved[i].problem.id == problem.id) {
+                        check = false
+                    }
+                }
+                hasMatchingSubmitted = check
+            }
+        } else { hasMatchingSubmitted = true }
 
-
-        if (hasCommonTag && hasMatchingLevel && hasMatchingOffice) {
+        if (hasCommonTag && hasMatchingLevel && hasMatchingOffice && hasMatchingSubmitted) {
             acc.push(problem);
         }
         return acc;
@@ -174,7 +192,8 @@ onBeforeMount(async () => {
     <div class="">
         <div>
             <div class="text-xl opacity-50">
-                <button @click="myRouter.push({ name: 'listProblem' })"> Problem </button> > <span class="text-st-blue">{{ route.name }}</span>
+                <button @click="myRouter.push({ name: 'listProblem' })"> Problem </button> > <span
+                    class="text-st-blue">{{ route.name }}</span>
             </div>
             <!-- <span style=" color: #007AFF; text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); font-family: Rampart One; font-size: 64px; font-style: normal; line-height: 36px;" class="text-xl opacity-50  ">Problem</span> -->
             <Dialog v-model:visible="visible" class="" header="Problem" :style="{ width: '50rem', height: '25rem' }"
@@ -209,8 +228,8 @@ onBeforeMount(async () => {
                 <div class="  right-5 bottom-5 absolute">
 
                     <buttonvue class="bg-gray-300"
-                        @buttonClick="myRouter.push({ name: 'doProblem', params: { id: dataCurrent.id } });" :status="false"
-                        :name="'Start Problem'"></buttonvue>
+                        @buttonClick="myRouter.push({ name: 'doProblem', params: { id: dataCurrent.id } });"
+                        :status="false" :name="'Start Problem'"></buttonvue>
 
                 </div>
 

@@ -24,11 +24,14 @@ const props = defineProps({
     type: Number,
     required: false,
     default: 5
-  }
+  },
+
 })
 const myAccount = account()
 const myProblem = problemCon()
-const route = useRoute
+const route = useRoute()
+const myRouter = useRouter()
+
 const pageNumber = ref(0)
 const pageCount = computed(() => {
   let l = props.listData.length,
@@ -37,8 +40,10 @@ const pageCount = computed(() => {
 })
 const paginatedData = computed(() => {
   if (props.listData.length > 0) {
-    const start = pageNumber.value * props.size,
-      end = start + props.size;
+//     const start = pageNumber.value * props.size,
+//  end = start + props.size;
+const start = route.params.page * props.size,
+ end = start + props.size;
     return props.listData.slice(start, end);
   }
   return 0
@@ -115,8 +120,15 @@ const returnType = (Official, ownid) => {
 }
 onBeforeMount(()=>{
   user.value = JSON.parse(localStorage.getItem('user'))
+  pageNumber.value = route.params.page
 
 })
+
+const test = () =>{
+  // listmyproblem
+    myRouter.push({ name: route.name, params: { page:  pageNumber.value } })
+    // myRouter.push('/problem/list/'+ pageNumber.value)
+  }
 
 </script>
 
@@ -238,7 +250,7 @@ onBeforeMount(()=>{
         <p class="truncate pi pi-check 	 " v-if="checkproblem(problem.id)"> </p>
       </button>
 
-      <Paginator v-model:first="pageNumber" rows="1" :totalRecords="pageCount" v-if="pageCount !== 0" :template="{
+      <Paginator @click="test()" v-model:first="pageNumber" rows="1" :totalRecords="pageCount" v-if="pageCount !== 0" :template="{
       '640px': 'PrevPageLink CurrentPageReport NextPageLink',
       '960px': 'FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink',
       '1300px': 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',

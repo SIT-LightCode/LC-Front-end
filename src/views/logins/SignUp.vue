@@ -51,6 +51,8 @@ const lowCase = () => {
 }
 
 // .trim(" ")
+
+
 const maxPassword = () => {
     dataForCreate.value.password = dataForCreate.value.password.substring(0, 20).trim(" ")
 

@@ -81,11 +81,10 @@ const clickEvent = (data) => {
           <buttonVue class="bg-blue-300 hover:bg-blue-400" @buttonClick="$emit('editUser', user);" :status="false"
             :name="'Edit'">
           </buttonVue>
-        </p>
-        <p>
           <buttonVue class="bg-red-300 hover:bg-red-400" @buttonClick="$emit('deleteUser', user.id)" :name="'Delete'">
           </buttonVue>
         </p>
+  
       
       </div>
 

@@ -41,6 +41,7 @@ export const loginCon = defineStore('loginCon', () => {
       myVaildate.validateEmail(email) + myVaildate.validatePassword(password, false)
     if (errorValidate != '') {
       toast.error(errorValidate)
+      return true
     } else {
       try {
         const res = await fetch(`${import.meta.env.VITE_BASE_URL}/v1/auth/login`, {

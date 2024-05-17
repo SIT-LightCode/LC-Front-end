@@ -136,8 +136,9 @@ onBeforeMount(async () => {
   await myProblem.getAllproblem()
   await myTag.getAllTag()
   await myProblem.getSubmissionByUserId(myAccount.user.id)
+  await myAccount.GetBoard()
+
   if (Object.keys(myAccount.scoreboard).length === 0) {
-    await myAccount.GetBoard()
     if (Object.keys(myAccount.scoreboard).length > 0) {
 
       userRank.value = myAccount.scoreboard.findIndex(i => i.id == myAccount.user.id);

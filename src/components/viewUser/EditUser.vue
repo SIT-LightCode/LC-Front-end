@@ -34,7 +34,7 @@ const options = ['USER', 'ADMIN']
             </FloatLabel>
         </div>
         <div class="space-y-5">
-            <SelectButton v-model="editUser.authorities" :options="options" aria-labelledby="basic" />
+            <!-- <SelectButton v-model="editUser.authorities" :options="options" aria-labelledby="basic" /> -->
             <hr />
             <buttonVue class="bg-gray-300 hover:bg-gray-400" :status="false" :name="'Close'"  @buttonClick="() => { $emit('close', false); }">
             </buttonVue>
