@@ -75,6 +75,8 @@ const items = ref([
                 command: () => {
                     myproblemCon.deleteProblem(dataCurrent.value.id)
                     visible.value = false
+                    myproblemCon.getAllproblem()
+                    myRouter.push({ name: route.name , params: { page:0 } })
                 }
             }
         ]

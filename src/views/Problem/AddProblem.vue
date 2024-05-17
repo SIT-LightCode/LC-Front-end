@@ -59,10 +59,11 @@ const upSetProblem = () => {
     ).then(() => {
         const myprob = myproblemCon.problemList.filter(problem => problem.user.id == myAccount.user.id);
         const pageCount = () => {
-            let l = myprob.length,
+            let l = myprob.length+1,
                 s = 5;
             return Math.ceil(l / s);
         }
+        
         if (myprob[0] !== undefined) {
             myRouter.push({ name: 'listmyproblem', params: { page: pageCount()-1 } })
         } else myRouter.push({ name: 'listmyproblem', params: { page: 0 } })
