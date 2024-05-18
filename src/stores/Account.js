@@ -62,7 +62,7 @@ export const account = defineStore('account', () => {
 
           if (objectJson.data != '') {
             toast.success('Create user completed')
-            await myLogin.SignIn(emailAccount, passwordAccount, true).then(()=>{
+            await myLogin.SignIn(emailAccount, passwordAccount, true).then(() => {
               return true
             })
           }
@@ -152,14 +152,18 @@ export const account = defineStore('account', () => {
         await myProblem.getAllproblem()
         await myLearning.getAllTag()
         await myProblem.getSubmissionByUserId(user.value.id)
-        if (status) {
-          myRouter.push({ name: 'pretest' })
-        } else if (route.name !== 'doProblem') {
-          myRouter.push({ name: 'lightcode' })
-        } else if (route.name == 'lightcode') {
-          location.reload()
-          myRouter.push({ name: 'lightcode' })
-        } 
+
+
+        if (status == 'signup') {
+          myRouter.push({ name: 'startpretest' })
+        } else if (status !== 'check') {
+          myRouter.push({ name: 'lightcode' })       
+         }
+        // else if (route.name == 'lightcode') {
+        //   location.reload()
+        //   myRouter.push({ name: 'lightcode' })
+        // }
+        // else myRouter.push({ name: 'lightcode' })
       }
     })
   }
@@ -236,7 +240,7 @@ export const account = defineStore('account', () => {
   const editPassword = async (emailAccount, oldPassword, newPassword) => {
     let errorValidate =
       myVaildate.validateEmail(emailAccount) +
-      myVaildate.validatePassword(passwordAccount, true)+
+      myVaildate.validatePassword(passwordAccount, true) +
       myVaildate.validatePassword(newPassword, true)
     if (errorValidate != '') {
       toast.error(errorValidate)
@@ -257,11 +261,11 @@ export const account = defineStore('account', () => {
         if (res.status === 201) {
           const objectJson = await res.json()
           if (objectJson.data != '') {
-            toast.success("Password Changed")
+            toast.success('Password Changed')
             return true
           }
         } else if (res.status == 400) {
-          toast.error("Cannot update password")
+          toast.error('Cannot update password')
           return true
         }
       } catch (err) {
@@ -271,7 +275,6 @@ export const account = defineStore('account', () => {
       }
     }
   }
-
 
   return {
     user,
@@ -283,6 +286,6 @@ export const account = defineStore('account', () => {
     DeteleUser,
     GetBoard,
     scoreboard,
-    editPassword
+    editPassword,
   }
 })

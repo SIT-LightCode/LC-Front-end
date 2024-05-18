@@ -23,7 +23,14 @@ function checkLogin(to, from) {
     return { path: '/login/signin' }
   }
 }
+function checkPage(to, from) {
+//   console.log(from)
+//  next('/pretest')  
+  if (from.name != 'signup') {
+  return { name: 'lightcode' }
+  }  
 
+}
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -52,8 +59,15 @@ const router = createRouter({
         }
       },
       children: [
-        { path: 'signup', component: () => import('../views/logins/SignUp.vue') },
-        { path: 'signin', component: () => import('../views/logins/SignIn.vue') },
+        { 
+          path: 'signup', 
+          name: 'signup', 
+          component: () => import('../views/logins/SignUp.vue') 
+        },
+        { 
+          path: 'signin',  
+          name: 'signin',
+          component: () => import('../views/logins/SignIn.vue') },
       ],
     },
     {
@@ -185,9 +199,38 @@ const router = createRouter({
     },
 
     {
+      path: '/pretest',
       name: 'pretest',
+      // beforeEnter: [checkLogin,checkPage],
       beforeEnter: checkLogin,
-      component: () => import('../views/Pretest.vue'),
+      children:[
+        {
+          path: 'startPretest',
+          name: 'startpretest',
+          beforeEnter: checkPage,
+          component: () => import('../views/Pretest/Pretest.vue'),
+        },
+        {
+          path: 'doPretest/:id',
+          name: 'dopretest',
+          beforeEnter: (to, from) => {
+            if (from.name != 'startpretest') {
+              return { name: 'lightcode' }
+              } 
+          },
+          component: () => import('../views/Pretest/DoPretest.vue'),
+        }, 
+        {
+          path: 'congratulations',
+          name: 'congratulations',
+          beforeEnter: (to, from) => {
+            if (from.name != 'dopretest') {
+              return { name: 'lightcode' }
+              } 
+          },
+          component: () => import('../views/Pretest/Congratulations.vue'),
+        },
+      ]
     },
   
     {

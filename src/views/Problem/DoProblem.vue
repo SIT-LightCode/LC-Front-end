@@ -90,7 +90,7 @@ onBeforeMount(async () => {
         </div>
         <div class="">
             <inputAnswer :result="result" :data=dataCurrent
-                @addstatus="(e1) => { myRouter.push({ name: 'listProblem' }); result = ''; }"
+                @addstatus="(e1) => { myRouter.push({ name: 'listProblem' ,params: {page:0 }}); result = ''; }"
                 @Submit="(e1, e2) => { doSubmit(e1, e2) }"></inputAnswer>
         </div>
     </div>

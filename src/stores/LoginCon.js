@@ -61,7 +61,7 @@ export const loginCon = defineStore('loginCon', () => {
 
           // Execute tasks in sequence
           if (status) {
-            await myAccount.GetUserByEmail(true).then(() => {
+            await myAccount.GetUserByEmail('signup').then(() => {
               return true
             })
           } else {

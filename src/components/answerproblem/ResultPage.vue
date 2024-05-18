@@ -5,6 +5,10 @@ const emit = defineEmits(['addstatus'])
 const prop = defineProps({
   data: {
     type: Object,
+  },
+  status:{
+    type: Boolean,
+    default:false
   }
 })
 
@@ -32,8 +36,8 @@ const countCorrectTestCases = computed(() => {
   <div v-if="prop.data.testcaseResults">
     <p class="mb-5">
     <h3 class="text-3xl font-semibold">
-      exampleResults : <div v-for="(v,key) in prop.data.exampleResults">
-        <span class="text-xl font-semibold"> Testcase {{ key+1 }} : {{ v.message }}
+      <div v-for="(v, key) in prop.data.exampleResults">
+        <span class="text-xl font-semibold"> Testcase {{ key + 1 }} : {{ v.message }}
           <div class="inline-flex items-center px-3 rounded-full text-xs font-medium leading-4 text-gray-800"
             :class="[v.status == 'failed' ? 'bg-[#ff6961]' : 'bg-[#42d6a4]']">{{ v.status }}</div>
         </span>
@@ -41,14 +45,21 @@ const countCorrectTestCases = computed(() => {
     </h3>
     </p>
     <p class="mb-5">
-    <div class="text-xl font-semibold"> 
-      testcaseResults :
+    <div class="text-xl font-semibold">
+      Number of testcases passed :
       <div class="inline-flex items-center px-3 rounded-full text-xs font-medium leading-4 text-gray-800 bg-[#ff6961]">
         Failed </div> {{ countFailedTestCases }}
       <div class="inline-flex items-center px-3 rounded-full text-xs font-medium leading-4 text-gray-800 bg-[#42d6a4]">
         Correct </div> {{ countCorrectTestCases }}
     </div>
     </p>
+    <div v-if="prop.status && prop.data.testcaseResults.length == countCorrectTestCases">
+      You want to continue problem in high level?
+      <buttonvue class="bg-gray-300" @buttonClick="$emit('addstatus', false)" :status="false" :name="'Exit'"></buttonvue>
+      <buttonvue class="bg-blue-300" @buttonClick="$emit('addstatus', true)" :status="false" :name="'Continue'"></buttonvue>
+
+    </div>
+
 
   </div>
 </template>

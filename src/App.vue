@@ -52,7 +52,7 @@ const LogOut = async () => {
     </div> -->
       <TopNav class="fixed border-b-2 top-0" />
       <div class="flex "
-        v-if="$route.path !== '/pretest' && $route.path !== '/' && $route.path !== '/login/signin' && $route.path !== '/login/signup'">
+        v-if="$route.name !== 'congratulations' && $route.name !== 'dopretest' && $route.name !== 'startpretest' && $route.path !== '/' && $route.path !== '/login/signin' && $route.path !== '/login/signup'">
         <div class="flex-none mt-12 fixed z-[100] bg-white h-full">
 
           <Sidebar @LogOut="() => { LogOut() }"></Sidebar>

@@ -1,10 +1,10 @@
 <script setup>
 import { RouterLink, RouterView, useRouter } from 'vue-router'
 import { computed, ref, onBeforeMount } from 'vue';
-import { problemCon } from '../stores/ProblemCon'
-import { account } from '../stores/Account'
-import { learningCon } from '../stores/LearningCon'
-import Loading from '../components/main/Loading.vue'
+import { problemCon } from '../../stores/ProblemCon'
+import { account } from '../../stores/Account'
+import { learningCon } from '../../stores/LearningCon'
+import Loading from '../../components/main/Loading.vue'
 
 const myAccount = account()
 const myProblem = problemCon()
@@ -87,16 +87,17 @@ onBeforeMount(async () => {
 
   const userSkills = myAccount.user.skills;
   let problems = myProblem.problemList.filter(problem => problem.isOfficial === true)
-  problems = problems.filter(problem => problem.level === 1)
+  problems = problems.filter(problem => problem.level === 3)
   console.log(problems);
   // const solvedProblems = myAccount.user.solvedProblems;
 
-  const sortedProblems = sortProblemsByRelevance(userSkills, problems);
+  // const sortedProblems = sortProblemsByRelevance(userSkills, problems);
 
   // Filter out solved or in-progress problems
   // no need since if finished then skil will leveled up
 
-  recommendedProblems.value = sortedProblems.map(mapProblemToFormat);
+  // recommendedProblems.value = sortedProblems.map(mapProblemToFormat);
+  recommendedProblems.value = problems.map(mapProblemToFormat);
 
   console.log(recommendedProblems.value);
 
@@ -104,10 +105,12 @@ onBeforeMount(async () => {
 
 const doPretest = () => {
   isLoading.value = true
+  console.log(Object.keys(myProblem.problemList).length > 0 && recommendedProblems.value.length > 0)
+
   if (Object.keys(myProblem.problemList).length > 0 && recommendedProblems.value.length > 0) {
-    console.log(recommendedProblems.value)
     isLoading.value = false
-    myRouter.push('/problem/do-problem/' + recommendedProblems.value[0].id)
+    myRouter.push({ name: "dopretest" ,params:{id:recommendedProblems.value[0].id}})
+
   } else {
     isLoading.value = false
     myRouter.push({ name: "lightcode" })

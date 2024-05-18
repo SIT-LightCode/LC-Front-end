@@ -42,17 +42,19 @@ const countFailedTestCases = computed(() => {
 
 <template>
     <div>
-        <div class="flex justify-content-center align-items-center gap-2">
-        
-            <div class="text-xl opacity-50">
-            <button @click="myRouter.push({ name: 'listProblem' })"> Problem </button> > <span
-                class="text-st-blue">{{ route.name }}</span>
+        <div class="flex justify-content-center align-items-center gap-2" >
+
+            <div class="text-xl opacity-50" v-if="route.name != 'dopretest'">
+                <button @click="myRouter.push({ name: 'listProblem' })"> Problem </button> > <span
+                    class="text-st-blue">{{ route.name }}</span>
                 > <span class="text-st-blue">{{ route.params.id }}</span>
 
-        </div>
+            </div>
             <!-- <span style=" color: #007AFF; text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); font-family: Rampart One; font-size: 64px; font-style: normal; line-height: 36px;" class="text-xl opacity-50  ">Coding..</span> -->
             <div class="ml-5">
-                <buttonvue class="bg-gray-300 hover:bg-gray-400" @buttonClick="$emit('addstatus', '')" :name="'Back'">
+                <buttonvue v-if="route.name != 'dopretest'" class="bg-gray-300 hover:bg-gray-400" @buttonClick="$emit('addstatus', '')" :name="'Back'">
+                </buttonvue>
+                <buttonvue v-else-if="route.name == 'dopretest'" class="bg-gray-300 hover:bg-gray-400" @buttonClick="$emit('addstatus', '')" :name="'Give Up'">
                 </buttonvue>
                 <buttonvue class="bg-red-300 hover:bg-red-400"
                     @buttonClick="input = 'const answer = (input) => {\n \n \n 	//Code Here \n return input;   \n \n \n \n  }'"
