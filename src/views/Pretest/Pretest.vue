@@ -87,7 +87,7 @@ onBeforeMount(async () => {
 
   const userSkills = myAccount.user.skills;
   let problems = myProblem.problemList.filter(problem => problem.isOfficial === true)
-  problems = problems.filter(problem => problem.level === 3)
+  problems = problems.filter(problem => problem.level === 1)
   console.log(problems);
   // const solvedProblems = myAccount.user.solvedProblems;
 
