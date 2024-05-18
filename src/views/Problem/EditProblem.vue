@@ -173,8 +173,8 @@ onBeforeMount(async () => {
                     <option value="5">Expert</option>
                     <option value="4">Hard</option>
                     <option value="3">Medium</option>
-                    <option value="2">Beginner</option>
-                    <option value="1">Easier</option>
+                    <option value="2">Easy</option>
+                    <option value="1">Beginner</option>
                 </select>
             </div>
 

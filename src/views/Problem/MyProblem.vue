@@ -50,7 +50,7 @@ const editProblem = (val) => {
     page.value = ''
 }
 
-const levelArray = [['Easier', 'text-[#2dc937]'], ['Beginner', 'text-[#99c140]'], ['Medium', 'text-[#e7b416]'], ['Hard', 'text-[#db7b2b]'], ['Expert', 'text-[#cc3232]'],]
+const levelArray = [['Beginner', 'text-[#2dc937]'], ['Easy', 'text-[#99c140]'], ['Medium', 'text-[#e7b416]'], ['Hard', 'text-[#db7b2b]'], ['Expert', 'text-[#cc3232]'],]
 
 const returnLevel = (id) => {
     if (levelArray[id - 1] != undefined) {

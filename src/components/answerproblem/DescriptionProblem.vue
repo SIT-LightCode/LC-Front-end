@@ -23,8 +23,8 @@ const colorTags = [
   'bg-[#c780e8]',
 ]
 const levelArray = [
-  ['Easier', 'text-[#2dc937]'],
-  ['Beginner', 'text-[#99c140]'],
+  ['Beginner', 'text-[#2dc937]'],
+  ['Easy', 'text-[#99c140]'],
   ['Medium', 'text-[#e7b416]'],
   ['Hard', 'text-[#db7b2b]'],
   ['Expert', 'text-[#cc3232]'],

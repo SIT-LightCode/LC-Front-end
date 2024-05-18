@@ -63,7 +63,7 @@ function hoverDetail(index) {
 const user = ref()
 
 const colorTags = ['bg-[#ff6961]', 'bg-[#ffb480]', 'bg-[#f8f38d]', 'bg-[#42d6a4]', 'bg-[#08cad1]', 'bg-[#59adf6]', 'bg-[#9d94ff]', 'bg-[#c780e8]']
-const levelArray = [['Easier', 'text-green-400'], ['Beginner', 'text-st-green'], ['Medium', 'text-[#FEC84B]'], ['Hard', 'text-st-red'], ['Expert', 'text-red-400'],]
+const levelArray = [['Beginner', 'text-green-400'], ['Easy', 'text-st-green'], ['Medium', 'text-[#FEC84B]'], ['Hard', 'text-st-red'], ['Expert', 'text-red-400'],]
 
 const returnLevel = (id) => {
   if (levelArray[id - 1] != undefined) {

@@ -90,8 +90,8 @@ const limitVal = () => {
       <option value="5">Expert</option>
       <option value="4">Hard</option>
       <option value="3">Medium</option>
-      <option value="2">Beginner</option>
-      <option value="1">Easier</option>
+      <option value="2">Easy</option>
+      <option value="1">Beginner</option>
     </select>
 
     <h3 class="block mt-5 text-sm font-medium text-gray-900 dark:text-white py-2.5">
