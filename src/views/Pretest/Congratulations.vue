@@ -147,9 +147,9 @@ const isLoading = ref(false)
         <h1 class="font-roboto font-normal text-[24px]">Congratulation!! you can clear all pretest problem ?</h1>
         <div class="flex justify-around mt-14">
           <button @click="myRouter.push({ name: 'home' })"
-            class="font-roboto font-normal text-[24px] hover:text-[100px] duration-1000 transition-all hover:animate-wiggle hover:text-red-600">Go to home page</button>
+            class="font-roboto font-normal text-[24px] hover:text-[30px] duration-1000 transition-all hover:animate-wiggle hover:text-red-600">Go to home page</button>
           <button  @click="myRouter.push('/learning/list/' + 0 + '/' + 0)"
-            class="font-roboto font-normal text-[24px] hover:text-[100px] duration-1000 transition-all hover:animate-wiggle hover:text-green-500">Go to learning page</button>
+            class="font-roboto font-normal text-[24px] hover:text-[30px] duration-1000 transition-all hover:animate-wiggle hover:text-green-500">Go to learning page</button>
         </div>
       </div>
       

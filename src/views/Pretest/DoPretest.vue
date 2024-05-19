@@ -135,7 +135,9 @@ const doPretest = (status) => {
                         :draggable="false">
                         <ResultPage @addstatus="(e1) => {
                         doPretest(e1)
-                    }" :data="result" :status="true">
+                    }" :data="result" :status="true"
+                    :dataProblem="dataCurrent"
+                    >
                         </ResultPage>
                     </Dialog>
                 </div>
