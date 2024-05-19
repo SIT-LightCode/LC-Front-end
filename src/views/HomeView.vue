@@ -36,7 +36,7 @@ function mapLevelToDifficulty(level) {
     case 3:
       return 'Medium'
     case 2:
-      return 'Easier'
+      return 'Easy'
     case 1:
       return 'Beginner'
     default:
@@ -52,7 +52,7 @@ function mapDifficultyToLevel(level) {
       return 4
     case 'Medium':
       return 3
-    case 'Easier':
+    case 'Easy':
       return 2
     case 'Beginner':
       return 1
