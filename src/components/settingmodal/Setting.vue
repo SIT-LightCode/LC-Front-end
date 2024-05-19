@@ -53,7 +53,7 @@ const maxNewPassword = () => {
 }
 
 const ChangePassword = () => {
-  if (isEqual(editNewPassword.value.password, editNewPassword.value.newpassword)) {
+  if (editNewPassword.value.password == editNewPassword.value.newpassword) {
     let errorText = 'Error value: Old password and New Password is same input'
   }
   if (errorText != "") {
