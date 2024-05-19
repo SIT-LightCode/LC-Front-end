@@ -138,8 +138,11 @@ user.value = JSON.parse(localStorage.getItem('user'))
                     > <span class="text-st-blue">{{ route.name }}</span>
                 </div>
                 <LearningList class="" :contents="mylearningCon.tagList" @selected="selectLesson"
-                    @addstatus="(e) => (myRouter.push({ name: e, params: { status: e } }))"
-                    @deleteTag="(e1) => { mylearningCon.deleteTag(e1) }">
+                    @addstatus="(e) => { myRouter.push({ name: e }) }"
+                    @deleteTag="(e1) => { mylearningCon.deleteTag(e1) }"
+                    @editT="(e,e1)=>{
+myRouter.push({ name: e , params:{tagid:e1}})
+                    }">
                 </LearningList>
             </div>
             <!-- <div v-show="sidebarIsShow"

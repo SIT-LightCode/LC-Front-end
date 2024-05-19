@@ -10,7 +10,7 @@ const myRouter = useRouter()
 const route = useRoute()
 
 // Capture the emit function
-const emit = defineEmits(['selected', 'addstatus', 'deleteTag'])
+const emit = defineEmits(['selected', 'addstatus', 'deleteTag', 'editT'])
 const myAccount = account()
 const props = defineProps({
   contents: Object,
@@ -61,7 +61,7 @@ user.value = JSON.parse(localStorage.getItem('user'))
               <div v-if="user.authorities.includes('ADMIN')">
                 <buttonVue @buttonClick="$emit('deleteTag', topic.id)" :name="'Delete Tag'"
                   class="bg-red-300 hover:bg-red-400"></buttonVue>
-                <buttonVue @buttonClick="$emit('addstatus', 'editTag')" :name="'Edit Tag'"
+                <buttonVue @buttonClick="$emit('editT', 'editTag',topic.id)" :name="'Edit Tag'"
                   class="bg-blue-300 hover:bg-blue-400"></buttonVue>
               </div>
             </div>
