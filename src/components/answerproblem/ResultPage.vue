@@ -1,7 +1,7 @@
 <script setup>
 import buttonvue from '../button/Button.vue'
 import { ref, onBeforeMount, computed } from "vue";
-const emit = defineEmits(['addstatus'])
+const emit = defineEmits(['addstatus','hint'])
 const prop = defineProps({
   data: {
     type: Object,
@@ -33,6 +33,17 @@ const countCorrectTestCases = computed(() => {
   else return null
 })
 
+const colorTags = [
+  'bg-[#ff6961]',
+  'bg-[#ffb480]',
+  'bg-[#f8f38d]',
+  'bg-[#42d6a4]',
+  'bg-[#08cad1]',
+  'bg-[#59adf6]',
+  'bg-[#9d94ff]',
+  'bg-[#c780e8]',
+]
+
 </script>
 
 <template>
@@ -62,7 +73,16 @@ const countCorrectTestCases = computed(() => {
       <buttonvue v-if ="prop.dataProblem.level = 5" class="bg-blue-300" @buttonClick="$emit('addstatus', true)" :status="false" :name="'End Pretest'"></buttonvue>
       <buttonvue v-else class="bg-blue-300" @buttonClick="$emit('addstatus', true)" :status="false" :name="'Continue'"></buttonvue>
     </div>
-
+    <!-- Hint: 
+      <div v-for="t in prop.dataProblem.tagProblem" @click="$emit('hint', t.tag.id)"
+          class="inline-flex items-center px-3 rounded-full m-2 text-xs font-medium leading-4 text-gray-800"
+          :class="colorTags[(t.tag.id - 1) % 8]">
+        {{ t.tag.topic  }}
+      </div> -->
+    <!-- <div v-if="prop.data.testcaseResults.length > countCorrectTestCases">
+      Hint:
+      <div v-for="i in prop.dataProblem.tag">{{ i  }}</div>
+    </div> -->
 
   </div>
 </template>

@@ -35,6 +35,7 @@ const returnLevel = (id) => {
     return levelArray[id - 1][0]
   }
 }
+
 </script>
 
 <template>

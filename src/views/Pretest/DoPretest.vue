@@ -70,6 +70,14 @@ onBeforeMount(async () => {
     }
 
 })
+
+// const hintTo = (tagid) => {
+//     const tagCurrent = mylearningCon.tagList.filter(tag => tag.id == tagid);
+//     if (tagCurrent.length > 0) {
+//         const lessonCurrent = tagCurrent[0].lesson.filter(lesson => lesson.id == route.params.lessonid);
+//         selectLesson(lessonCurrent[0], route.params.tagid)
+//     }
+// }
 // onBeforeMount(async () => {
 //   const user = JSON.parse(localStorage.getItem('user'))
 //   myAccount.user = user;
@@ -135,9 +143,7 @@ const doPretest = (status) => {
                         :draggable="false">
                         <ResultPage @addstatus="(e1) => {
                         doPretest(e1)
-                    }" :data="result" :status="true"
-                    :dataProblem="dataCurrent"
-                    >
+                    }" :data="result" :status="true" :dataProblem="dataCurrent" @hint="(e1) => { hintTo(e1) }">
                         </ResultPage>
                     </Dialog>
                 </div>

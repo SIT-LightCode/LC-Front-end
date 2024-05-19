@@ -36,9 +36,9 @@ function mapLevelToDifficulty(level) {
     case 3:
       return 'Medium'
     case 2:
-      return 'Beginner'
-    case 1:
       return 'Easier'
+    case 1:
+      return 'Beginner'
     default:
       return 'Unknown' // Handle unknown levels if necessary
   }
@@ -52,9 +52,9 @@ function mapDifficultyToLevel(level) {
       return 4
     case 'Medium':
       return 3
-    case 'Beginner':
-      return 2
     case 'Easier':
+      return 2
+    case 'Beginner':
       return 1
     default:
       return 'Unknown' // Handle unknown levels if necessary
