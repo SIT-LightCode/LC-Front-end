@@ -240,7 +240,7 @@ export const account = defineStore('account', () => {
   const editPassword = async (emailAccount, oldPassword, newPassword) => {
     let errorValidate =
       myVaildate.validateEmail(emailAccount) +
-      myVaildate.validatePassword(passwordAccount, true) +
+      myVaildate.validatePassword(oldPassword, true) +
       myVaildate.validatePassword(newPassword, true)
     if (errorValidate != '') {
       toast.error(errorValidate)
@@ -253,7 +253,7 @@ export const account = defineStore('account', () => {
             'content-type': 'application/json',
           },
           body: JSON.stringify({
-            name: emailAccount,
+            email: emailAccount,
             password: oldPassword,
             newPassword: newPassword,
           }),

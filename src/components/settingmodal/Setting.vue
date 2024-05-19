@@ -5,6 +5,7 @@ import { account } from '../../stores/Account'
 import FloatLabel from 'primevue/floatlabel'
 import InputText from 'primevue/inputtext'
 import Password from 'primevue/password';
+import { Toaster, toast } from 'vue-sonner'
 
 
 const emit = defineEmits(['CloseModal', 'EditUserByUser'])
@@ -53,8 +54,9 @@ const maxNewPassword = () => {
 }
 
 const ChangePassword = () => {
+  let errorText = ''
   if (editNewPassword.value.password == editNewPassword.value.newpassword) {
-    let errorText = 'Error value: Old password and New Password is same input'
+     errorText = 'Error value: Old password and New Password is same input'
   }
   if (errorText != "") {
     toast.error(errorText)
