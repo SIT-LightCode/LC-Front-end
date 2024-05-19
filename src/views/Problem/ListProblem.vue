@@ -183,18 +183,28 @@ onBeforeMount(async () => {
         await mylearningCon.getAllTag()
     }
     if (localStorage.getItem('user') !== '') {
-        const user = JSON.parse(localStorage.getItem('user'))
-        myAccount.user = user
+        myAccount.user = JSON.parse(localStorage.getItem('user'))
+		user.value = JSON.parse(localStorage.getItem('user'))
+		await setRole()
         await myproblemCon.getSubmissionByUserId(myAccount.user.id)
+
     }
 })
+const user = ref({ id: null, name: '', email: '', authorities: ['USER'], score: 0, scoreUnOfficial: 0 })
 
+const setRole = async () => {
+	if (user.value.authorities.includes('ADMIN')) {
+		user.value.authorities = 'ADMIN'
+	} else if (user.value.authorities.includes('USER')) {
+		user.value.authorities = 'USER'
+	}
+}
 </script>
 <template>
     <div class="">
         <div>
             <div class="text-xl opacity-50">
-                <button @click="myRouter.push({ name: 'listProblem' })"> Problem </button> > <span
+                <button @click="myRouter.push({ name: 'listProblem' , params:{page:0}})"> Problem </button> > <span
                     class="text-st-blue">{{ route.name }}</span>
             </div>
             <!-- <span style=" color: #007AFF; text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); font-family: Rampart One; font-size: 64px; font-style: normal; line-height: 36px;" class="text-xl opacity-50  ">Problem</span> -->
@@ -212,7 +222,7 @@ onBeforeMount(async () => {
                         </p>
                     </div>
                     <div>
-                        <button class="pi pi-bars" @click="toggle" v-if="dataCurrent.user.id == myAccount.user.id" />
+                        <button class="pi pi-bars" @click="toggle" v-if="dataCurrent.user.id == myAccount.user.id || user.authorities == 'ADMIN'" />
                         <Menu ref="menu" :model="items" :popup="true" />
                     </div>
                 </div>

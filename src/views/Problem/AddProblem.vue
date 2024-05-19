@@ -107,7 +107,7 @@ onBeforeMount(async () => {
             class="text-xl opacity-50  ">Add Problem</span> -->
 
         <div class="text-xl opacity-50">
-            <button @click="myRouter.push({ name: 'listmyproblem' })"> My Problem </button> > <span
+            <button @click="myRouter.push({ name: 'listmyproblem' , params:{page:0}})"> My Problem </button> > <span
                 class="text-st-blue">{{ route.name }}</span>
         </div>
         <Toaster richColors position="top-right" />

@@ -45,7 +45,7 @@ const countFailedTestCases = computed(() => {
         <div class="flex justify-content-center align-items-center gap-2" >
 
             <div class="text-xl opacity-50" v-if="route.name != 'dopretest'">
-                <button @click="myRouter.push({ name: 'listProblem' })"> Problem </button> > <span
+                <button @click="myRouter.push({ name: 'listProblem' , params:{page:0}})"> Problem </button> > <span
                     class="text-st-blue">{{ route.name }}</span>
                 > <span class="text-st-blue">{{ route.params.id }}</span>
 

@@ -162,7 +162,7 @@ export const problemCon = defineStore('problemCon', () => {
         //   "success"
         // );
         getAllproblem()
-        myRouter.push('/problem/list')
+        myRouter.push('/problem/list/0')
       }
     })
   }

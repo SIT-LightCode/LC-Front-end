@@ -116,7 +116,7 @@ onBeforeMount(async () => {
     <div class="max-w-[100%]">
         <div>
             <div class="text-xl opacity-50">
-                <button @click="myRouter.push({ name: 'listmyproblem' })"> My Problem </button> > <span
+                <button @click="myRouter.push({ name: 'listProblem' , params:{page:0}})"> My Problem </button> > <span
                     class="text-st-blue">{{ route.name
                     }}</span>
             </div>

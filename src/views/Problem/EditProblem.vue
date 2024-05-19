@@ -127,8 +127,7 @@ onBeforeMount(async () => {
         const problemCurrent = myproblemCon.problemList.filter(problem => problem.id == route.params.id);
         // dataCurrent.value = problemCurrent[0]
         if (problemCurrent.length > 0) {
-            problemEdit.value = problemCurrent[0]
-            problemOldEdit.value = Object.assign({}, problemCurrent[0]);
+            problemEdit.value = JSON.parse(JSON.stringify(problemCurrent[0]))
         } else {
             problemEdit.value = {}
         }
@@ -137,13 +136,22 @@ onBeforeMount(async () => {
 
 })
 
+const limitVal = () => {
+    if(parseInt(problemEdit.value.totalScore) < 0){
+        
+        problemEdit.value.totalScore = 0
+    }
+    else if(parseInt(problemEdit.value.totalScore) > 100){
+        problemEdit.value.totalScore = 100
+    }
+}
 
 </script>
 <template>
     <div class="relative  bg-st-grey max-w-[100%] ">
 
         <div class="text-xl opacity-50">
-            <button @click="myRouter.push({ name: 'listmyproblem' })"> My Problem </button> > <span
+            <button @click="myRouter.push({ name: 'listmyproblem' , params:{page:0}})"> My Problem </button> > <span
                 class="text-st-blue">{{ route.name }}</span>
         </div>
 
@@ -200,9 +208,8 @@ onBeforeMount(async () => {
             </div>
         </div>
 
-
         <div class="space-y-5">
-            <buttonvue class="bg-gray-300 hover:bg-gray-400" @buttonClick="myRouter.push('/problem/list')"
+            <buttonvue class="bg-gray-300 hover:bg-gray-400" @buttonClick="myRouter.push('/problem/list/0')"
                 :name="'Back'">
             </buttonvue>
             <buttonvue class="bg-red-300 hover:bg-red-400" @buttonClick="clearInput" :name="'Clear'" />
