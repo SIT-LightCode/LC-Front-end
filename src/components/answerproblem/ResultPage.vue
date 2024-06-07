@@ -70,7 +70,7 @@ const colorTags = [
     <div v-if="prop.status && prop.data.testcaseResults.length == countCorrectTestCases">
       You want to continue problem in high level?
       <buttonvue v-if ="prop.dataProblem.level < 5" class="bg-gray-300" @buttonClick="$emit('addstatus', false)" :status="false" :name="'Exit'"></buttonvue>
-      <buttonvue v-if ="prop.dataProblem.level = 5" class="bg-blue-300" @buttonClick="$emit('addstatus', true)" :status="false" :name="'End Pretest'"></buttonvue>
+      <buttonvue v-if ="prop.dataProblem.level == 5" class="bg-blue-300" @buttonClick="$emit('addstatus', true)" :status="false" :name="'End Pretest'"></buttonvue>
       <buttonvue v-else class="bg-blue-300" @buttonClick="$emit('addstatus', true)" :status="false" :name="'Continue'"></buttonvue>
     </div>
     <!-- Hint: 
